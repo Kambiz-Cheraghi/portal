@@ -1,0 +1,835 @@
+<!doctype html>
+<html lang="fa" dir="rtl">
+<!-- تهیه‌کننده: کامبیز چراغی (Kambiz Cheraghi) · مهر اصالت: 638a485483a6c0bb86faa920172217ede6281133df75063b1e3525dad678b25c -->
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="color-scheme" content="light">
+<meta name="author" content="کامبیز چراغی">
+<meta name="kc-seal" content="638a485483a6c0bb86faa920172217ede6281133df75063b1e3525dad678b25c">
+<title>آزمایشگاه کمانش ستون و قاب</title>
+<base target="_blank">
+<style id="vzface">/* نسخهٔ وب: فونت‌های محلی و Tahoma؛ بدون بارگذاری فونت حجیم یا اتصال خارجی */</style>
+<style>
+:root{--paper:#eef2f6;--card:#fff;--ink:#0f2236;--ink2:#41586d;--mute:#7589a0;--line:#dbe4ec;--bp:#0d2744;--bp2:#123559;--bpgrid:#1c4673;--cy:#4ff0d2;--am:#ffb454;--tl:#0a8f9c;--tl2:#d9f3f5;--rose:#d8546a;--r:16px;--font:"Vazirmatn","Vazir","IRANSansX","Segoe UI",Tahoma,sans-serif;--math:"Cambria Math",Georgia,"Times New Roman",serif}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{margin:0;background:var(--paper);color:var(--ink);font:14px/1.8 var(--font);font-feature-settings:"kern","liga";text-rendering:optimizeLegibility;-webkit-text-size-adjust:100%}
+button,input,select{font:inherit;color:inherit}button{cursor:pointer}
+button:focus-visible,input:focus-visible,select:focus-visible,summary:focus-visible{outline:3px solid #4ff0d2aa;outline-offset:2px}
+.shell{max-width:1360px;margin:0 auto;padding:18px 20px 90px}
+/* header */
+.top{display:flex;align-items:center;justify-content:space-between;gap:16px;padding:4px 4px 16px}
+.brand{display:flex;align-items:center;gap:14px}
+.brand svg{flex:none}
+.brand h1{margin:0;font-size:23px;line-height:1.3;font-weight:800;letter-spacing:-.2px}
+.brand p{margin:0;color:var(--mute);font-size:12.5px;max-width:640px}
+.top .tools{display:flex;gap:8px}
+/* model chooser */
+.models{display:grid;grid-template-columns:repeat(4,1fr);gap:10px;margin-bottom:18px}
+.model{position:relative;display:flex;align-items:center;gap:12px;text-align:right;background:var(--card);border:1.5px solid var(--line);border-radius:14px;padding:11px 14px;transition:border-color .15s,transform .15s,box-shadow .15s}
+.model:hover{border-color:#a9c3d6}
+.model svg{flex:none;width:46px;height:46px}
+.model b{display:block;font-size:14px;line-height:1.4}
+.model small{color:var(--mute);font-size:11.5px;line-height:1.4;display:block}
+.model.on{border-color:var(--tl);box-shadow:0 0 0 3px #0a8f9c22}
+.model.on::after{content:"";position:absolute;top:10px;left:10px;width:9px;height:9px;border-radius:50%;background:var(--tl)}
+/* layout */
+.layout{display:grid;grid-template-columns:minmax(0,1fr) minmax(400px,560px);gap:20px;align-items:start}
+main>section,.card{background:var(--card);border:1px solid var(--line);border-radius:var(--r);padding:20px 22px;margin-bottom:14px}
+.hd{display:flex;align-items:baseline;gap:10px;margin-bottom:12px;flex-wrap:wrap}
+.hd h2{margin:0;font-size:16px;font-weight:800}
+.hd .n{display:inline-grid;place-items:center;width:23px;height:23px;border-radius:50%;background:var(--ink);color:#fff;font-size:12px;font-weight:700;flex:none;align-self:center}
+.hd span.hint{color:var(--mute);font-size:12px}
+.note{color:var(--ink2);background:#f3f7fa;border-radius:10px;padding:9px 12px;font-size:12px;margin-top:12px;line-height:1.8}
+.note.warn{background:#fff6e5;color:#8a5a10}.note.bad{background:#fff0f0;color:#9c3340}
+/* fields */
+.row{display:flex;flex-wrap:wrap;gap:10px}
+.f{display:flex;flex-direction:column;gap:3px;min-width:0;flex:1 1 110px}
+.f>span{font-size:12px;color:var(--ink2);font-weight:600}
+.f input,.f select{height:40px;padding:6px 11px;border:1.5px solid var(--line);border-radius:10px;background:#fbfdfe;width:100%;direction:ltr;text-align:left;font-variant-numeric:tabular-nums;transition:border-color .12s,background .12s}
+.f select{direction:rtl;text-align:right}
+.f input:hover,.f select:hover{border-color:#b7cadb}
+.f input:focus,.f select:focus{border-color:var(--tl);background:#fff;outline:none;box-shadow:0 0 0 3px #0a8f9c1f}
+.f.xs{flex:0 1 92px}
+.f .u{font-size:11px;color:var(--mute);font-weight:400}
+/* chips + preset */
+.chips{display:flex;flex-wrap:wrap;gap:8px}
+.chip{display:flex;align-items:center;gap:8px;padding:6px 12px 6px 14px;border:1.5px solid var(--line);border-radius:999px;background:#fff;font-size:12.5px;font-weight:600;color:var(--ink2);transition:.12s}
+.chip:hover{border-color:#a9c3d6}
+.chip.on{border-color:var(--tl);background:var(--tl2);color:#06626c}
+.chip svg{width:14px;height:26px}
+.chip.add{border-style:dashed;color:var(--tl)}
+.seg{position:relative;display:flex;flex-wrap:wrap;gap:10px;align-items:flex-end;padding:11px 12px 11px 14px;border:1px solid var(--line);border-right:5px solid var(--c);border-radius:12px;margin-top:9px;background:#fcfdfe}
+.seg .sn{font-weight:800;color:var(--ink2);width:18px;text-align:center;align-self:center}
+.seg .rng{align-self:center;font-size:12px;color:var(--ink2);background:color-mix(in srgb,var(--c) 14%,#fff);border:1px solid color-mix(in srgb,var(--c) 35%,#fff);border-radius:999px;padding:1px 12px;white-space:nowrap}.seg .rng b{font-weight:800;color:var(--ink);font-variant-numeric:tabular-nums}.tot{margin-inline-start:auto;font-size:12.5px;color:var(--ink2)}.tot b{color:var(--tl);font-weight:800}
+.seg .pct{align-self:center;min-width:44px;text-align:center;font-size:12px;color:var(--mute);direction:ltr}
+.chk{display:flex;align-items:center;gap:6px;align-self:center;font-size:12px;color:var(--ink2);cursor:pointer;white-space:nowrap}
+.chk input{width:17px;height:17px;accent-color:var(--tl)}
+.mini{border:1px solid var(--line);background:#fff;border-radius:9px;padding:5px 11px;font-size:12px;font-weight:600;color:var(--ink2)}
+.mini:hover:not(:disabled){border-color:#a9c3d6}
+.mini:disabled{opacity:.4;cursor:not-allowed}
+.x{border:0;background:#fdecee;color:#b23a4d;border-radius:8px;width:30px;height:30px;font-size:17px;line-height:1;align-self:center}
+.sub{display:flex;gap:8px;margin-top:11px;align-items:center;flex-wrap:wrap}
+/* supports */
+.ends{display:grid;grid-template-columns:1fr 1fr;gap:14px}
+.endbox{border:1px solid var(--line);border-radius:12px;padding:12px;background:#fcfdfe}
+.endbox h3{margin:0 0 8px;font-size:13px;font-weight:800}
+.opts{display:grid;grid-template-columns:repeat(auto-fill,minmax(88px,1fr));gap:6px}
+.opt{display:flex;flex-direction:column;align-items:center;gap:1px;padding:4px 2px 5px;border:1.5px solid var(--line);border-radius:10px;background:#fff;font-size:11px;font-weight:600;color:var(--ink2);line-height:1.35;text-align:center;transition:.12s}
+.opt svg{width:100%;height:46px}
+.opt:hover{border-color:#a9c3d6}
+.opt.on{border-color:var(--tl);background:var(--tl2);color:#06626c}
+.endbox .row{margin-top:10px}
+.mid{display:flex;flex-wrap:wrap;gap:10px;align-items:flex-end;padding:11px 12px;border:1px solid var(--line);border-radius:12px;margin-top:9px;background:#fcfdfe}
+.empty{padding:14px;text-align:center;color:var(--mute);font-size:12.5px;border:1px dashed var(--line);border-radius:12px}
+/* toggles */
+.tog{display:inline-flex;background:#eef3f7;border-radius:11px;padding:3px;gap:2px}
+.tog button{border:0;background:transparent;padding:7px 14px;border-radius:9px;font-size:12.5px;font-weight:600;color:var(--ink2)}
+.tog button.on{background:#fff;color:var(--ink);box-shadow:0 1px 4px #10233a1f}
+details.adv{margin-top:14px;border-top:1px solid var(--line);padding-top:10px}
+details.adv summary{cursor:pointer;font-weight:700;color:var(--ink2);font-size:12.5px}
+/* ===== blueprint sheet ===== */
+aside{position:sticky;top:12px;max-height:calc(100vh - 24px);overflow:auto;scrollbar-width:thin;border-radius:18px}
+.sheet{background:var(--bp);color:#e6f1fb;border-radius:18px;overflow:hidden;box-shadow:0 18px 44px -18px #0d274488}
+.sheet .bar{display:flex;align-items:center;justify-content:space-between;gap:8px;padding:12px 16px;border-bottom:1px solid #ffffff1c;flex-wrap:wrap}
+.sheet .bar b{font-size:13px;font-weight:700;color:#b6d3ee}
+.modes{display:flex;gap:5px}
+.modes button{border:1px solid #ffffff2e;background:transparent;color:#b6d3ee;border-radius:8px;padding:2px 11px;font-size:12px;font-weight:600;direction:ltr}
+.modes button.on{background:var(--cy);border-color:var(--cy);color:#06303a}
+.stage{position:relative;background-color:var(--bp);background-image:linear-gradient(#ffffff0b 1px,transparent 1px),linear-gradient(90deg,#ffffff0b 1px,transparent 1px);background-size:26px 26px}
+.stage svg{display:block;width:100%;height:auto}
+.play{position:absolute;bottom:10px;right:12px;border:1px solid #ffffff33;background:#0d274499;color:#cfe6f8;border-radius:999px;padding:2px 12px;font-size:11.5px}
+/* نتیجه */
+.res{padding:18px 20px 4px}
+.res-top{display:flex;align-items:center;justify-content:space-between;gap:10px}
+.res-tag{font-size:12.5px;font-weight:600;color:#9fc0de}
+.res-mode{font-size:11px;font-weight:700;color:#06303a;background:var(--cy);border-radius:999px;padding:0 11px;line-height:21px}
+.pcr{direction:ltr;display:flex;align-items:baseline;gap:9px;flex-wrap:wrap;line-height:1.2;padding:8px 0 2px}
+.pcr .sym{font-family:var(--math);font-style:italic;font-size:23px;color:#cfe6f8}
+.pcr .sym sub{font-size:.62em;font-style:normal;margin-left:1px}
+.pcr b{font-size:46px;font-weight:700;color:var(--cy);letter-spacing:-1.2px;font-variant-numeric:tabular-nums;text-shadow:0 0 22px #4ff0d233}
+.pcr .un{font-family:var(--math);font-style:italic;font-size:18px;color:#cfe6f8}
+.pcr-eq{direction:ltr;text-align:left;font-size:12px;color:#8fb2d3;font-variant-numeric:tabular-nums;line-height:1.7}
+.res-note{font-size:11.5px;color:#8fb2d3;margin-top:4px;line-height:1.8}
+.stats{display:grid;grid-template-columns:1fr 1fr;gap:8px;padding:12px 16px 2px}
+.st{background:#ffffff0d;border:1px solid #ffffff16;border-radius:12px;padding:7px 12px 6px}
+.st span{display:block;font-size:11px;color:#8fb2d3;line-height:1.55}
+.st b{display:block;direction:ltr;text-align:right;font-size:16px;font-weight:700;color:#fff;font-variant-numeric:tabular-nums;line-height:1.55}
+.st.hi b{color:var(--cy)}
+.gauge{padding:10px 20px 16px}.gauge .gt{font-size:11px;color:#8fb2d3;line-height:1.6}
+.gauge .g{position:relative;height:8px;border-radius:6px;background:linear-gradient(90deg,#2fc2b4,#6d8cff 50%,#ffb454);margin:14px 0 6px;direction:ltr}
+.gauge .g i{position:absolute;top:-5px;width:4px;height:18px;border-radius:3px;background:#fff;box-shadow:0 0 0 3px #0d2744;transform:translateX(-2px)}
+.gauge .t{display:flex;justify-content:space-between;font-size:10.5px;color:#8fb2d3;direction:ltr}
+.status{margin:12px 16px;padding:9px 12px;border-radius:10px;font-size:12.5px;background:#ffffff14;color:#cfe6f8}
+.status.bad{background:#ff6b7f26;color:#ffc0c8}
+.status.ok{background:#2fd3b126;color:#aef5e6}
+.below{background:var(--card);border:1px solid var(--line);border-radius:var(--r);padding:14px 16px;margin-top:10px}
+.below .acts{display:flex;flex-wrap:wrap;gap:7px}
+.stories{width:100%;border-collapse:collapse;font-size:12px;margin-bottom:10px}
+.stories th{color:var(--mute);font-weight:600;text-align:right;padding:4px 6px;border-bottom:1px solid var(--line)}
+.stories td{padding:5px 6px;border-bottom:1px solid #edf2f6;direction:ltr;text-align:right;font-variant-numeric:tabular-nums}
+.stories td:first-child{direction:rtl}
+.below h4{margin:2px 0 6px;font-size:12.5px;font-weight:800;color:var(--ink2)}
+.below .acts{margin-top:4px}
+.below ul{margin:8px 0 0;padding:0 18px;color:var(--ink2);font-size:12px}
+/* param card */
+.chartbox{position:relative;margin-top:10px;background:#f8fbfd;border:1px solid var(--line);border-radius:12px}
+.chartbox svg{display:block;width:100%;height:auto}
+.tip{position:absolute;pointer-events:none;background:var(--ink);color:#fff;font-size:11.5px;padding:5px 9px;border-radius:8px;direction:ltr;white-space:nowrap;transform:translate(-50%,-120%);display:none}
+/* signature */
+.sig{display:flex;align-items:center;gap:9px;padding:9px 14px;border-top:1px solid #ffffff2e;background:#0a2036;font-size:12px}
+.sg-t{color:#8fb2d3}.sig b{color:#fff;font-weight:700;letter-spacing:.1px}
+.sg-b{margin-inline-start:auto;border:1px solid #ffffff2e;background:transparent;color:#8fb2d3;border-radius:8px;padding:0 10px;font-size:11px;line-height:22px}
+.sg-b:hover{color:#fff;border-color:#ffffff66}
+.foot-sig{display:flex;justify-content:center;align-items:center;gap:8px;margin-bottom:6px;font-size:12.5px;color:var(--ink2)}
+/* modal */
+.modal{position:fixed;inset:0;background:#0d274488;display:none;place-items:center;z-index:50;padding:16px}
+.modal.on{display:grid}
+.modal .box{background:#fff;border-radius:18px;max-width:640px;width:100%;max-height:86vh;overflow:auto;padding:20px 22px}
+.modal h3{margin:0 0 10px}
+.t-ok{color:#13805a;font-weight:700}.t-no{color:#b23a4d;font-weight:700}
+.tests{width:100%;border-collapse:collapse;font-size:12.5px}
+.tests td{padding:5px 6px;border-bottom:1px solid #edf2f6;direction:ltr;text-align:left;font-variant-numeric:tabular-nums}
+.tests td:first-child{direction:rtl;text-align:right}
+.mbar{display:none}
+footer{text-align:center;color:var(--mute);font-size:11.5px;margin-top:22px}
+@media(max-width:1020px){.layout{grid-template-columns:1fr}aside{position:static;max-height:none;overflow:visible;order:-1}.models{grid-template-columns:repeat(2,1fr)}
+ .mbar{display:flex;position:fixed;bottom:10px;left:50%;transform:translateX(-50%);z-index:20;background:var(--bp);color:#fff;border-radius:999px;padding:7px 18px;gap:12px;align-items:center;box-shadow:0 8px 24px #0d274466;border:1px solid #ffffff33;font-size:13px;direction:ltr;cursor:pointer}
+ .mbar b{color:var(--cy);font-family:Georgia,serif;font-size:16px}}
+@media(max-width:560px){.shell{padding:10px 10px 90px}.brand h1{font-size:19px}.top .tools{display:none}.byline{font-size:11.5px}.ends{grid-template-columns:1fr}main>section,.card{padding:15px 14px}.model{padding:9px 10px}.model svg{width:36px;height:36px}.model small{display:none}}
+@media print{body{background:#fff}.top .tools,.models,main,.below .acts,.mbar,.play,footer,.modes{display:none!important}.layout{display:block}aside{position:static;max-height:none;overflow:visible}.sheet{box-shadow:none;-webkit-print-color-adjust:exact;print-color-adjust:exact}}
+@media(prefers-reduced-motion:reduce){html{scroll-behavior:auto}*{transition:none!important}}
+</style>
+<style id="kccss">
+.kc{position:relative;display:inline-flex;align-items:center;gap:10px;padding:4px 4px 4px 14px;border-radius:999px;overflow:hidden;background:linear-gradient(100deg,#fff1d4,#e6f5f3 72%);border:1px solid #e6c88a;box-shadow:0 8px 18px -12px #c98a1eaa;font-family:Vazirmatn,Tahoma,sans-serif;line-height:1.35;vertical-align:middle;-webkit-print-color-adjust:exact;print-color-adjust:exact}
+.kc-av{flex:none;width:32px;height:32px;border-radius:50%;display:grid;place-items:center;background:linear-gradient(145deg,#fff1c8,#ffc25c 60%,#f29c2b);box-shadow:0 0 0 2px #fff,0 0 0 3.5px #e6b25a,0 4px 10px -3px #e9a43a99}
+.kc-tx{display:flex;flex-direction:column}
+.kc-tx small{font-size:10px;color:#9a7437;font-weight:500}
+.kc-tx b{font-size:14.5px;font-weight:800;background:linear-gradient(90deg,#6e4204,#c47d12 55%,#6e4204);-webkit-background-clip:text;background-clip:text;color:transparent;-webkit-text-fill-color:transparent}
+.kc-en{direction:ltr;font:600 10.5px/1 Vazirmatn,Tahoma,sans-serif;color:#2d6b78;padding:5px 9px;border-radius:999px;background:#ffffffb8;border:1px solid #cfe0e8;letter-spacing:.3px}
+.kc.on-dark{background:linear-gradient(100deg,#ffc97830,#4fe3d616 62%,#ffffff05);border-color:#ffc97860;box-shadow:inset 0 1px 0 #ffffff1a}
+.kc.on-dark .kc-av{box-shadow:0 0 0 2px #0a2036,0 0 0 3.5px #ffc97899,0 4px 12px -4px #ffb84d99}
+.kc.on-dark .kc-tx small{color:#d9b57a}
+.kc.on-dark .kc-tx b{background-image:linear-gradient(90deg,#fff3d6,#ffc978 50%,#fff3d6)}
+.kc.on-dark .kc-en{background:#0a1c2c99;border-color:#2b4d68;color:#9fc9cf}
+.kc:after{content:"";position:absolute;inset:0;pointer-events:none;background:linear-gradient(105deg,transparent 35%,#ffffff55 50%,transparent 65%);transform:translateX(-120%)}
+@media(prefers-reduced-motion:no-preference){.kc:after{animation:kcsheen 6s ease-in-out 1.2s infinite}}
+@keyframes kcsheen{0%,70%,100%{transform:translateX(-120%)}85%{transform:translateX(120%)}}
+@media(max-width:560px){.kc-en{display:none}.kc{padding-left:10px}}
+@media print{.kc:after{display:none}}
+</style>
+</head>
+<body>
+<div class="shell">
+<div class="top">
+ <div class="brand">
+  <svg width="46" height="46" viewBox="0 0 46 46" aria-hidden="true"><rect width="46" height="46" rx="13" fill="#0d2744"/><path d="M23 7 C30 14 30 19 23 23 C16 27 16 32 23 39" fill="none" stroke="#4ff0d2" stroke-width="3" stroke-linecap="round"/><line x1="23" y1="7" x2="23" y2="39" stroke="#ffffff55" stroke-width="1.5" stroke-dasharray="3 3"/><path d="M17 40h12" stroke="#ffb454" stroke-width="3" stroke-linecap="round"/><path d="M23 4v-1" stroke="#ffb454" stroke-width="3" stroke-linecap="round"/></svg>
+  <div><h1>آزمایشگاه کمانش ستون و قاب</h1><p>بار بحرانی اویلر برای ستون‌های چندپله با هر طول کل، فنرها، تیرهای متصل و قاب‌های ۱ و ۲ طبقه</p>
+  <div class="kc" data-kc style="margin-top:8px"></div></div>
+ </div>
+ <div class="tools"><button class="mini" data-act="test">آزمون صحت محاسبات</button><button class="mini" data-act="reset">شروع دوباره</button></div>
+</div>
+<nav class="models" id="models" aria-label="انتخاب مدل"></nav>
+<div class="layout">
+ <main id="inputs"></main>
+ <aside id="side">
+  <div class="sheet">
+   <div class="bar"><b id="sheet-title">—</b><div class="modes" id="modes"></div></div>
+   <div id="status-wrap"></div>
+   <div class="stage" id="stage"><svg id="dg" viewBox="0 0 520 500" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="شکل مدل و شکل کمانش"></svg><button class="play" id="play" data-act="play">توقف انیمیشن</button></div>
+   <div id="tb"></div>
+   <div class="sig"><div class="kc on-dark" data-kc></div><button class="sg-b" data-act="own" title="تأیید اصالت فایل">تأیید اصالت</button></div>
+  </div>
+  <div class="below" id="below"></div>
+ </aside>
+</div>
+<footer><div class="foot-sig"><div class="kc" data-kc></div></div>تحلیل خطی کمانش الاستیک با المان تیر اویلر–برنولی و ماتریس سختی هندسی · مرجع: Yoo &amp; Lee، <i>Stability of Structures</i> · نتایج پژوهشی‌اند و جای کنترل طراحی را نمی‌گیرند.</footer>
+</div>
+<div class="mbar" id="mbar" data-act="gores"><span id="mbar-t">—</span></div>
+<div class="modal" id="modal"><div class="box" id="modal-box"></div></div>
+
+<script>
+window.addEventListener('error', function(ev) {
+  if (!ev.message || ev.message === 'Script error.') return;
+  var id = 'app-script-runtime-error', banner = document.getElementById(id);
+  if (!banner) {
+    banner = document.createElement('div'); banner.id = id;
+    banner.setAttribute('role', 'alert');
+    banner.style.cssText = 'position:sticky;top:0;z-index:9999;background:#fff0f0;color:#852d32;border:2px solid #c74e56;padding:10px 14px;font:13px Tahoma,Arial,sans-serif;direction:ltr;text-align:left;white-space:pre-wrap';
+    document.body.insertBefore(banner, document.body.firstChild);
+  }
+  banner.textContent = 'JavaScript error: ' + ev.message + (ev.lineno ? ' (line ' + ev.lineno + ')' : '');
+});
+</script>
+<script>
+'use strict';
+/* ===================== ENGINE (بدون وابستگی به صفحه) ===================== */
+const PI=Math.PI;
+const dot=(x,y)=>{let a=0;for(let i=0;i<x.length;i++)a+=x[i]*y[i];return a};
+function mv(A,x,n){const z=new Float64Array(n);for(let i=0;i<n;i++){let v=0;const o=i*n;for(let j=0;j<n;j++)v+=A[o+j]*x[j];z[i]=v}return z}
+function chol(A,n){const R=new Float64Array(n*n);let md=0;for(let i=0;i<n;i++)md=Math.max(md,Math.abs(A[i*n+i]));const tol=md*1e-12;
+ for(let i=0;i<n;i++)for(let j=0;j<=i;j++){let s=A[i*n+j];for(let k=0;k<j;k++)s-=R[i*n+k]*R[j*n+k];if(i===j){if(!(s>tol))return null;R[i*n+i]=Math.sqrt(s)}else R[i*n+j]=s/R[j*n+j]}
+ return R}
+function fwd(R,b,n){const x=new Float64Array(n);for(let i=0;i<n;i++){let s=b[i];const o=i*n;for(let j=0;j<i;j++)s-=R[o+j]*x[j];x[i]=s/R[o+i]}return x}
+function bwd(R,b,n){const x=new Float64Array(n);for(let i=n-1;i>=0;i--){let s=b[i];for(let j=i+1;j<n;j++)s-=R[j*n+i]*x[j];x[i]=s/R[i*n+i]}return x}
+function cholSolve(R,b,n){return bwd(R,fwd(R,b,n),n)}
+function jacobi(S,m){const A=Float64Array.from(S),V=new Float64Array(m*m);for(let i=0;i<m;i++)V[i*m+i]=1;let fro=0;for(let i=0;i<m*m;i++)fro+=A[i]*A[i];if(fro===0)return {val:Array(m).fill(0),vec:V};
+ for(let sw=0;sw<80;sw++){let off=0;for(let i=0;i<m;i++)for(let j=i+1;j<m;j++)off+=A[i*m+j]**2;if(off<=1e-30*fro)break;
+  for(let p=0;p<m-1;p++)for(let q=p+1;q<m;q++){const apq=A[p*m+q];if(Math.abs(apq)<1e-300)continue;const th=(A[q*m+q]-A[p*m+p])/(2*apq);const t=(th>=0?1:-1)/(Math.abs(th)+Math.sqrt(th*th+1));const c=1/Math.sqrt(t*t+1),s=t*c;
+   for(let k=0;k<m;k++){const a=A[k*m+p],b=A[k*m+q];A[k*m+p]=c*a-s*b;A[k*m+q]=s*a+c*b}
+   for(let k=0;k<m;k++){const a=A[p*m+k],b=A[q*m+k];A[p*m+k]=c*a-s*b;A[q*m+k]=s*a+c*b}
+   for(let k=0;k<m;k++){const a=V[k*m+p],b=V[k*m+q];V[k*m+p]=c*a-s*b;V[k*m+q]=s*a+c*b}}}
+ return {val:Array.from({length:m},(_,i)=>A[i*m+i]),vec:V}}
+
+/* حل مسئلهٔ ویژه‌مقدار K φ = λ G φ با تکرار زیرفضا + ریلی-ریتز؛ کوچک‌ترین nm مقدار مثبت */
+function eigenSolve(K,G,n,nm){
+ const R=chol(K,n);if(!R)return {mech:true};
+ /* اگر بار فقط روی بخش بسیار کوتاهی باشد، G رتبهٔ کمی دارد؛ در این حالت از فضای کوچک‌تری استفاده می‌کنیم */
+ let m=Math.min(n,Math.max(nm+3,5));
+ for(;m>=1;m--){const r=eigenRun(K,G,n,nm,m,R);if(r)return r}
+ return {mech:true};
+}
+function eigenRun(K,G,n,nm,m,R){
+ let seed=987654321;const rnd=()=>{seed=(Math.imul(seed,1664525)+1013904223)>>>0;return seed/4294967296-.5};
+ let X=[];for(let k=0;k<m;k++){const v=new Float64Array(n);for(let i=0;i<n;i++)v[i]=rnd();X.push(v)}
+ let lam=null,prev=null,iters=0;
+ for(let it=0;it<800;it++){
+  iters=it+1;
+  const Y=X.map(x=>cholSolve(R,mv(G,x,n),n));
+  const KY=Y.map(y=>mv(K,y,n)),GY=Y.map(y=>mv(G,y,n));
+  const A=new Float64Array(m*m),B=new Float64Array(m*m);
+  for(let i=0;i<m;i++)for(let j=0;j<=i;j++){A[i*m+j]=A[j*m+i]=dot(Y[i],KY[j]);B[i*m+j]=B[j*m+i]=dot(Y[i],GY[j])}
+  const C=chol(A,m);if(!C){if(lam)break;return null}
+  const T=[];for(let j=0;j<m;j++){const col=new Float64Array(m);for(let i=0;i<m;i++)col[i]=B[i*m+j];T.push(fwd(C,col,m))}
+  const Mm=new Float64Array(m*m);for(let j=0;j<m;j++){const col=new Float64Array(m);for(let i=0;i<m;i++)col[i]=T[i][j];const mc=fwd(C,col,m);for(let i=0;i<m;i++)Mm[i*m+j]=mc[i]}
+  for(let i=0;i<m;i++)for(let j=i+1;j<m;j++){const a=.5*(Mm[i*m+j]+Mm[j*m+i]);Mm[i*m+j]=Mm[j*m+i]=a}
+  const E=jacobi(Mm,m);const ord=E.val.map((_,i)=>i).sort((p,q)=>E.val[q]-E.val[p]);
+  const Xn=[],ln=[];
+  for(const k of ord){const w=new Float64Array(m);for(let i=0;i<m;i++)w[i]=E.vec[i*m+k];const z=bwd(C,w,m);const x=new Float64Array(n);
+   for(let j=0;j<m;j++){const zj=z[j],y=Y[j];for(let i=0;i<n;i++)x[i]+=zj*y[i]}
+   Xn.push(x);const mu=E.val[k];ln.push(mu>1e-300?1/mu:Infinity)}
+  X=Xn;lam=ln;
+  if(!(lam[0]<Infinity))throw Error('NOLOAD');
+  if(prev&&lam.slice(0,nm).every((l,i)=>Math.abs(l-prev[i])<=1e-11*Math.abs(l)))break;
+  prev=lam;
+ }
+ const good=lam.map((l,i)=>i).filter(i=>lam[i]<Infinity&&i<nm);
+ return {mech:false,lam:good.map(i=>lam[i]),vec:good.map(i=>X[i]),iters};
+}
+
+/* ماتریس سختی خمشی و هندسی المان تیر اویلر-برنولی */
+function ke4(h,e1,e2){const k=new Float64Array(16),g=.5/Math.sqrt(3);
+ for(const t of [.5-g,.5+g]){const ei=e1+(e2-e1)*t;const B=[(-6+12*t)/(h*h),(-4+6*t)/h,(6-12*t)/(h*h),(-2+6*t)/h];
+  for(let i=0;i<4;i++)for(let j=0;j<4;j++)k[i*4+j]+=.5*h*ei*B[i]*B[j]}
+ return k}
+function ge4(h,N){const v=[36,3*h,-36,3*h, 3*h,4*h*h,-3*h,-h*h, -36,-3*h,36,-3*h, 3*h,-h*h,-3*h,4*h*h];const g=new Float64Array(16);for(let i=0;i<16;i++)g[i]=N*v[i]/(30*h);return g}
+function hermite(t,h,a,b,c,d){return (1-3*t*t+2*t*t*t)*a+h*(t-2*t*t+t*t*t)*b+(3*t*t-2*t*t*t)*c+h*(-t*t+t*t*t)*d}
+function reduce(K,G,nd,fixed){const free=[];for(let i=0;i<nd;i++)if(!fixed.has(i))free.push(i);if(!free.length)throw Error('هیچ درجهٔ آزادی باقی نمانده است.');
+ const n=free.length,k=new Float64Array(n*n),g=new Float64Array(n*n);for(let i=0;i<n;i++)for(let j=0;j<n;j++){k[i*n+j]=K[free[i]*nd+free[j]];g[i*n+j]=G[free[i]*nd+free[j]]}
+ return {n,k,g,free}}
+function toFull(sol,i,nd,free){const f=new Float64Array(nd);for(let j=0;j<free.length;j++)f[free[j]]=sol.vec[i][j];return f}
+
+/* ---------- ستون ---------- */
+/* m: {segs:[{s,e,a,b}], sup:[{x,lat:'none|fix|spring',kY,rot:'none|fix|spring|hinge',kR}]} */
+function buildColumn(m,mesh){
+ const T=m.segs[m.segs.length-1].e,mm=mesh/Math.max(1,T/2);const pts=[0,T];for(const s of m.segs.slice(0,-1))pts.push(s.e);for(const s of m.sup)pts.push(s.x);for(const l of (m.loads||[]))pts.push(l.x);pts.sort((a,b)=>a-b);
+ const imp=[pts[0]];for(let i=1;i<pts.length;i++)if(pts[i]-imp[imp.length-1]>1e-9)imp.push(pts[i]);
+ const xs=[imp[0]];for(let i=0;i<imp.length-1;i++){const a=imp[i],b=imp[i+1],n=Math.max(4,Math.round((b-a)*mm));for(let j=1;j<=n;j++)xs.push(a+(b-a)*j/n)}
+ const N=xs.length;
+ const at=x=>{let b=0,e=1e9;for(let i=0;i<N;i++){const d=Math.abs(xs[i]-x);if(d<e){e=d;b=i}}if(e>1e-6)throw Error('خطا در محل تکیه‌گاه');return b};
+ const rotL=[],rotR=[];for(let i=0;i<N;i++){rotL[i]=N+i;rotR[i]=N+i}let nd=2*N;
+ for(const s of m.sup)if(s.rot==='hinge'){const i=at(s.x);if(i<=0||i>=N-1)throw Error('مفصل داخلی باید بین دو سر ستون باشد.');if(rotR[i]===rotL[i])rotR[i]=nd++}
+ for(const s of m.sup)if(s.rot==='fix'||s.rot==='spring'){const i=at(s.x);if(rotR[i]!==rotL[i])throw Error('در محل مفصل داخلی، قید یا فنر دورانی هم‌زمان تعریف نکنید.')}
+ const K=new Float64Array(nd*nd),G=new Float64Array(nd*nd),els=[];
+ for(let e=0;e<N-1;e++){const x1=xs[e],x2=xs[e+1],h=x2-x1,xm=(x1+x2)/2;const dofs=[e,rotR[e],e+1,rotL[e+1]];
+  const sg=m.segs.find(s=>xm>=s.s-1e-12&&xm<=s.e+1e-12)||m.segs[m.segs.length-1];
+  const ei=x=>sg.a+(sg.b-sg.a)*Math.max(0,Math.min(1,(x-sg.s)/(sg.e-sg.s)));
+  const Nax=(m.topQ==null?1:m.topQ)+(m.loads||[]).reduce((a,l)=>a+(l.x>xm?l.q:0),0);
+  const ke=ke4(h,ei(x1),ei(x2)),ge=ge4(h,Nax);
+  for(let i=0;i<4;i++)for(let j=0;j<4;j++){K[dofs[i]*nd+dofs[j]]+=ke[i*4+j];G[dofs[i]*nd+dofs[j]]+=ge[i*4+j]}
+  els.push({x1,x2,h,dofs})}
+ const fixed=new Set();
+ for(const s of m.sup){const i=at(s.x),rd=s.x<1e-9?rotR[i]:rotL[i];
+  if(s.lat==='fix')fixed.add(i);else if(s.lat==='spring')K[i*nd+i]+=s.kY;
+  if(s.rot==='fix')fixed.add(rd);else if(s.rot==='spring')K[rd*nd+rd]+=s.kR}
+ const r=reduce(K,G,nd,fixed);
+ return {...r,nd,xs,els,T};
+}
+function sampleColumn(M,full,n=220){const pts=[];let amp=0;
+ for(let i=0;i<=n;i++){const x=M.T*i/n;let el=M.els.find(e=>e.x1-1e-10<=x&&x<=e.x2+1e-10)||M.els[M.els.length-1];const t=Math.max(0,Math.min(1,(x-el.x1)/el.h));const [a,b,c,d]=el.dofs;
+  const v=hermite(t,el.h,full[a],full[b],full[c],full[d]);pts.push({x,v});amp=Math.max(amp,Math.abs(v))}
+ let sgn=1,mx=0;for(const p of pts)if(Math.abs(p.v)>mx){mx=Math.abs(p.v);sgn=Math.sign(p.v)||1}
+ if(amp>0)for(const p of pts)p.v=p.v*sgn/amp;return pts}
+function colModes(m,mesh,nm){
+ const M=buildColumn(m,mesh);let r;try{r=eigenSolve(M.k,M.g,M.n,nm)}catch(e){if(e.message==='NOLOAD')return {mech:true};throw e}
+ if(r.mech||r.lam[0]<1e-7)return {mech:true};
+ return {mech:false,lam:r.lam,M,full:r.lam.map((_,i)=>toFull(r,i,M.nd,M.free))};
+}
+
+/* ---------- قاب ----------
+ f:{h:[h1,h2?],B,c:[..],bm:[..],w:[..],base:'fixed|pinned|spring',baseK,sway:'free|braced|spring',swayK} */
+function buildFrame(f,mesh){
+ const ns=f.h.length,Ht=f.h.reduce((a,b)=>a+b,0);
+ const ys=[0],story=[],fl=[0];let y=0;
+ for(let s=0;s<ns;s++){const n=Math.max(4,Math.round(f.h[s]/Ht*mesh));for(let j=1;j<=n;j++){ys.push(y+f.h[s]*j/n);story.push(s)}y+=f.h[s];fl.push(ys.length-1)}
+ const nn=ys.length,isFl=new Set(fl.slice(1));
+ const wd=[[],[]],td=[[],[]];let nd=0;
+ for(let c=0;c<2;c++)for(let i=0;i<nn;i++){wd[c][i]=(c===1&&isFl.has(i))?wd[0][i]:nd++;td[c][i]=nd++}
+ const K=new Float64Array(nd*nd),G=new Float64Array(nd*nd);
+ const Nst=f.h.map((_,s)=>f.w.slice(s).reduce((a,b)=>a+b,0));
+ for(let c=0;c<2;c++)for(let e=0;e<nn-1;e++){const h=ys[e+1]-ys[e],s=story[e];const dofs=[wd[c][e],td[c][e],wd[c][e+1],td[c][e+1]];
+  const ke=ke4(h,f.c[s],f.c[s]),ge=ge4(h,Nst[s]);
+  for(let i=0;i<4;i++)for(let j=0;j<4;j++){K[dofs[i]*nd+dofs[j]]+=ke[i*4+j];G[dofs[i]*nd+dofs[j]]+=ge[i*4+j]}}
+ for(let k=1;k<=ns;k++){const i=fl[k],a=td[0][i],b=td[1][i],kb=f.bm[k-1]/f.B;K[a*nd+a]+=4*kb;K[b*nd+b]+=4*kb;K[a*nd+b]+=2*kb;K[b*nd+a]+=2*kb}
+ const fixed=new Set();
+ for(let c=0;c<2;c++){fixed.add(wd[c][0]);if(f.base==='fixed')fixed.add(td[c][0]);else if(f.base==='spring')K[td[c][0]*nd+td[c][0]]+=f.baseK}
+ for(let k=1;k<=ns;k++){const d=wd[0][fl[k]];if(f.sway==='braced')fixed.add(d);else if(f.sway==='spring')K[d*nd+d]+=f.swayK}
+ const r=reduce(K,G,nd,fixed);
+ return {...r,nd,ys,story,fl,wd,td,ns,Nst,B:f.B,f};
+}
+function sampleFrame(M,full,n=40){
+ const cols=[[],[]];let amp=0;
+ for(let c=0;c<2;c++)for(let e=0;e<M.ys.length-1;e++){const y1=M.ys[e],y2=M.ys[e+1],h=y2-y1;const a=full[M.wd[c][e]],b=full[M.td[c][e]],cc=full[M.wd[c][e+1]],d=full[M.td[c][e+1]];
+  const k=Math.max(2,Math.round(n*h));for(let i=(e===0?0:1);i<=k;i++){const t=i/k,v=hermite(t,h,a,b,cc,d);cols[c].push({y:y1+h*t,v});amp=Math.max(amp,Math.abs(v))}}
+ const beams=[];
+ for(let k=1;k<=M.ns;k++){const i=M.fl[k],u=full[M.wd[0][i]],t1=full[M.td[0][i]],t2=full[M.td[1][i]];const B=M.B,pts=[];
+  for(let j=0;j<=24;j++){const xi=j/24;const v=-B*((xi-2*xi*xi+xi**3)*t1+(xi**3-xi*xi)*t2);pts.push({xi,v});amp=Math.max(amp,Math.abs(v))}
+  beams.push({y:M.ys[i],u,pts});amp=Math.max(amp,Math.abs(u))}
+ let sgn=1,mx=0;for(const p of cols[0].concat(cols[1]))if(Math.abs(p.v)>mx+1e-12){mx=Math.abs(p.v);sgn=Math.sign(p.v)||1}
+ const sc=amp>0?sgn/amp:1;
+ for(const c of cols)for(const p of c)p.v*=sc;for(const b of beams){b.u*=sc;for(const p of b.pts)p.v*=sc}
+ const sway=beams.length?Math.max(...beams.map(b=>Math.abs(b.u))):0;
+ return {cols,beams,sway};
+}
+function frameModes(f,mesh,nm){
+ const M=buildFrame(f,mesh);let r;try{r=eigenSolve(M.k,M.g,M.n,nm)}catch(e){if(e.message==='NOLOAD')return {mech:true};throw e}
+ if(r.mech||r.lam[0]<1e-7)return {mech:true};
+ return {mech:false,lam:r.lam,M,full:r.lam.map((_,i)=>toFull(r,i,M.nd,M.free))};
+}
+
+/* ===================== ترسیم (SVG) ===================== */
+const C={ln:'#bcd7ee',lab:'#8fb2d3',cy:'#4ff0d2',am:'#ffb454',fill:'#14395f',bg:'#0d2744',bm:'#4a67e8',bmL:'#9db4ff',seg:['#5b8dff','#2fc2b4','#b58cff'],mute:'#5f86ab'};
+const FONT='Vazirmatn, Tahoma, Segoe UI, Arial, sans-serif';
+const fontCSS=()=>(document.getElementById('vzface')||{}).textContent||'';
+const clamp=(v,a,b)=>Math.max(a,Math.min(b,v));
+const sh=v=>{if(!Number.isFinite(v))return '?';const a=Math.abs(v);return String(+(a>=100?v.toFixed(0):a>=10?v.toFixed(1):v.toFixed(2)))};
+function hatch(x1,x2,y,dir,gap,len){let s='';for(let x=x1;x<=x2;x+=gap)s+=`<line x1="${x}" y1="${y}" x2="${x-len*.7}" y2="${y+dir*len}" stroke="${C.mute}" stroke-width="1.3"/>`;return s}
+function farGlyph(far,x,th){
+ if(far==='fixed')return `<line x1="${x}" y1="-17" x2="${x}" y2="17" stroke="${C.ln}" stroke-width="4"/>`+[-14,-6,2,10].map(y=>`<line x1="${x}" y1="${y}" x2="${x+8}" y2="${y+7}" stroke="${C.mute}" stroke-width="1.3"/>`).join('');
+ if(far==='pinned')return `<path d="M${x} ${th/2} l-8 14 h16 z" fill="${C.fill}" stroke="${C.ln}" stroke-width="1.8" stroke-linejoin="round"/>`;
+ return `<line x1="${x}" y1="0" x2="${x+26}" y2="0" stroke="${C.bmL}" stroke-width="2" stroke-dasharray="4 4"/>`}
+/* sp: {lat:'none|fix|spring', rot:'none|fix|spring|hinge|beam', txtY, txtR, beta, rho, far} */
+function glyph(sp,where){
+ const L=C.ln,F=C.fill;let s='';const {lat,rot}=sp;
+ if(where==='bottom'){
+  if(lat==='fix'&&rot==='fix')s+=`<rect x="-34" y="2" width="68" height="9" rx="2" fill="#0a2238"/><line x1="-34" y1="0" x2="34" y2="0" stroke="${L}" stroke-width="5" stroke-linecap="round"/>`+hatch(-28,30,11,1,9,9);
+  else if(lat==='fix')s+=`<rect x="-32" y="26" width="64" height="8" rx="2" fill="#0a2238"/><path d="M0 0L-17 25H17Z" fill="${F}" stroke="${L}" stroke-width="2" stroke-linejoin="round"/><line x1="-30" y1="25" x2="30" y2="25" stroke="${L}" stroke-width="3" stroke-linecap="round"/><circle r="3.4" fill="${C.bg}" stroke="${L}" stroke-width="1.6"/>`+hatch(-26,28,34,1,8,7);
+  else if(lat==='none'&&rot==='fix')s+=`<line x1="-26" y1="0" x2="26" y2="0" stroke="${L}" stroke-width="5" stroke-linecap="round"/><circle cx="-13" cy="9.5" r="4.5" fill="${F}" stroke="${L}" stroke-width="1.8"/><circle cx="13" cy="9.5" r="4.5" fill="${F}" stroke="${L}" stroke-width="1.8"/><line x1="-30" y1="19" x2="30" y2="19" stroke="${L}" stroke-width="3" stroke-linecap="round"/>`+hatch(-26,26,22,1,8,7);
+ }else{
+  if(lat==='fix'){const cl=d=>`<path d="M${-8*d} 0L${-26*d} -9V9Z" fill="${F}" stroke="${L}" stroke-width="1.8" stroke-linejoin="round"/><line x1="${-30*d}" y1="-12" x2="${-30*d}" y2="12" stroke="${L}" stroke-width="3" stroke-linecap="round"/>`;s+=cl(1)+cl(-1)}
+  if(rot==='fix')s+=`<rect x="-15" y="-6.5" width="30" height="13" rx="3.5" fill="${F}" stroke="${L}" stroke-width="2"/>`;
+ }
+ if(lat==='spring'){s+=`<path d="M0 0H14l4-9 8 18 8-18 8 18 8-18 4 9H70" fill="none" stroke="${C.am}" stroke-width="2.4" stroke-linejoin="round" stroke-linecap="round"/><line x1="72" y1="-15" x2="72" y2="15" stroke="${L}" stroke-width="4"/>`+[-12,-4,4,12].map(y=>`<line x1="72" y1="${y}" x2="80" y2="${y+7}" stroke="${C.mute}" stroke-width="1.3"/>`).join('')+(sp.txtY?`<text x="40" y="-14" font-size="11.5" fill="${C.am}" text-anchor="middle" direction="ltr">${sp.txtY}</text>`:'')}
+ if(rot==='spring'){s+=`<path d="M0 -17A17 17 0 1 1 -17 0" fill="none" stroke="${C.am}" stroke-width="2.4" stroke-linecap="round"/><path d="M0 -10A10 10 0 1 1 -10 0" fill="none" stroke="${C.am}" stroke-width="2" stroke-linecap="round"/><path d="M-22 -5L-17 3L-12 -5" fill="none" stroke="${C.am}" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>`+(sp.txtR?`<text x="-24" y="-20" font-size="11.5" fill="${C.am}" text-anchor="end" direction="ltr">${sp.txtR}</text>`:'')}
+ if(rot==='hinge')s+=`<circle r="7.5" fill="${C.bg}" stroke="${C.am}" stroke-width="3"/>`;
+ if(rot==='beam'){const th=clamp(7+5*Math.sqrt(Math.max(0,sp.beta)),8,22),len=clamp(40+34*sp.rho,56,118);
+  s+=`<rect x="6" y="${-th/2}" width="${len}" height="${th}" rx="2" fill="${C.bm}" stroke="${C.bmL}" stroke-width="1.5"/>`+farGlyph(sp.far,6+len,th)+`<text x="${6+len/2}" y="${-th/2-6}" font-size="11.5" fill="${C.bmL}" text-anchor="middle" direction="ltr">β = ${sh(sp.beta)}</text>`}
+ if(lat==='none'&&rot==='none'&&where==='bottom')s+=`<circle r="3.5" fill="${C.bg}" stroke="${C.mute}" stroke-width="1.5"/>`;
+ return s}
+/* آیکن انتخاب تکیه‌گاه */
+function endIcon(sp,where){const st=where==='bottom'?`<line x1="0" y1="-30" x2="0" y2="0" stroke="${C.ln}" stroke-width="7"/>`:`<line x1="0" y1="0" x2="0" y2="30" stroke="${C.ln}" stroke-width="7"/>`;
+ return `<svg viewBox="-46 -38 140 84" xmlns="http://www.w3.org/2000/svg"><rect x="-46" y="-38" width="140" height="84" rx="8" fill="${C.bg}"/>${st}${glyph({...sp,beta:1,rho:1,txtY:'',txtR:''},where)}</svg>`}
+function modelIcon(k){const a='#0f2236',b='#0a8f9c',o='#e08a10';
+ const g={col:`<line x1="23" y1="6" x2="23" y2="34" stroke="${a}" stroke-width="5" stroke-linecap="round"/><path d="M23 34l-7 8h14z" fill="none" stroke="${b}" stroke-width="2.5" stroke-linejoin="round"/><path d="M23 6V1" stroke="${o}" stroke-width="3"/>`,
+ spr:`<line x1="17" y1="6" x2="17" y2="38" stroke="${a}" stroke-width="5" stroke-linecap="round"/><path d="M17 20h4l2-5 4 10 4-10 2 5h4" fill="none" stroke="${o}" stroke-width="2"/><line x1="40" y1="14" x2="40" y2="28" stroke="${b}" stroke-width="3"/><path d="M17 38l-6 6h12z" fill="none" stroke="${b}" stroke-width="2.2"/>`,
+ f1:`<path d="M10 42V14H36V42" fill="none" stroke="${a}" stroke-width="5" stroke-linejoin="round"/><line x1="6" y1="43" x2="14" y2="43" stroke="${b}" stroke-width="3"/><line x1="32" y1="43" x2="40" y2="43" stroke="${b}" stroke-width="3"/><path d="M8 8l-4 4" stroke="${o}" stroke-width="2"/>`,
+ f2:`<path d="M10 43V6M36 43V6M10 15H36M10 29H36" fill="none" stroke="${a}" stroke-width="4.5" stroke-linejoin="round"/><line x1="6" y1="44" x2="14" y2="44" stroke="${b}" stroke-width="3"/><line x1="32" y1="44" x2="40" y2="44" stroke="${b}" stroke-width="3"/>`};
+ return `<svg viewBox="0 0 46 46">${g[k]}</svg>`}
+function arrowDown(x,y1,y2,label){return `<g><line x1="${x}" y1="${y1}" x2="${x}" y2="${y2-6}" stroke="${C.am}" stroke-width="3.5" stroke-linecap="round"/><path d="M${x-7} ${y2-9}L${x} ${y2}L${x+7} ${y2-9}Z" fill="${C.am}"/>${label?`<text x="${x+11}" y="${y1+12}" font-size="14" font-weight="700" fill="${C.am}" direction="ltr">${label}</text>`:''}</g>`}
+const defs=`<defs><linearGradient id="shine" x1="0" x2="1"><stop offset="0" stop-color="#fff" stop-opacity=".30"/><stop offset=".45" stop-color="#fff" stop-opacity=".02"/><stop offset="1" stop-color="#000" stop-opacity=".28"/></linearGradient><filter id="glow" x="-20%" y="-20%" width="140%" height="140%"><feGaussianBlur stdDeviation="3.5"/></filter>${C.seg.map((c,i)=>`<linearGradient id="sg${i}" x1="0" x2="1"><stop offset="0" stop-color="${c}" stop-opacity=".95"/><stop offset="1" stop-color="${c}" stop-opacity=".55"/></linearGradient>`).join('')}</defs>`;
+const pathOf=(pts,fx,fy)=>pts.map((p,i)=>(i?'L':'M')+fx(p).toFixed(1)+','+fy(p).toFixed(1)).join(' ');
+const shapeEls=(ids)=>ids.map(id=>`<path id="${id}g" fill="none" stroke="${C.cy}" stroke-width="11" stroke-linecap="round" stroke-linejoin="round" opacity=".22" filter="url(#glow)"/><path id="${id}" fill="none" stroke="${C.cy}" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/><path id="${id}c" fill="none" stroke="#e8fffb" stroke-width="1.3" stroke-linecap="round" stroke-linejoin="round" opacity=".8"/>`).join('');
+
+/* --------- نمودار ستون ---------
+ spec:{segs:[{s,e,a,b,lin}],bottom:sp,top:sp,mids:[{x,sp}],shape:[{x,v}]|null,load:'P'} */
+function columnDiagram(spec){
+ const cx=290,yT=96,yB=418,H=yB-yT,A=82,T=spec.T||1,Y=x=>yB-H*x/T,sub=['₁','₂','₃'];let o=defs;
+ const many=spec.segs.length>1;
+ o+=`<line x1="${cx}" y1="${yT-8}" x2="${cx}" y2="${yB+4}" stroke="${C.mute}" stroke-width="1.2" stroke-dasharray="7 6" opacity=".9"/>`;
+ /* برچسب‌های سمت چپ؛ با فاصلهٔ حداقلی از هم تا روی هم نیفتند */
+ const ly=spec.segs.map(sg=>(Y(sg.s)+Y(sg.e))/2);
+ for(let k=0;k<60;k++)for(let i=1;i<ly.length;i++){const d=ly[i-1]-ly[i];if(d<40){const m=(40-d)/2;ly[i-1]+=m;ly[i]-=m}}
+ spec.segs.forEach((sg,i)=>{const wa=clamp(8+7*Math.sqrt(sg.a),9,36),wb=clamp(8+7*Math.sqrt(sg.b),9,36),y1=Y(sg.s),y2=Y(sg.e),f=`url(#sg${i%3})`,pts=`${cx-wa/2},${y1} ${cx+wa/2},${y1} ${cx+wb/2},${y2} ${cx-wb/2},${y2}`;
+  o+=`<polygon points="${pts}" fill="${f}" stroke="${C.ln}" stroke-width="1.4" stroke-linejoin="round" opacity=".95"/><polygon points="${pts}" fill="url(#shine)"/>`;
+  const ym=(y1+y2)/2,lab=sg.lin?`${sh(sg.a)} → ${sh(sg.b)}`:sh(sg.a),sb=many?sub[i]:'',col=C.seg[i%3],bx=cx-Math.max(wa,wb)/2-14,ty=ly[i];
+  /* آکولاد رنگی هم‌ارتفاع با بخش (شبیه تکیه‌گاه نیست) + برچسب چسبیده به آن */
+  o+=`<path d="M${bx+6} ${y1-1.5}H${bx}V${y2+1.5}H${bx+6}" fill="none" stroke="${col}" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/>`;
+  if(Math.abs(ty-ym)>5)o+=`<path d="M${bx-1} ${ym}L${bx-9} ${ty}" fill="none" stroke="${col}" stroke-width="1.2" opacity=".8"/>`;
+  o+=`<text x="${bx-12}" y="${ty-2}" font-size="12.5" font-weight="700" fill="#eaf4fc" text-anchor="end" direction="ltr">EI${sb} = ${lab} <tspan fill="${C.lab}" font-weight="400">EI₀</tspan></text><text x="${bx-12}" y="${ty+13}" font-size="11.5" fill="${C.lab}" text-anchor="end" direction="ltr">ℓ${sb} = ${sh(sg.e-sg.s)} L</text>`;
+  if(i>0){const w=Math.max(wa,9)/2+4;o+=`<line x1="${cx-w}" y1="${y1}" x2="${cx+w}" y2="${y1}" stroke="#fff" stroke-width="1.4" opacity=".55"/>`}});
+ const bn=ptsX=>ptsX.map(x=>`<line x1="40" y1="${Y(x)}" x2="52" y2="${Y(x)}"/>`).join('');
+ o+=`<g stroke="${C.lab}" stroke-width="1.2"><line x1="46" y1="${yT}" x2="46" y2="${yB}"/>${bn([0,...spec.segs.map(s=>s.e)])}</g>`;
+ spec.segs.forEach(sg=>{const a=Y(sg.s),b=Y(sg.e);if(a-b>30)o+=`<text x="38" y="${(a+b)/2}" font-size="10.5" fill="${C.lab}" text-anchor="middle" transform="rotate(-90 38 ${(a+b)/2})" direction="ltr">${sh(sg.e-sg.s)} L</text>`});
+ if(many)o+=`<g stroke="${C.lab}" stroke-width="1.2"><line x1="22" y1="${yT}" x2="22" y2="${yB}"/><line x1="16" y1="${yT}" x2="28" y2="${yT}"/><line x1="16" y1="${yB}" x2="28" y2="${yB}"/></g><text x="13" y="${(yT+yB)/2}" font-size="13" font-weight="700" fill="${C.ln}" text-anchor="middle" transform="rotate(-90 13 ${(yT+yB)/2})" direction="ltr">${sh(T)} L</text>`;
+ for(const m of spec.mids){const y=Y(m.x),tx=cx+(m.sp.rot==='beam'?168:m.sp.lat==='spring'?100:104);o+=`<g transform="translate(${cx},${y})">${glyph(m.sp,'side')}</g><text x="${tx}" y="${y+4}" font-size="11" fill="${C.lab}" direction="ltr">x = ${sh(m.x)} L</text>`}
+ o+=`<g transform="translate(${cx},${yB})">${glyph(spec.bottom,'bottom')}</g><g transform="translate(${cx},${yT})">${glyph(spec.top,'side')}</g>`;
+ if(spec.topQ>0)o+=arrowDown(cx,24,yT-12,spec.topQ===1?'P':sh(spec.topQ)+'P');
+ for(const l of spec.loads||[]){const y=Y(l.x);o+=`<g><line x1="${cx+16}" y1="${y}" x2="${cx+2}" y2="${y}" stroke="${C.am}" stroke-width="2"/><circle cx="${cx}" cy="${y}" r="3" fill="${C.am}"/><line x1="${cx+18}" y1="${y-50}" x2="${cx+18}" y2="${y-8}" stroke="${C.am}" stroke-width="3.2" stroke-linecap="round"/><path d="M${cx+11} ${y-12}L${cx+18} ${y-2}L${cx+25} ${y-12}Z" fill="${C.am}"/><rect x="${cx+27}" y="${y-44}" width="${(l.q===1?1:sh(l.q).length+1)*8.6+10}" height="19" rx="6" fill="${C.bg}" opacity=".88"/><text x="${cx+32}" y="${y-30}" font-size="13" font-weight="700" fill="${C.am}" direction="ltr">${l.q===1?'P':sh(l.q)+'P'}</text></g>`}
+ o+=shapeEls(['shA']);
+ const mp=spec.shape&&spec.shape.length?spec.shape.reduce((b,p)=>Math.abs(p.v)>Math.abs(b.v)?p:b):null;
+ if(mp)o+=`<g id="shM"><circle r="9" fill="none" stroke="${C.cy}" stroke-width="1.2" opacity=".55"/><circle r="4.2" fill="${C.cy}" stroke="${C.bg}" stroke-width="1.6"/></g>`;
+ o+=`<g opacity=".95"><line x1="20" y1="481" x2="44" y2="481" stroke="${C.cy}" stroke-width="3.4" stroke-linecap="round"/><text x="108" y="485" font-size="11" fill="${C.lab}" text-anchor="middle" direction="rtl">شکل کمانش، مقیاس نرمال</text></g>`;
+ const upd=ph=>{if(!spec.shape)return;const d=pathOf(spec.shape,p=>cx+A*ph*p.v,p=>Y(p.x));for(const id of ['shA','shAg','shAc']){const e=document.getElementById(id);if(e)e.setAttribute('d',d)}
+  const g=document.getElementById('shM');if(g&&mp)g.setAttribute('transform',`translate(${(cx+A*ph*mp.v).toFixed(1)},${Y(mp.x).toFixed(1)})`)};
+ return {markup:o,update:upd}}
+
+/* --------- نمودار قاب ---------
+ spec:{h:[..],B,c:[..],bm:[..],w:[..],base:'fixed|pinned|spring',sway:'free|braced|spring',shape:{cols,beams}|null,labels..} */
+function frameDiagram(spec){
+ const ns=spec.h.length,Ht=spec.h.reduce((a,b)=>a+b,0),yG=410,Hd=ns===1?240:270,s=Hd/Ht,Y=y=>yG-s*y;
+ const bay=clamp(spec.B*s,150,290),xL=(520-bay)/2+8,xR=xL+bay,A=62;let o=defs;
+ o+=`<line x1="30" y1="${yG}" x2="490" y2="${yG}" stroke="${C.mute}" stroke-width="1.3" stroke-dasharray="6 6"/>`;
+ const fl=[0];spec.h.forEach((h,i)=>fl.push(fl[i]+h));
+ const baseSp={lat:'fix',rot:spec.base==='fixed'?'fix':spec.base==='spring'?'spring':'none',txtR:spec.baseTxt||''};
+ for(const x of [xL,xR])o+=`<g transform="translate(${x},${yG})">${glyph(baseSp,'bottom')}</g>`;
+ for(let i=0;i<ns;i++){const wc=clamp(7+6*Math.sqrt(spec.c[i]),9,26),y1=Y(fl[i]),y2=Y(fl[i+1]),f=`url(#sg${i%3})`;
+  for(const x of [xL,xR])o+=`<rect x="${x-wc/2}" y="${y2}" width="${wc}" height="${y1-y2}" fill="${f}" stroke="${C.ln}" stroke-width="1.4" opacity=".92"/>`;
+  o+=`<text x="28" y="${(y1+y2)/2+4}" font-size="12" fill="${C.ln}" text-anchor="start" direction="ltr">EI = ${sh(spec.c[i])} EI₀</text>`}
+ for(let k=1;k<=ns;k++){const th=clamp(7+6*Math.sqrt(spec.bm[k-1]),9,26),y=Y(fl[k]);
+  o+=`<rect x="${xL}" y="${y-th/2}" width="${bay}" height="${th}" rx="2" fill="${C.bm}" stroke="${C.bmL}" stroke-width="1.4" opacity=".95"/><text x="${(xL+xR)/2}" y="${y+th/2+15}" font-size="11.5" fill="${C.bmL}" text-anchor="middle" direction="ltr">EI = ${sh(spec.bm[k-1])} EI₀</text>`;
+  if(spec.sway==='spring')o+=`<g transform="translate(${xL},${y}) scale(-1,1)">${glyph({lat:'spring',rot:'none',txtY:spec.swayTxt||''},'side').replace(/<text[^>]*>.*?<\/text>/,'')}</g>`;
+  if(spec.sway==='braced')o+=`<g transform="translate(${xL},${y})"><path d="M-8 0L-26 -9V9Z" fill="${C.fill}" stroke="${C.ln}" stroke-width="1.8"/><line x1="-30" y1="-12" x2="-30" y2="12" stroke="${C.ln}" stroke-width="3"/></g>`;
+  const w=spec.w[k-1],top=k===ns,lb=w===0?'':(w===1?'P':sh(w)+'P'),ay=y-th/2;
+  if(w>0){if(top){o+=arrowDown(xL,ay-52,ay-3,lb)+arrowDown(xR,ay-52,ay-3,'')}else{o+=arrowDown(xL+30,ay-46,ay-3,lb)+arrowDown(xR-30,ay-46,ay-3,'')}}}
+ const xr=xR+62;o+=`<g stroke="${C.lab}" stroke-width="1.3">`;
+ for(let i=0;i<ns;i++){o+=`<line x1="${xr}" y1="${Y(fl[i])}" x2="${xr}" y2="${Y(fl[i+1])}"/><line x1="${xr-6}" y1="${Y(fl[i])}" x2="${xr+6}" y2="${Y(fl[i])}"/><line x1="${xr-6}" y1="${Y(fl[i+1])}" x2="${xr+6}" y2="${Y(fl[i+1])}"/>`}o+='</g>';
+ for(let i=0;i<ns;i++)o+=`<text x="${xr+10}" y="${(Y(fl[i])+Y(fl[i+1]))/2+4}" font-size="12" fill="${C.lab}" direction="ltr">h${ns>1?['₁','₂'][i]:''} = ${sh(spec.h[i])}</text>`;
+ o+=`<g stroke="${C.lab}" stroke-width="1.3"><line x1="${xL}" y1="${yG+52}" x2="${xR}" y2="${yG+52}"/><line x1="${xL}" y1="${yG+46}" x2="${xL}" y2="${yG+58}"/><line x1="${xR}" y1="${yG+46}" x2="${xR}" y2="${yG+58}"/></g><text x="${(xL+xR)/2}" y="${yG+46}" font-size="12" fill="${C.lab}" text-anchor="middle" direction="ltr">B = ${sh(spec.B)} h₁</text>`;
+ const ids=['shL','shR',...spec.bm.map((_,i)=>'shB'+i)];o+=shapeEls(ids);
+ const upd=ph=>{const S=spec.shape;if(!S)return;const set=(id,d)=>{for(const k of [id,id+'g',id+'c']){const e=document.getElementById(k);if(e)e.setAttribute('d',d)}};
+  set('shL',pathOf(S.cols[0],p=>xL+A*ph*p.v,p=>Y(p.y)));set('shR',pathOf(S.cols[1],p=>xR+A*ph*p.v,p=>Y(p.y)));
+  S.beams.forEach((b,i)=>set('shB'+i,pathOf(b.pts,p=>xL+p.xi*bay+A*ph*b.u,p=>Y(b.y)-A*ph*p.v)))};
+ return {markup:o,update:upd}}
+
+/* --------- نمودار مطالعهٔ پارامتری --------- */
+function chartSVG(pts,o){
+ const W=520,Hh=290,l=50,r=18,t=18,b=44,iw=W-l-r,ih=Hh-t-b;
+ const xs=pts.map(p=>p.x),ys=pts.map(p=>p.y).filter(Number.isFinite);const x0=Math.min(...xs),x1=Math.max(...xs);let y1=Math.max(...ys,1e-9)*1.12;
+ const lg=o.log;const tx=v=>lg?Math.log(v):v;const px=v=>l+(tx(v)-tx(x0))/((tx(x1)-tx(x0))||1)*iw,py=v=>t+ih-(v/y1)*ih;
+ let s=`<defs><linearGradient id="ca" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#0a8f9c" stop-opacity=".28"/><stop offset="1" stop-color="#0a8f9c" stop-opacity="0"/></linearGradient></defs>`;
+ for(let i=0;i<=4;i++){const v=y1*i/4,y=py(v);s+=`<line x1="${l}" y1="${y}" x2="${W-r}" y2="${y}" stroke="#e1e9f0"/><text x="${l-7}" y="${y+4}" font-size="10.5" fill="#7589a0" text-anchor="end" direction="ltr">${sh(v)}</text>`}
+ const nt=5;for(let i=0;i<nt;i++){const v=lg?Math.exp(Math.log(x0)+(Math.log(x1)-Math.log(x0))*i/(nt-1)):x0+(x1-x0)*i/(nt-1);s+=`<text x="${px(v)}" y="${Hh-22}" font-size="10.5" fill="#7589a0" text-anchor="middle" direction="ltr">${sh(v)}</text>`}
+ const ok=pts.filter(p=>Number.isFinite(p.y));
+ if(ok.length>1){s+=`<path d="${ok.map((p,i)=>(i?'L':'M')+px(p.x).toFixed(1)+','+py(p.y).toFixed(1)).join(' ')} L${px(ok[ok.length-1].x)},${py(0)} L${px(ok[0].x)},${py(0)} Z" fill="url(#ca)"/><path d="${ok.map((p,i)=>(i?'L':'M')+px(p.x).toFixed(1)+','+py(p.y).toFixed(1)).join(' ')}" fill="none" stroke="#0a8f9c" stroke-width="2.8" stroke-linejoin="round" stroke-linecap="round"/>`}
+ if(o.cur!=null&&o.cur>=x0&&o.cur<=x1)s+=`<line x1="${px(o.cur)}" y1="${t}" x2="${px(o.cur)}" y2="${t+ih}" stroke="#e08a10" stroke-width="1.5" stroke-dasharray="5 4"/><text x="${px(o.cur)}" y="${t-4}" font-size="10.5" fill="#b9690a" text-anchor="middle">مقدار فعلی</text>`;
+ s+=`<text x="${(l+W-r)/2}" y="${Hh-5}" font-size="11.5" fill="#41586d" text-anchor="middle">${o.xlabel}</text><text x="13" y="${t+ih/2}" font-size="12" fill="#41586d" text-anchor="middle" transform="rotate(-90 13 ${t+ih/2})" direction="ltr">λ = Pcr·L²/EI₀</text>`;
+ s+=`<g id="hov" style="display:none"><line id="hl" y1="${t}" y2="${t+ih}" stroke="#0f2236" stroke-width="1" stroke-dasharray="3 3"/><circle id="hc" r="5" fill="#fff" stroke="#0a8f9c" stroke-width="3"/></g>`;
+ return {svg:`<svg viewBox="0 0 ${W} ${Hh}" xmlns="http://www.w3.org/2000/svg">${s}</svg>`,px,py}}
+
+/* ===================== اصالت و نام تهیه‌کننده ===================== */
+const AUTHOR='کامبیز چراغی';
+const AUTHOR_EN='Kambiz Cheraghi';
+const KC_GLYPH='<svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#3a2205" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 21V4h16v17M4 12.5h16M12 4v17"/></svg>';
+const kcInner=()=>`<span class="kc-av">${KC_GLYPH}</span><span class="kc-tx"><small>طراحی و تهیه‌کننده</small><b>${esc(AUTHOR)}</b></span><span class="kc-en">${esc(AUTHOR_EN)}</span>`;
+const OWN_SALT='KC-column-lab-v1|';
+const OWN_ROUNDS=4000;
+const OWN_HASH='638a485483a6c0bb86faa920172217ede6281133df75063b1e3525dad678b25c';
+function sha256(str){
+ const K=[0x428a2f98,0x71374491,0xb5c0fbcf,0xe9b5dba5,0x3956c25b,0x59f111f1,0x923f82a4,0xab1c5ed5,0xd807aa98,0x12835b01,0x243185be,0x550c7dc3,0x72be5d74,0x80deb1fe,0x9bdc06a7,0xc19bf174,0xe49b69c1,0xefbe4786,0x0fc19dc6,0x240ca1cc,0x2de92c6f,0x4a7484aa,0x5cb0a9dc,0x76f988da,0x983e5152,0xa831c66d,0xb00327c8,0xbf597fc7,0xc6e00bf3,0xd5a79147,0x06ca6351,0x14292967,0x27b70a85,0x2e1b2138,0x4d2c6dfc,0x53380d13,0x650a7354,0x766a0abb,0x81c2c92e,0x92722c85,0xa2bfe8a1,0xa81a664b,0xc24b8b70,0xc76c51a3,0xd192e819,0xd6990624,0xf40e3585,0x106aa070,0x19a4c116,0x1e376c08,0x2748774c,0x34b0bcb5,0x391c0cb3,0x4ed8aa4a,0x5b9cca4f,0x682e6ff3,0x748f82ee,0x78a5636f,0x84c87814,0x8cc70208,0x90befffa,0xa4506ceb,0xbef9a3f7,0xc67178f2];
+ const b=new TextEncoder().encode(str),l=b.length,n=((l+9+63)>>6)<<6,m=new Uint8Array(n);m.set(b);m[l]=0x80;
+ const dv=new DataView(m.buffer);dv.setUint32(n-8,Math.floor(l*8/4294967296));dv.setUint32(n-4,(l*8)>>>0);
+ let h=[0x6a09e667,0xbb67ae85,0x3c6ef372,0xa54ff53a,0x510e527f,0x9b05688c,0x1f83d9ab,0x5be0cd19];const w=new Uint32Array(64);const R=(x,k)=>(x>>>k)|(x<<(32-k));
+ for(let o=0;o<n;o+=64){for(let i=0;i<16;i++)w[i]=dv.getUint32(o+i*4);
+  for(let i=16;i<64;i++){const s0=R(w[i-15],7)^R(w[i-15],18)^(w[i-15]>>>3),s1=R(w[i-2],17)^R(w[i-2],19)^(w[i-2]>>>10);w[i]=(w[i-16]+s0+w[i-7]+s1)>>>0}
+  let [a,b2,c,d,e,f,g,hh]=h;
+  for(let i=0;i<64;i++){const S1=R(e,6)^R(e,11)^R(e,25),ch=(e&f)^(~e&g),t1=(hh+S1+ch+K[i]+w[i])>>>0,S0=R(a,2)^R(a,13)^R(a,22),mj=(a&b2)^(a&c)^(b2&c),t2=(S0+mj)>>>0;hh=g;g=f;f=e;e=(d+t1)>>>0;d=c;c=b2;b2=a;a=(t1+t2)>>>0}
+  h=[(h[0]+a)>>>0,(h[1]+b2)>>>0,(h[2]+c)>>>0,(h[3]+d)>>>0,(h[4]+e)>>>0,(h[5]+f)>>>0,(h[6]+g)>>>0,(h[7]+hh)>>>0]}
+ return h.map(x=>x.toString(16).padStart(8,'0')).join('')}
+function ownHash(key){let v=sha256(OWN_SALT+AUTHOR+'|'+key);for(let i=0;i<OWN_ROUNDS;i++)v=sha256(v+'|'+OWN_SALT);return v}
+function ownVerify(key){const metaH=document.querySelector('meta[name="kc-seal"]')?.content;return ownHash(key.trim())===OWN_HASH&&metaH===OWN_HASH}
+function ownModal(){
+ $('modal-box').innerHTML=`<h3>تأیید اصالت فایل</h3><p style="color:#41586d;font-size:13px;margin:0 0 12px">این برنامه توسط <b>${AUTHOR}</b> تهیه شده است. صاحب اثر با وارد کردن رمز اختصاصی خود می‌تواند مالکیت این نسخه را اثبات کند. رمز در فایل ذخیره نشده و فقط اثر رمزگذاری‌شدهٔ آن در فایل هست.</p><div class="row"><label class="f"><span>رمز مالکیت</span><input id="own-key" type="password" autocomplete="off" spellcheck="false" style="direction:ltr"></label></div><div id="own-out" style="margin-top:10px;min-height:24px"></div><div class="sub"><button class="mini" data-act="own-check">بررسی</button><button class="mini" data-act="close">بستن</button></div>`;
+ $('modal').classList.add('on');setTimeout(()=>$('own-key')?.focus(),50)}
+function ownCheck(){const k=$('own-key').value;const out=$('own-out');if(!k){out.innerHTML='<span class="t-no">رمز را وارد کنید.</span>';return}
+ out.innerHTML='در حال بررسی…';setTimeout(()=>{out.innerHTML=ownVerify(k)?`<span class="t-ok">✓ رمز درست است؛ نام تهیه‌کننده (${AUTHOR}) در این فایل دست‌نخورده و متعلق به اوست.</span>`:'<span class="t-no">✗ رمز با این فایل نمی‌خواند، یا نام تهیه‌کننده/مهر فایل تغییر داده شده است.</span>'},30)}
+
+/* ===================== برنامه ===================== */
+const $=id=>document.getElementById(id);
+const esc=v=>String(v??'').replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
+const num=v=>{if(typeof v==='number')return Number.isFinite(v)?v:NaN;if(v==null)return NaN;const n=String(v).trim().replace(/[۰-۹]/g,c=>'۰۱۲۳۴۵۶۷۸۹'.indexOf(c)).replace(/[٠-٩]/g,c=>'٠١٢٣٤٥٦٧٨٩'.indexOf(c)).replace(/٫/g,'.').replace(/[,،]/g,'.');return n===''?NaN:Number(n)};
+const nz=(v,d)=>{const n=num(v);return Number.isFinite(n)?n:d};
+const fmt=(v,d=4)=>Number.isFinite(v)?new Intl.NumberFormat('en-US',{maximumFractionDigits:d}).format(v):'—';
+const getP=(o,p)=>p.split('.').reduce((a,k)=>a?.[k],o);
+const setP=(o,p,v)=>{const k=p.split('.'),l=k.pop();k.reduce((a,x)=>a[x],o)[l]=v};
+const COL=['#5b8dff','#2fc2b4','#b58cff'];
+
+const ENDS=[
+ {id:'free',t:'آزاد',lat:'none',rot:'none'},
+ {id:'pinned',t:'مفصل',lat:'fix',rot:'none'},
+ {id:'fixed',t:'گیردار',lat:'fix',rot:'fix'},
+ {id:'slider',t:'گیردار لغزنده',lat:'none',rot:'fix'},
+ {id:'rotspring',t:'مفصل + فنر دورانی',lat:'fix',rot:'spring',sp:1},
+ {id:'latspring',t:'فنر جانبی',lat:'spring',rot:'none',sp:1},
+ {id:'bothspring',t:'فنر جانبی + دورانی',lat:'spring',rot:'spring',sp:1},
+ {id:'beamB',t:'تیر متصل، قاب مهاربندی‌شده',lat:'fix',rot:'beam',sp:1,far:'braced'},
+ {id:'beamS',t:'تیر متصل، قاب بدون مهار',lat:'none',rot:'beam',sp:1,far:'sway'}];
+const MIDS=[
+ {id:'lateral',t:'مهار جانبی',lat:'fix',rot:'none'},
+ {id:'rot',t:'مهار دورانی',lat:'none',rot:'fix'},
+ {id:'fixed',t:'گیردار (جانبی و دورانی)',lat:'fix',rot:'fix'},
+ {id:'hinge',t:'مفصل داخلی',lat:'none',rot:'hinge'},
+ {id:'springY',t:'فنر جانبی',lat:'spring',rot:'none',sp:1},
+ {id:'springR',t:'فنر دورانی',lat:'none',rot:'spring',sp:1},
+ {id:'beam',t:'تیر متصل',lat:'none',rot:'beam',sp:1,far:'sway'}];
+const FAR={fixed:['سر دیگر تیر گیردار',4],pinned:['سر دیگر تیر مفصل',3],braced:['تیر پیوسته، قاب مهاربندی‌شده',2],sway:['تیر پیوسته، قاب بدون مهار',6]};
+const MODELS=[{id:'column',t:'ستون ساده',d:'مقطع ثابت یا چندپله',i:'col'},{id:'spring',t:'ستون با فنر و تیر',d:'فنر، تیر متصل، مفصل',i:'spr'},{id:'frame1',t:'قاب یک‌طبقه',d:'دو ستون و یک تیر',i:'f1'},{id:'frame2',t:'قاب دو‌طبقه',d:'دو ستون و دو تیر',i:'f2'}];
+const endData=()=>({kY:'20',kR:'5',beta:'1',rho:'1',far:'braced'});
+const initial=()=>({tab:'column',mode:'param',ver:2,segs:[{len:'1',a:'1',b:'1',lin:false}],bottom:'pinned',top:'pinned',ends:{bottom:endData(),top:endData()},mids:[],topQ:'1',loads:[],
+ fr:{h2:'1',bay:'1',c:['1','1'],bm:['1','1'],w:['1','1'],base:'fixed',baseK:'5',sway:'free',swayK:'20'},
+ L:'4',refMode:'EI',E:'200',I:'5000',EIref:'10000',springUnits:'dim',mesh:40,sw:{id:'',min:'',max:'',steps:24,log:false}});
+let S=initial(),res=null,err='',mi=0,anim=!matchMedia('(prefers-reduced-motion:reduce)').matches,curDiag=null,raf=0,sweepPts=[],swMeta=null;
+
+/* ---------- تبدیل ورودی‌ها به مدل عددی ---------- */
+function phys(S){const L=num(S.L),ei=S.refMode==='EI'?num(S.EIref):.01*num(S.E)*num(S.I);if(!(L>0&&ei>0))throw Error('طول و سختی مبنا (EI₀) باید عددی مثبت باشند.');return {L,ei}}
+function springK(v,kind,ph){const k=num(v);if(!(k>=0))throw Error('سختی فنر باید عددی بزرگ‌تر یا مساوی صفر باشد.');return(S.springUnits==='phys'&&ph)?(kind==='r'?k*ph.L/ph.ei:k*ph.L**3/ph.ei):k}
+function beamK(d){const b=num(d.beta),r=num(d.rho);if(!(b>=0))throw Error('سختی تیر (ضریب EI) باید نامنفی باشد.');if(!(r>0))throw Error('طول تیر باید مثبت باشد.');return FAR[d.far][1]*b/r}
+function supFrom(def,x,d,ph){let kY=0,kR=0,rot=def.rot;if(def.lat==='spring')kY=springK(d.kY,'y',ph);if(def.rot==='spring')kR=springK(d.kR,'r',ph);if(def.rot==='beam'){kR=beamK(d);rot='spring'}return {x,lat:def.lat,rot,kY,kR}}
+function colModel(S,ph){
+ const lens=S.segs.map(s=>num(s.len));if(lens.some(v=>!(v>0)))throw Error('طول همهٔ بخش‌ها باید عددی مثبت باشد.');
+ let c=0;
+ const segs=S.segs.map((s,i)=>{const a=num(s.a),b=s.lin?num(s.b):a;if(!(a>0&&b>0))throw Error(`سختی EI بخش ${i+1} باید عددی مثبت باشد.`);const st=c;c+=lens[i];return {s:st,e:c,a,b}});
+ const T=c;
+ const sup=[supFrom(ENDS.find(e=>e.id===S.bottom),0,S.ends.bottom,ph),supFrom(ENDS.find(e=>e.id===S.top),T,S.ends.top,ph)];
+ for(const p of S.mids){const x=num(p.x);if(!(x>0&&x<T))throw Error('محل نقاط میانی باید بین ۰ و طول کل ستون ('+sh(T)+' L) باشد.');sup.push(supFrom(MIDS.find(m=>m.id===p.type),x,p,ph))}
+ const topQ=num(S.topQ);if(!(topQ>=0))throw Error('ضریب بار سر ستون باید عددی نامنفی باشد.');
+ const loads=S.loads.map(l=>{const x=num(l.x),q=num(l.q);if(!(x>0&&x<T))throw Error('محل بار میانی باید بین ۰ و طول کل ستون ('+sh(T)+' L) باشد.');if(!(q>=0))throw Error('ضریب بار میانی باید عددی نامنفی باشد.');return {x,q}});
+ if(!(topQ+loads.reduce((s,l)=>s+l.q,0)>0))throw Error('دست‌کم یکی از بارها باید بیشتر از صفر باشد.');
+ return {segs,sup,loads,topQ,T}}
+function frameModel(S,ph){
+ const fr=S.fr,ns=S.tab==='frame1'?1:2,P=(v,t,strict=true)=>{const x=num(v);if(!(strict?x>0:x>=0))throw Error(t+' باید عددی '+(strict?'مثبت':'نامنفی')+' باشد.');return x};
+ const h=[1];if(ns>1)h.push(P(fr.h2,'نسبت ارتفاع طبقهٔ دوم به اول'));const B=P(fr.bay,'عرض دهانه');const c=[],bm=[],w=[];
+ for(let i=0;i<ns;i++){c.push(P(fr.c[i],`سختی ستون‌های طبقهٔ ${i+1}`));bm.push(P(fr.bm[i],`سختی تیر طبقهٔ ${i+1}`,false));w.push(P(fr.w[i],`ضریب بار طبقهٔ ${i+1}`,false))}
+ if(!w.some(x=>x>0))throw Error('دست‌کم بار یکی از طبقات باید بیشتر از صفر باشد.');
+ const kr=v=>{const k=num(v);if(!(k>=0))throw Error('سختی فنر باید نامنفی باشد.');return(S.springUnits==='phys'&&ph)?k*ph.L/ph.ei:k},ky=v=>{const k=num(v);if(!(k>=0))throw Error('سختی فنر باید نامنفی باشد.');return(S.springUnits==='phys'&&ph)?k*ph.L**3/ph.ei:k};
+ return {h,B,c,bm,w,base:fr.base,baseK:fr.base==='spring'?kr(fr.baseK):0,sway:fr.sway,swayK:fr.sway==='spring'?ky(fr.swayK):0}}
+function analyticRef(S){if(S.loads.length||num(S.topQ)!==1||S.mids.length||S.segs.length!==1||S.segs[0].lin)return null;
+ const l=num(S.segs[0].len),a=num(S.segs[0].a);if(!(l>0&&a>0))return null;
+ const T={'pinned|pinned':[PI**2,'π²'],'fixed|fixed':[4*PI**2,'4π²'],'fixed|free':[PI**2/4,'π²/4'],'fixed|pinned':[20.1907285568,'20.19'],'fixed|slider':[PI**2,'π²'],'pinned|slider':[PI**2/4,'π²/4']};
+ const t=T[[S.bottom,S.top].sort().join('|')];if(!t)return null;const k=a/(l*l);return {lam:t[0]*k,f:Math.abs(k-1)<1e-12?t[1]:t[1]+' × '+fmt(k,4)}}
+
+const totLen=X=>X.tab.startsWith('frame')?1:(X.segs.reduce((a,s)=>a+(nz(s.len,0)>0?nz(s.len,0):0),0)||1);
+const midDef=()=>String(+(totLen(S)/2).toFixed(3));
+function compute(S){
+ const numeric=S.mode==='numeric',ph=numeric?phys(S):null,frame=S.tab.startsWith('frame');
+ const m1=S.mesh,m2=Math.round(S.mesh*1.7);let r1,r2,model;
+ if(!frame){model=colModel(S,ph);r1=colModes(model,m1,3);if(r1.mech)return {mech:true};r2=colModes(model,m2,3)}
+ else{model=frameModel(S,ph);r1=frameModes(model,m1,3);if(r1.mech)return {mech:true};r2=frameModes(model,m2,3)}
+ if(r2.mech)return {mech:true};
+ const lam=r2.lam,e=Math.abs(r1.lam[0]-lam[0])/lam[0]*100;
+ const modes=lam.map((l,i)=>({lam:l,P:ph?l*ph.ei/ph.L**2:null,shape:frame?sampleFrame(r2.M,r2.full[i]):sampleColumn(r2.M,r2.full[i])}));
+ return {frame,ph,lam,err:e,modes,model,elements:(frame?r2.M.ys.length-1:r2.M.xs.length-1)*(frame?2:1),analytic:frame?null:analyticRef(S),T:frame?1:model.T}}
+function lamFast(S){const ph=S.mode==='numeric'?phys(S):null;const frame=S.tab.startsWith('frame');const r=frame?frameModes(frameModel(S,ph),24,1):colModes(colModel(S,ph),24,1);return r.mech?0:r.lam[0]}
+
+/* ---------- مشخصات ترسیم (بدون خطا) ---------- */
+function dispSup(def,d){const ph=S.springUnits==='phys'&&S.mode==='numeric';return {lat:def.lat,rot:def.rot,txtY:def.lat==='spring'?(ph?'k = ':'κ = ')+sh(nz(d.kY,0)):'',txtR:def.rot==='spring'?(ph?'k = ':'κ = ')+sh(nz(d.kR,0)):'',beta:nz(d.beta,1),rho:nz(d.rho,1),far:d.far||'fixed'}}
+function makeSpec(){
+ if(S.tab.startsWith('frame')){const fr=S.fr,ns=S.tab==='frame1'?1:2;
+  return {frame:true,h:[1,...(ns>1?[Math.max(.2,nz(fr.h2,1))]:[])],B:Math.max(.2,nz(fr.bay,1)),c:[0,1].slice(0,ns).map(i=>nz(fr.c[i],1)),bm:[0,1].slice(0,ns).map(i=>nz(fr.bm[i],1)),w:[0,1].slice(0,ns).map(i=>nz(fr.w[i],1)),base:fr.base,sway:fr.sway,baseTxt:fr.base==='spring'?'κ = '+sh(nz(fr.baseK,0)):'',swayTxt:''}}
+ const lens=S.segs.map(s=>Math.max(nz(s.len,1),1e-6));let c=0;
+ const segs=S.segs.map((s,i)=>{const a=Math.max(nz(s.a,1),.05),b=s.lin?Math.max(nz(s.b,1),.05):a,st=c;c+=lens[i];return {s:st,e:c,a,b,lin:s.lin&&a!==b}});const T=c;
+ return {frame:false,T,segs,bottom:dispSup(ENDS.find(e=>e.id===S.bottom),S.ends.bottom),top:dispSup(ENDS.find(e=>e.id===S.top),S.ends.top),mids:S.mids.map(p=>({x:clamp(nz(p.x,T/2),.01*T,.99*T),sp:dispSup(MIDS.find(m=>m.id===p.type),p)})),topQ:nz(S.topQ,1),loads:S.loads.map(l=>({x:clamp(nz(l.x,T/2),.01*T,.99*T),q:Math.max(0,nz(l.q,1))}))}}
+
+/* ---------- ورودی‌ها ---------- */
+const fld=(label,path,val,o={})=>`<label class="f ${o.cls||''}"><span>${label}${o.u?` <span class="u">${o.u}</span>`:''}</span><input data-p="${path}" value="${esc(val)}" inputmode="decimal" autocomplete="off" spellcheck="false"></label>`;
+const sel=(label,path,val,opts,r=1)=>`<label class="f"><span>${label}</span><select data-p="${path}" ${r?'data-r="1"':''}>${opts.map(([v,t])=>`<option value="${v}" ${v===val?'selected':''}>${t}</option>`).join('')}</select></label>`;
+const card=(n,t,h,b)=>`<section><div class="hd"><span class="n">${n}</span><h2>${t}</h2>${h?`<span class="hint">${h}</span>`:''}</div>${b}</section>`;
+const tog=(path,val,opts)=>`<div class="tog">${opts.map(([v,t])=>`<button data-act="set" data-p="${path}" data-v="${v}" class="${val===v?'on':''}">${t}</button>`).join('')}</div>`;
+function springField(label,path,val,kind){const ph=S.springUnits==='phys'&&S.mode==='numeric';return fld(label,path,val,{u:ph?(kind==='r'?'kN·m/rad':'kN/m'):'(بی‌بعد κ)'})}
+function beamFields(pre,d){return fld('سختی تیر',pre+'.beta',d.beta,{u:'× EI ستون'})+fld('طول تیر',pre+'.rho',d.rho,{u:'× طول ستون'})+sel('اتصال سر دیگر تیر',pre+'.far',d.far,Object.entries(FAR).map(([k,v])=>[k,v[0]+' (ضریب '+v[1]+')']),1)}
+function endBox(w){const list=ENDS.filter(e=>S.tab==='spring'||!e.sp),cur=ENDS.find(e=>e.id===S[w]),d=S.ends[w],pre='ends.'+w;let p='';
+ if(cur.lat==='spring')p+=springField('سختی فنر جانبی',pre+'.kY',d.kY,'y');if(cur.rot==='spring')p+=springField('سختی فنر دورانی',pre+'.kR',d.kR,'r');if(cur.rot==='beam')p+=beamFields(pre,d);
+ return `<div class="endbox"><h3>${w==='bottom'?'پایین ستون':'بالای ستون'}</h3><div class="opts">${list.map(e=>`<button class="opt ${e.id===S[w]?'on':''}" data-act="end" data-w="${w}" data-v="${e.id}">${endIcon({lat:e.lat,rot:e.rot,beta:1,rho:1,far:e.far||'fixed'},w==='bottom'?'bottom':'side')}<span>${e.t}</span></button>`).join('')}</div>${p?`<div class="row">${p}</div>`:''}</div>`}
+function midRow(p,i){const list=MIDS.filter(m=>S.tab==='spring'||!m.sp),pre=`mids.${i}`;let ex='';
+ if(p.type==='springY')ex=springField('سختی فنر جانبی',pre+'.kY',p.kY,'y');if(p.type==='springR')ex=springField('سختی فنر دورانی',pre+'.kR',p.kR,'r');if(p.type==='beam')ex=beamFields(pre,p);
+ return `<div class="mid">${fld('محل از پایین',pre+'.x',p.x,{cls:'xs',u:'× L'})}${sel('نوع',pre+'.type',p.type,list.map(m=>[m.id,m.t]))}${ex}<button class="x" data-act="delmid" data-i="${i}" aria-label="حذف">×</button></div>`}
+function segCard(){
+ return card(1,'مقطع ستون','از پایین به بالا',
+  S.segs.map((s,i)=>`<div class="seg" style="--c:${COL[i%3]}"><span class="sn">${i+1}</span>${fld('طول بخش',`segs.${i}.len`,s.len,{u:'× L',cls:'xs'})}<span class="rng" data-rng="${i}"></span>${fld(s.lin?'EI در شروع':'سختی EI',`segs.${i}.a`,s.a,{u:'× EI₀',cls:'xs'})}${s.lin?fld('EI در پایان',`segs.${i}.b`,s.b,{u:'× EI₀',cls:'xs'}):''}<label class="chk"><input type="checkbox" data-p="segs.${i}.lin" ${s.lin?'checked':''}>تغییر تدریجی (مخروطی)</label></div>`).join('')+
+  `<div class="sub"><button class="mini" data-act="addseg" ${S.segs.length>=3?'disabled':''}>+ افزودن بخش</button><button class="mini" data-act="delseg" ${S.segs.length<=1?'disabled':''}>− حذف آخرین بخش</button><span class="tot" id="totlen"></span></div><div class="note">L طول مرجع است و جواب بر حسب آن گزارش می‌شود. طول هر بخش را مضربی از L بنویسید؛ مثلاً بخش پایین ۳ و بخش بالا ۲ یعنی ستونی به طول کل ۵L. بازهٔ هر بخش (از پایین ستون) کنار آن نوشته می‌شود. سختی‌ها هم ضریبی از EI₀ هستند؛ مثلاً ۲ یعنی دو برابر مقطع مبنا.</div>`)}
+function supCard(){return card(2,'تکیه‌گاه دو سر ستون',S.tab==='spring'?'فنر و تیر متصل هم موجود است':'',`<div class="ends">${endBox('bottom')}${endBox('top')}</div>`)}
+function midCard(){const adds=S.tab==='spring'?[['lateral','+ مهار جانبی'],['hinge','+ مفصل داخلی'],['springY','+ فنر جانبی'],['springR','+ فنر دورانی'],['beam','+ تیر متصل']]:[['lateral','+ مهار جانبی'],['rot','+ مهار دورانی'],['hinge','+ مفصل داخلی']];
+ return card(3,'نقاط میانی','اختیاری · محل را از پایین ستون و بر حسب L بنویسید',(S.mids.length?S.mids.map(midRow).join(''):'<div class="empty">هنوز نقطهٔ میانی ندارید. برای اضافه کردن، یکی از دکمه‌های زیر را بزنید.</div>')+`<div class="sub">${adds.map(([t,l])=>`<button class="chip add" data-act="addmid" data-v="${t}">${l}</button>`).join('')}</div>`+(S.mids.some(m=>m.type==='hinge')?'<div class="note warn">مفصل داخلی فقط دوران دو طرف را از هم جدا می‌کند و به‌تنهایی تکیه‌گاه نیست؛ برای مفصلِ متکی، در همان محل یک «مهار جانبی» هم اضافه کنید.</div>':''))}
+function loadCard(){
+ const rows=S.loads.map((l,i)=>`<div class="mid">${fld('محل بار از پایین',`loads.${i}.x`,l.x,{cls:'xs',u:'× L'})}${fld('اندازهٔ بار',`loads.${i}.q`,l.q,{u:'× P'})}<button class="x" data-act="delload" data-i="${i}" aria-label="حذف">×</button></div>`).join('');
+ return card(4,'بار محوری','فشاری، در امتداد محور ستون',`<div class="row">${fld('بار سر ستون',`topQ`,S.topQ,{u:'× P'})}</div>`+(S.loads.length?rows:'<div class="empty">فقط بار سر ستون دارید. برای بار در میانهٔ ستون، دکمهٔ زیر را بزنید.</div>')+`<div class="sub"><button class="chip add" data-act="addload">+ بار در میانهٔ ستون</button></div><div class="note">P بار مرجع است و جواب بر حسب آن گزارش می‌شود. ستون زیر هر بار، مجموع بارهای بالاتر را تحمل می‌کند؛ مثلاً بار سر ستون ۱×P و بار میانی ۲×P یعنی نیمهٔ پایین ۳P را حس می‌کند. برای بار صفر در سر ستون، عدد ۰ بزنید.</div>`)}
+function frameCard(){const fr=S.fr,two=S.tab==='frame2';
+ const a=card(1,'شکل قاب','همهٔ ابعاد نسبت به ارتفاع طبقهٔ اول',`<div class="row">${fld('عرض دهانه B',`fr.bay`,fr.bay,{u:'× h₁'})}${two?fld('ارتفاع طبقهٔ دوم',`fr.h2`,fr.h2,{u:'× h₁'}):''}</div>`);
+ const rows=[0,1].slice(0,two?2:1).map(i=>`<div class="seg" style="--c:${COL[i]}"><span class="sn">${i+1}</span><span class="pct" style="min-width:70px">طبقهٔ ${i+1}</span>${fld('سختی هر ستون',`fr.c.${i}`,fr.c[i],{u:'× EI₀'})}${fld('سختی تیر بالای طبقه',`fr.bm.${i}`,fr.bm[i],{u:'× EI₀'})}</div>`).join('');
+ const b=card(2,'سختی اعضا','ضریبی از EI₀',rows+`<div class="note">EI₀ سختی خمشی مبنا است (مثلاً ستون طبقهٔ اول). اگر همهٔ ضرایب ۱ باشند، تیرها و ستون‌ها یک‌سان‌اند.</div>`);
+ const loads=[0,1].slice(0,two?2:1).map(i=>fld(`بار هر ستون در تراز ${i+1}`,`fr.w.${i}`,fr.w[i],{u:'× P'})).join('');
+ const c=card(3,'بار و تکیه‌گاه','',`<div class="row">${loads}</div><div class="note" style="margin-top:8px">بار هر طبقه روی هر ستون برابر ضریب × P است؛ ستون‌های پایین بار طبقات بالا را هم تحمل می‌کنند. نتیجه بر حسب P گزارش می‌شود.</div>
+ <div class="f" style="margin-top:14px"><span>پایهٔ ستون‌ها</span>${tog('fr.base',fr.base,[['fixed','گیردار'],['pinned','مفصل'],['spring','فنر دورانی']])}</div>${fr.base==='spring'?`<div class="row" style="margin-top:8px">${springField('سختی فنر دورانی پایه','fr.baseK',fr.baseK,'r')}</div>`:''}
+ <div class="f" style="margin-top:14px"><span>حرکت جانبی قاب</span>${tog('fr.sway',fr.sway,[['free','آزاد (بدون مهار)'],['braced','مهاربندی‌شده'],['spring','مهار نیمه‌صلب با فنر']])}</div>${fr.sway==='spring'?`<div class="row" style="margin-top:8px">${springField('سختی فنر جانبی هر تراز','fr.swayK',fr.swayK,'y')}</div>`:''}`);
+ return a+b+c}
+function modeCard(n){const num_=S.mode==='numeric',hasSp=S.tab==='spring'||S.tab.startsWith('frame');const lab=S.tab.startsWith('frame')?'ارتفاع طبقهٔ اول h₁':'طول مرجع L';
+ return card(n,'نمایش نتیجه','',tog('mode',S.mode,[['param','ضریب بی‌بعد λ'],['numeric','بار واقعی (کیلونیوتن)']])+
+ (num_?`<div class="row" style="margin-top:12px">${fld(lab,'L',S.L,{u:'متر'})}${sel('سختی خمشی مبنا','refMode',S.refMode,[['EI','EI₀ را مستقیم وارد می‌کنم'],['E-I','از E و I حساب شود']])}${S.refMode==='EI'?fld('EI₀','EIref',S.EIref,{u:'kN·m²'}):fld('مدول E','E',S.E,{u:'GPa'})+fld('ممان اینرسی I₀','I',S.I,{u:'cm⁴'})}</div>${hasSp?`<div class="f" style="margin-top:12px"><span>واحد سختی فنرها</span>${tog('springUnits',S.springUnits,[['dim','بی‌بعد κ'],['phys','واقعی (kN/m و kN·m/rad)']])}</div>`:''}`:`<div class="note">فقط نسبت‌ها لازم است؛ هیچ مقدار واقعی لازم نیست. جواب به شکل <b dir="ltr">Pcr = λ · EI₀ / L²</b> نمایش داده می‌شود و هر وقت خواستید به حالت «بار واقعی» بروید.</div>`)+
+ `<details class="adv"><summary>تنظیمات بیشتر</summary><div class="row" style="margin-top:10px">${sel('دقت محاسبه','mesh',String(S.mesh),[['24','سریع'],['40','متعادل'],['64','دقیق'],['96','بسیار دقیق']],0)}</div><div class="sub"><button class="mini" data-act="export-json">ذخیرهٔ مدل</button><button class="mini" data-act="import-json">بازکردن مدل</button><input type="file" id="import-file" accept=".json,application/json" hidden></div></details>`)}
+
+/* ---------- مطالعهٔ پارامتری ---------- */
+function sweepables(){const L=[],fr=S.tab.startsWith('frame'),T=totLen(S);
+ if(!fr){S.segs.forEach((s,i)=>{L.push({label:`سختی EI بخش ${i+1} (× EI₀)`,path:`segs.${i}.a`,also:s.lin?null:`segs.${i}.b`,range:[.25,4],xl:`EI بخش ${i+1} / EI₀`});L.push({label:`طول بخش ${i+1} (× L)`,path:`segs.${i}.len`,range:[.25,4],xl:`طول بخش ${i+1} / L`})});
+  const add=(pre,d,def,name)=>{if(def.lat==='spring')L.push({label:`فنر جانبی ${name} (κ)`,path:pre+'.kY',range:[.1,1000],log:true,xl:`κ فنر جانبی ${name}`});if(def.rot==='spring')L.push({label:`فنر دورانی ${name} (κ)`,path:pre+'.kR',range:[.1,1000],log:true,xl:`κ فنر دورانی ${name}`});if(def.rot==='beam'){L.push({label:`سختی تیر ${name} (β)`,path:pre+'.beta',range:[.1,10],log:true,xl:`β = EI تیر ${name} / EI ستون`});L.push({label:`طول تیر ${name} (ρ)`,path:pre+'.rho',range:[.25,4],xl:`ρ = طول تیر ${name} / طول ستون`})}};
+  add('ends.bottom',S.ends.bottom,ENDS.find(e=>e.id===S.bottom),'پایین');add('ends.top',S.ends.top,ENDS.find(e=>e.id===S.top),'بالا');
+  L.push({label:'بار سر ستون (× P)',path:'topQ',range:[0,2],xl:'بار سر ستون / P'});S.loads.forEach((l,i)=>{L.push({label:`اندازهٔ بار میانی ${i+1} (× P)`,path:`loads.${i}.q`,range:[0,4],xl:`بار میانی ${i+1} / P`});L.push({label:`محل بار میانی ${i+1} (× L)`,path:`loads.${i}.x`,range:[.05*T,.95*T],xl:`x (× L) · بار ${i+1}`})});
+  S.mids.forEach((p,i)=>{L.push({label:`محل نقطهٔ میانی ${i+1} (× L)`,path:`mids.${i}.x`,range:[.05*T,.95*T],xl:`x (× L) · نقطهٔ ${i+1}`});add(`mids.${i}`,p,MIDS.find(m=>m.id===p.type),`میانی ${i+1}`)})}
+ else{const two=S.tab==='frame2',f=S.fr;for(let i=0;i<(two?2:1);i++){L.push({label:`سختی تیر طبقهٔ ${i+1} (× EI₀)`,path:`fr.bm.${i}`,range:[.1,10],log:true,xl:`EI تیر طبقهٔ ${i+1} / EI₀`})}
+  for(let i=0;i<(two?2:1);i++)L.push({label:`سختی ستون طبقهٔ ${i+1} (× EI₀)`,path:`fr.c.${i}`,range:[.25,4],xl:`EI ستون طبقهٔ ${i+1} / EI₀`});
+  L.push({label:'عرض دهانه (× h₁)',path:'fr.bay',range:[.5,3],xl:'B / h₁'});if(two)L.push({label:'ارتفاع طبقهٔ دوم (× h₁)',path:'fr.h2',range:[.5,2],xl:'h₂ / h₁'});
+  for(let i=0;i<(two?2:1);i++)L.push({label:`ضریب بار طبقهٔ ${i+1}`,path:`fr.w.${i}`,range:[0,2],xl:`ضریب بار طبقهٔ ${i+1}`});
+  if(f.base==='spring')L.push({label:'فنر دورانی پایه (κ)',path:'fr.baseK',range:[.1,1000],log:true,xl:'κ فنر پایه'});if(f.sway==='spring')L.push({label:'فنر جانبی هر تراز (κ)',path:'fr.swayK',range:[.1,1000],log:true,xl:'κ فنر جانبی'})}
+ return L}
+function swCard(){const L=sweepables();const sw=S.sw;let d=L.find(x=>x.path===sw.id);if(!d){d=L[0];sw.id=d.path;sw.min=String(d.range[0]);sw.max=String(d.range[1]);sw.log=!!d.log}
+ swMeta=d;
+ return `<section id="swcard"><div class="hd"><span class="n">★</span><h2>مطالعهٔ پارامتری</h2><span class="hint">ببینید با تغییر یک پارامتر، بار کمانشی چطور عوض می‌شود</span></div>
+ <div class="row">${`<label class="f" style="flex:2 1 220px"><span>پارامتر مورد بررسی</span><select data-sw="id">${L.map(x=>`<option value="${x.path}" ${x.path===sw.id?'selected':''}>${x.label}</option>`).join('')}</select></label>`}
+ <label class="f xs"><span>از</span><input data-sw="min" value="${esc(sw.min)}" inputmode="decimal"></label><label class="f xs"><span>تا</span><input data-sw="max" value="${esc(sw.max)}" inputmode="decimal"></label>
+ <label class="f xs"><span>مقیاس</span><select data-sw="log"><option value="0" ${sw.log?'':'selected'}>خطی</option><option value="1" ${sw.log?'selected':''}>لگاریتمی</option></select></label></div>
+ <div class="chartbox" id="chartbox"></div><div class="sub"><span id="swinfo" class="note" style="margin:0;flex:1"></span><button class="mini" data-act="csv">دانلود CSV</button></div></section>`}
+let swTimer=0;function scheduleSweep(){clearTimeout(swTimer);swTimer=setTimeout(runSweep,140)}
+function runSweep(){const box=$('chartbox');if(!box||!swMeta)return;const sw=S.sw,d=swMeta;let a=num(sw.min),b=num(sw.max);const n=24;
+ if(!(Number.isFinite(a)&&Number.isFinite(b)&&b>a)){box.innerHTML='';$('swinfo').textContent='بازهٔ «از» و «تا» را درست وارد کنید (تا باید بزرگ‌تر از از باشد).';sweepPts=[];return}
+ if(sw.log&&a<=0){box.innerHTML='';$('swinfo').textContent='در مقیاس لگاریتمی، مقدار «از» باید بزرگ‌تر از صفر باشد.';sweepPts=[];return}
+ const pts=[];let fail=0,msg='';
+ for(let i=0;i<n;i++){const t=i/(n-1),x=sw.log?Math.exp(Math.log(a)+(Math.log(b)-Math.log(a))*t):a+(b-a)*t;const S2=JSON.parse(JSON.stringify(S));setP(S2,d.path,String(x));if(d.also)setP(S2,d.also,String(x));let y=NaN;try{y=lamFast(S2)}catch(e){msg=e.message}if(!(y>0)){fail++;y=NaN}pts.push({x,y,T:totLen(S2)})}
+ sweepPts=pts;const ok=pts.filter(p=>Number.isFinite(p.y));
+ if(ok.length<2){box.innerHTML='';$('swinfo').textContent=msg||'در این بازه مدل ناپایدار است؛ بازهٔ دیگری را امتحان کنید.';return}
+ const ch=chartSVG(pts,{log:sw.log,xlabel:d.xl,cur:nz(getP(S,d.path),null)});box.innerHTML=ch.svg+'<div class="tip" id="tip"></div>';
+ const mn=Math.min(...ok.map(p=>p.y)),mx=Math.max(...ok.map(p=>p.y));
+ $('swinfo').textContent=`λ از ${fmt(mn,3)} تا ${fmt(mx,3)} تغییر می‌کند${fail?` · در ${fail} نقطه مدل ناپایدار بود`:''}. نشانگر را روی نمودار حرکت دهید.`;
+ const svg=box.querySelector('svg'),tip=$('tip');
+ const move=e=>{const r=svg.getBoundingClientRect(),X=(e.clientX-r.left)/r.width*520;let best=null,bd=1e9;for(const p of ok){const d2=Math.abs(ch.px(p.x)-X);if(d2<bd){bd=d2;best=p}}
+  if(!best)return;const h=svg.querySelector('#hov');h.style.display='';const x=ch.px(best.x),y=ch.py(best.y);svg.querySelector('#hl').setAttribute('x1',x);svg.querySelector('#hl').setAttribute('x2',x);const c=svg.querySelector('#hc');c.setAttribute('cx',x);c.setAttribute('cy',y);
+  const P=res&&res.ph?` · Pcr = ${fmt(best.y*res.ph.ei/res.ph.L**2,2)} kN`:'';tip.textContent=`${fmt(best.x,3)} → λ = ${fmt(best.y,4)} · K = ${fmt(PI/(best.T*Math.sqrt(best.y)),3)}${P}`;tip.style.display='block';tip.style.left=(x/520*r.width)+'px';tip.style.top=(y/290*r.height)+'px'};
+ svg.addEventListener('pointermove',move);svg.addEventListener('pointerleave',()=>{svg.querySelector('#hov').style.display='none';tip.style.display='none'})}
+
+function renderInputs(){
+ $('models').innerHTML=MODELS.map(m=>`<button class="model ${S.tab===m.id?'on':''}" data-act="tab" data-v="${m.id}">${modelIcon(m.i)}<span><b>${m.t}</b><small>${m.d}</small></span></button>`).join('');
+ const fr=S.tab.startsWith('frame');
+ $('inputs').innerHTML=(fr?frameCard()+modeCard(4):segCard()+supCard()+midCard()+loadCard()+modeCard(5))+swCard();
+ updatePct();scheduleSweep()}
+function updatePct(){let c=0,ok=true;S.segs.forEach((s,i)=>{const l=nz(s.len,NaN),el=document.querySelector(`[data-rng="${i}"]`);if(!(l>0)){ok=false;if(el)el.textContent='';return}const a=c;c+=l;if(el)el.innerHTML=`از <b>${sh(a)}</b> تا <b>${sh(c)}</b> L`});const t=$('totlen');if(t)t.innerHTML=ok?`طول کل ستون: <b dir="ltr">${sh(c)} L</b>`:''}
+/* ---------- خروجی ---------- */
+const MODELNAME={column:'ستون ساده',spring:'ستون با فنر و تیر',frame1:'قاب یک‌طبقه',frame2:'قاب دو‌طبقه'};
+function status(cls,t){$('status-wrap').innerHTML=t?`<div class="status ${cls}">${t}</div>`:''}
+function calc(){
+ try{res=compute(S);err=''}catch(e){res=null;err=e.message||String(e)}
+ if(res&&res.mech){status('bad','مدل ناپایدار است: تکیه‌گاه‌ها کافی نیستند و سازه پیش از اعمال بار هم می‌تواند حرکت کند. یک تکیه‌گاه، مهار یا فنر اضافه کنید.');}
+ else if(err)status('bad',esc(err));else status('ok',res.err>.5?`نتیجه محاسبه شد؛ اختلاف دو شبکه ${fmt(res.err,3)}٪ است و دقت را از «تنظیمات بیشتر» بالا ببرید.`:'محاسبه شد · دقت عددی عالی');
+ if(res&&!res.mech&&mi>=res.lam.length)mi=0;
+ renderSheet();renderBelow();scheduleSweep()}
+let calcTimer=0;const scheduleCalc=()=>{clearTimeout(calcTimer);calcTimer=setTimeout(calc,70)};
+function renderSheet(){
+ $('sheet-title').textContent=MODELNAME[S.tab];const ok=res&&!res.mech;
+ $('modes').innerHTML=ok&&res.lam.length>1?res.lam.map((l,i)=>`<button data-act="mode" data-i="${i}" class="${i===mi?'on':''}" title="λ = ${fmt(l,4)}">مود ${i+1}</button>`).join(''):'';
+ const spec=makeSpec();if(ok)spec.shape=res.modes[mi].shape;
+ curDiag=spec.frame?frameDiagram(spec):columnDiagram(spec);$('dg').innerHTML=curDiag.markup;
+ $('play').style.display=ok?'':'none';$('play').textContent=anim?'توقف انیمیشن':'پخش انیمیشن';
+ curDiag.update(1);startAnim();$('tb').innerHTML=ok?tbHTML():'';
+ const t=ok?(res.ph?fmt(res.modes[0].P,2)+' kN':'λ = '+fmt(res.lam[0],4)):'—';$('mbar-t').innerHTML=ok?`Pcr = <b>${t}</b>`:'—'}
+function startAnim(){cancelAnimationFrame(raf);raf=0;if(!anim||!res||res.mech)return;const loop=t=>{if(!anim||!curDiag)return;curDiag.update(Math.sin(t/1000*2.6));raf=requestAnimationFrame(loop)};raf=requestAnimationFrame(loop)}
+const Keq=l=>PI/((res&&res.T||1)*Math.sqrt(l));
+function tbHTML(){const m=res.modes[mi],l=m.lam,K=Keq(l),T=res.T||1;
+ const sym='<span class="sym">P<sub>cr</sub></span><span class="sym">=</span>';let big,eq='',note='';
+ if(res.ph){big=sym+`<b>${fmt(m.P,3)}</b><span class="un">kN</span>`;eq=`= ${fmt(l,5)} × EI₀ / L²  ·  EI₀ = ${fmt(res.ph.ei,5)} kN·m²  ·  L = ${fmt(res.ph.L,4)} m`}
+ else big=sym+`<b>${fmt(l,5)}</b><span class="un">EI₀ / L²</span>`;
+ if(res.frame&&!res.ph)note='P بارِ هر ستون در بالاترین تراز است.';
+ if(!res.frame&&(S.loads.length||num(S.topQ)!==1))note+=`P بار مرجع است؛ بار سر ستون ${esc(S.topQ)}×P${S.loads.length?' و '+S.loads.length+' بار میانی':''}.`;
+ const st=(a,b,c='')=>`<div class="st ${c}"><span>${a}</span><b>${b}</b></div>`;
+ let rows=st('ضریب طول مؤثر K',fmt(K,3),'hi');
+ if(!res.frame)rows+=st('طول کل ستون',sh(T)+' L');
+ rows+=st(res.frame?'نسبت به مفصل–مفصل':'نسبت به مفصل–مفصل هم‌طول',fmt(l*T*T/PI**2,3)+' ×');
+ if(res.frame)rows+=st('نوع مود',`<span style="display:inline;color:#fff;font-size:13px;direction:rtl">${m.shape.sway>.35?'جابه‌جایی جانبی':'بدون جابه‌جایی جانبی'}</span>`);
+ else if(res.analytic&&mi===0)rows+=st(`جواب دقیق (${res.analytic.f})`,fmt(res.analytic.lam,5));
+ rows+=st('اختلاف دو شبکه',fmt(res.err,4)+'٪');
+ const pos=clamp((K-.4)/3,0,1)*100,tk=(v,l)=>`<span style="position:absolute;left:${(v-.4)/3*100}%;transform:translateX(-50%);white-space:nowrap">${l}</span>`;
+ return `<div class="res"><div class="res-top"><span class="res-tag">بار کمانشی بحرانی</span><span class="res-mode">${mi?'مود '+(mi+1):'مود اول'}</span></div><div class="pcr">${big}</div>${eq?`<div class="pcr-eq">${eq}</div>`:''}${note?`<div class="res-note">${note}</div>`:''}</div><div class="stats">${rows}</div><div class="gauge"><div class="gt">جایگاه K روی مقیاس (K=1 مفصل–مفصل · K=2 طره)</div><div class="g"><i style="left:${pos}%"></i></div><div class="t" style="position:relative;height:16px">${tk(.5,'0.5')}${tk(1,'1')}${tk(2,'2')}${tk(3,'3')}</div></div>`}
+function describe(){const L=[];
+ if(S.tab.startsWith('frame')){const f=S.fr,two=S.tab==='frame2';L.push(`قاب ${two?'دوطبقه':'یک‌طبقه'} با عرض دهانه ${f.bay}×h₁${two?` و ارتفاع طبقهٔ دوم ${f.h2}×h₁`:''}`);for(let i=0;i<(two?2:1);i++)L.push(`طبقهٔ ${i+1}: ستون ${f.c[i]}×EI₀ ، تیر ${f.bm[i]}×EI₀ ، بار هر ستون ${f.w[i]}×P`);L.push('پایه: '+{fixed:'گیردار',pinned:'مفصل',spring:'فنر دورانی κ='+f.baseK}[f.base]);L.push('حرکت جانبی: '+{free:'آزاد (بدون مهار)',braced:'مهاربندی‌شده',spring:'مهار با فنر κ='+f.swayK}[f.sway])}
+ else{let c0=0;S.segs.forEach((s,i)=>{const a0=c0;c0+=nz(s.len,0);L.push(`بخش ${i+1}: از ${sh(a0)} تا ${sh(c0)} L ، EI = ${s.lin?s.a+' تا '+s.b:s.a}×EI₀`)});L.push('طول کل ستون: '+sh(c0)+' L');
+  for(const w of ['bottom','top']){const e=ENDS.find(x=>x.id===S[w]),d=S.ends[w];L.push(`${w==='bottom'?'پایین':'بالا'}: ${e.t}${e.lat==='spring'?` (κ جانبی=${d.kY})`:''}${e.rot==='spring'?` (κ دورانی=${d.kR})`:''}${e.rot==='beam'?` (β=${d.beta}, ρ=${d.rho}, ${FAR[d.far][0]})`:''}`)}
+  L.push(`بار سر ستون: ${S.topQ}×P`);S.loads.forEach(l=>L.push(`بار میانی در x=${l.x} L: ${l.q}×P`));
+  S.mids.forEach(p=>{const m=MIDS.find(x=>x.id===p.type);L.push(`نقطهٔ میانی x=${p.x} L: ${m.t}${p.type==='springY'?' κ='+p.kY:p.type==='springR'?' κ='+p.kR:p.type==='beam'?` β=${p.beta}, ρ=${p.rho}`:''}`)})}
+ if(S.mode==='numeric'&&res&&res.ph)L.push(`مقادیر واقعی: L=${res.ph.L} m ، EI₀=${fmt(res.ph.ei,5)} kN·m²`);return L}
+function renderBelow(){const ok=res&&!res.mech;let h='';
+ if(ok&&res.frame){const M=res.model,two=M.h.length>1;h+=`<h4>بار و ضریب طول مؤثر هر طبقه</h4><table class="stories"><tr><th>طبقه</th><th>بار هر ستون ${res.ph?'(kN)':'(×EI₀/h₁²)'}</th><th>ضریب طول مؤثر K</th></tr>`;
+  for(let i=0;i<M.h.length;i++){const N=M.w.slice(i).reduce((a,b)=>a+b,0)*res.lam[mi],K=PI/M.h[i]*Math.sqrt(M.c[i]/Math.max(N,1e-12));h+=`<tr><td>طبقهٔ ${i+1}</td><td>${res.ph?fmt(N*res.ph.ei/res.ph.L**2,3):fmt(N,4)}</td><td>${fmt(K,3)}</td></tr>`}h+='</table>'}
+ if(ok&&!res.frame&&(S.loads.length||num(S.topQ)!==1)){const mdl=res.model,L=mdl.loads.slice().sort((p,q)=>p.x-q.x),xs=[0,...L.map(l=>l.x),mdl.T].filter((v,i,ar)=>i===0||v-ar[i-1]>1e-9);
+  h+=`<h4>نیروی محوری در هر بازه</h4><table class="stories"><tr><th>بازه (× L)</th><th>نیروی محوری ${res.ph?'(kN)':'(×EI₀/L²)'}</th></tr>`;
+  for(let i=0;i<xs.length-1;i++){const xm=(xs[i]+xs[i+1])/2,N=(mdl.topQ+mdl.loads.reduce((s,l)=>s+(l.x>xm?l.q:0),0))*res.lam[mi];h+=`<tr><td>${fmt(xs[i],3)} تا ${fmt(xs[i+1],3)}</td><td>${res.ph?fmt(N*res.ph.ei/res.ph.L**2,3):fmt(N,4)}</td></tr>`}h+='</table>'}
+ h+=`<div class="acts"><button class="mini" data-act="png" ${ok?'':'disabled'}>ذخیرهٔ تصویر (PNG)</button><button class="mini" data-act="report" ${ok?'':'disabled'}>گزارش HTML</button><button class="mini" data-act="print" ${ok?'':'disabled'}>چاپ</button><button class="mini" data-act="copy" ${ok?'':'disabled'}>کپی نتیجه</button></div>`;
+ h+=`<ul><li>بار فشاری محوری ثابت و هم‌محور؛ تیر اویلر–برنولی و رفتار کاملاً الاستیک.</li><li>شکل کمانش نرمال‌شده است و جابه‌جایی واقعی را نشان نمی‌دهد.</li>${res&&res.frame?'<li>تغییر طول محوری اعضا و نیروی محوری تیرها نادیده گرفته شده است.</li>':''}</ul>`;$('below').innerHTML=h}
+function resultText(){if(!res||res.mech)return 'نتیجه‌ای موجود نیست.';const m=res.modes[mi],l=m.lam;return `${MODELNAME[S.tab]}\n${describe().join('\n')}\n\nPcr = ${fmt(l,7)} × EI₀/L²\n${res.ph?`Pcr = ${fmt(m.P,5)} kN\n`:''}K = ${fmt(Keq(l),5)}\nاختلاف دو شبکه = ${fmt(res.err,5)}٪`}
+
+/* ---------- خروجی فایل ---------- */
+function download(name,txt,type){const b=new Blob([txt],{type}),u=URL.createObjectURL(b),a=document.createElement('a');a.href=u;a.download=name;document.body.appendChild(a);a.click();a.remove();setTimeout(()=>URL.revokeObjectURL(u),4000)}
+function svgString(){curDiag.update(1);const s=new XMLSerializer().serializeToString($('dg'));return s.replace(/(<svg[^>]*>)/,'$1<style><![CDATA['+fontCSS()+'svg{font-family:Vazirmatn,Tahoma,sans-serif}]]></style>')}
+function exportPNG(){if(!res||res.mech)return;Promise.all([document.fonts.load('700 40px Vazirmatn'),document.fonts.load('400 24px Vazirmatn'),document.fonts.load('800 24px Vazirmatn'),document.fonts.load('500 24px Vazirmatn'),document.fonts.load('600 24px Vazirmatn')]).catch(()=>{}).then(exportPNG0)}
+function drawKC(g,cx,cy){
+ const w=372,h=56,x=cx-w/2,y=cy-h/2,r=h/2;
+ const rr=(a,b,c,d,e)=>{g.beginPath();g.moveTo(a+e,b);g.arcTo(a+c,b,a+c,b+d,e);g.arcTo(a+c,b+d,a,b+d,e);g.arcTo(a,b+d,a,b,e);g.arcTo(a,b,a+c,b,e);g.closePath()};
+ g.save();g.textBaseline='middle';
+ rr(x,y,w,h,r);const bg=g.createLinearGradient(x+w,y,x,y);bg.addColorStop(0,'rgba(255,201,120,.22)');bg.addColorStop(.7,'rgba(79,227,214,.09)');bg.addColorStop(1,'rgba(255,255,255,.03)');g.fillStyle=bg;g.fill();g.strokeStyle='rgba(255,201,120,.55)';g.lineWidth=1.4;g.stroke();
+ const ax=x+w-r,ay=cy,ar=21;
+ g.beginPath();g.arc(ax,ay,ar+4,0,7);g.strokeStyle='rgba(255,201,120,.6)';g.lineWidth=1.5;g.stroke();
+ const ag=g.createLinearGradient(ax-ar,ay-ar,ax+ar,ay+ar);ag.addColorStop(0,'#fff1c8');ag.addColorStop(.6,'#ffc25c');ag.addColorStop(1,'#f29c2b');
+ g.beginPath();g.arc(ax,ay,ar,0,7);g.fillStyle=ag;g.fill();
+ g.save();g.translate(ax-12,ay-12);g.strokeStyle='#3a2205';g.lineWidth=2.3;g.lineCap='round';g.lineJoin='round';g.stroke(new Path2D('M4 21V4h16v17M4 12.5h16M12 4v17'));g.restore();
+ const tx=ax-ar-14;g.direction='rtl';g.textAlign='right';
+ g.fillStyle='#d9b57a';g.font='500 13px Vazirmatn, Tahoma, sans-serif';g.fillText('طراحی و تهیه‌کننده',tx,cy-11);
+ const ng=g.createLinearGradient(tx-130,0,tx,0);ng.addColorStop(0,'#fff3d6');ng.addColorStop(.5,'#ffc978');ng.addColorStop(1,'#fff3d6');
+ g.fillStyle=ng;g.font='800 22px Vazirmatn, Tahoma, sans-serif';g.fillText(AUTHOR,tx,cy+10);
+ g.direction='ltr';g.textAlign='left';g.font='600 13px Vazirmatn, Tahoma, sans-serif';
+ const pw=g.measureText(AUTHOR_EN).width+22,px=x+14,ph=26;
+ rr(px,cy-ph/2,pw,ph,13);g.fillStyle='rgba(10,28,44,.6)';g.fill();g.strokeStyle='#2b4d68';g.lineWidth=1;g.stroke();
+ g.fillStyle='#9fc9cf';g.fillText(AUTHOR_EN,px+11,cy+1);
+ g.restore()}
+function exportPNG0(){if(!res||res.mech)return;const W=1000,H=1290,sc=1.7,dw=520*sc,dh=500*sc;const cv=document.createElement('canvas');cv.width=W*2;cv.height=H*2;const g=cv.getContext('2d');g.scale(2,2);
+ g.fillStyle='#0d2744';g.fillRect(0,0,W,H);g.strokeStyle='#ffffff0d';g.lineWidth=1;for(let x=0;x<=W;x+=34){g.beginPath();g.moveTo(x,0);g.lineTo(x,H);g.stroke()}for(let y=0;y<=H;y+=34){g.beginPath();g.moveTo(0,y);g.lineTo(W,y);g.stroke()}
+ const m=res.modes[mi],l=m.lam;g.direction='rtl';g.textAlign='right';g.fillStyle='#fff';g.font='700 40px Vazirmatn, Tahoma, sans-serif';g.fillText('آزمایشگاه کمانش ستون و قاب',W-56,86);g.fillStyle='#8fb2d3';g.font='24px Vazirmatn, Tahoma, sans-serif';g.fillText(MODELNAME[S.tab]+(mi?` · مود ${mi+1}`:''),W-56,128);
+ const img=new Image(),svg=svgString().replace('<svg ','<svg width="'+dw+'" height="'+dh+'" ');
+ img.onload=()=>{g.drawImage(img,(W-dw)/2,160,dw,dh);const y=160+dh+30;g.strokeStyle='#ffffff40';g.beginPath();g.moveTo(56,y);g.lineTo(W-56,y);g.stroke();
+  g.direction='ltr';g.textAlign='center';g.fillStyle='#4ff0d2';g.font='italic 400 58px Georgia, serif';g.fillText(res.ph?`Pcr = ${fmt(m.P,3)} kN`:`Pcr = ${fmt(l,5)} · EI₀/L²`,W/2,y+82);
+  g.fillStyle='#cfe6f8';g.font='24px Vazirmatn, Tahoma, sans-serif';g.fillText(`K = ${fmt(Keq(l),3)}   ·   λ/π² = ${fmt(l/PI**2,3)}`+(res.ph?`   ·   λ = ${fmt(l,4)}`:''),W/2,y+128);
+  drawKC(g,W/2,H-62);
+  cv.toBlob(b=>{const u=URL.createObjectURL(b),a=document.createElement('a');a.href=u;a.download='buckling_result.png';a.click();setTimeout(()=>URL.revokeObjectURL(u),4000)});startAnim()};
+ img.src='data:image/svg+xml;charset=utf-8,'+encodeURIComponent(svg)}
+function makeReport(){const m=res.modes[mi],l=m.lam,svg=svgString();startAnim();
+ return `<!doctype html><html lang="fa" dir="rtl"><meta charset="utf-8"><title>گزارش کمانش</title><style>${fontCSS()}${document.getElementById('kccss').textContent}body{font:15px/1.9 Vazirmatn,Tahoma,Arial;margin:0;background:#eef2f6;color:#0f2236}.w{max-width:760px;margin:24px auto;background:#fff;border-radius:18px;overflow:hidden}.h{background:#0d2744;color:#fff;padding:22px 28px}.h h1{margin:0;font-size:22px}.h p{margin:4px 0 0;color:#8fb2d3}.dg{background:#0d2744;background-image:linear-gradient(#ffffff0b 1px,transparent 1px),linear-gradient(90deg,#ffffff0b 1px,transparent 1px);background-size:26px 26px}.dg svg{width:100%;max-width:520px;display:block;margin:auto}.r{padding:24px 28px;text-align:center;background:#0d2744;color:#4ff0d2;font:italic 40px Georgia,serif;direction:ltr}.r small{display:block;font:15px Tahoma;color:#cfe6f8;margin-top:6px}.b{padding:20px 28px}li{margin:3px 0}</style><div class="w"><div class="h"><h1>گزارش تحلیل کمانش</h1><p>${MODELNAME[S.tab]}</p><div class="kc on-dark" style="margin-top:12px">${kcInner()}</div></div><div class="dg">${svg}</div><div class="r">${res.ph?`Pcr = ${fmt(m.P,3)} kN`:`Pcr = ${fmt(l,5)} EI₀/L²`}<small>K = ${fmt(Keq(l),3)} · λ = ${fmt(l,5)} · λ/π² = ${fmt(l/PI**2,3)}</small></div><div class="b"><h3>مشخصات مدل</h3><ul>${describe().map(x=>'<li>'+esc(x)+'</li>').join('')}</ul><div class="kc" style="margin:4px 0 12px">${kcInner()}</div><p style="color:#7589a0;font-size:12px">تحلیل خطی کمانش الاستیک با المان تیر اویلر–برنولی؛ برای طراحی نیازمند کنترل مهندسی است.</p></div></div></html>`}
+
+/* ---------- آزمون صحت ---------- */
+function selfTest(){const seg=[{s:0,e:1,a:1,b:1}],P={lat:'fix',rot:'none',kY:0,kR:0},F={lat:'fix',rot:'fix',kY:0,kR:0},FR={lat:'none',rot:'none',kY:0,kR:0},SL={lat:'none',rot:'fix',kY:0,kR:0};
+ const col=(b,t,mids=[])=>colModes({segs:seg,sup:[{...b,x:0},{...t,x:1},...mids]},50,1).lam[0];
+ const fr=(o,ns=1)=>frameModes({h:Array(ns).fill(1),B:1,c:[1,1].slice(0,ns),bm:[1,1].slice(0,ns),w:[1,1].slice(0,ns),base:'fixed',baseK:0,sway:'free',swayK:0,...o},ns*40,1).lam[0];
+ const sway=(GA,GB)=>{const f=x=>(GA*GB*x*x-36)/(6*(GA+GB))-x/Math.tan(x);let a=.05,fa=f(a);for(let x=.05;x<PI-.01;x+=1e-3){const fx=f(x);if(fa*fx<0&&Math.abs(fx)<50){let l=x-1e-3,h=x;for(let k=0;k<80;k++){const mm=(l+h)/2;if(f(l)*f(mm)<=0)h=mm;else l=mm}return((l+h)/2)**2}fa=fx}};
+ const ld=(q,x)=>colModes({segs:seg,sup:[{...F,x:0},{...FR,x:1}],loads:[{x,q}],topQ:1},60,1).lam[0];
+ const exL=(q,x)=>{const b=1-x,f=l=>{const k2=Math.sqrt(l),k1=Math.sqrt(1+q)*k2;return(1+q)*Math.cos(k1*x)*Math.cos(k2*b)-Math.sqrt(1+q)*Math.sin(k1*x)*Math.sin(k2*b)};let t=1e-3,fx=f(t*t);for(;t<20;t+=1e-3){const g=f((t+1e-3)**2);if(fx*g<0){let l=t*t,h=(t+1e-3)**2;for(let i=0;i<80;i++){const m=(l+h)/2;if(f(l)*f(m)<=0)h=m;else l=m}return(l+h)/2}fx=g}};
+ const stepEx=(e1,l1,e2,l2)=>{const g=Q=>{const k1=Math.sqrt(Q/e1),k2=Math.sqrt(Q/e2);return Math.sin(k1*l1)*Math.cos(k2*l2)*k2+Math.sin(k2*l2)*Math.cos(k1*l1)*k1};let ga=g(1e-4);for(let x=2e-3;x<80;x+=2e-3){const gx=g(x);if(ga*gx<0){let lo=x-2e-3,hi=x;for(let i=0;i<80;i++){const m=(lo+hi)/2;if(g(lo)*g(m)<=0)hi=m;else lo=m}return(lo+hi)/2}ga=gx}};
+ const T=[['ستون گیردار–آزاد، بار ۱P در میانه',ld(1,.5),exL(1,.5)],['ستون گیردار–آزاد، بار ۲P در x=0.3',ld(2,.3),exL(2,.3)],['ستون مفصل–مفصل',col(P,P),PI**2],['ستون مفصل–مفصل با طول 2L (کل ۲L)',colModes({segs:[{s:0,e:2,a:1,b:1}],sup:[{...P,x:0},{...P,x:2}]},50,1).lam[0],PI**2/4],['ستون گیردار–آزاد، دو بخش ۱L+۱.۵L',colModes({segs:[{s:0,e:1,a:1,b:1},{s:1,e:2.5,a:1,b:1}],sup:[{...F,x:0},{...FR,x:2.5}]},50,1).lam[0],PI**2/25],['ستون پله‌ای مفصل–مفصل: ۱L با EI=۱ و ۲L با EI=۲',colModes({segs:[{s:0,e:1,a:1,b:1},{s:1,e:3,a:2,b:2}],sup:[{...P,x:0},{...P,x:3}]},50,1).lam[0],stepEx(1,1,2,2)],['ستون پله‌ای مفصل–مفصل: ۳L با EI=۲ و ۲L با EI=۱',colModes({segs:[{s:0,e:3,a:2,b:2},{s:3,e:5,a:1,b:1}],sup:[{...P,x:0},{...P,x:5}]},50,1).lam[0],stepEx(2,3,1,2)],['ستون سه‌مقطعی مفصل–مفصل (۰٫۲۵L / ۰٫۵L / ۰٫۲۵L با EI = ۰٫۲۵ / ۱ / ۰٫۲۵)',colModes({segs:[{s:0,e:.25,a:.25,b:.25},{s:.25,e:.75,a:1,b:1},{s:.75,e:1,a:.25,b:.25}],sup:[{...P,x:0},{...P,x:1}]},50,1).lam[0],6.061044349],['دو مقطع، بار P در سر و P در محل تغییر مقطع (نیمهٔ پایین ۲P و EI=۲)',colModes({segs:[{s:0,e:.5,a:2,b:2},{s:.5,e:1,a:1,b:1}],sup:[{...P,x:0},{...P,x:1}],loads:[{x:.5,q:1}],topQ:1},50,1).lam[0],8.960378823],['دو مقطع، بار P در سر و P در محل تغییر مقطع (نیمهٔ پایین ۲P و EI=۴)',colModes({segs:[{s:0,e:.5,a:4,b:4},{s:.5,e:1,a:1,b:1}],sup:[{...P,x:0},{...P,x:1}],loads:[{x:.5,q:1}],topQ:1},50,1).lam[0],10.58146179],['بار فقط روی تکهٔ بسیار کوتاه پایین ستون (لغزنده–گیردار)',colModes({segs:[{s:0,e:.49,a:1,b:1}],sup:[{...SL,x:0},{...F,x:.49}],loads:[{x:.039,q:1}],topQ:0},60,1).lam[0],1733.962470],['ستون گیردار–آزاد',col(F,FR),PI**2/4],['ستون گیردار–گیردار',col(F,F),4*PI**2],['ستون گیردار–مفصل',col(F,P),20.1907285568],['ستون مفصل با مهار وسط',col(P,P,[{x:.5,lat:'fix',rot:'none',kY:0,kR:0}]),4*PI**2],
+ ['قاب یک‌طبقه، تیر صلب، پایه گیردار (K=1)',fr({bm:[1e5]}),PI**2],['قاب یک‌طبقه، تیر صلب، مهاربندی‌شده',fr({bm:[1e5],sway:'braced'}),4*PI**2],['قاب یک‌طبقه، تیر عادی، نمودار هم‌ترازی',fr({}),sway(1,0)],
+ ['قاب دوطبقه، تیر صلب، مهاربندی‌شده',fr({bm:[1e5,1e5],sway:'braced'},2),2*PI**2],['قاب دوطبقه، تیر صلب، فقط بار بالا',fr({bm:[1e5,1e5],w:[0,1]},2),PI**2]];
+ let h='<h3>آزمون صحت محاسبات</h3><p style="color:#7589a0;font-size:12.5px">نتیجهٔ حل‌گر با جواب‌های تحلیلی و نمودار هم‌ترازی مقایسه شده است.</p><table class="tests"><tr><td>مورد</td><td>λ محاسبه‌شده</td><td>λ دقیق</td><td>خطا</td></tr>';
+ for(const [n,a,b] of T){const e=Math.abs(a/b-1)*100;h+=`<tr><td>${n}</td><td>${fmt(a,6)}</td><td>${fmt(b,6)}</td><td class="${e<.05?'t-ok':'t-no'}">${e<.05?'✓ ':'✗ '}${e.toExponential(1)}٪</td></tr>`}
+ h+='</table><div class="sub"><button class="mini" data-act="close">بستن</button></div>';$('modal-box').innerHTML=h;$('modal').classList.add('on')}
+
+/* ---------- رویدادها ---------- */
+function afterEdit(){updatePct();scheduleCalc();scheduleSweep()}
+function applyTab(t){S.tab=t;if(t==='column'||t.startsWith('frame')){}
+ if(t==='column'){for(const w of ['bottom','top'])if(ENDS.find(e=>e.id===S[w]).sp)S[w]='pinned';S.mids=S.mids.filter(m=>!MIDS.find(x=>x.id===m.type).sp)}
+ if(t.startsWith('frame'))S.fr={...S.fr};S.sw.id='';mi=0}
+document.addEventListener('click',e=>{const b=e.target.closest('[data-act]');if(!b)return;const a=b.dataset.act;let re=true;
+ if(a==='tab')applyTab(b.dataset.v);
+ else if(a==='set'){let v=b.dataset.v;setP(S,b.dataset.p,v);if(b.dataset.p==='mode'&&v==='param')S.springUnits='dim';S.sw.id=''}
+  else if(a==='addseg'&&S.segs.length<3){S.segs.push({len:'1',a:'1',b:'1',lin:false});S.sw.id=''}
+ else if(a==='delseg'&&S.segs.length>1){S.segs.pop();S.sw.id=''}
+ else if(a==='end'){const d=ENDS.find(x=>x.id===b.dataset.v);S[b.dataset.w]=d.id;if(d.far)S.ends[b.dataset.w].far=d.far;S.sw.id=''}
+ else if(a==='addmid'){const d=MIDS.find(x=>x.id===b.dataset.v);S.mids.push({x:midDef(),type:d.id,kY:'20',kR:'5',beta:'1',rho:'1',far:d.far||'sway'});S.sw.id=''}
+ else if(a==='delmid'){S.mids.splice(+b.dataset.i,1);S.sw.id=''}
+ else if(a==='addload'){S.loads.push({x:midDef(),q:'1'});S.sw.id=''}
+ else if(a==='delload'){S.loads.splice(+b.dataset.i,1);S.sw.id=''}
+ else if(a==='mode'){mi=+b.dataset.i;re=false;renderSheet();renderBelow();return}
+ else if(a==='play'){anim=!anim;re=false;if(!anim){cancelAnimationFrame(raf);curDiag&&curDiag.update(1)}else startAnim();$('play').textContent=anim?'توقف انیمیشن':'پخش انیمیشن';return}
+ else if(a==='reset'){S=initial();mi=0}
+ else if(a==='copy'){const t=resultText();(navigator.clipboard?.writeText(t)||Promise.reject()).catch(()=>{const q=document.createElement('textarea');q.value=t;document.body.appendChild(q);q.select();document.execCommand('copy');q.remove()});b.textContent='کپی شد ✓';setTimeout(()=>b.textContent='کپی نتیجه',1400);return}
+ else if(a==='png'){exportPNG();return}
+ else if(a==='report'){if(res&&!res.mech)download('buckling_report.html',makeReport(),'text/html;charset=utf-8');return}
+ else if(a==='print'){window.print();return}
+ else if(a==='csv'){if(sweepPts.length)download('parametric_study.csv','x,lambda,K\n'+sweepPts.map(p=>[p.x,p.y,Number.isFinite(p.y)?PI/(p.T*Math.sqrt(p.y)):''].join(',')).join('\n'),'text/csv;charset=utf-8');return}
+ else if(a==='export-json'){download('column_model.json',JSON.stringify(S,null,2),'application/json;charset=utf-8');return}
+ else if(a==='import-json'){$('import-file').click();return}
+ else if(a==='own'){ownModal();return}else if(a==='own-check'){ownCheck();return}
+ else if(a==='test'){selfTest();return}else if(a==='close'){$('modal').classList.remove('on');return}
+ else if(a==='gores'){$('dg').scrollIntoView({behavior:'smooth',block:'center'});return}else return;
+ if(re){renderInputs();calc()}});
+document.addEventListener('input',e=>{const el=e.target;if(el.type==='checkbox'||el.tagName==='SELECT'||el.type==='file')return;
+ if(el.dataset.p){setP(S,el.dataset.p,el.value);afterEdit()}
+ else if(el.dataset.sw){S.sw[el.dataset.sw]=el.value;scheduleSweep()}});
+document.addEventListener('change',e=>{const el=e.target;
+ if(el.id==='import-file'){const f=el.files?.[0];if(!f)return;f.text().then(t=>{const a=JSON.parse(t);if(!Array.isArray(a.segs)||a.segs.length<1||a.segs.length>3)throw Error('فرمت فایل درست نیست.');if(!a.ver){const t=a.segs.reduce((q,x)=>q+(num(x.len)||0),0)||1;a.segs=a.segs.map(x=>({...x,len:String(+((num(x.len)||1)/t).toFixed(6))}))}const d=initial();S={...d,...a,ends:{...d.ends,...a.ends},fr:{...d.fr,...a.fr},sw:{...d.sw,id:''},mids:Array.isArray(a.mids)?a.mids:[]};mi=0;renderInputs();calc()}).catch(x=>alert('باز کردن مدل انجام نشد: '+x.message));el.value='';return}
+ if(el.dataset.sw){const k=el.dataset.sw;if(k==='id'){S.sw.id=el.value;const d=sweepables().find(x=>x.path===el.value);if(d){S.sw.min=String(d.range[0]);S.sw.max=String(d.range[1]);S.sw.log=!!d.log}const c=$('swcard');const tmp=document.createElement('div');tmp.innerHTML=swCard();c.replaceWith(tmp.firstElementChild);scheduleSweep();return}
+  if(k==='log'){S.sw.log=el.value==='1';scheduleSweep()}return}
+ if(!el.dataset.p)return;
+ if(el.type==='checkbox'){setP(S,el.dataset.p,el.checked);S.sw.id='';renderInputs();calc();return}
+ if(el.tagName==='SELECT'){const v=el.dataset.p==='mesh'?Number(el.value):el.value;setP(S,el.dataset.p,v);if(el.dataset.r){S.sw.id='';renderInputs()}calc()}});
+document.addEventListener('keydown',e=>{if(e.key==='Escape')$('modal').classList.remove('on')});
+$('modal').addEventListener('click',e=>{if(e.target.id==='modal')$('modal').classList.remove('on')});
+document.querySelectorAll('[data-author]').forEach(el=>el.textContent=AUTHOR);
+document.querySelectorAll('[data-kc]').forEach(el=>el.innerHTML=kcInner());
+document.addEventListener('keydown',e=>{if(e.key==='Enter'&&e.target.id==='own-key')ownCheck()});
+renderInputs();calc();
+try{new IntersectionObserver(es=>{$('mbar').style.visibility=es[0].isIntersecting?'hidden':'visible'}).observe($('stage'))}catch(_){}
+
+</script>
+</body>
+</html>
