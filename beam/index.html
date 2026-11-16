@@ -175,10 +175,181 @@ table{font-size:13px}th{font-size:12px;font-weight:600;color:#a7c3d6;border-bott
 .probe-g{pointer-events:none}
 @media print{.probe-g{display:none}}
 
+/* v5.1: animation bar on the model diagram */
+.anim-bar{display:flex;flex-wrap:wrap;align-items:center;gap:10px 14px;margin:0 0 12px;padding:10px 14px;border:1px solid #2c5a63;border-radius:12px;background:linear-gradient(120deg,#0f2a35,#0b1d2e)}
+.anim-btn{display:inline-flex;align-items:center;gap:7px;height:36px;padding:0 16px;border-radius:10px;border:1px solid #3fd8c6;background:linear-gradient(135deg,#128f88,#18b3a3);color:#04201e;font-weight:700;font-size:13.5px;cursor:pointer;transition:filter .15s,transform .1s}
+.anim-btn:hover:not(:disabled){filter:brightness(1.1)}.anim-btn:active:not(:disabled){transform:translateY(1px)}
+.anim-btn.ghost{background:#102236;color:#cfe4f6;border-color:#35536b;font-weight:600}
+.anim-btn.ghost:hover:not(:disabled){border-color:#5ab0e0}
+.anim-btn:disabled,.anim-bar input:disabled{opacity:.45;cursor:not-allowed}
+.anim-field{display:flex;align-items:center;gap:8px;color:#bcd2e6;font-size:12.5px;white-space:nowrap}
+.anim-field input[type=range]{width:150px;accent-color:#3cdbcd}
+.anim-field output{min-width:44px;direction:ltr;text-align:center;color:var(--mint);font-size:12.5px}
+.anim-loop{display:flex;align-items:center;gap:6px;color:#bcd2e6;font-size:12.5px;cursor:pointer}
+.anim-loop input{accent-color:#3cdbcd}
+.anim-readout{flex-basis:100%;margin:0;color:#8fb3c9;font-size:12px;direction:rtl}
+.anim-readout b{color:#e6f3ff;font-weight:600;direction:ltr;unicode-bidi:embed}
+@media print{.anim-bar{display:none!important}}
+
 /* v5: free body diagram */
 .fbd-section{margin-top:16px}
 .fbd-section .beam-viz svg{max-height:560px}
 @media print{.fbd-section .beam-viz svg{max-height:260px!important;box-shadow:none}.fbd-section{break-inside:avoid;margin-top:8px}}
+/* ===== v6: تمرین‌ساز ===== */
+.toolbar-btn.ex-trigger{border-color:#e9b25c;color:#ffe0ad;background:linear-gradient(135deg,#34270f,#241b0b);font-weight:700}
+.toolbar-btn.ex-trigger:hover{border-color:#ffcb7a;color:#fff1d6}
+.ex-overlay{position:fixed;inset:0;z-index:9000;display:none;direction:rtl;color:#e6eef8;background:#050e19;font-family:inherit}
+body.ex-open .ex-overlay{display:block}
+@media screen{body.ex-open{overflow:hidden}}
+.ex-shell{display:grid;grid-template-columns:340px minmax(0,1fr);height:100%}
+.ex-panel{overflow:auto;padding:20px 20px 28px;border-left:1px solid #1b3249;background:linear-gradient(180deg,#0c1c2f,#08131f)}
+.ex-brand{display:flex;align-items:center;justify-content:space-between;gap:10px;margin-bottom:6px}
+.ex-brand h2{margin:0;font-size:21px;color:#fff3dc}
+.ex-brand .ex-kicker{display:block;font-size:10.5px;letter-spacing:.2em;color:#e9b25c;margin-bottom:4px}
+.ex-close{height:34px;padding:0 12px;border-radius:9px;border:1px solid #3a5168;background:#102236;color:#cfe4f6;cursor:pointer;font-size:12.5px}
+.ex-close:hover{border-color:#e9b25c;color:#fff}
+.ex-lead{margin:8px 0 18px;font-size:12.5px;line-height:1.9;color:#93aec6}
+.ex-field{margin-bottom:16px}
+.ex-field>label,.ex-field>.lab{display:block;margin-bottom:7px;font-size:12.5px;color:#a9c3d9;font-weight:600}
+.ex-stepper{direction:ltr;display:flex;align-items:center;gap:8px}
+.ex-stepper button{width:38px;height:38px;border-radius:10px;border:1px solid #35536b;background:#102236;color:#e6f3ff;font-size:19px;cursor:pointer}
+.ex-stepper button:hover{border-color:#e9b25c}
+.ex-stepper input{width:76px;height:38px;text-align:center;direction:ltr;font-size:16px;font-weight:700;border-radius:10px;border:1px solid #35536b;background:#0a1626;color:#fff}
+.ex-seg{display:grid;grid-template-columns:repeat(4,1fr);gap:6px}
+.ex-seg input{position:absolute;opacity:0;pointer-events:none}
+.ex-seg label{display:block;text-align:center;padding:9px 4px;border-radius:10px;border:1px solid #35536b;background:#0e1f33;color:#bcd2e6;cursor:pointer;font-size:12.5px;font-weight:600;transition:.15s}
+.ex-seg label:hover{border-color:#6aa9ff}
+.ex-seg input:checked+label{color:#08131f;font-weight:800;border-color:transparent}
+.ex-seg input[value=mixed]:checked+label{background:linear-gradient(135deg,#46e3d1,#6aa9ff)}
+.ex-seg input[value=easy]:checked+label{background:#4ade80}
+.ex-seg input[value=medium]:checked+label{background:#fbbf24}
+.ex-seg input[value=hard]:checked+label{background:#fb7185}
+.ex-seg input:focus-visible+label{outline:2px solid #fff;outline-offset:2px}
+.ex-level-hint{margin:8px 0 0;font-size:11.8px;line-height:1.8;color:#7f9ab3;min-height:40px}
+.ex-check{display:flex;align-items:flex-start;gap:9px;font-size:12.5px;line-height:1.7;color:#cfe0ee;cursor:pointer;margin-bottom:10px}
+.ex-check input{margin-top:5px;accent-color:#e9b25c;width:16px;height:16px;flex:none}
+.ex-check small{display:block;color:#7f9ab3;font-size:11.5px}
+.ex-text,.ex-num-in{width:100%;height:38px;border-radius:10px;border:1px solid #35536b;background:#0a1626;color:#fff;padding:0 12px;font-size:13px}
+.ex-seedrow{display:flex;gap:8px}
+.ex-seedrow input{direction:ltr;text-align:left;flex:1}
+.ex-btn{display:inline-flex;align-items:center;justify-content:center;gap:8px;height:40px;padding:0 16px;border-radius:11px;border:1px solid #35536b;background:#102236;color:#dcebf8;font-size:13px;font-weight:600;cursor:pointer;transition:.15s;width:100%}
+.ex-btn:hover{border-color:#e9b25c;color:#fff}
+.ex-btn.primary{height:46px;border:none;background:linear-gradient(135deg,#e9a43c,#f6c86b);color:#2a1a02;font-weight:800;font-size:14.5px;box-shadow:0 6px 20px #e9a43c40}
+.ex-btn.primary:hover{filter:brightness(1.07);color:#2a1a02}
+.ex-btn.small{width:auto;height:38px;padding:0 12px}
+.ex-group{margin-top:20px;padding-top:18px;border-top:1px solid #1b3249}
+.ex-group h4{margin:0 0 10px;font-size:13px;color:#e9b25c}
+.ex-group .ex-btn{margin-bottom:8px;justify-content:flex-start}
+.ex-note{margin:12px 0 0;font-size:11.5px;line-height:1.9;color:#7f9ab3}
+.ex-stage{overflow:auto;padding:26px 24px 60px;background:radial-gradient(900px 500px at 70% -10%,#0f2740,transparent),#050e19}
+.ex-status{max-width:1000px;margin:0 auto 14px;font-size:12.5px;color:#93aec6}
+.ex-sheet{max-width:1000px;margin:0 auto;padding:26px 26px 22px;border-radius:20px;background:#f2f6fb;color:#0f172a;box-shadow:0 24px 70px #0009}
+.ex-sheet-head{display:flex;flex-wrap:wrap;justify-content:space-between;align-items:flex-end;gap:14px 24px;padding-bottom:14px;margin-bottom:20px;border-bottom:3px solid #0f4c75}
+.ex-eyebrow{font-size:10.5px;letter-spacing:.22em;color:#0f766e;font-weight:700;direction:ltr;text-align:right}
+.ex-sheet-head h2{margin:6px 0 5px;font-size:25px;line-height:1.4;color:#0b2a46}
+.ex-sheet-head p{margin:0;font-size:12.5px;color:#475569}
+.ex-student-line{display:flex;flex-direction:column;gap:9px;font-size:12.5px;color:#475569}
+.ex-student-line i{display:inline-block;width:160px;height:14px;border-bottom:1px dotted #64748b;vertical-align:bottom;margin-right:6px}
+.ex-student-line i.short{width:70px}
+.ex-card{--lc:#16a34a;--ls:#dcfce7;--ld:#14532d;margin-bottom:22px;background:#fff;border:1px solid #d9e2ec;border-top:5px solid var(--lc);border-radius:16px;box-shadow:0 3px 14px #0f172a14;overflow:hidden}
+.ex-card.lvl-medium{--lc:#d97706;--ls:#fef3c7;--ld:#78350f}
+.ex-card.lvl-hard{--lc:#e11d48;--ls:#ffe4e6;--ld:#881337}
+.ex-card.lvl-indet{--lc:#7c3aed;--ls:#ede9fe;--ld:#4c1d95}
+.ex-head{display:flex;align-items:center;gap:14px;padding:14px 18px;background:linear-gradient(90deg,var(--ls),#fff 70%)}
+.ex-num{flex:none;width:46px;height:46px;border-radius:50%;display:grid;place-items:center;background:var(--lc);color:#fff;font-size:21px;font-weight:800;box-shadow:0 3px 10px #0002}
+.ex-titles{flex:1;min-width:0}
+.ex-titles h3{margin:0 0 6px;font-size:17px;color:#0b2a46}
+.ex-tags{display:flex;flex-wrap:wrap;gap:6px}
+.ex-tag{padding:2px 11px;border-radius:999px;background:#eef2f7;color:#475569;font-size:11.8px}
+.ex-tag.lv{background:var(--lc);color:#fff;font-weight:700}
+.ex-tag.indet{background:#ede9fe;color:#5b21b6;font-weight:600}
+.ex-actions{display:flex;flex-wrap:wrap;gap:7px}
+.ex-actions button{height:34px;padding:0 13px;border-radius:9px;border:1px solid #cbd5e1;background:#fff;color:#0f3a5c;font-size:12.5px;font-weight:600;cursor:pointer;transition:.15s}
+.ex-actions button:hover{border-color:var(--lc);background:var(--ls)}
+.ex-actions button.on{background:var(--lc);border-color:var(--lc);color:#fff}
+.ex-body{display:grid;grid-template-columns:minmax(0,1fr) 236px}
+.ex-main{padding:16px 20px 18px}
+.ex-intro{margin:0 0 12px;font-size:14.5px;line-height:2;color:#1e293b}
+.ex-fig{margin:0 0 12px;padding:8px;background:#fbfdff;border:1px solid #e2e8f0;border-radius:12px}
+.ex-fig svg{display:block;width:100%;height:auto}
+.ex-fig figcaption{margin-top:2px;text-align:center;font-size:11.2px;color:#64748b}
+.ex-asks-title{margin:6px 0 4px;font-weight:700;font-size:13.5px;color:var(--ld)}
+.ex-asks{margin:0;padding:0 38px 0 0;list-style:none;counter-reset:ask}
+.ex-asks li{counter-increment:ask;position:relative;margin:5px 0;font-size:14px;line-height:1.95;color:#1e293b}
+.ex-asks li:before{content:counter(ask,decimal) ")";position:absolute;right:-38px;top:0;width:34px;text-align:right;font-weight:800;color:var(--lc);direction:rtl;unicode-bidi:isolate}
+@supports (list-style-type:"x"){.ex-asks li:before{content:counter(ask,ex-alpha)}}
+@counter-style ex-alpha{system:fixed;symbols:"الف)" "ب)" "پ)" "ت)" "ث)" "ج)";fallback:decimal}
+.ex-space{display:none}
+.ex-key{padding:16px 16px 18px;border-right:2px dashed var(--lc);background:linear-gradient(180deg,var(--ls),#fff 85%)}
+.ex-key-head{display:flex;align-items:center;gap:8px;margin-bottom:10px;font-size:14px;font-weight:800;color:var(--ld)}
+.ex-key-head .ico{display:inline-grid;place-items:center;width:26px;height:26px;border-radius:8px;background:var(--lc);color:#fff;font-size:13px}
+.ex-key ul{margin:0;padding:0;list-style:none}
+.ex-key li{display:grid;grid-template-columns:auto 1fr;gap:2px 10px;align-items:baseline;padding:7px 0;border-bottom:1px dashed color-mix(in srgb,var(--lc) 35%,#fff)}
+.ex-key li:last-child{border-bottom:0}
+.ex-key .k{font-family:"Cambria Math","STIX Two Math","Times New Roman",serif;font-size:15.5px;font-weight:700;color:#0b2a46;direction:ltr}
+.ex-key .v{direction:ltr;text-align:left;font-size:14.5px;font-weight:800;color:var(--ld);font-variant-numeric:tabular-nums}
+.ex-key small{grid-column:1/-1;color:#64748b;font-size:11.5px}
+.ex-sheet.hide-key .ex-key{display:none}
+.ex-sheet.hide-key .ex-body{grid-template-columns:1fr}
+.ex-sol{display:none;padding:16px 20px 20px;border-top:2px solid var(--lc);background:#fbfcfe}
+.ex-card.open .ex-sol{display:block}
+.ex-sol-head{display:flex;flex-wrap:wrap;justify-content:space-between;gap:6px 16px;margin-bottom:12px}
+.ex-sol-head b{font-size:15px;color:var(--ld)}
+.ex-sol-head span{font-size:11.8px;color:#64748b}
+.ex-step{margin:0 0 14px;padding:12px 14px 12px;border:1px solid #e2e8f0;border-right:4px solid var(--lc);border-radius:12px;background:#fff}
+.ex-step-title{display:flex;align-items:center;gap:10px;margin-bottom:8px;font-size:14px;font-weight:800;color:#0b2a46}
+.ex-step-title span{flex:none;width:25px;height:25px;border-radius:50%;display:grid;place-items:center;background:var(--ls);color:var(--ld);font-size:12.5px}
+.ex-step-body p{margin:6px 0;font-size:13.3px;line-height:1.95;color:#334155}
+.ex-step-body p.ex-note{font-size:12.3px;color:#64748b}
+.ex-eq{direction:ltr;text-align:left;margin:6px 0;padding:8px 13px;border-radius:9px;background:#f1f5f9;font-family:"Cambria Math","STIX Two Math","Times New Roman",serif;font-size:16px;line-height:1.7;color:#0f172a;overflow-x:auto;unicode-bidi:isolate}
+.ex-res{direction:ltr;text-align:left;width:fit-content;max-width:100%;margin:6px 0 10px;padding:6px 14px;border-radius:9px;background:var(--ls);border:1.5px solid var(--lc);color:var(--ld);font-family:"Cambria Math","STIX Two Math","Times New Roman",serif;font-size:16px;font-weight:700;unicode-bidi:isolate}
+.ex-list{margin:6px 0;padding:0;list-style:none}
+.ex-list li{margin:5px 0;padding:6px 12px;border-radius:9px;background:#f8fafc;border:1px solid #e8eef5;font-size:13.3px;line-height:1.8;color:#334155}
+.ex-list .m{font-family:"Cambria Math","STIX Two Math","Times New Roman",serif;font-size:15.5px;font-weight:700;color:#0f172a;unicode-bidi:isolate;margin-left:8px}
+.ex-fig.sm{max-width:760px;margin-inline:auto}
+.ex-sheet-foot{margin-top:6px;padding-top:12px;border-top:1px solid #cdd8e4;display:flex;flex-wrap:wrap;justify-content:space-between;gap:8px 20px;font-size:11.8px;color:#64748b}
+span.fa{unicode-bidi:isolate;font-family:inherit;font-weight:inherit}
+sub{font-size:.7em;line-height:0}
+@media (max-width:1100px){.ex-shell{grid-template-columns:300px minmax(0,1fr)}}
+@media (max-width:860px){
+ .ex-overlay{overflow:auto}
+ .ex-shell{display:block;height:auto}
+ .ex-panel{border-left:0;border-bottom:1px solid #1b3249}
+ .ex-stage{overflow:visible;padding:16px 10px 50px}
+ .ex-sheet{padding:16px 12px}
+ .ex-body{grid-template-columns:1fr}
+ .ex-key{border-right:0;border-top:2px dashed var(--lc)}
+ .ex-head{flex-wrap:wrap}
+}
+@media print{
+ @page{size:A4;margin:11mm}
+ html,body{background:#fff!important}
+ *{-webkit-print-color-adjust:exact;print-color-adjust:exact}
+ body.ex-open>*:not(#ex-overlay){display:none!important}
+ .ex-overlay{position:static!important;display:block!important;overflow:visible!important;height:auto!important;background:#fff!important;color:#000!important}
+ .ex-shell{display:block!important;height:auto!important}
+ .ex-panel,.ex-actions,.ex-status{display:none!important}
+ .ex-stage{padding:0!important;overflow:visible!important;background:#fff!important}
+ .ex-sheet{max-width:none!important;padding:0!important;border-radius:0!important;box-shadow:none!important;background:#fff!important}
+ .ex-sheet-head h2{font-size:21px}
+ .ex-card{break-inside:avoid;page-break-inside:avoid;box-shadow:none!important;margin-bottom:12px;border-radius:10px}
+ .ex-body{grid-template-columns:minmax(0,1fr) 190px}
+ .ex-main{padding:8px 14px}
+ .ex-intro{font-size:12.5px;line-height:1.9}
+ .ex-asks li{font-size:12.3px}
+ .ex-fig{margin-bottom:6px;padding:4px}.ex-fig svg{max-height:43mm}.ex-fig figcaption{display:none}.ex-head{padding:8px 12px}.ex-num{width:36px;height:36px;font-size:17px}.ex-titles h3{font-size:14.5px;margin-bottom:3px}.ex-asks-title{margin:2px 0}.ex-asks li{margin:1px 0}.ex-intro{margin-bottom:6px}.ex-key{padding:10px 10px 10px}.ex-key li{padding:4px 0}.ex-sheet-head{margin-bottom:10px;padding-bottom:8px}
+ .ex-sol{display:none!important;padding:10px 14px}
+ body.ex-print-all .ex-sol,.ex-card.ex-only .ex-sol{display:block!important}
+ body.ex-print-all .ex-card,.ex-card.ex-only{break-inside:auto;page-break-inside:auto}
+ .ex-step{break-inside:avoid;page-break-inside:avoid}
+ body.ex-print-student .ex-key{display:none!important}
+ body.ex-print-student .ex-body{grid-template-columns:1fr}
+ body.ex-print-student .ex-space{display:block;height:24mm;margin-top:4px;border:1px dashed #94a3b8;border-radius:8px;background:repeating-linear-gradient(transparent 0 7mm,#e2e8f0 7mm calc(7mm + 1px))}
+ body.ex-print-one .ex-card:not(.ex-only),body.ex-print-one .ex-sheet-foot{display:none!important}
+ body.ex-print-one .ex-sheet-head{margin-bottom:8px}
+ .ex-sheet.hide-key .ex-key{display:none!important}
+}
+
 </style>
   <script>
   // Surface startup errors to the user instead of leaving empty selectors/charts.
@@ -255,6 +426,7 @@ table{font-size:13px}th{font-size:12px;font-weight:600;color:#a7c3d6;border-bott
           <span id="status" class="status"><i></i> آماده تحلیل</span>
           <button id="excel" class="toolbar-btn" title="خروجی اکسل">↓ Excel</button>
           <button id="pdf" class="toolbar-btn" title="چاپ یا ذخیره PDF">↓ PDF</button>
+          <button id="ex-open" class="toolbar-btn ex-trigger" type="button" title="تولید برگهٔ تمرین برای دانشجویان">✦ تمرین‌ساز</button>
           <button id="whats-new-button" class="toolbar-btn whats-new-trigger" type="button" aria-haspopup="dialog" aria-controls="whats-new-dialog">تازه‌ها<span class="whats-new-dot" id="whats-new-dot" aria-hidden="true"></span></button>
           <button id="close-program" class="toolbar-btn red-btn" title="راهنمای بستن برنامه">راهنمای خروج</button>
         </div>
@@ -267,6 +439,14 @@ table{font-size:13px}th{font-size:12px;font-weight:600;color:#a7c3d6;border-bott
       <section id="summary-cards" class="stats-grid"></section>
       <section class="surface-model panel">
         <div class="section-heading"><div><span class="eyebrow">STRUCTURAL MODEL</span><h2>مدل تیر و نیروهای وارده</h2></div><span class="chip">مدل‌سازی دو بعدی</span></div>
+        <div class="anim-bar no-print" id="anim-bar">
+          <button type="button" class="anim-btn" id="anim-play" disabled>▶ اجرای تغییر شکل</button>
+          <button type="button" class="anim-btn ghost" id="anim-reset" disabled>↺ حالت اولیه</button>
+          <label class="anim-field">اعمال بار <input type="range" id="anim-progress" min="0" max="100" value="0" disabled aria-label="میزان اعمال بار"/><output id="anim-progress-value">0٪</output></label>
+          <label class="anim-field">بزرگ‌نمایی <input type="range" id="anim-amp" min="8" max="60" value="40" aria-label="بزرگ‌نمایی نمایش تغییر شکل"/></label>
+          <label class="anim-loop"><input type="checkbox" id="anim-loop"/> تکرار</label>
+          <p class="anim-readout" id="anim-readout">پس از تحلیل، دکمهٔ اجرا فعال می‌شود تا تیر زیر بارها تغییر شکل دهد و فنرها فشرده یا کشیده شوند.</p>
+        </div>
         <div id="beam-viz" class="beam-viz"></div>
         <p class="diagram-note"><span class="diagram-note-dot">●</span> برای بارهای گسترده رو به پایین، پیکان‌ها از خط شدت بار به سمت تیر رسم می‌شوند. شناسه هر تکیه‌گاه زیر آن مشخص است.</p>
         <div class="legend"><span><i class="swatch" style="background:#35d2bf"></i>تیر</span><span><i class="swatch" style="background:#f2aa57"></i>بار</span><span><i class="swatch" style="background:#60a5fa"></i>تکیه‌گاه</span><span><i class="swatch" style="background:#df8cff"></i>مفصل داخلی</span><span><i class="swatch" style="background:#6ee7a0"></i>فنر</span></div>
@@ -323,10 +503,7 @@ table{font-size:13px}th{font-size:12px;font-weight:600;color:#a7c3d6;border-bott
         <p id="whats-new-desc">خلاصهٔ قابلیت‌های افزوده‌شده در این نسخه</p>
       </div>
       <div class="whats-new-items">
-        <article class="whats-new-card"><h3>مشاهدهٔ مقدار نتایج در هر نقطه</h3><p>با حرکت ماوس روی هر یک از چهار نمودار، یک خط راهنما روی هر چهار نمودار ظاهر می‌شود و مقدار خیز، شیب، برش و لنگر همان مقطع هم روی نمودار و هم در نوار بالای نمودارها نمایش داده می‌شود. با کلیک نقطه ثابت می‌شود، در موبایل با لمس و کشیدن کار می‌کند و می‌توانید موقعیت x را مستقیم تایپ کنید.</p></article>
-        <article class="whats-new-card"><h3>محدودشدن خودکار مقادیر به طول تیر</h3><p>اگر طول تیر کم شود یا موقعیتی بیشتر از طول تیر وارد شود، موقعیت تکیه‌گاه‌ها، فنرها و بارهای متمرکز و انتهای بار گسترده به انتهای تیر محدود می‌شود. بار گسترده‌ای که فقط بخشی از آن بیرون از تیر است همان‌جا بریده می‌شود و شدت انتهای آن از روی شیب بار محاسبه می‌شود. اصلاحات انجام‌شده در یک پیام اعلام می‌شود.</p></article>
-        <article class="whats-new-card"><h3>کادرهای رنگی برای بخش‌های ورودی</h3><p>مشخصات تیر، تکیه‌گاه‌ها، فنرها، بارگذاری و مفصل داخلی هر کدام با رنگ جداگانه (هم‌رنگ با راهنمای شکل مدل) مشخص شده‌اند تا مرز بین بخش‌ها واضح‌تر باشد.</p></article>
-        <article class="whats-new-card"><h3>دیاگرام آزاد تیر</h3><p>در انتهای نتایج، تیر آزاد همراه با بارهای وارده، واکنش‌های تکیه‌گاهی، نیرو و لنگر فنرها و مقدار هر کدام رسم می‌شود و موقعیت‌ها روی یک خط‌کش نشان داده می‌شوند. این بخش در خروجی PDF هم می‌آید.</p></article>
+        <article class="whats-new-card"><h3>تمرین‌ساز برای دانشجویان</h3><p>با دکمهٔ «✦ تمرین‌ساز» در نوار بالا، برگهٔ تمرین بسازید: تعداد تمرین (۱ تا ۳۰) و سطح (ساده، متوسط، سخت یا ترکیبی) را انتخاب کنید. هر تمرین شکل، پرسش‌ها و پاسخ کلیدی در کنار خودش دارد و برای تیرهای معین با دکمهٔ «راه‌حل گام‌به‌گام» مراحل حل مانند کلاس استاتیک (نمودار آزاد، تعادل، برش و لنگر، نمودارها) باز می‌شود. برگهٔ دانشجو (با جای حل)، برگهٔ استاد و راه‌حل کامل قابل چاپ یا ذخیره به PDF است و هر تمرین را می‌توان در تحلیل‌گر باز کرد.</p></article>
       </div>
       <div class="whats-new-actions">
         <span class="whats-new-about">درباره برنامه: Beam Analysis Studio — نسخه <span id="whats-new-about-version"></span></span>
@@ -730,7 +907,7 @@ function setOk(text){$('error-box').textContent='';$('status').classList.remove(
 function clearResult(){
  $('summary-cards').innerHTML='<div class="stat-card"><div class="stat-label">وضعیت تحلیل</div><div class="stat-value">آماده</div><div class="stat-note">برای مشاهده نتایج، تحلیل را اجرا کنید.</div></div>';
  for(const key of ['deflection','slope','shear','moment']){$('chart-'+key).innerHTML='<div class="empty">پس از تحلیل نمودار نمایش داده می‌شود.</div>';$('label-'+key).textContent='—';}
- $('reactions-body').innerHTML='';$('extrema-body').innerHTML='';$('force-residual').textContent='—';$('moment-residual').textContent='—';$('elements-label').textContent='—';$('deformed-viz').innerHTML='';$('fbd-viz').innerHTML='';renderProbe(true);setOk('آماده تحلیل');
+ $('reactions-body').innerHTML='';$('extrema-body').innerHTML='';$('force-residual').textContent='—';$('moment-residual').textContent='—';$('elements-label').textContent='—';$('deformed-viz').innerHTML='';$('fbd-viz').innerHTML='';renderProbe(true);animStop();anim.p=0;syncAnimUI();setOk('آماده تحلیل');
 }
 function analyze(){
  try{model.title=$('project-title').value.trim()||'پروژه بدون عنوان';result=BeamEngine.calculate(model);drawModel();drawResults();setOk('تحلیل انجام شد');}
@@ -763,6 +940,18 @@ const KIND_IDX={deflection:0,slope:1,shear:2,moment:3};
 const KINDS=['deflection','slope','shear','moment'],KIND_Q={deflection:'disp',slope:'slope',shear:'force',moment:'moment'},KIND_COLOR={deflection:'#42d6c2',slope:'#8ab0ff',shear:'#ffa65a',moment:'#d9a2ff'};
 const chartMeta={},curUnits={};
 let probeX=null,probeShown=false,probePinned=false;
+/* v5.1: انیمیشن تغییر شکل روی شکل مدل (p = میزان اعمال بار از 0 تا 1) */
+const anim={p:0,amp:40,playing:false,loop:false,raf:0,t0:0};
+const ANIM_DUR=2.6;
+function animMaxDef(){
+ if(!result)return 1e-12;
+ if(result.__mxd===undefined){
+  let mx=0;
+  for(const e of result.elements)for(let i=0;i<=8;i++)mx=Math.max(mx,Math.abs(BeamEngine.evaluate(e,e.len*i/8)[0]));
+  result.__mxd=Math.max(mx,1e-12);
+ }
+ return result.__mxd;
+}
 
 function drawModel(){
  const L=modelLength();
@@ -770,6 +959,15 @@ function drawModel(){
  const width=1040,height=396,x0=100,x1=940,beamY=186,bh=7,bt=beamY-bh,bb=beamY+bh,yG=bb+30;
  const toX=x=>x0+(x1-x0)*x/L,f=n=>Number(n).toFixed(2);
  const amber='#ffba69',ruby='#ff7f92',violet='#e4a0ff';
+ // v5.1: حالت انیمیشن تغییر شکل — D تابع جابه‌جایی قائم (px) هر مقطع را می‌دهد
+ let D=null;
+ if(result&&result.elements&&result.elements.length&&anim.p>0){
+  const S=anim.amp/animMaxDef(),pxm=(x1-x0)/L,pp=anim.p;
+  const dy=x=>-pp*S*probeRaw(Math.min(L,Math.max(0,x)))[0];
+  D={dy,S,pxm,p:pp,slope:x=>{const h=L*2e-4,a=Math.max(0,x-h),b=Math.min(L,x+h);return (dy(b)-dy(a))/((b-a)*pxm);}};
+ }
+ const oX=x=>D?D.dy(x):0,oPx=px=>D?D.dy((px-x0)/(x1-x0)*L):0;
+ const tr=x=>D?`<g transform="translate(0 ${f(oX(x))})">`:'',trEnd=D?'</g>':'';
  // برچسب گرد با پس‌زمینه برای خوانایی مقدار بارها
  // برچسب‌ها جمع می‌شوند و در پایان بدون هم‌پوشانی چیده می‌شوند (برچسب بار گسترده در صورت برخورد جابه‌جا می‌شود)
  const pills=[];
@@ -796,6 +994,7 @@ function drawModel(){
  };
  let s=`<svg viewBox="0 0 ${width} ${height}" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="شماتیک تیر با بارها، تکیه‌گاه‌های شماره‌دار و طول دهانه‌ها"><defs>
   <linearGradient id="beam-fill" x1="0" x2="1"><stop stop-color="#38dec7"/><stop offset=".5" stop-color="#6fe3dd"/><stop offset="1" stop-color="#549ff5"/></linearGradient>
+  <linearGradient id="beam-fill-u" gradientUnits="userSpaceOnUse" x1="${x0}" y1="0" x2="${x1}" y2="0"><stop stop-color="#38dec7"/><stop offset=".5" stop-color="#6fe3dd"/><stop offset="1" stop-color="#549ff5"/></linearGradient>
   <linearGradient id="sup-fill" x1="0" y1="0" x2="0" y2="1"><stop stop-color="#5b97d4"/><stop offset="1" stop-color="#26507f"/></linearGradient>
   <linearGradient id="distributed-shade" x1="0" y1="0" x2="0" y2="1"><stop stop-color="#ffbc6a" stop-opacity=".28"/><stop offset="1" stop-color="#ffbc6a" stop-opacity=".03"/></linearGradient>
   <radialGradient id="bg-glow" cx="50%" cy="46%" r="62%"><stop stop-color="#1b4163" stop-opacity=".6"/><stop offset="1" stop-color="#0b192b" stop-opacity="0"/></radialGradient>
@@ -817,28 +1016,28 @@ function drawModel(){
    const n=Math.max(2,Math.min(28,Math.ceil(wPx/36))),qAt=t=>q0+(q1-q0)*t;
    const base=(q0+q1)>=0?bt:bb;
    const tailY=q=>q>0?bt-70*q/maxQ:q<0?bb+70*(-q)/maxQ:base;
-   const m=Math.max(8,n*2);
-   const samples=Array.from({length:m+1},(_,j)=>{const t=j/m;return {x:xa+wPx*t,q:qAt(t)};});
-   const outline=samples.map(p=>`${f(p.x)},${f(tailY(p.q))}`).join(' ');
-   s+=`<path d="M ${f(xa)} ${base} L ${samples.map(p=>`${f(p.x)} ${f(tailY(p.q))}`).join(' L ')} L ${f(xb)} ${base} Z" fill="url(#distributed-shade)" data-role="distributed-fill"/>`;
+   const m=D?Math.max(24,Math.ceil(wPx/7)):Math.max(8,n*2);
+   const samples=Array.from({length:m+1},(_,j)=>{const t=j/m,px=xa+wPx*t;return {x:px,q:qAt(t),o:oPx(px)};});
+   const outline=samples.map(p=>`${f(p.x)},${f(tailY(p.q)+p.o)}`).join(' ');
+   s+=`<path d="M ${f(xa)} ${f(base+samples[0].o)} L ${samples.map(p=>`${f(p.x)} ${f(tailY(p.q)+p.o)}`).join(' L ')} L ${samples.slice().reverse().map(p=>`${f(p.x)} ${f(base+p.o)}`).join(' L ')} Z" fill="url(#distributed-shade)" data-role="distributed-fill"/>`;
    s+=`<polyline points="${outline}" fill="none" stroke="${amber}" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" data-role="distributed-load-line" data-load="${i}"/>`;
    for(let j=0;j<=n;j++){
-    const t=j/n,x=xa+wPx*t,q=qAt(t),y=tailY(q);
+    const t=j/n,x=xa+wPx*t,q=qAt(t),ox=oPx(x),y=tailY(q)+ox;
     if(70*Math.abs(q)/maxQ<hl+6)continue;
     if(q>0){
-     s+=`<path d="M ${f(x)} ${f(y)} V ${bt-hl+1}" fill="none" stroke="${amber}" stroke-width="2.2" stroke-linecap="round" data-role="distributed-arrow" data-direction="down" data-load="${i}"/><path d="M ${f(x-5)} ${bt-hl} L ${f(x)} ${bt} L ${f(x+5)} ${bt-hl} Z" fill="${amber}" data-role="distributed-arrowhead" data-direction="down"/>`;
+     s+=`<path d="M ${f(x)} ${f(y)} V ${f(bt-hl+1+ox)}" fill="none" stroke="${amber}" stroke-width="2.2" stroke-linecap="round" data-role="distributed-arrow" data-direction="down" data-load="${i}"/><path d="M ${f(x-5)} ${f(bt-hl+ox)} L ${f(x)} ${f(bt+ox)} L ${f(x+5)} ${f(bt-hl+ox)} Z" fill="${amber}" data-role="distributed-arrowhead" data-direction="down"/>`;
     }else{
-     s+=`<path d="M ${f(x)} ${f(y)} V ${bb+hl-1}" fill="none" stroke="${amber}" stroke-width="2.2" stroke-linecap="round" data-role="distributed-arrow" data-direction="up" data-load="${i}"/><path d="M ${f(x-5)} ${bb+hl} L ${f(x)} ${bb} L ${f(x+5)} ${bb+hl} Z" fill="${amber}" data-role="distributed-arrowhead" data-direction="up"/>`;
+     s+=`<path d="M ${f(x)} ${f(y)} V ${f(bb+hl-1+ox)}" fill="none" stroke="${amber}" stroke-width="2.2" stroke-linecap="round" data-role="distributed-arrow" data-direction="up" data-load="${i}"/><path d="M ${f(x-5)} ${f(bb+hl+ox)} L ${f(x)} ${f(bb+ox)} L ${f(x+5)} ${f(bb+hl+ox)} Z" fill="${amber}" data-role="distributed-arrowhead" data-direction="up"/>`;
     }
    }
    const label=Math.abs(q0-q1)<1e-12?`q = ${fmt(fromSI('intensity',q0),5)} ${u().intensity}`:`q: ${fmt(fromSI('intensity',q0),4)} → ${fmt(fromSI('intensity',q1),4)} ${u().intensity}`;
    s+=pill((xa+xb)/2,(q0+q1)>=0?beamY-132:322,label,'#b98a53','#2b2a2f','#ffdbac',true);
   }else if(ld.kind==='point'){
-   const x=toX(ld.x),down=ld.value>=0,hl=12,label=`${fmt(fromSI('force',ld.value))} ${u().force}`;
+   const x=toX(ld.x),down=ld.value>=0,hl=12,o=oX(ld.x),label=`${fmt(fromSI('force',ld.value))} ${u().force}`;
    if(down){
-    s+=`<g data-role="point-load"><line x1="${f(x)}" y1="${beamY-112}" x2="${f(x)}" y2="${bt-hl+1}" stroke="${ruby}" stroke-width="3.2" stroke-linecap="round"/><path d="M${f(x-7)} ${bt-hl} L${f(x)} ${bt} L${f(x+7)} ${bt-hl}Z" fill="${ruby}"/></g>`+pill(x,beamY-132,label,'#b9606f','#33232d','#ffc1cb');
+    s+=`<g data-role="point-load"><line x1="${f(x)}" y1="${beamY-112}" x2="${f(x)}" y2="${f(bt-hl+1+o)}" stroke="${ruby}" stroke-width="3.2" stroke-linecap="round"/><path d="M${f(x-7)} ${f(bt-hl+o)} L${f(x)} ${f(bt+o)} L${f(x+7)} ${f(bt-hl+o)}Z" fill="${ruby}"/></g>`+pill(x,beamY-132,label,'#b9606f','#33232d','#ffc1cb');
    }else{
-    s+=`<g data-role="point-load"><line x1="${f(x)}" y1="${bb+86}" x2="${f(x)}" y2="${bb+hl-1}" stroke="${ruby}" stroke-width="3.2" stroke-linecap="round"/><path d="M${f(x-7)} ${bb+hl} L${f(x)} ${bb} L${f(x+7)} ${bb+hl}Z" fill="${ruby}"/></g>`+pill(x,bb+108,label,'#b9606f','#33232d','#ffc1cb');
+    s+=`<g data-role="point-load"><line x1="${f(x)}" y1="${bb+86}" x2="${f(x)}" y2="${f(bb+hl-1+o)}" stroke="${ruby}" stroke-width="3.2" stroke-linecap="round"/><path d="M${f(x-7)} ${f(bb+hl+o)} L${f(x)} ${f(bb+o)} L${f(x+7)} ${f(bb+hl+o)}Z" fill="${ruby}"/></g>`+pill(x,bb+108,label,'#b9606f','#33232d','#ffc1cb');
    }
   }else if(ld.kind==='moment'){
    const x=toX(ld.x),r=34,a1=200*Math.PI/180,a2=340*Math.PI/180,cw=ld.value>=0;
@@ -846,18 +1045,25 @@ function drawModel(){
    const [sx,sy]=cw?P(a1):P(a2),[ex,ey]=cw?P(a2):P(a1),ang=cw?a2:a1;
    const tx=cw?-Math.sin(ang):Math.sin(ang),ty=cw?Math.cos(ang):-Math.cos(ang),nx=Math.cos(ang),ny=Math.sin(ang);
    const head=`M${f(ex+tx*11)} ${f(ey+ty*11)} L${f(ex+nx*6)} ${f(ey+ny*6)} L${f(ex-nx*6)} ${f(ey-ny*6)}Z`;
-   s+=`<g data-role="moment-load"><path d="M${f(sx)} ${f(sy)} A${r} ${r} 0 0 ${cw?1:0} ${f(ex)} ${f(ey)}" fill="none" stroke="${ruby}" stroke-width="3.2" stroke-linecap="round"/><path d="${head}" fill="${ruby}"/><circle cx="${f(x)}" cy="${beamY}" r="3.5" fill="${ruby}"/></g>`+pill(x,beamY-r-30,`${fmt(fromSI('moment',ld.value))} ${u().moment}`,'#b9606f','#33232d','#ffc1cb');
+   s+=`<g data-role="moment-load"${D?` transform="translate(0 ${f(oX(ld.x))})"`:''}><path d="M${f(sx)} ${f(sy)} A${r} ${r} 0 0 ${cw?1:0} ${f(ex)} ${f(ey)}" fill="none" stroke="${ruby}" stroke-width="3.2" stroke-linecap="round"/><path d="${head}" fill="${ruby}"/><circle cx="${f(x)}" cy="${beamY}" r="3.5" fill="${ruby}"/></g>`+pill(x,beamY-r-30,`${fmt(fromSI('moment',ld.value))} ${u().moment}`,'#b9606f','#33232d','#ffc1cb');
   }
  });
  s+=renderPills();
 
  // ---- تیر: دقیقاً از ابتدا تا انتها (بدون لبه گرد یا هاله‌ی بیرون‌زده) ----
- s+=`<rect x="${x0}" y="${bt}" width="${x1-x0}" height="${2*bh}" rx="1.5" fill="url(#beam-fill)" data-role="beam"/><rect x="${x0}" y="${bt}" width="${x1-x0}" height="3" fill="#ffffff" opacity=".3"/>`;
+ if(D){
+  const pts=[];for(let i=0;i<=160;i++){const xm=L*i/160;pts.push(`${f(toX(xm))} ${f(beamY+D.dy(xm))}`);}
+  const dp='M '+pts.join(' L ');
+  s+=`<line x1="${x0}" y1="${beamY}" x2="${x1}" y2="${beamY}" stroke="#7f98b0" stroke-width="1.6" stroke-dasharray="7 5" opacity=".75" data-role="beam-ghost"/><path d="${dp}" fill="none" stroke="url(#beam-fill-u)" stroke-width="${2*bh}" stroke-linejoin="round" data-role="beam"/><path d="${dp}" transform="translate(0 ${-bh+1.5})" fill="none" stroke="#fff" stroke-opacity=".3" stroke-width="3" stroke-linejoin="round"/>`;
+ }else{
+  s+=`<rect x="${x0}" y="${bt}" width="${x1-x0}" height="${2*bh}" rx="1.5" fill="url(#beam-fill)" data-role="beam"/><rect x="${x0}" y="${bt}" width="${x1-x0}" height="3" fill="#ffffff" opacity=".3"/>`;
+ }
 
  // ---- تکیه‌گاه‌ها ----
  model.supports.forEach((sp,i)=>{
   if(!Number.isFinite(sp.x)||sp.x<0||sp.x>L)return;
   const x=toX(sp.x),endTol=Math.max(1e-9,L*1e-9),atL=Math.abs(sp.x)<endTol,atR=Math.abs(sp.x-L)<endTol;
+  s+=tr(sp.x);
   if(sp.kind==='fixed'&&(atL||atR)){
    const dir=atL?-1:1,wallX=atL?x-11:x,edge=x+dir*11;
    let h='';for(let k=0;k<7;k++)h+=`M${f(edge)} ${beamY-39+k*13} l${dir*10} 10 `;
@@ -869,6 +1075,7 @@ function drawModel(){
   }else{
    s+=`<g data-role="pin-support" filter="url(#soft-shadow)"><path d="M${f(x)} ${bb} L${f(x-18)} ${yG} L${f(x+18)} ${yG}Z" fill="url(#sup-fill)" stroke="#a9d6ff" stroke-width="2" stroke-linejoin="round"/><circle cx="${f(x)}" cy="${bb+1}" r="3.8" fill="#0b192b" stroke="#d3ebff" stroke-width="1.8"/>${ground(x,yG,52)}</g>`;
   }
+  s+=trEnd;
   // شماره، نوع و موقعیت تکیه‌گاه
   const cy=yG+36;
   s+=`<line x1="${f(x)}" y1="${yG+11}" x2="${f(x)}" y2="${cy-13}" stroke="#3d5f80" stroke-dasharray="2 3"/><g data-role="support-number" data-number="${i+1}"><circle cx="${f(x)}" cy="${cy}" r="13" fill="#173250" stroke="#5aa2e0" stroke-width="1.6"/><text x="${f(x)}" y="${cy+5}" text-anchor="middle" fill="#e3f1ff" font-size="14" font-weight="700">${i+1}</text>
@@ -878,29 +1085,46 @@ function drawModel(){
 
  // ---- مفصل‌های داخلی ----
  model.hinges.forEach(h=>{
-  if(h>0&&h<L){const x=toX(h);s+=`<circle cx="${f(x)}" cy="${beamY}" r="8.5" fill="#0b192b" stroke="${violet}" stroke-width="3.2"/><text x="${f(x)}" y="${beamY+34}" text-anchor="middle" fill="#e7baff" font-size="13" stroke="#0b192b" stroke-width="4" paint-order="stroke">مفصل</text>`;}
+  if(h>0&&h<L){const x=toX(h);s+=`<circle cx="${f(x)}" cy="${f(beamY+oX(h))}" r="8.5" fill="#0b192b" stroke="${violet}" stroke-width="3.2"/><text x="${f(x)}" y="${f(beamY+34+oX(h))}" text-anchor="middle" fill="#e7baff" font-size="13" stroke="#0b192b" stroke-width="4" paint-order="stroke">مفصل</text>`;}
  });
 
- // ---- فنرها (عمودی: فنر زیگزاگی به زمین؛ پیچشی: مارپیچ روی تیر) ----
+ // ---- فنرها (عمودی: فنر مارپیچ واقعی به زمین که با تغییر شکل فشرده/کشیده می‌شود؛ پیچشی: مارپیچ روی تیر) ----
  {
-  const green='#6ee7a0',halo='#0b192b',yS=yG+12;
+  const green='#6ee7a0',halo='#0b192b',yS=bb+84;
   const used=model.supports.filter(sp=>Number.isFinite(sp.x)&&sp.x>=0&&sp.x<=L).map(sp=>toX(sp.x));
   const badge=(cx,cy,t)=>`<rect x="${f(cx-15)}" y="${f(cy-9)}" width="30" height="18" rx="9" fill="#12302e" stroke="${green}" stroke-width="1.2"/><text x="${f(cx)}" y="${f(cy+4.5)}" text-anchor="middle" direction="ltr" fill="#d3ffe4" font-size="12" font-weight="700">${t}</text>`;
+  // فنر مارپیچ: تصویر یک مارپیچ از کمی بالا (بیضی‌های متوالی). تعداد دورها ثابت است، گام با طول تغییر می‌کند.
+  const coil=(xs,yT,yB)=>{
+   const lead=8,c0=yT+lead,c1=Math.max(c0+12,yB-lead),turns=7,R=12.5,K=3.3,N=turns*32,tot=2*Math.PI*turns;
+   const pts=[];
+   for(let i=0;i<=N;i++){const th=tot*i/N,a=Math.PI/2+th,sn=Math.sin(a);pts.push([xs+R*Math.cos(a),c0+(c1-c0)*th/tot+K*(sn-1),sn>=0]);}
+   let back='',front='',cat=null;
+   for(let i=1;i<pts.length;i++){
+    const fr=(pts[i][2]||pts[i-1][2]);
+    const seg=(fr?'front':'back');
+    const ptxt=`${f(pts[i-1][0])} ${f(pts[i-1][1])}`;
+    if(fr){if(cat!=='front')front+=`M${ptxt} `;front+=`L${f(pts[i][0])} ${f(pts[i][1])} `;}
+    else{if(cat!=='back')back+=`M${ptxt} `;back+=`L${f(pts[i][0])} ${f(pts[i][1])} `;}
+    cat=seg;
+   }
+   const compress=Math.max(0,Math.min(1,1-(yB-yT-2*lead)/68));
+   const wire=compress>0.45?'#9ff0b8':green;
+   return `<path d="M${f(xs)} ${f(yT)} V${f(c0)} M${f(xs)} ${f(c1)} V${f(yB)}" fill="none" stroke="${green}" stroke-width="2.6" stroke-linecap="round"/><path d="${back}" fill="none" stroke="#2f8f66" stroke-width="2.1" stroke-linecap="round" stroke-linejoin="round"/><path d="${front}" fill="none" stroke="${halo}" stroke-width="5.6" stroke-linecap="round" stroke-linejoin="round"/><path d="${front}" fill="none" stroke="${wire}" stroke-width="2.7" stroke-linecap="round" stroke-linejoin="round"/>`;
+  };
   (model.springs||[]).forEach((sp,i)=>{
    if(!Number.isFinite(sp.x)||sp.x<0||sp.x>L)return;
-   const x=toX(sp.x),tag='F'+(i+1);
+   const x=toX(sp.x),tag='F'+(i+1),oy=oX(sp.x);
    if(sp.kind==='rotational'){
+    const al=D?Math.atan(D.slope(sp.x)):0,aEnd=5*Math.PI+(D?al*2.5:0);
     let d='';
-    for(let a=0;a<=5*Math.PI+1e-6;a+=0.25){const r=3+a*0.764;d+=(a?'L':'M')+f(x+r*Math.cos(a))+' '+f(beamY+r*Math.sin(a))+' ';}
-    s+=`<g data-role="rotational-spring" data-spring="${i}"><path d="${d}" fill="none" stroke="${halo}" stroke-width="5.5" stroke-linecap="round" stroke-linejoin="round"/><path d="${d}" fill="none" stroke="${green}" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/>${badge(x+(x>x0+30?-26:26),beamY-26,tag)}</g>`;
+    for(let a=0;a<=aEnd+0.2;a+=0.25){const aa=Math.min(a,aEnd),r=3+12*(aa/(5*Math.PI));d+=(a?'L':'M')+f(x+r*Math.cos(aa))+' '+f(beamY+r*Math.sin(aa))+' ';}
+    const gT=D?` transform="translate(0 ${f(oy)}) rotate(${f(al*180/Math.PI)} ${f(x)} ${beamY})"`:'';
+    s+=`<g data-role="rotational-spring" data-spring="${i}"><g${gT}><path d="${d}" fill="none" stroke="${halo}" stroke-width="5.5" stroke-linecap="round" stroke-linejoin="round"/><path d="${d}" fill="none" stroke="${green}" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/></g>${badge(x+(x>x0+30?-26:26),beamY-26,tag)}</g>`;
    }else{
-    let off=0;while(used.some(q=>Math.abs(q-(x+off))<30))off+=34;
+    let off=0;while(used.some(q=>Math.abs(q-(x+off))<58))off+=60;
     used.push(x+off);
-    const xs=x+off,top=off?bb+9:bb,y0=top+5,y1=yS-6,n=8;
-    let d=`M${f(xs)} ${top} V${f(y0)}`;
-    for(let k=1;k<=n;k++)d+=` L${f(xs+(k%2?-8:8))} ${f(y0+(y1-y0)*(k-0.5)/n)}`;
-    d+=` L${f(xs)} ${f(y1)} V${yS}`;
-    s+=`<g data-role="vertical-spring" data-spring="${i}">${off?`<path d="M${f(x)} ${bb} L${f(xs)} ${top}" stroke="${green}" stroke-width="1.6" fill="none" stroke-dasharray="3 2"/><circle cx="${f(x)}" cy="${bb}" r="2.8" fill="${green}"/>`:''}<path d="${d}" fill="none" stroke="${green}" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/>${ground(xs,yS,40)}${badge(xs+26,bb+24,tag)}</g>`;
+    const xs=x+off,top=(off?bb+9:bb)+oy;
+    s+=`<g data-role="vertical-spring" data-spring="${i}">${off?`<path d="M${f(x)} ${f(bb+oy)} L${f(xs)} ${f(top)}" stroke="${green}" stroke-width="1.6" fill="none" stroke-dasharray="3 2"/><circle cx="${f(x)}" cy="${f(bb+oy)}" r="2.8" fill="${green}"/>`:''}${coil(xs,top,yS)}${ground(xs,yS,40)}${badge(xs+(xs>x1-10?-34:34),yS-14,tag)}</g>`;
    }
   });
  }
@@ -1012,6 +1236,7 @@ function drawResults(){
  drawFreeBody();
  if(!probePinned)probeShown=false;
  renderProbe();
+ syncAnimUI();
 }
 
 /* ---------- v5: مشاهدهٔ مقدار نتایج در هر نقطه (نشانگر هماهنگ روی هر چهار نمودار) ---------- */
@@ -1198,6 +1423,59 @@ function drawFreeBody(){
  }
  box.innerHTML=s+'</svg>';
 }
+/* ---------- v5.1: کنترل انیمیشن تغییر شکل ---------- */
+const reducedMotion=()=>!!(window.matchMedia&&matchMedia('(prefers-reduced-motion: reduce)').matches);
+function animProfile(tau){
+ if(tau>=ANIM_DUR)return 1;
+ if(tau<=0)return 0;
+ // اعمال تدریجی بار همراه با نوسان میرای کوتاه، مثل رفتار واقعی یک تیر
+ return 1-Math.exp(-4.2*tau)*Math.cos(7.5*tau);
+}
+function animStop(){anim.playing=false;if(anim.raf)cancelAnimationFrame(anim.raf);anim.raf=0;}
+function renderAnim(){drawModel();syncAnimUI();}
+function syncAnimUI(){
+ const has=!!result,pl=$('anim-play'),rs=$('anim-reset'),pr=$('anim-progress');
+ pl.disabled=!has;rs.disabled=!has||(anim.p===0&&!anim.playing);pr.disabled=!has;
+ pl.textContent=anim.playing?'■ توقف':'▶ اجرای تغییر شکل';
+ const pct=Math.round(Math.max(0,Math.min(1,anim.p))*100);
+ if(document.activeElement!==pr)pr.value=pct;
+ $('anim-progress-value').textContent=pct+'٪';
+ const ro=$('anim-readout');
+ if(!has){ro.textContent='پس از تحلیل، دکمهٔ اجرا فعال می‌شود تا تیر زیر بارها تغییر شکل دهد و فنرها فشرده یا کشیده شوند.';return;}
+ const dMax=anim.p*SI2D.deflection(result.extrema.deflection.absolute[1]);
+ const mag=anim.amp/animMaxDef()/((940-100)/modelLength());
+ const sp=result.reactions.filter(r=>r.spring&&r.kind==='spring-v');
+ const spTxt=anim.p>0?sp.map(r=>{const d=anim.p*r.deformation,mm=fromSI('disp',Math.abs(d));return escapeHTML(r.id)+(d<0?' فشرده ':' کشیده ')+'<bdi dir="ltr">'+escapeHTML(fmt(scl(mm,curExp.disp),3)+' '+unitTag(curExp.disp,u().disp))+'</bdi>';}).join(' • '):'';
+ ro.innerHTML='بیشینه خیز در این لحظه: <b>'+escapeHTML(fmt(scl(Math.abs(dMax),curExp.disp),4)+' '+unitTag(curExp.disp,u().disp))+'</b> • بزرگ‌نمایی نمایشی ≈ <b>'+escapeHTML(fmt(mag,3))+'×</b> (تغییر شکل واقعی بسیار کوچک‌تر است)'+(spTxt?' • '+spTxt:'');
+}
+function animTick(now){
+ if(!anim.playing)return;
+ const tau=(now-anim.t0)/1000;
+ anim.p=animProfile(Math.min(tau,ANIM_DUR));
+ renderAnim();
+ if(tau>=ANIM_DUR){
+  if(anim.loop&&tau<ANIM_DUR+0.9){anim.raf=requestAnimationFrame(animTick);return;}
+  if(anim.loop){anim.t0=now;anim.raf=requestAnimationFrame(animTick);return;}
+  anim.p=1;animStop();renderAnim();return;
+ }
+ anim.raf=requestAnimationFrame(animTick);
+}
+function animPlay(){
+ if(!result)return;
+ if(reducedMotion()){animStop();anim.p=anim.p>=1?0:1;renderAnim();return;}
+ animStop();anim.playing=true;anim.p=0;anim.t0=performance.now();
+ anim.raf=requestAnimationFrame(animTick);
+ syncAnimUI();
+}
+$('anim-play').addEventListener('click',()=>{if(anim.playing){animStop();renderAnim();}else animPlay();});
+$('anim-reset').addEventListener('click',()=>{animStop();anim.p=0;renderAnim();});
+$('anim-progress').addEventListener('input',e=>{if(!result)return;animStop();anim.p=Number(e.target.value)/100;renderAnim();});
+$('anim-amp').addEventListener('input',e=>{anim.amp=Number(e.target.value);if(result)renderAnim();});
+$('anim-loop').addEventListener('change',e=>{anim.loop=e.target.checked;});
+// در چاپ/PDF شکل مدل بدون تغییر شکل چاپ شود
+let animSaved=0;
+window.addEventListener('beforeprint',()=>{animSaved=anim.p;if(anim.p>0){anim.p=0;drawModel();}});
+window.addEventListener('afterprint',()=>{if(animSaved>0){anim.p=animSaved;animSaved=0;drawModel();}});
 function safeFile(v){return (v||'Beam_Analysis').replace(/[\\/:*?"<>|]/g,'_').slice(0,80);}
 function download(blob,name){const url=URL.createObjectURL(blob),a=document.createElement('a');a.href=url;a.download=name;document.body.append(a);a.click();a.remove();setTimeout(()=>URL.revokeObjectURL(url),5000);}
 const EXAMPLES=[
@@ -1273,10 +1551,1030 @@ updateInputs();drawModel();analyze();
 </script>
 
 <script>
+/* ExerciseKit — تولید تمرین تیر، حل تحلیلی گام‌به‌گام و ترسیم شکل‌ها.
+   واحدها: kN, m, kN·m. قرارداد: نیروی رو به پایین مثبت؛ واکنش رو به بالا مثبت؛ لنگر واکنش پادساعت‌گرد مثبت؛
+   لنگر متمرکز اعمالی ساعت‌گرد مثبت؛ لنگر خمشی مثبت = کشش تار پایین. */
+(function(root,factory){const api=factory();if(typeof module!=='undefined'&&module.exports)module.exports=api;else root.ExerciseKit=api;})(typeof globalThis!=='undefined'?globalThis:this,function(){
+'use strict';
+const TOL=1e-9;
+/* ---------- ابزارهای عددی و متنی ---------- */
+function mulberry32(a){return function(){a|=0;a=a+0x6D2B79F5|0;let t=Math.imul(a^a>>>15,1|a);t=t+Math.imul(t^t>>>7,61|t)^t;return((t^t>>>14)>>>0)/4294967296;};}
+function n2(v){if(!Number.isFinite(v))return '—';let r=Math.round(v*100)/100;if(Math.abs(r)<1e-9)r=0;return String(r).replace('-','\u2212');}
+const an=v=>n2(Math.abs(v));
+const MINUS='−';
+const nice=v=>Math.abs(v*4-Math.round(v*4))<1e-7;
+const sub=(s,n)=>`${s}<sub>${n}</sub>`;
+const esc=s=>String(s).replace(/[&<>"]/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]));
+function joinTerms(terms){ // terms:[{c,txt}] → "a − b + c"
+  let s='';
+  terms.forEach((t,i)=>{
+    if(Math.abs(t.c)<1e-12)return;
+    if(!s)s=(t.c<0?MINUS:'')+t.txt;
+    else s+=(t.c<0?' '+MINUS+' ':' + ')+t.txt;
+  });
+  return s||'0';
+}
+function sumFmt(terms){return terms.reduce((a,t)=>a+t.c,0);}
+
+/* ---------- بار خطی (یکنواخت یا مثلثی/ذوزنقه‌ای) ---------- */
+function linQ(l,x){return l.qa+(l.qb-l.qa)*(x-l.a)/(l.b-l.a);}
+function linPart(l,lo,hi){
+  const a=Math.max(l.a,lo),b=Math.min(l.b,hi);
+  if(b<=a+1e-12)return null;
+  const qa=linQ(l,a),qb=linQ(l,b),len=b-a,W=(qa+qb)/2*len;
+  const xbar=Math.abs(qa+qb)<1e-12?(a+b)/2:a+len*(qa+2*qb)/(3*(qa+qb));
+  return {a,b,qa,qb,len,W,xbar,uniform:Math.abs(qa-qb)<1e-12};
+}
+function partBetween(l,x){ // بخش بار از ابتدا تا x : نیروی معادل و لنگر حول x
+  const s=Math.min(x,l.b)-l.a;if(s<=1e-12)return null;
+  const d=l.b-l.a,Wp=l.qa*s+(l.qb-l.qa)*s*s/(2*d);
+  const Mp=(x-l.a)*Wp-(l.qa*s*s/2+(l.qb-l.qa)*s*s*s/(3*d));
+  const qx=l.qa+(l.qb-l.qa)*s/d;
+  return {s,Wp,Mp,qx,arm:Wp===0?0:Mp/Wp,uniform:Math.abs(l.qa-l.qb)<1e-12};
+}
+
+/* ---------- میدان برش و لنگر (از سمت چپ) ---------- */
+function fields(p,R){
+  function at(x,side){
+    const inc=xp=>side>0?xp<=x+1e-12:xp<x-1e-12;
+    let V=0,M=0;
+    for(const r of R)if(inc(r.x)){V+=r.F;M+=r.F*(x-r.x)-r.Mz;}
+    for(const l of p.loads){
+      if(l.t==='pt'){if(inc(l.x)){V-=l.P;M-=l.P*(x-l.x);}}
+      else if(l.t==='cp'){if(inc(l.x))M+=l.M;}
+      else{const q=partBetween(l,x);if(q){V-=q.Wp;M-=q.Mp;}}
+    }
+    return {V,M};
+  }
+  return {at,V:(x,s=1)=>at(x,s).V,M:(x,s=1)=>at(x,s).M};
+}
+function features(p){
+  const set=[0,p.L,...p.supports.map(s=>s.x)];
+  if(p.hinge!=null)set.push(p.hinge);
+  for(const l of p.loads){if(l.t==='lin')set.push(l.a,l.b);else set.push(l.x);}
+  return [...new Set(set.map(v=>Math.round(v*1e6)/1e6))].sort((a,b)=>a-b);
+}
+function featureKind(p,x){
+  const near=v=>Math.abs(v-x)<1e-9;
+  if(p.loads.some(l=>l.t==='cp'&&near(l.x)))return 'couple';
+  if(p.supports.some(s=>near(s.x)&&s.type==='fixed'&&(Math.abs(s.x)<1e-9||Math.abs(s.x-p.L)<1e-9)))return 'fixedEnd';
+  if(p.loads.some(l=>l.t==='pt'&&near(l.x)))return 'point';
+  if(p.supports.some(s=>near(s.x)))return 'support';
+  if(p.hinge!=null&&near(p.hinge))return 'hinge';
+  if(Math.abs(x)<1e-9||Math.abs(x-p.L)<1e-9)return 'end';
+  return 'loadEnd';
+}
+function findMax(p,F){
+  const bps=features(p),cand=[];
+  for(const x of bps){cand.push({x,M:F.M(x,1),kind:'bp'});cand.push({x,M:F.M(x,-1),kind:'bp'});}
+  for(let i=0;i<bps.length-1;i++){
+    const lo=bps[i],hi=bps[i+1],N=240;
+    let px=lo,pv=F.V(lo,1);
+    for(let k=1;k<=N;k++){
+      const x=lo+(hi-lo)*k/N,v=k===N?F.V(hi,-1):F.V(x,1);
+      if(Math.abs(v)<1e-10){if(k<N&&Math.abs(pv)>1e-10)cand.push({x,M:F.M(x,1),kind:'zeroV'});px=x;continue;}
+      if(Math.abs(pv)<1e-10){px=x;pv=v;continue;}
+      if(pv*v<0){
+        let a=px,b=x;
+        for(let it=0;it<70;it++){const m=(a+b)/2,vm=F.V(m,1);if((F.V(a,1)<0)===(vm<0))a=m;else b=m;}
+        const r=(a+b)/2;cand.push({x:r,M:F.M(r,1),kind:'zeroV'});
+      }
+      px=x;pv=v;
+    }
+  }
+  let best=cand[0];
+  for(const c of cand)if(Math.abs(c.M)>Math.abs(best.M)+1e-12)best=c;
+  const ambiguous=cand.some(c=>Math.abs(Math.abs(c.M)-Math.abs(best.M))<1e-7&&Math.abs(c.x-best.x)>1e-6);
+  const fk=best.kind==='bp'?featureKind(p,best.x):'zeroV';
+  return {x:best.x,M:best.M,kind:best.kind,fk,ambiguous:ambiguous||fk==='couple'};
+}
+
+/* ---------- معادلهٔ تعادل لنگر حول یک نقطه ---------- */
+function itemsFor(p,lo,hi){
+  const items=[],couples=[];
+  for(const l of p.loads){
+    if(l.t==='pt'){if(l.x>=lo-1e-9&&l.x<=hi+1e-9)items.push({W:l.P,x:l.x,wt:n2(l.P)});}
+    else if(l.t==='cp'){if(l.x>=lo-1e-9&&l.x<=hi+1e-9)couples.push({M:l.M});}
+    else{const q=linPart(l,lo,hi);if(q)items.push({W:q.W,x:q.xbar,wt:q.uniform?`(${n2(q.qa)}×${n2(q.len)})`:n2(q.W)});}
+  }
+  return {items,couples};
+}
+function momentEq(pivot,pivotName,items,couples,knowns,unknown){
+  let known=0;const terms=[];
+  for(const it of items){const arm=it.x-pivot;if(Math.abs(arm)<1e-12)continue;const c=-it.W*arm;known+=c;terms.push({c,txt:`${it.wt}×${an(arm)}`});}
+  for(const cp of couples){const c=-cp.M;known+=c;terms.push({c,txt:an(cp.M)});}
+  for(const k of knowns){const arm=k.x-pivot;if(Math.abs(arm)<1e-12)continue;const c=k.F*arm;known+=c;terms.push({c,txt:`${an(k.F)}×${an(arm)}`});}
+  let coef,ut;
+  if(unknown.type==='F'){coef=unknown.x-pivot;ut=`${unknown.sym}×${an(coef)}`;}else{coef=1;ut=unknown.sym;}
+  const value=-known/coef;
+  const text=`ΣM<sub>${pivotName}</sub> = 0 :  ${coef<0?MINUS:''}${ut}${terms.filter(t=>Math.abs(t.c)>1e-12).map(t=>(t.c<0?' '+MINUS+' ':' + ')+t.txt).join('')} = 0`;
+  return {value,text};
+}
+const dirF=v=>v>=0?'↑':'↓';
+function resF(name,v){return v<-1e-9?`${sub('R',name)} = ${n2(v)} kN ⟹ ${an(v)} kN ↓ (خلاف جهت فرض)`:`${sub('R',name)} = ${n2(v)} kN ↑`;}
+const dirM=v=>v>=0?'↺':'↻';
+
+/* ---------- حل تحلیلی تیرهای معین ---------- */
+function solveDeterminate(p){
+  const sup=p.supports,names=p.supports.map(s=>s.name);
+  const L=p.L;
+  const R=[];const steps=[];
+  const all=itemsFor(p,0,L);
+  const sumW=all.items.reduce((a,i)=>a+i.W,0);
+  const sumWtxt=all.items.length>1?'('+all.items.map(i=>n2(i.W)).join(' + ')+')':(all.items.map(i=>n2(i.W))[0]||'0');
+  // --- مرحله ۱: بارهای معادل ---
+  const rows=[];
+  let ip=0,iw=0,im=0;
+  for(const l of p.loads){
+    if(l.t==='pt'){ip++;rows.push({m:`${sub('P',ip)} = ${n2(l.P)} kN ↓`,d:`در x = ${n2(l.x)} m`});}
+    else if(l.t==='lin'){
+      iw++;const q=linPart(l,0,L),len=l.b-l.a;
+      if(q.uniform)rows.push({m:`${sub('W',iw)} = ${n2(l.qa)} × ${n2(len)} = ${n2(q.W)} kN ↓`,d:`در x = ${n2(q.xbar)} m (وسط ناحیهٔ بارگذاری)`});
+      else rows.push({m:`${sub('W',iw)} = ½ × ${n2(Math.max(l.qa,l.qb))} × ${n2(len)} = ${n2(q.W)} kN ↓`,d:`در x = ${n2(q.xbar)} m (یک‌سوم طول از سمت شدت بیشینه)`});
+    }else{im++;rows.push({m:`${sub('M',im)} = ${n2(Math.abs(l.M))} kN·m ${l.M>=0?'↻':'↺'}`,d:'لنگر خالص؛ در معادلهٔ نیرو اثر ندارد'});}
+  }
+  const unknownNames=[];
+  const R_=(n)=>sub('R',n);
+  const blocks1=[{t:'fbd'}];
+  if(rows.length)blocks1.push({t:'p',h:p.loads.some(l=>l.t==='lin')?'بارهای گسترده را با نیروی معادل جایگزین می‌کنیم:':'بارهای وارده:'},{t:'list',items:rows});
+  // --- ساختار تکیه‌گاهی ---
+  const eqBlocks=[{t:'p',h:'قرارداد: لنگر پادساعت‌گرد (↺) و نیروی رو به بالا (↑) مثبت است.'}];
+  const fam=p.family;
+  let momentName=null;
+  if(p.struct==='two'){
+    const [a,b]=sup;
+    unknownNames.push(R_(a.name),R_(b.name));
+    const eq=momentEq(a.x,a.name,all.items,all.couples,[],{type:'F',x:b.x,sym:R_(b.name)});
+    const Rb=eq.value,Ra=sumW-Rb;
+    R.push({x:a.x,F:Ra,Mz:0,name:a.name},{x:b.x,F:Rb,Mz:0,name:b.name});
+    eqBlocks.push({t:'eq',h:eq.text},{t:'res',h:resF(b.name,Rb)});
+    eqBlocks.push({t:'eq',h:`ΣF<sub>y</sub> = 0 :  ${R_(a.name)} + ${n2(Rb)} − ${sumWtxt} = 0`},{t:'res',h:resF(a.name,Ra)});
+    eqBlocks.push({t:'note',h:`کنترل: با ΣM<sub>${b.name}</sub> = 0 نیز همین مقادیر به‌دست می‌آید ✔`});
+  }else if(p.struct==='cant'){
+    const a=sup[0];
+    unknownNames.push(R_(a.name),sub('M',a.name));
+    const Ra=sumW;
+    eqBlocks.push({t:'eq',h:`ΣF<sub>y</sub> = 0 :  ${R_(a.name)} − ${sumWtxt} = 0`},{t:'res',h:resF(a.name,Ra)});
+    const eq=momentEq(a.x,a.name,all.items,all.couples,[],{type:'M',sym:sub('M',a.name)});
+    const Mz=eq.value;
+    R.push({x:a.x,F:Ra,Mz,name:a.name});
+    eqBlocks.push({t:'eq',h:eq.text},{t:'res',h:`${sub('M',a.name)} = ${n2(Mz)} kN·m ⟹ ${an(Mz)} kN·m ${dirM(Mz)}`});
+    momentName=a.name;
+  }else if(p.struct==='gerberA'){ // سه تکیه‌گاه عمودی + مفصل
+    const [a,b,c]=sup,h=p.hinge;
+    unknownNames.push(R_(a.name),R_(b.name),R_(c.name));
+    let seg,Rseg,segSup;
+    if(h>b.x){ // مفصل بین B و C ← پایانهٔ راست فقط C را دارد
+      seg=itemsFor(p,h,L);segSup=c;
+    }else{seg=itemsFor(p,0,h);segSup=a;}
+    const eq1=momentEq(h,'H',seg.items,seg.couples,[],{type:'F',x:segSup.x,sym:R_(segSup.name)});
+    Rseg=eq1.value;
+    eqBlocks.push({t:'p',h:`مفصل H لنگر منتقل نمی‌کند (M<sub>H</sub> = 0). یک بار قطعهٔ ${h>b.x?'راست':'چپ'} مفصل را جدا می‌کنیم؛ در آن فقط ${R_(segSup.name)} مجهول است:`});
+    eqBlocks.push({t:'eq',h:eq1.text.replace('ΣM<sub>H</sub>',`ΣM<sub>H</sub> (قطعهٔ ${h>b.x?'راست':'چپ'})`)},{t:'res',h:resF(segSup.name,Rseg)});
+    // لنگر کل حول تکیه‌گاه دیگر
+    const other=segSup===c?a:c;
+    const mid=b;
+    const eq2=momentEq(other.x,other.name,all.items,all.couples,[{F:Rseg,x:segSup.x}],{type:'F',x:mid.x,sym:R_(mid.name)});
+    const Rmid=eq2.value,Rother=sumW-Rseg-Rmid;
+    eqBlocks.push({t:'p',h:'حالا کل تیر را در نظر می‌گیریم:'});
+    eqBlocks.push({t:'eq',h:eq2.text.replace(/(ΣM<sub>[A-Z]<\/sub>)/,'$1 (کل تیر)')},{t:'res',h:resF(mid.name,Rmid)});
+    eqBlocks.push({t:'eq',h:`ΣF<sub>y</sub> = 0 :  ${R_(other.name)} + ${n2(Rmid)} + ${n2(Rseg)} − ${sumWtxt} = 0`},{t:'res',h:resF(other.name,Rother)});
+    const m={[segSup.name]:Rseg,[mid.name]:Rmid,[other.name]:Rother};
+    for(const s of sup)R.push({x:s.x,F:m[s.name],Mz:0,name:s.name});
+  }else if(p.struct==='gerberB'){ // گیردار + غلتکی + مفصل
+    const [a,b]=sup,h=p.hinge;
+    unknownNames.push(R_(a.name),sub('M',a.name),R_(b.name));
+    const seg=itemsFor(p,h,L);
+    const eq1=momentEq(h,'H',seg.items,seg.couples,[],{type:'F',x:b.x,sym:R_(b.name)});
+    const Rb=eq1.value,Ra=sumW-Rb;
+    eqBlocks.push({t:'p',h:'مفصل H لنگر منتقل نمی‌کند (M<sub>H</sub> = 0). قطعهٔ راست مفصل را جدا می‌کنیم؛ در آن فقط '+R_(b.name)+' مجهول است:'});
+    eqBlocks.push({t:'eq',h:eq1.text.replace('ΣM<sub>H</sub>','ΣM<sub>H</sub> (قطعهٔ راست)')},{t:'res',h:resF(b.name,Rb)});
+    eqBlocks.push({t:'p',h:'حالا کل تیر را در نظر می‌گیریم:'});
+    eqBlocks.push({t:'eq',h:`ΣF<sub>y</sub> = 0 :  ${R_(a.name)} + ${n2(Rb)} − ${sumWtxt} = 0`},{t:'res',h:resF(a.name,Ra)});
+    const eq2=momentEq(a.x,a.name,all.items,all.couples,[{F:Rb,x:b.x}],{type:'M',sym:sub('M',a.name)});
+    const Mz=eq2.value;
+    eqBlocks.push({t:'eq',h:eq2.text.replace(/(ΣM<sub>[A-Z]<\/sub>)/,'$1 (کل تیر)')},{t:'res',h:`${sub('M',a.name)} = ${n2(Mz)} kN·m ⟹ ${an(Mz)} kN·m ${dirM(Mz)}`});
+    R.push({x:a.x,F:Ra,Mz,name:a.name},{x:b.x,F:Rb,Mz:0,name:b.name});
+    momentName=a.name;
+  }
+  R.sort((x,y)=>x.x-y.x);
+  const F=fields(p,R);
+  const unknownTxt=unknownNames.join('، ');
+  blocks1.push({t:'p',h:`مجهولات: ${unknownTxt} (جهت‌ها رو‌به‌بالا و پادساعت‌گرد فرض می‌شوند؛ علامت منفی یعنی خلاف فرض).`});
+  steps.push({title:'نمودار آزاد و بارهای معادل',blocks:blocks1});
+  steps.push({title:'معادلات تعادل و محاسبهٔ واکنش‌ها',blocks:eqBlocks});
+  // --- مقطع و بیشینه ---
+  let sectionRes=null,maxRes=null;
+  if(p.section){
+    const x=p.section.x;sectionRes={x,V:F.V(x,1),M:F.M(x,1)};
+    const t=sectionTexts(p,R,x,1);
+    steps.push({title:`برش و لنگر در مقطع ${p.section.name} (x = ${n2(x)} m)`,blocks:[
+      {t:'p',h:`از سمت چپ مقطع می‌بُریم و تعادل قطعهٔ چپ را می‌نویسیم (برش مثبت: چپ رو به بالا، لنگر مثبت: کشش تار پایین):`},
+      {t:'eq',h:`${sub('V',p.section.name)} = ${t.vtxt===n2(sectionRes.V)?'':t.vtxt+' = '}${n2(sectionRes.V)} kN`},
+      {t:'eq',h:`${sub('M',p.section.name)} = ${t.mtxt===n2(sectionRes.M)?'':t.mtxt+' = '}${n2(sectionRes.M)} kN·m`},
+      {t:'res',h:`${sub('V',p.section.name)} = ${n2(sectionRes.V)} kN  ،  ${sub('M',p.section.name)} = ${n2(sectionRes.M)} kN·m`}
+    ]});
+  }
+  if(p.asks.max){
+    maxRes=findMax(p,F);
+    steps.push({title:'بیشینهٔ لنگر خمشی',blocks:maxBlocks(p,R,F,maxRes)});
+  }
+  steps.push({title:'نمودارهای برش و لنگر',blocks:[{t:'diag'},{t:'note',h:'قرارداد: لنگر مثبت = کشش در تار پایین تیر.'}]});
+  return {R,F,steps,section:sectionRes,max:maxRes,sumW,momentName};
+}
+function sectionTexts(p,R,x,side){
+  const vt=[],mt=[];
+  const inc=xp=>side>0?xp<=x+1e-12:xp<x-1e-12;
+  for(const r of R)if(inc(r.x)){
+    if(Math.abs(r.F)>1e-12){vt.push({c:r.F,txt:an(r.F)});const arm=x-r.x;mt.push({c:r.F*arm,txt:Math.abs(arm)<1e-12?an(r.F)+'×0':`${an(r.F)}×${an(arm)}`});}
+    if(Math.abs(r.Mz)>1e-12)mt.push({c:-r.Mz,txt:an(r.Mz)});
+  }
+  for(const l of p.loads){
+    if(l.t==='pt'){if(inc(l.x)){vt.push({c:-l.P,txt:n2(l.P)});mt.push({c:-l.P*(x-l.x),txt:`${n2(l.P)}×${an(x-l.x)}`});}}
+    else if(l.t==='cp'){if(inc(l.x))mt.push({c:l.M,txt:an(l.M)});}
+    else{
+      const q=partBetween(l,x);
+      if(q){
+        const wt=q.uniform?`(${n2(l.qa)}×${n2(q.s)})`:n2(q.Wp);
+        vt.push({c:-q.Wp,txt:wt});
+        mt.push({c:-q.Mp,txt:`${wt}×${an(q.arm)}`});
+      }
+    }
+  }
+  return {vtxt:joinTerms(vt),mtxt:joinTerms(mt),V:sumFmt(vt),M:sumFmt(mt)};
+}
+function maxBlocks(p,R,F,mx){
+  const bl=[];
+  const x=mx.x;
+  if(mx.fk==='zeroV'){
+    // بازهٔ حاوی ریشه
+    const bps=features(p);let lo=0,hi=p.L;
+    for(let i=0;i<bps.length-1;i++)if(x>bps[i]&&x<bps[i+1]){lo=bps[i];hi=bps[i+1];}
+    const cover=p.loads.filter(l=>l.t==='lin'&&l.a<=lo+1e-9&&l.b>=hi-1e-9);
+    const V0=F.V(lo,1);
+    if(cover.length===1&&Math.abs(cover[0].qa-cover[0].qb)<1e-12){
+      const w=cover[0].qa;
+      bl.push({t:'p',h:`برش در بازهٔ x = ${n2(lo)} تا ${n2(hi)} m به‌طور خطی کم می‌شود و صفر می‌گذرد؛ لنگر در همان نقطه بیشینه است:`});
+      bl.push({t:'eq',h:`V(x) = ${n2(V0)} ${MINUS} ${n2(w)}×(x ${lo?MINUS+' '+n2(lo):''}) = 0  ⟹  x = ${lo?n2(lo)+' + ':''}${n2(V0)} / ${n2(w)} = ${n2(x)} m`.replace('(x )','x')});
+    }else{
+      bl.push({t:'p',h:`برش در بازهٔ x = ${n2(lo)} تا ${n2(hi)} m علامت عوض می‌کند؛ لنگر در نقطهٔ V = 0 بیشینه است:`});
+      bl.push({t:'eq',h:`V(x) = 0  ⟹  x ≈ ${n2(x)} m`});
+    }
+  }else if(mx.fk==='point'||mx.fk==='support'||mx.fk==='hinge'||mx.fk==='loadEnd'){
+    const vl=F.V(x,-1),vr=F.V(x,1);
+    if(Math.sign(vl)!==Math.sign(vr)&&(Math.abs(vl)>1e-9||Math.abs(vr)>1e-9)){
+      bl.push({t:'p',h:`برش در x = ${n2(x)} m از ${n2(vl)} به ${n2(vr)} kN تغییر علامت می‌دهد (پرش ناشی از ${mx.fk==='point'?'بار متمرکز':'واکنش تکیه‌گاه'})؛ پس لنگر بیشینه همان‌جاست.`});
+    }else bl.push({t:'p',h:`لنگر خمشی در x = ${n2(x)} m (${mx.fk==='support'?'محل تکیه‌گاه':'محل تغییر بارگذاری'}) بیشینهٔ قدر مطلق است.`});
+  }else{ // بر تکیه‌گاه گیردار یا انتهای تیر
+    bl.push({t:'p',h:`برش در طول تیر تغییر علامت نمی‌دهد؛ لنگر در بر تکیه‌گاه گیردار (x = ${n2(x)} m) بیشینه است و برابر لنگر واکنش گیرداری است.`});
+  }
+  if(mx.fk==='fixedEnd'||mx.fk==='end'){
+    bl.push({t:'eq',h:`|M|<sub>max</sub> = |M<sub>${(p.supports.find(s=>Math.abs(s.x-x)<1e-9)||{name:'A'}).name}</sub>| = ${an(mx.M)} kN·m`});
+  }else{
+    const t=sectionTexts(p,R,x,-1);
+    bl.push({t:'eq',h:`M<sub>max</sub> = ${t.mtxt===n2(mx.M)?'':t.mtxt+' = '}${n2(mx.M)} kN·m`});
+  }
+  bl.push({t:'res',h:`|M|<sub>max</sub> = ${an(mx.M)} kN·m ${mx.M>=0?'(کشش پایین)':'(کشش بالا)'} ، در x = ${n2(x)} m`});
+  return bl;
+}
+
+/* ---------- مدل موتور تحلیل برنامه ---------- */
+function toEngineModel(p){
+  const m={schema:1,title:p.title,spans:[{length:p.L,E:200e9,I:8e-5}],supports:p.supports.map(s=>({x:s.x,kind:s.type,settlement:0})),loads:[],hinges:p.hinge!=null?[p.hinge]:[],springs:[],divisions_per_span:20};
+  if(p.spans){m.spans=p.spans.map(len=>({length:len,E:200e9,I:8e-5}));}
+  for(const l of p.loads){
+    if(l.t==='pt')m.loads.push({kind:'point',x:l.x,value:l.P*1000,end:null,value_end:null});
+    else if(l.t==='cp')m.loads.push({kind:'moment',x:l.x,value:l.M*1000,end:null,value_end:null});
+    else m.loads.push({kind:'distributed',x:l.a,value:l.qa*1000,end:l.b,value_end:l.qb*1000});
+  }
+  return m;
+}
+function engineEval(E,res,x,side){
+  const els=res.elements;let e=els[els.length-1];
+  const xx=x+side*1e-7*Math.max(1,x);
+  for(const el of els){if(xx<el.left+el.len-1e-12){e=el;break;}}
+  return E.evaluate(e,Math.min(e.len,Math.max(0,xx-e.left)));
+}
+function engineKey(E,p){
+  const res=E.calculate(toEngineModel(p));
+  const R=res.reactions.map(r=>({x:r.x,F:r.vertical/1000,Mz:r.moment/1000}));
+  return {res,R,maxM:res.extrema.moment.absolute};
+}
+function verify(E,p,sol){
+  const k=engineKey(E,p),errs=[];
+  const close=(a,b)=>Math.abs(a-b)<=1e-5*Math.max(1,Math.abs(a),Math.abs(b));
+  if(k.R.length!==sol.R.length)errs.push('تعداد واکنش‌ها');
+  else k.R.forEach((r,i)=>{if(!close(r.F,sol.R[i].F))errs.push(`F${i}: ${r.F} vs ${sol.R[i].F}`);if(!close(r.Mz,sol.R[i].Mz))errs.push(`Mz${i}: ${r.Mz} vs ${sol.R[i].Mz}`);});
+  if(sol.section){
+    const v=engineEval(E,k.res,sol.section.x,0);
+    if(!close(v[2]/1000,sol.section.V))errs.push(`V: ${v[2]/1000} vs ${sol.section.V}`);
+    if(!close(v[3]/1000,sol.section.M))errs.push(`M: ${v[3]/1000} vs ${sol.section.M}`);
+  }
+  if(sol.max&&!close(k.maxM[1]/1000,sol.max.M)&&!close(Math.abs(k.maxM[1]/1000),Math.abs(sol.max.M)))errs.push(`Mmax: ${k.maxM[1]/1000} vs ${sol.max.M}`);
+  return errs;
+}
+
+/* ---------- تولید مسئله ---------- */
+function makeGen(seed){
+  const rnd=mulberry32(seed>>>0);
+  const g={rnd,ri:(a,b)=>a+Math.floor(rnd()*(b-a+1)),pick:arr=>arr[Math.floor(rnd()*arr.length)],coin:(q=.5)=>rnd()<q,shuffle(arr){const a=[...arr];for(let i=a.length-1;i>0;i--){const j=Math.floor(rnd()*(i+1));[a[i],a[j]]=[a[j],a[i]];}return a;}};
+  return g;
+}
+const PT=[6,8,10,12,15,16,20,24,30,40];
+const WL=[2,3,4,5,6,8,10];
+const CP=[10,12,15,20,24,30,36];
+const pt=(x,P)=>({t:'pt',x,P});
+const cp=(x,M)=>({t:'cp',x,M});
+const lin=(a,b,qa,qb)=>({t:'lin',a,b,qa,qb});
+const S=(type,x)=>({type,x});
+function pickSection(g,p){
+  const f=features(p);
+  const opts=[];
+  for(let x=1;x<p.L;x++)if(f.every(v=>Math.abs(v-x)>=1))opts.push(x);
+  if(!opts.length)return null;
+  return {x:g.pick(opts),name:'D'};
+}
+const until=(f,ok)=>{for(let i=0;i<80;i++){const v=f();if(ok(v))return v;}return null;};
+const TEMPLATES={
+ easy:[
+  {id:'e-simple-point',gen:g=>{const L=g.ri(4,10),a=g.ri(1,L-1);return {family:'simple',struct:'two',kindLabel:'تیر ساده — بار متمرکز',L,supports:[S('pin',0),S('roller',L)],loads:[pt(a,g.pick(PT))],asks:{reactions:true,section:false,max:true}};}},
+  {id:'e-simple-udl',gen:g=>{const L=g.pick([4,6,8,10,12]),w=g.pick(WL);return {family:'simple',struct:'two',kindLabel:'تیر ساده — بار گسترده',L,supports:[S('pin',0),S('roller',L)],loads:[lin(0,L,w,w)],asks:{reactions:true,section:false,max:true}};}},
+  {id:'e-cant',gen:g=>{const L=g.ri(3,8),left=g.coin(),fx=left?0:L,tip=left?L:0;let ld;if(g.coin())ld=pt(tip,g.pick(PT));else{const w=g.pick(WL);ld=lin(0,L,w,w);}return {family:'cant',struct:'cant',side:left?'left':'right',kindLabel:'تیر طره (کنسول)',L,supports:[S('fixed',fx)],loads:[ld],asks:{reactions:true,section:true,max:false}};}},
+  {id:'e-simple-couple',gen:g=>{const L=g.ri(4,10),c=g.ri(1,L-1);return {family:'simple',struct:'two',kindLabel:'تیر ساده — لنگر متمرکز',L,supports:[S('pin',0),S('roller',L)],loads:[cp(c,g.pick(CP)*(g.coin()?1:-1))],asks:{reactions:true,section:true,max:false}};}}
+ ],
+ medium:[
+  {id:'m-simple-udl-point',gen:g=>{const L=g.ri(6,12);let a=0,b=L;if(g.coin()){a=g.coin()?0:g.ri(1,L-4);b=g.coin()?L:g.ri(a+2,L);}const w=g.pick(WL.slice(0,5));const x=until(()=>g.ri(1,L-1),v=>v!==a&&v!==b);if(x==null)return null;return {family:'simple',struct:'two',kindLabel:'تیر ساده — بار گسترده و متمرکز',L,supports:[S('pin',0),S('roller',L)],loads:[lin(a,b,w,w),pt(x,g.pick(PT))],asks:{reactions:true,section:true,max:true}};}},
+  {id:'m-overhang',gen:g=>{const L=g.ri(8,12),ov=g.ri(2,3),right=g.coin();const xa=right?0:ov,xb=right?L-ov:L;const w=g.pick(WL.slice(0,5));const tip=right?L:0;
+    const loads=[lin(xa,xb,w,w),pt(tip,g.pick(PT))];
+    if(g.coin()){const x=until(()=>g.ri(xa+1,xb-1),v=>v!==xa&&v!==xb);if(x!=null)loads.push(pt(x,g.pick(PT)));}
+    return {family:'overhang',struct:'two',side:right?'right':'left',kindLabel:'تیر با طرهٔ یک‌طرفه',L,supports:[S('pin',xa),S('roller',xb)],loads,asks:{reactions:true,section:true,max:true}};}},
+  {id:'m-cant-combo',gen:g=>{const L=g.ri(5,8),left=g.coin(),fx=left?0:L;const a=g.ri(0,L-3),b=g.ri(a+2,L),w=g.pick(WL.slice(0,5));
+    const x=until(()=>g.ri(1,L),v=>v!==a&&v!==b&&v!==fx);const c=until(()=>g.ri(1,L-1),v=>v!==a&&v!==b&&v!==x);if(x==null||c==null)return null;
+    return {family:'cant',struct:'cant',side:left?'left':'right',kindLabel:'تیر طره — بارگذاری ترکیبی',L,supports:[S('fixed',fx)],loads:[lin(a,b,w,w),pt(x,g.pick(PT)),cp(c,g.pick(CP)*(g.coin()?1:-1))],asks:{reactions:true,section:true,max:true}};}},
+  {id:'m-simple-tri',gen:g=>{const L=g.pick([6,9,12]),q=g.pick([4,6,8,10,12]),peakRight=g.coin();const loads=[lin(0,L,peakRight?0:q,peakRight?q:0)];
+    if(g.coin())loads.push(pt(g.ri(1,L-1),g.pick(PT)));
+    return {family:'simple',struct:'two',kindLabel:'تیر ساده — بار مثلثی',L,supports:[S('pin',0),S('roller',L)],loads,asks:{reactions:true,section:true,max:true}};}}
+ ],
+ hard:[
+  {id:'h-overhang-both',gen:g=>{const L=g.ri(10,14),xa=g.ri(2,3),xb=L-g.ri(2,3);const loads=[];
+    if(g.coin()){const len=g.pick([3,6]);const a=g.ri(xa,Math.max(xa,xb-len)),b=a+len,q=g.pick([4,6,8,10]),pr=g.coin();loads.push(lin(a,b,pr?0:q,pr?q:0));}
+    else{const a=g.ri(xa,xb-3),b=g.ri(a+2,xb),w=g.pick(WL.slice(0,5));loads.push(lin(a,b,w,w));}
+    loads.push(pt(g.coin()?0:L,g.pick(PT)));
+    const c=until(()=>g.ri(xa+1,xb-1),v=>true);if(c!=null)loads.push(cp(c,g.pick(CP)*(g.coin()?1:-1)));
+    return {family:'overhang',struct:'two',side:'both',kindLabel:'تیر با دو طره',L,supports:[S('pin',xa),S('roller',xb)],loads,asks:{reactions:true,section:true,max:true}};}},
+  {id:'h-gerber-3',gen:g=>{const B=g.ri(4,6),C=B+g.ri(4,6),right=g.coin();const h=right?g.ri(B+1,C-1):g.ri(1,B-1);const loads=[];
+    const w=g.pick(WL.slice(0,5));const span=right?[B,C]:[0,B];const a=g.ri(span[0],span[1]-3),b=g.ri(a+2,span[1]);loads.push(lin(a,b,w,w));
+    const x=until(()=>g.ri(1,C-1),v=>![B,h,a,b].includes(v));if(x==null)return null;loads.push(pt(x,g.pick(PT)));
+    if(g.coin()){const c=until(()=>g.ri(1,C-1),v=>![B,h,a,b,x].includes(v));if(c!=null)loads.push(cp(c,g.pick(CP)*(g.coin()?1:-1)));}
+    return {family:'gerber',struct:'gerberA',kindLabel:'تیر مرکب (گربر) با مفصل داخلی',L:C,supports:[S('pin',0),S('roller',B),S('roller',C)],hinge:h,loads,asks:{reactions:true,section:true,max:true}};}},
+  {id:'h-gerber-fixed',gen:g=>{const h=g.ri(3,5),B=h+g.ri(3,5),L=B+g.ri(0,2);const loads=[];const w=g.pick(WL.slice(0,5));const a=g.ri(0,h-1),b=g.ri(h+1,B);loads.push(lin(a,b,w,w));
+    const x=until(()=>g.ri(1,L),v=>![h,B,a,b].includes(v));if(x==null)return null;loads.push(pt(x,g.pick(PT)));
+    return {family:'gerber',struct:'gerberB',kindLabel:'تیر مرکب (گربر) با تکیه‌گاه گیردار',L,supports:[S('fixed',0),S('roller',B)],hinge:h,loads,asks:{reactions:true,section:true,max:true}};}}
+ ]
+};
+/* تیرهای نامعین: فقط پاسخ کلیدی از موتور تحلیل */
+const INDET=[
+  {id:'i-propped',gen:g=>{const L=g.ri(4,8),left=g.coin();const loads=g.coin()?[lin(0,L,g.pick(WL.slice(0,5)),g.pick(WL.slice(0,5)))]:[pt(g.ri(1,L-1),g.pick(PT))];if(loads[0].t==='lin')loads[0].qb=loads[0].qa;
+    return {family:'indet',struct:'indet',hint:'propped',kindLabel:'تیر نامعین — گیردار و غلتکی',L,supports:left?[S('fixed',0),S('roller',L)]:[S('roller',0),S('fixed',L)],loads,asks:{reactions:true,section:false,max:true},determinate:false};}},
+  {id:'i-fixfix',gen:g=>{const L=g.ri(4,8);let loads;if(g.coin()){const w=g.pick(WL.slice(0,5));loads=[lin(0,L,w,w)];}else{let a;do{a=g.ri(1,L-1);}while(L%2===0&&a===L/2);loads=[pt(a,g.pick(PT))];}
+    return {family:'indet',struct:'indet',hint:'fixfix',kindLabel:'تیر نامعین — دو سر گیردار',L,supports:[S('fixed',0),S('fixed',L)],loads,asks:{reactions:true,section:false,max:true},determinate:false};}},
+  {id:'i-continuous',gen:g=>{const L1=g.ri(3,6),L2=g.ri(3,6),L=L1+L2;const w=g.pick(WL.slice(0,5));const loads=g.coin()?[lin(0,L,w,w)]:[lin(0,L1,w,w),pt(L1+g.ri(1,L2-1),g.pick(PT))];
+    return {family:'indet',struct:'indet',hint:'cont',kindLabel:'تیر پیوستهٔ دودهانه',L,spans:[L1,L2],supports:[S('pin',0),S('roller',L1),S('roller',L)],loads,asks:{reactions:true,section:false,max:true},determinate:false};}}
+];
+const LEVEL_FA={easy:'ساده',medium:'متوسط',hard:'سخت'};
+const TIME={easy:10,medium:15,hard:25};
+
+function finalize(g,spec,level,index){
+  const p=Object.assign({},spec);
+  p.level=level;p.index=index;p.determinate=spec.determinate!==false;
+  p.supports=spec.supports.map(s=>({...s})).sort((a,b)=>a.x-b.x);
+  p.supports.forEach((s,i)=>s.name='ABCDEFG'[i]);
+  p.hinge=spec.hinge!=null?spec.hinge:null;
+  p.loads=spec.loads.map(l=>({...l}));
+  p.title=`تمرین ${index+1} — ${spec.kindLabel}`;
+  p.asks=Object.assign({},spec.asks);
+  p.section=null;
+  if(p.asks.section){p.section=pickSection(g,p);if(!p.section)return null;}
+  return p;
+}
+/* اعتبارسنجی هندسی مسئله */
+function validGeometry(p){
+  const L=p.L;
+  for(const l of p.loads){
+    if(l.t==='lin'){if(!(l.a>=0&&l.b<=L+1e-9&&l.b-l.a>=1-1e-9))return false;if(l.qa===0&&l.qb===0)return false;if(p.hinge!=null&&(Math.abs(l.a-p.hinge)<1e-9||Math.abs(l.b-p.hinge)<1e-9))return false;}
+    else if(!(l.x>=0&&l.x<=L))return false;
+  }
+  if(p.hinge!=null){
+    if(p.loads.some(l=>l.t!=='lin'&&Math.abs(l.x-p.hinge)<1e-9))return false;
+    if(p.supports.some(s=>Math.abs(s.x-p.hinge)<1e-9))return false;
+  }
+  // بارهای متمرکز/لنگر روی تکیه‌گاه نباشند، هم‌محل نباشند
+  const pts=p.loads.filter(l=>l.t!=='lin').map(l=>l.x);
+  if(new Set(pts).size!==pts.length)return false;
+  if(p.struct!=='cant'&&p.loads.some(l=>l.t==='cp'&&p.supports.some(s=>Math.abs(s.x-l.x)<1e-9)))return false;
+  if(p.loads.some(l=>l.t==='pt'&&p.supports.some(s=>Math.abs(s.x-l.x)<1e-9&&p.struct!=='cant'&&s.x!==0&&s.x!==L)))return false;
+  return true;
+}
+function solveProblem(E,p){
+  if(p.determinate){
+    const sol=solveDeterminate(p);
+    return sol;
+  }
+  return solveIndeterminate(E,p);
+}
+function solveIndeterminate(E,p){
+  const k=engineKey(E,p);
+  const R=k.R.map((r,i)=>({x:r.x,F:r.F,Mz:r.Mz,name:p.supports[i].name}));
+  const F=fields(p,R);
+  const mx=k.maxM,xs=mx[0],Mv=mx[1]/1000;
+  const hints={propped:'روش سازگاری تغییرمکان (حذف تکیه‌گاه غلتکی و نوشتن شرط خیز صفر) یا جداول لنگرهای انتهایی',fixfix:'روش سازگاری تغییرمکان یا استفادهٔ مستقیم از لنگرهای انتهایی گیرداری (FEM)',cont:'روش سه‌لنگری (کلاپیرون) یا روش شیب-خیز'};
+  const steps=[
+    {title:'روش حل پیشنهادی',blocks:[{t:'fbd'},{t:'p',h:`این تیر نامعین است (تعداد مجهولات تکیه‌گاهی بیش از معادلات تعادل). برای حل: ${hints[p.hint]}.`},{t:'p',h:'در این نسخه برای تیرهای نامعین فقط پاسخ نهایی ارائه می‌شود. برای دیدن نمودارها و خیز، دکمهٔ «باز کردن در تحلیل‌گر» را بزنید.'}]},
+    {title:'پاسخ نهایی (تحلیل اجزای محدود نرم‌افزار)',blocks:[{t:'list',items:R.map(r=>reactionHtml(r)).flat().map(m=>({m}))},{t:'res',h:`|M|<sub>max</sub> = ${an(Mv)} kN·m ${Mv>=0?'(کشش پایین)':'(کشش بالا)'} ، در x = ${n2(xs)} m`},{t:'diag'}]}
+  ];
+  return {R,F,steps,section:null,max:{x:xs,M:Mv,fk:'engine',ambiguous:false},engineOnly:true};
+}
+function reactionHtml(r){
+  const out=[`${sub('R',r.name)} = ${an(r.F)} kN ${dirF(r.F)}`];
+  if(Math.abs(r.Mz)>1e-9)out.push(`${sub('M',r.name)} = ${an(r.Mz)} kN·m ${dirM(r.Mz)}`);
+  return out;
+}
+
+/* ---------- متن پرسش‌ها و پاسخ کلیدی ---------- */
+function statement(p){
+  const L=n2(p.L),nm=p.supports.map(s=>s.name);
+  let intro='';
+  if(p.family==='simple')intro=`تیر ساده‌ای به طول ${L} متر مطابق شکل بارگذاری شده است (تکیهٔ A مفصلی و تکیهٔ B غلتکی).`;
+  else if(p.family==='overhang'){
+    const sd=p.side==='both'?'در هر دو سمت طره دارد':p.side==='right'?'در سمت راست طره دارد':'در سمت چپ طره دارد';
+    intro=`تیر زیر به طول ${L} متر روی دو تکیه‌گاه A (مفصلی) و B (غلتکی) قرار دارد و ${sd}.`;
+  }else if(p.family==='cant')intro=`تیر طره (کنسول) به طول ${L} متر مطابق شکل بارگذاری شده است؛ انتهای ${p.side==='left'?'چپ':'راست'} آن در A گیردار و انتهای دیگر آزاد است.`;
+  else if(p.struct==='gerberA')intro=`تیر مرکب (گربر) زیر روی سه تکیه‌گاه A (مفصلی)، B و C (غلتکی) قرار دارد و در نقطهٔ H مفصل داخلی دارد. مفصل H لنگر منتقل نمی‌کند.`;
+  else if(p.struct==='gerberB')intro=`تیر مرکب (گربر) زیر در A گیردار است، روی تکیه‌گاه غلتکی B قرار دارد و در نقطهٔ H مفصل داخلی دارد. مفصل H لنگر منتقل نمی‌کند.`;
+  else if(p.hint==='propped')intro=`تیر نامعینِ درجهٔ یک زیر در یک انتها گیردار و در انتهای دیگر دارای تکیه‌گاه غلتکی است.`;
+  else if(p.hint==='fixfix')intro=`تیر نامعین زیر در هر دو انتها گیردار است.`;
+  else intro=`تیر پیوستهٔ دودهانهٔ زیر روی سه تکیه‌گاه قرار دارد. سختی خمشی EI در تمام طول ثابت است.`;
+  const asks=[];
+  const rx=p.supports.map(s=>s.type==='fixed'?`${sub('R',s.name)} و ${sub('M',s.name)}`:sub('R',s.name));
+  asks.push(`واکنش‌های تکیه‌گاهی را به‌دست آورید: ${rx.join('، ')}.`);
+  if(p.section)asks.push(`نیروی برشی ${sub('V','D')} و لنگر خمشی ${sub('M','D')} را در مقطع D به فاصلهٔ x = ${n2(p.section.x)} m از انتهای چپ تیر محاسبه کنید.`);
+  if(p.asks.max)asks.push(p.determinate?'بیشینهٔ قدر مطلق لنگر خمشی و محل وقوع آن را تعیین کنید.':'بیشینهٔ قدر مطلق لنگر خمشی را تعیین کنید.');
+  if(p.determinate)asks.push('نمودارهای برش و لنگر را رسم کنید.');
+  return {intro,asks};
+}
+function keyAnswers(p,sol){
+  const k=[];
+  for(const r of sol.R){
+    k.push({l:sub('R',r.name),v:`${an(r.F)} kN ${dirF(r.F)}`});
+    if(Math.abs(r.Mz)>1e-9)k.push({l:sub('M',r.name),v:`${an(r.Mz)} kN·m ${dirM(r.Mz)}`});
+  }
+  if(sol.section){
+    k.push({l:sub('V','D'),v:Math.abs(sol.section.V)<1e-9?'0 kN':`${sol.section.V>=0?'+':MINUS}${an(sol.section.V)} kN`});
+    k.push({l:sub('M','D'),v:Math.abs(sol.section.M)<1e-9?'0 kN·m':`${sol.section.M>=0?'+':MINUS}${an(sol.section.M)} kN·m`});
+  }
+  if(sol.max){
+    k.push({l:'|M|<sub>max</sub>',v:`${an(sol.max.M)} kN·m`,sub:p.determinate?`در x = ${n2(sol.max.x)} m (${sol.max.M>=0?'کشش پایین':'کشش بالا'})`:`حدود x = ${n2(sol.max.x)} m`});
+  }
+  return k;
+}
+
+/* ---------- ساخت یک تمرین کامل ---------- */
+function buildExercise(E,g,tpl,level,index){
+  for(let tries=0;tries<400;tries++){
+    const spec=tpl.gen(g);
+    if(!spec)continue;
+    const p=finalize(g,spec,level,index);
+    if(!p||!validGeometry(p))continue;
+    if(p.determinate&&p.struct==='gerberA'&&p.hinge!=null){/* مفصل نباید روی بار خطی‌ای که ابتدایش مفصل است باشد (در validGeometry) */}
+    let sol;
+    try{sol=solveProblem(E,p);}catch(e){continue;}
+    if(sol.max&&sol.max.ambiguous&&p.determinate)continue;
+    if(p.determinate){
+      const errs=verify(E,p,sol);
+      if(errs.length){buildExercise.mismatch=(buildExercise.mismatch||[]);buildExercise.mismatch.push({tpl:tpl.id,errs,p});continue;}
+      const ok=sol.R.every(r=>nice(r.F)&&nice(r.Mz))&&(!sol.section||(nice(sol.section.V)&&nice(sol.section.M)));
+      if(!ok&&tries<300)continue;
+    }
+    if(p.determinate&&sol.section&&Math.abs(sol.section.V)<1e-9&&Math.abs(sol.section.M)<1e-9)continue;
+    const st=statement(p);
+    return {problem:p,sol,intro:st.intro,asks:st.asks,key:keyAnswers(p,sol),engineModel:toEngineModel(p),level,index,tplId:tpl.id,time:p.determinate?TIME[level]:30};
+  }
+  return null;
+}
+function generateSet(E,{count=6,level='mixed',indet=false,seed=1}={}){
+  const items=[];
+  count=Math.max(1,Math.min(30,count|0));
+  const plan=[];
+  if(level==='mixed'){
+    const e=Math.round(count*0.34),h=Math.round(count*0.33),m=Math.max(0,count-e-h);
+    for(let i=0;i<e;i++)plan.push('easy');for(let i=0;i<m;i++)plan.push('medium');for(let i=0;i<h;i++)plan.push('hard');
+  }else for(let i=0;i<count;i++)plan.push(level);
+  const g=makeGen(seed*7919+13);
+  const used={easy:[],medium:[],hard:[]};
+  let indetTurn=0;
+  plan.forEach((lv,i)=>{
+    let list=TEMPLATES[lv];
+    let pool=[...list];
+    if(lv==='hard'&&indet){
+      // هر سومین تمرین سخت نامعین باشد
+      if(indetTurn%3===1)pool=[...INDET];
+      indetTurn++;
+    }
+    const idx=used[lv].length;
+    // چرخشی برای تنوع: قالبی که کمتر استفاده شده را ترجیح بده
+    const counts=pool.map(t=>used[lv].filter(u=>u===t.id).length);
+    const minC=Math.min(...counts);
+    const cands=pool.filter((t,j)=>counts[j]===minC);
+    const tpl=g.pick(cands);
+    const ex=buildExercise(E,g,tpl,lv,i);
+    if(ex){used[lv].push(tpl.id);items.push(ex);}
+  });
+  return items;
+}
+
+/* ---------- ترسیم شکل ---------- */
+const COL={beam:'#1f4e79',beam2:'#3b82c4',load:'#c2410c',loadFill:'rgba(194,65,12,.13)',cp:'#7c3aed',sup:'#334155',hatch:'#64748b',react:'#0f766e',dim:'#64748b',text:'#0f172a',hinge:'#7c3aed',sec:'#0369a1'};
+function arrowDown(x,y1,y2,col,w=2.2,h=6){return `<path d="M${x.toFixed(1)} ${y1.toFixed(1)} V${(y2-h+1).toFixed(1)}" stroke="${col}" stroke-width="${w}" fill="none" stroke-linecap="round"/><path d="M${(x-h*.62).toFixed(1)} ${(y2-h).toFixed(1)} L${x.toFixed(1)} ${y2.toFixed(1)} L${(x+h*.62).toFixed(1)} ${(y2-h).toFixed(1)}Z" fill="${col}"/>`;}
+function arrowUp(x,y1,y2,col,w=2.2,h=6){return `<path d="M${x.toFixed(1)} ${y1.toFixed(1)} V${(y2+h-1).toFixed(1)}" stroke="${col}" stroke-width="${w}" fill="none" stroke-linecap="round"/><path d="M${(x-h*.62).toFixed(1)} ${(y2+h).toFixed(1)} L${x.toFixed(1)} ${y2.toFixed(1)} L${(x+h*.62).toFixed(1)} ${(y2+h).toFixed(1)}Z" fill="${col}"/>`;}
+function arcArrow(cx,cy,r,a1,a2,cw,col,w=2.4){
+  const P=a=>[cx+r*Math.cos(a*Math.PI/180),cy+r*Math.sin(a*Math.PI/180)];
+  const s=cw?P(a1):P(a2),e=cw?P(a2):P(a1),ang=(cw?a2:a1)*Math.PI/180;
+  // sweep 1 = ساعت‌گرد روی صفحه
+  const sweep=cw?1:0;
+  const [sa,ea]=cw?[a1,a2]:[a2,a1];
+  const S0=P(sa),E0=P(ea);
+  const d=`M${S0[0].toFixed(1)} ${S0[1].toFixed(1)} A${r} ${r} 0 0 ${sweep} ${E0[0].toFixed(1)} ${E0[1].toFixed(1)}`;
+  const tx=cw?-Math.sin(ea*Math.PI/180):Math.sin(ea*Math.PI/180),ty=cw?Math.cos(ea*Math.PI/180):-Math.cos(ea*Math.PI/180);
+  const nx=Math.cos(ea*Math.PI/180),ny=Math.sin(ea*Math.PI/180);
+  const head=`M${(E0[0]+tx*9).toFixed(1)} ${(E0[1]+ty*9).toFixed(1)} L${(E0[0]+nx*5).toFixed(1)} ${(E0[1]+ny*5).toFixed(1)} L${(E0[0]-nx*5).toFixed(1)} ${(E0[1]-ny*5).toFixed(1)}Z`;
+  return `<path d="${d}" fill="none" stroke="${col}" stroke-width="${w}" stroke-linecap="round"/><path d="${head}" fill="${col}"/>`;
+}
+function drawBeam(p,opts={}){
+  const mode=opts.mode||'problem',sol=opts.sol,uid=opts.uid||('b'+p.index);
+  const W=640,H=300,x0=70,x1=570,by=150,L=p.L;
+  const sx=x=>x0+(x1-x0)*x/L;
+  let s=`<svg viewBox="0 0 ${W} ${H}" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="${esc(p.title)}" class="ex-svg"><defs><linearGradient id="${uid}g" x1="0" x2="1"><stop offset="0" stop-color="${COL.beam}"/><stop offset="1" stop-color="${COL.beam2}"/></linearGradient></defs>`;
+  const labels=[];
+  const lins=p.loads.filter(l=>l.t==='lin'),qmax=Math.max(1e-9,...lins.flatMap(l=>[Math.abs(l.qa),Math.abs(l.qb)]));
+  const top=by-5;
+  // بارهای گسترده
+  for(const l of lins){
+    const xa=sx(l.a),xb=sx(l.b),wpx=xb-xa;
+    const hq=q=>14+24*Math.abs(q)/qmax;
+    const m=Math.max(2,Math.round(wpx/28));
+    const pts=[];for(let i=0;i<=24;i++){const t=i/24,q=l.qa+(l.qb-l.qa)*t;pts.push([xa+wpx*t,top-hq(q)]);}
+    s+=`<path d="M${xa.toFixed(1)} ${top} L${pts.map(q=>q[0].toFixed(1)+' '+q[1].toFixed(1)).join(' L')} L${xb.toFixed(1)} ${top}Z" fill="${COL.loadFill}"/><polyline points="${pts.map(q=>q[0].toFixed(1)+','+q[1].toFixed(1)).join(' ')}" fill="none" stroke="${COL.load}" stroke-width="2.4" stroke-linejoin="round"/>`;
+    for(let i=0;i<=m;i++){const t=i/m,q=l.qa+(l.qb-l.qa)*t,h=hq(q);if(Math.abs(q)<1e-9)continue;s+=arrowDown(xa+wpx*t,top-h,top,COL.load,1.9,6);}
+    const uni=Math.abs(l.qa-l.qb)<1e-9,peak=Math.max(l.qa,l.qb);
+    labels.push({x:(xa+xb)/2,anchor:top-hq(peak)-2,text:uni?`w = ${n2(l.qa)} kN/m`:`q = ${n2(peak)} kN/m`,col:COL.load});
+  }
+  for(const l of p.loads){
+    if(l.t==='pt'){const x=sx(l.x);s+=arrowDown(x,top-56,top,COL.load,2.8,8);labels.push({x,anchor:top-58,text:`${n2(l.P)} kN`,col:COL.load});}
+    else if(l.t==='cp'){const x=sx(l.x),cw=l.M>=0;s+=arcArrow(x,by,22,200,340,cw,COL.cp,2.6);labels.push({x,anchor:by-26,text:`${n2(Math.abs(l.M))} kN·m`,col:COL.cp});}
+  }
+  // برچسب‌ها با ردیف‌بندی
+  const lanes=[78,51,24],placed=[];let leaders='',pills='';
+  labels.sort((a,b)=>a.x-b.x);
+  for(const lb of labels){
+    const w=lb.text.length*6.9+16;let lane=0;
+    for(;lane<lanes.length;lane++){if(!placed.some(q=>q.lane===lane&&Math.abs(q.x-lb.x)<(q.w+w)/2+6))break;}
+    if(lane>=lanes.length)lane=lanes.length-1;
+    placed.push({x:lb.x,w,lane});
+    const cx=Math.min(W-w/2-4,Math.max(w/2+4,lb.x)),y=lanes[lane];
+    if(lb.anchor-y>14)leaders+=`<line x1="${lb.x.toFixed(1)}" y1="${y+9}" x2="${lb.x.toFixed(1)}" y2="${(lb.anchor).toFixed(1)}" stroke="${lb.col}" stroke-width="1" stroke-dasharray="2 3" opacity=".7"/>`;
+    pills+=`<g class="ex-lab"><rect x="${(cx-w/2).toFixed(1)}" y="${y-11}" width="${w.toFixed(1)}" height="22" rx="11" fill="#fff" stroke="${lb.col}" stroke-width="1.3"/><text x="${cx.toFixed(1)}" y="${y+4.5}" text-anchor="middle" font-size="12.5" font-weight="600" fill="${COL.text}" direction="ltr">${esc(lb.text)}</text></g>`;
+  }
+  s+=leaders+pills;
+  // تیر
+  s+=`<rect x="${x0}" y="${by-5}" width="${x1-x0}" height="10" rx="2" fill="url(#${uid}g)"/><rect x="${x0}" y="${by-5}" width="${x1-x0}" height="2.5" fill="#fff" opacity=".28"/>`;
+  // تکیه‌گاه‌ها یا واکنش‌ها
+  const by2=by+5;
+  if(mode==='problem'){
+    for(const sp of p.supports){
+      const x=sx(sp.x);
+      if(sp.type==='fixed'){
+        const dir=sp.x<=1e-9?-1:1;
+        s+=`<line x1="${x}" y1="${by-34}" x2="${x}" y2="${by+34}" stroke="${COL.sup}" stroke-width="3.4" stroke-linecap="round"/>`;
+        for(let y=by-32;y<=by+30;y+=8)s+=`<line x1="${x}" y1="${y}" x2="${x+dir*10}" y2="${y+8}" stroke="${COL.hatch}" stroke-width="1.6"/>`;
+      }else{
+        const bw=sp.type==='pin'?15:13,yb=sp.type==='pin'?by2+22:by2+19;
+        s+=`<path d="M${x} ${by2} L${x-bw} ${yb} L${x+bw} ${yb}Z" fill="#e2e8f0" stroke="${COL.sup}" stroke-width="2" stroke-linejoin="round"/>`;
+        let gy=yb;
+        if(sp.type==='roller'){s+=`<circle cx="${x-7}" cy="${yb+4.5}" r="4" fill="#fff" stroke="${COL.sup}" stroke-width="1.8"/><circle cx="${x+7}" cy="${yb+4.5}" r="4" fill="#fff" stroke="${COL.sup}" stroke-width="1.8"/>`;gy=yb+9;}
+        s+=`<line x1="${x-20}" y1="${gy}" x2="${x+20}" y2="${gy}" stroke="${COL.sup}" stroke-width="2.2"/>`;
+        for(let k=-18;k<=14;k+=7)s+=`<line x1="${x+k}" y1="${gy}" x2="${x+k-6}" y2="${gy+7}" stroke="${COL.hatch}" stroke-width="1.5"/>`;
+      }
+      s+=`<g class="ex-sup-name"><circle cx="${x+(sp.type==='fixed'?(sp.x<=1e-9?-6:6):0)}" cy="218" r="11" fill="#eef4fb" stroke="${COL.sup}" stroke-width="1.4"/><text x="${x+(sp.type==='fixed'?(sp.x<=1e-9?-6:6):0)}" y="222.5" text-anchor="middle" font-size="13" font-weight="700" fill="${COL.text}">${sp.name}</text></g>`;
+    }
+  }else{
+    // نمودار آزاد: واکنش‌ها
+    const Rs=(sol&&sol.R)||[];
+    for(const r of p.supports){
+      const x=sx(r.x),isMom=r.type==='fixed';
+      s+=arrowUp(x,by2+54,by2,COL.react,3,8);
+      s+=`<g class="ex-lab"><rect x="${x-19}" y="${by2+58}" width="38" height="22" rx="11" fill="#fff" stroke="${COL.react}" stroke-width="1.3"/><text x="${x}" y="${by2+73}" text-anchor="middle" font-size="13" font-weight="700" fill="${COL.react}" direction="ltr">R<tspan baseline-shift="sub" font-size="10">${r.name}</tspan></text></g>`;
+      if(isMom){
+        s+=arcArrow(x,by,28,20,160,false,COL.react,2.8);
+        const lx=x+(r.x<=1e-9?36:-36);
+        s+=`<g class="ex-lab"><rect x="${lx-19}" y="${by+36}" width="38" height="22" rx="11" fill="#fff" stroke="${COL.react}" stroke-width="1.3"/><text x="${lx}" y="${by+51}" text-anchor="middle" font-size="13" font-weight="700" fill="${COL.react}" direction="ltr">M<tspan baseline-shift="sub" font-size="10">${r.name}</tspan></text></g>`;
+      }
+    }
+  }
+  // مفصل
+  if(p.hinge!=null){const x=sx(p.hinge);s+=`<circle cx="${x}" cy="${by}" r="6.5" fill="#fff" stroke="${COL.hinge}" stroke-width="2.6"/><text x="${x}" y="${by+27}" text-anchor="middle" font-size="12.5" font-weight="700" fill="${COL.hinge}">H</text>`;}
+  // مقطع D
+  if(p.section&&mode==='problem'){const x=sx(p.section.x);s+=`<line x1="${x}" y1="${by-30}" x2="${x}" y2="${by+36}" stroke="${COL.sec}" stroke-width="1.6" stroke-dasharray="5 4"/><g><circle cx="${x}" cy="${by+49}" r="10" fill="${COL.sec}"/><text x="${x}" y="${by+53.5}" text-anchor="middle" font-size="12.5" font-weight="700" fill="#fff">D</text></g>`;}
+  // خط‌کش ابعاد
+  const keys=features(p);
+  if(p.section)keys.push(p.section.x);
+  const ks=[...new Set(keys.map(v=>Math.round(v*1e6)/1e6))].sort((a,b)=>a-b);
+  const dy=262;
+  s+=`<line x1="${x0}" y1="${dy}" x2="${x1}" y2="${dy}" stroke="${COL.dim}" stroke-width="1.3"/>`;
+  for(const k of ks){const x=sx(k);s+=`<line x1="${x}" y1="${dy-5}" x2="${x}" y2="${dy+5}" stroke="${COL.dim}" stroke-width="1.4"/><line x1="${x}" y1="${dy-5}" x2="${x}" y2="${by+(mode==='problem'?60:92)}" stroke="${COL.dim}" stroke-width=".6" stroke-dasharray="1 3" opacity=".7"/>`;}
+  for(let i=0;i<ks.length-1;i++){const a=sx(ks[i]),b=sx(ks[i+1]),len=ks[i+1]-ks[i];if(b-a>=22)s+=`<text x="${((a+b)/2).toFixed(1)}" y="${dy-5}" text-anchor="middle" font-size="12" fill="${COL.dim}" direction="ltr">${n2(len)}</text>`;}
+  s+=`<text x="${(x0+x1)/2}" y="${H-8}" text-anchor="middle" font-size="12.5" font-weight="700" fill="${COL.text}" direction="ltr">L = ${n2(L)} m</text>`;
+  return s+'</svg>';
+}
+function drawDiagrams(p,sol,uid){
+  const F=sol.F,L=p.L,W=640,x0=70,x1=570,sx=x=>x0+(x1-x0)*x/L;
+  const bps=features(p);
+  const sample=(fn)=>{
+    const segs=[];
+    for(let i=0;i<bps.length-1;i++){
+      const lo=bps[i],hi=bps[i+1],k=Math.max(8,Math.ceil((hi-lo)*14)),pts=[];
+      for(let j=0;j<=k;j++){const x=lo+(hi-lo)*j/k;pts.push([x,j===0?fn(x,1):j===k?fn(x,-1):fn(x,1)]);}
+      segs.push(pts);
+    }
+    return segs;
+  };
+  function chart(kind,segs,unit,pos,neg,y0,h){
+    const ext=segs.flat().map(q=>q[1]);
+    const peak=Math.max(1e-9,...ext.map(Math.abs)),amp=h/2-14;
+    const sy=v=>y0-amp*v/peak;
+    let s=`<defs><clipPath id="${uid}${kind}u"><rect x="0" y="0" width="${W}" height="${y0}"/></clipPath><clipPath id="${uid}${kind}d"><rect x="0" y="${y0}" width="${W}" height="${h+40}"/></clipPath></defs>`;
+    let path='';
+    for(const seg of segs){
+      path+=`M${sx(seg[0][0]).toFixed(1)} ${y0} `+seg.map(q=>`L${sx(q[0]).toFixed(1)} ${sy(q[1]).toFixed(1)}`).join(' ')+` L${sx(seg[seg.length-1][0]).toFixed(1)} ${y0}Z `;
+    }
+    s+=`<path d="${path}" fill="${pos}" fill-opacity=".28" clip-path="url(#${uid}${kind}u)"/><path d="${path}" fill="${neg}" fill-opacity=".28" clip-path="url(#${uid}${kind}d)"/>`;
+    s+=`<line x1="${x0-10}" y1="${y0}" x2="${x1+10}" y2="${y0}" stroke="#475569" stroke-width="1.2"/>`;
+    const line=segs.map(seg=>seg.map((q,i)=>(i?'L':'M')+sx(q[0]).toFixed(1)+' '+sy(q[1]).toFixed(1)).join(' ')).join(' ');
+    s+=`<path d="${line}" fill="none" stroke="#0f172a" stroke-width="1.9" stroke-linejoin="round"/>`;
+    // برچسب‌ها
+    const marks=[];
+    const all=segs.flatMap(sg=>[sg[0],sg[sg.length-1]]);
+    const mx=all.reduce((a,b)=>b[1]>a[1]?b:a),mn=all.reduce((a,b)=>b[1]<a[1]?b:a);
+    if(kind==='M'&&sol.max&&Number.isFinite(sol.max.x)){marks.push([sol.max.x,sol.max.M]);}
+    else{if(mx[1]>1e-6)marks.push(mx);if(mn[1]<-1e-6)marks.push(mn);}
+    if(kind==='M'){const interior=segs.flat();const mx2=interior.reduce((a,b)=>b[1]>a[1]?b:a),mn2=interior.reduce((a,b)=>b[1]<a[1]?b:a);for(const m of [mx2,mn2])if(Math.abs(m[1])>1e-6&&Math.abs(m[1])>.2*peak&&!marks.some(q=>Math.abs(q[0]-m[0])<.5))marks.push(m);}
+    if(p.section){const x=p.section.x;marks.push([x,kind==='V'?F.V(x,1):F.M(x,1),true]);}
+    const done=[];
+    for(const m of marks){
+      const px=sx(m[0]),py=sy(m[1]);
+      if(done.some(q=>Math.abs(q-px)<46))continue;done.push(px);
+      const up=m[1]>=0,ty=up?py-8:py+17;
+      const anc=px<x0+14?'start':px>x1-14?'end':'middle',tx=anc==='start'?px+6:anc==='end'?px-6:px;
+      s+=`<circle cx="${px.toFixed(1)}" cy="${py.toFixed(1)}" r="3.4" fill="${m[2]?'#0369a1':'#0f172a'}"/><text x="${tx.toFixed(1)}" y="${Math.max(12,Math.min(h-4,ty)).toFixed(1)}" text-anchor="${anc}" font-size="11.5" font-weight="700" fill="${m[2]?'#0369a1':'#0f172a'}" direction="ltr">${n2(m[1])}</text>`;
+    }
+    s+=`<text x="8" y="${y0-amp-2}" font-size="12" font-weight="700" fill="#334155" direction="ltr">${kind==='V'?'V (kN)':'M (kN·m)'}</text>`;
+    return s;
+  }
+  const h=118;
+  const V=sample((x,sd)=>F.V(x,sd)),M=sample((x,sd)=>F.M(x,sd));
+  let s=`<svg viewBox="0 0 ${W} ${h*2+10}" xmlns="http://www.w3.org/2000/svg" class="ex-svg ex-diag" role="img" aria-label="نمودارهای برش و لنگر">`;
+  s+=chart('V',V,'kN','#16a34a','#dc2626',h/2,h);
+  s+=`<g transform="translate(0 ${h+10})">`+chart('M',M,'kN·m','#2563eb','#ea580c',h/2,h)+'</g>';
+  if(p.section){const x=sx(p.section.x);s+=`<line x1="${x}" y1="4" x2="${x}" y2="${h*2+6}" stroke="#0369a1" stroke-width="1" stroke-dasharray="4 4" opacity=".6"/>`;}
+  return s+'</svg>';
+}
+
+return {generateSet,buildExercise,drawBeam,drawDiagrams,solveDeterminate,fields,features,findMax,verify,toEngineModel,makeGen,TEMPLATES,INDET,LEVEL_FA,n2,esc,nice,statement,keyAnswers};
+});
+
+</script>
+<script>
+/* ===== v6: رابط تمرین‌ساز (پنجرهٔ تمام‌صفحه، برگهٔ تمرین، پاسخ کلیدی، حل گام‌به‌گام، چاپ) ===== */
+(function () {
+  'use strict';
+  const K = window.ExerciseKit, trigger = document.getElementById('ex-open');
+  if (!K || !trigger) return;
+
+  const LV = { mixed: 'ترکیبی', easy: 'ساده', medium: 'متوسط', hard: 'سخت' };
+  const HINT = {
+    mixed: 'ترکیب متوازن از سه سطح؛ از ساده شروع می‌شود و به سخت می‌رسد.',
+    easy: 'تیر ساده یا طره با یک بار؛ فقط واکنش‌ها و یک مقدار بیشینه. حدود ۱۰ دقیقه برای هر تمرین.',
+    medium: 'ترکیب بار گسترده، متمرکز و لنگر؛ تیر دارای طره، بار مثلثی و مقطع D. حدود ۱۵ دقیقه.',
+    hard: 'تیر مرکب (گربر) با مفصل داخلی، بارهای ترکیبی و در صورت انتخاب، تیر نامعین. حدود ۲۵ دقیقه.'
+  };
+  const esc = K.esc;
+  let items = [], current = { seed: 1, level: 'mixed', count: 6 }, sheet, stage, status, panel;
+
+  /* ---------- DOM ---------- */
+  const overlay = document.createElement('div');
+  overlay.id = 'ex-overlay';
+  overlay.className = 'ex-overlay no-print-hide';
+  overlay.setAttribute('role', 'dialog');
+  overlay.setAttribute('aria-modal', 'true');
+  overlay.setAttribute('aria-label', 'تمرین‌ساز تیر');
+  overlay.innerHTML = `
+  <div class="ex-shell">
+    <aside class="ex-panel" id="ex-panel">
+      <div class="ex-brand">
+        <div><span class="ex-kicker">EXERCISE GENERATOR</span><h2>تمرین‌ساز تیر</h2></div>
+        <button type="button" class="ex-close" id="ex-close">✕ بستن</button>
+      </div>
+      <p class="ex-lead">برای دانشجویان برگهٔ تمرین بسازید؛ هر تمرین شکل، پرسش‌ها و پاسخ کلیدی دارد و برای تیرهای معین، راه‌حل گام‌به‌گام هم موجود است.</p>
+
+      <div class="ex-field">
+        <span class="lab" id="ex-count-lab">تعداد تمرین</span>
+        <div class="ex-stepper" role="group" aria-labelledby="ex-count-lab">
+          <button type="button" id="ex-minus" aria-label="کمتر">−</button>
+          <input id="ex-count" type="number" min="1" max="30" value="6" inputmode="numeric" aria-label="تعداد تمرین">
+          <button type="button" id="ex-plus" aria-label="بیشتر">+</button>
+        </div>
+      </div>
+
+      <div class="ex-field">
+        <span class="lab" id="ex-level-lab">سطح دشواری</span>
+        <div class="ex-seg" role="radiogroup" aria-labelledby="ex-level-lab">
+          ${['mixed', 'easy', 'medium', 'hard'].map((v, i) => `<input type="radio" name="ex-level" id="exl-${v}" value="${v}"${i === 0 ? ' checked' : ''}><label for="exl-${v}">${LV[v]}</label>`).join('')}
+        </div>
+        <p class="ex-level-hint" id="ex-level-hint"></p>
+      </div>
+
+      <label class="ex-check"><input type="checkbox" id="ex-indet"><span>شامل تیر نامعین (فقط در سطح سخت)<small>برای تیر نامعین فقط پاسخ کلیدی و روش حل ارائه می‌شود.</small></span></label>
+      <label class="ex-check"><input type="checkbox" id="ex-showkey" checked><span>نمایش پاسخ کلیدی کنار تمرین</span></label>
+
+      <div class="ex-field" style="margin-top:14px">
+        <label for="ex-title">عنوان برگه</label>
+        <input id="ex-title" class="ex-text" type="text" value="برگهٔ تمرین استاتیک — تحلیل تیرها" maxlength="80">
+      </div>
+      <div class="ex-field">
+        <label for="ex-seed">کد برگه (با همین کد همین تمرین‌ها دوباره ساخته می‌شود)</label>
+        <div class="ex-seedrow"><input id="ex-seed" class="ex-text" type="text" inputmode="text" maxlength="24" value=""><button type="button" class="ex-btn small" id="ex-dice" title="کد تصادفی جدید">🎲</button></div>
+      </div>
+
+      <button type="button" class="ex-btn primary" id="ex-generate">✦ تولید تمرین‌ها</button>
+
+      <div class="ex-group">
+        <h4>خروجی و چاپ</h4>
+        <button type="button" class="ex-btn" id="ex-print-student">🖨 برگهٔ دانشجو (بدون پاسخ، با جای حل)</button>
+        <button type="button" class="ex-btn" id="ex-print-key">🖨 برگهٔ استاد (با پاسخ کلیدی)</button>
+        <button type="button" class="ex-btn" id="ex-print-all">🖨 همراه با راه‌حل کامل</button>
+        <button type="button" class="ex-btn" id="ex-toggle-all">▾ باز کردن همهٔ راه‌حل‌ها</button>
+        <p class="ex-note">در پنجرهٔ چاپ می‌توانید «Save as PDF» را برگزینید.</p>
+      </div>
+    </aside>
+    <main class="ex-stage" id="ex-stage">
+      <div class="ex-status" id="ex-status" role="status" aria-live="polite"></div>
+      <div class="ex-sheet" id="ex-sheet"></div>
+    </main>
+  </div>`;
+  document.body.appendChild(overlay);
+
+  panel = overlay.querySelector('#ex-panel');
+  stage = overlay.querySelector('#ex-stage');
+  sheet = overlay.querySelector('#ex-sheet');
+  status = overlay.querySelector('#ex-status');
+  const $ = id => overlay.querySelector('#' + id);
+  const countEl = $('ex-count'), seedEl = $('ex-seed'), hintEl = $('ex-level-hint');
+
+  /* ---------- ابزار ---------- */
+  function seedFrom(txt) {
+    txt = String(txt || '').trim();
+    if (/^\d{1,9}$/.test(txt)) return parseInt(txt, 10) || 1;
+    let h = 2166136261;
+    for (let i = 0; i < txt.length; i++) { h ^= txt.charCodeAt(i); h = Math.imul(h, 16777619); }
+    return ((h >>> 0) % 999983) + 1;
+  }
+  function randomSeed() { return String(Math.floor(Math.random() * 90000) + 10000); }
+  function level() { const r = overlay.querySelector('input[name="ex-level"]:checked'); return r ? r.value : 'mixed'; }
+  function clampCount(v) { v = parseInt(v, 10); if (!Number.isFinite(v)) v = 6; return Math.max(1, Math.min(30, v)); }
+  function updateHint() {
+    hintEl.textContent = HINT[level()];
+    $('ex-indet').disabled = level() === 'easy' || level() === 'medium';
+  }
+
+  /* ---------- ساخت برگه ---------- */
+  const faRun = h => h.replace(/(<[^>]*>)|([\u0600-\u06FF\u200c]+(?:[ \u00a0]+[\u0600-\u06FF\u200c]+)*)/g, (m, tag, fa) => tag ? tag : '<span dir="rtl" class="fa">' + fa + '</span>');
+  function blockHtml(b, it, uid) {
+    switch (b.t) {
+      case 'p': return `<p>${b.h}</p>`;
+      case 'note': return `<p class="ex-note">${b.h}</p>`;
+      case 'eq': return `<div class="ex-eq">${faRun(b.h)}</div>`;
+      case 'res': return `<div class="ex-res">${faRun(b.h)}</div>`;
+      case 'list': return `<ul class="ex-list">${b.items.map(m => `<li><span class="m">${m.m}</span>${m.d ? ' ' + m.d : ''}</li>`).join('')}</ul>`;
+      case 'fbd': return `<figure class="ex-fig sm">${K.drawBeam(it.problem, { mode: 'fbd', sol: it.sol, uid: uid + 'f' })}<figcaption>نمودار آزاد تیر (واکنش‌ها به‌صورت مجهول)</figcaption></figure>`;
+      case 'diag': return `<figure class="ex-fig sm">${K.drawDiagrams(it.problem, it.sol, uid + 'd')}<figcaption>نمودارهای برش (V) و لنگر خمشی (M)</figcaption></figure>`;
+      default: return '';
+    }
+  }
+  function solHtml(it, n) {
+    const uid = 's' + n;
+    const steps = it.sol.steps.map((st, i) => `
+      <section class="ex-step">
+        <div class="ex-step-title"><span>${i + 1}</span>${esc(st.title)}</div>
+        <div class="ex-step-body">${st.blocks.map(b => blockHtml(b, it, uid + '_' + i)).join('')}</div>
+      </section>`).join('');
+    const sub = it.problem.determinate ? 'روش: تعادل استاتیکی ΣF<sub>y</sub> = 0 و ΣM = 0' : 'تیر نامعین — راهنمای روش حل';
+    return `<div class="ex-sol-head"><b>${it.problem.determinate ? 'راه‌حل گام‌به‌گام' : 'روش حل و پاسخ نهایی'} — تمرین ${n}</b><span>${sub}</span></div>${steps}`;
+  }
+  function cardHtml(it, i) {
+    const p = it.problem, n = i + 1;
+    const cls = p.determinate ? 'lvl-' + it.level : 'lvl-indet';
+    const key = it.key.map(k => `<li><span class="k">${k.l}</span><span class="v">${k.v}</span>${k.sub ? `<small>${k.sub}</small>` : ''}</li>`).join('');
+    return `
+    <article class="ex-card ${cls}" data-i="${i}" id="ex-card-${n}">
+      <header class="ex-head">
+        <div class="ex-num" aria-hidden="true">${n}</div>
+        <div class="ex-titles">
+          <h3>${esc(p.kindLabel)}</h3>
+          <div class="ex-tags">
+            <span class="ex-tag lv">سطح ${LV[it.level]}</span>
+            ${p.determinate ? '<span class="ex-tag">تیر معین</span>' : '<span class="ex-tag indet">تیر نامعین</span>'}
+            <span class="ex-tag">≈ ${it.time} دقیقه</span>
+          </div>
+        </div>
+        <div class="ex-actions">
+          <button type="button" data-act="sol" aria-expanded="false">${p.determinate ? 'راه‌حل گام‌به‌گام' : 'روش حل'}</button>
+          <button type="button" data-act="open" title="مدل این تمرین را در بخش تحلیل باز می‌کند">باز کردن در تحلیل‌گر</button>
+          <button type="button" data-act="print" title="چاپ فقط همین تمرین همراه با راه‌حل">چاپ</button>
+        </div>
+      </header>
+      <div class="ex-body">
+        <div class="ex-main">
+          <p class="ex-intro">${esc(it.intro)}</p>
+          <figure class="ex-fig">${K.drawBeam(p, { mode: 'problem', uid: 'q' + n })}<figcaption>اعداد بر حسب kN، m و kN·m هستند.</figcaption></figure>
+          <div class="ex-asks-title">می‌خواهیم:</div>
+          <ol class="ex-asks">${it.asks.map(a => `<li>${a}</li>`).join('')}</ol>
+          <div class="ex-space" aria-hidden="true"></div>
+        </div>
+        <aside class="ex-key" aria-label="پاسخ کلیدی تمرین ${n}">
+          <div class="ex-key-head"><span class="ico">✓</span>پاسخ کلیدی</div>
+          <ul>${key}</ul>
+        </aside>
+      </div>
+      <div class="ex-sol" data-ready="0"></div>
+    </article>`;
+  }
+  function ensureSol(card) {
+    const box = card.querySelector('.ex-sol');
+    if (box.dataset.ready === '1') return;
+    const i = +card.dataset.i;
+    box.innerHTML = solHtml(items[i], i + 1);
+    box.dataset.ready = '1';
+  }
+  function setOpen(card, on) {
+    if (on) ensureSol(card);
+    card.classList.toggle('open', on);
+    const b = card.querySelector('[data-act="sol"]');
+    b.classList.toggle('on', on);
+    b.setAttribute('aria-expanded', on ? 'true' : 'false');
+    syncToggleAll();
+  }
+  function syncToggleAll() {
+    const cards = [...sheet.querySelectorAll('.ex-card')];
+    const all = cards.length && cards.every(c => c.classList.contains('open'));
+    $('ex-toggle-all').textContent = all ? '▴ بستن همهٔ راه‌حل‌ها' : '▾ باز کردن همهٔ راه‌حل‌ها';
+  }
+
+  function render() {
+    const title = $('ex-title').value.trim() || 'برگهٔ تمرین تحلیل تیرها';
+    const total = items.reduce((a, it) => a + it.time, 0);
+    const keyCount = items.length;
+    sheet.className = 'ex-sheet' + ($('ex-showkey').checked ? '' : ' hide-key');
+    if (!items.length) { sheet.innerHTML = '<p style="padding:30px;text-align:center;color:#64748b">تمرینی ساخته نشد؛ دوباره «تولید تمرین‌ها» را بزنید.</p>'; return; }
+    const detCount = items.filter(it => it.problem.determinate).length;
+    sheet.innerHTML = `
+      <header class="ex-sheet-head">
+        <div>
+          <div class="ex-eyebrow">BEAM ANALYSIS STUDIO · EXERCISE SHEET</div>
+          <h2>${esc(title)}</h2>
+          <p>${keyCount} تمرین · سطح ${LV[current.level]} · زمان پیشنهادی حدود ${total} دقیقه · کد برگه ${esc(current.seedText)}</p>
+        </div>
+        <div class="ex-student-line">
+          <span>نام و نام خانوادگی: <i></i></span>
+          <span>شمارهٔ دانشجویی: <i></i> نمره: <i class="short"></i></span>
+        </div>
+      </header>
+      ${items.map(cardHtml).join('')}
+      <footer class="ex-sheet-foot">
+        <span>قرارداد: نیروی رو به پایین مثبت · واکنش رو به بالا مثبت · لنگر پادساعت‌گرد مثبت · لنگر خمشی مثبت = کشش تار پایین</span>
+        <span>${detCount} تمرین با راه‌حل گام‌به‌گام</span>
+      </footer>`;
+    syncToggleAll();
+  }
+
+  function generate(keepSeed) {
+    const cnt = clampCount(countEl.value); countEl.value = cnt;
+    if (!seedEl.value.trim()) seedEl.value = randomSeed();
+    const seedText = seedEl.value.trim();
+    const lv = level();
+    current = { seed: seedFrom(seedText), seedText, level: lv, count: cnt };
+    try {
+      items = K.generateSet(window.BeamEngine, { count: cnt, level: lv, indet: $('ex-indet').checked && !$('ex-indet').disabled, seed: current.seed });
+    } catch (e) { console.error(e); items = []; }
+    render();
+    const miss = cnt - items.length;
+    status.textContent = items.length
+      ? `${items.length} تمرین ساخته شد${miss > 0 ? ` (${miss} مورد ساخته نشد؛ کد دیگری امتحان کنید)` : ''}. روی «راه‌حل گام‌به‌گام» هر تمرین بزنید تا مراحل حل باز شود.`
+      : 'ساخت تمرین ممکن نشد.';
+    stage.scrollTop = 0;
+  }
+  function regenerateNew() { seedEl.value = randomSeed(); generate(true); }
+
+  /* ---------- چاپ ---------- */
+  let cleanup = null;
+  function doPrint(mode, card) {
+    const b = document.body;
+    const cls = [];
+    if (mode === 'student') cls.push('ex-print-student');
+    if (mode === 'all') { items.forEach((_, i) => ensureSol(sheet.querySelector('#ex-card-' + (i + 1)))); cls.push('ex-print-all'); }
+    if (mode === 'one') { ensureSol(card); card.classList.add('ex-only'); cls.push('ex-print-one'); }
+    cls.forEach(c => b.classList.add(c));
+    const done = () => {
+      cls.forEach(c => b.classList.remove(c));
+      sheet.querySelectorAll('.ex-only').forEach(c => c.classList.remove('ex-only'));
+      window.removeEventListener('afterprint', done); cleanup = null;
+    };
+    cleanup = done;
+    window.addEventListener('afterprint', done);
+    setTimeout(() => { try { window.print(); } catch (e) { done(); } }, 60);
+  }
+
+  /* ---------- باز / بستن ---------- */
+  let lastFocus = null;
+  function openEx() {
+    lastFocus = document.activeElement;
+    document.body.classList.add('ex-open');
+    if (!items.length) { seedEl.value = seedEl.value || randomSeed(); generate(true); }
+    $('ex-close').focus({ preventScroll: true });
+  }
+  function closeEx() {
+    document.body.classList.remove('ex-open');
+    if (lastFocus && lastFocus.focus) { try { lastFocus.focus({ preventScroll: true }); } catch (e) { } }
+  }
+  function openInAnalyzer(i) {
+    const it = items[i]; if (!it) return;
+    const m = JSON.parse(JSON.stringify(it.engineModel));
+    m.title = `تمرین ${i + 1} — ${it.problem.kindLabel}`;
+    m.springs = m.springs || [];
+    closeEx();
+    try {
+      model = m; // eslint-disable-line no-global-assign
+      updateInputs(); drawModel(); analyze();
+    } catch (e) { console.error(e); }
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+  }
+
+  /* ---------- رویدادها ---------- */
+  trigger.addEventListener('click', openEx);
+  $('ex-close').addEventListener('click', closeEx);
+  document.addEventListener('keydown', e => {
+    if (e.key === 'Escape' && document.body.classList.contains('ex-open')) { const d = document.getElementById('whats-new-dialog'); if (d && d.open) return; closeEx(); }
+  });
+  $('ex-minus').addEventListener('click', () => { countEl.value = clampCount(countEl.value) - 1 || 1; });
+  $('ex-plus').addEventListener('click', () => { countEl.value = Math.min(30, clampCount(countEl.value) + 1); });
+  countEl.addEventListener('change', () => { countEl.value = clampCount(countEl.value); });
+  overlay.querySelectorAll('input[name="ex-level"]').forEach(r => r.addEventListener('change', updateHint));
+  $('ex-generate').addEventListener('click', () => generate(true));
+  $('ex-dice').addEventListener('click', regenerateNew);
+  seedEl.addEventListener('keydown', e => { if (e.key === 'Enter') generate(true); });
+  $('ex-title').addEventListener('input', () => {
+    const h = sheet.querySelector('.ex-sheet-head h2');
+    if (h) h.textContent = $('ex-title').value.trim() || 'برگهٔ تمرین تحلیل تیرها';
+  });
+  $('ex-showkey').addEventListener('change', () => sheet.classList.toggle('hide-key', !$('ex-showkey').checked));
+  $('ex-print-student').addEventListener('click', () => doPrint('student'));
+  $('ex-print-key').addEventListener('click', () => doPrint('key'));
+  $('ex-print-all').addEventListener('click', () => doPrint('all'));
+  $('ex-toggle-all').addEventListener('click', () => {
+    const cards = [...sheet.querySelectorAll('.ex-card')];
+    const all = cards.every(c => c.classList.contains('open'));
+    cards.forEach(c => setOpen(c, !all));
+  });
+  sheet.addEventListener('click', e => {
+    const b = e.target.closest('[data-act]'); if (!b) return;
+    const card = b.closest('.ex-card'), i = +card.dataset.i;
+    if (b.dataset.act === 'sol') {
+      const on = !card.classList.contains('open');
+      setOpen(card, on);
+      if (on) { const top = card.querySelector('.ex-sol'); top.scrollIntoView({ block: 'nearest', behavior: 'smooth' }); }
+    } else if (b.dataset.act === 'open') openInAnalyzer(i);
+    else if (b.dataset.act === 'print') doPrint('one', card);
+  });
+
+  seedEl.value = randomSeed();
+  updateHint();
+  window.ExerciseUI = { open: openEx, close: closeEx, generate, get items() { return items; } };
+})();
+
+</script>
+<script>
 /* Versioned release notes — independent of the engineering engine and existing controls. */
 (function () {
   'use strict';
-  const APP_VERSION = '5.0'; // Update this one constant to publish the next release.
+  const APP_VERSION = '6.0'; // Update this one constant to publish the next release.
   const SEEN_KEY = 'beam_analysis_studio_seen_' + APP_VERSION;
   const dialog = document.getElementById('whats-new-dialog');
   const button = document.getElementById('whats-new-button');
