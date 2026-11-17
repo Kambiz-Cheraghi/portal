@@ -87,7 +87,8 @@ a{color:inherit}
 .toast.on span{opacity:1;transform:none}
 @media(max-width:560px){.wrap{padding:0 14px}.grid{grid-template-columns:repeat(2,minmax(0,1fr));gap:10px}.back span{display:none}.back{padding:0 11px}.q .lb i{display:none}}
 @media(prefers-reduced-motion:reduce){.q,.vsc canvas{transition:none}.q .th.ld:after,.vsp:after{animation-duration:2s}}
-@media print{.vw,.tabs,.top .tbtn{display:none!important}}
+canvas{-webkit-touch-callout:none;-webkit-user-select:none;user-select:none}
+@media print{.vw,.tabs,.top .tbtn,.grid,.sech{display:none!important}.hero:after{content:'چاپ این صفحه فعال نیست.';display:block;margin-top:20px}}
 </style>
 </head>
 <body>
@@ -164,6 +165,19 @@ const titleOf = (y, i) => (y.titles && y.titles[i]) || '';
 let busy = 0; const q = [];
 function enqueue(fn) { return new Promise((res, rej) => { q.push({ fn, res, rej }); pump(); }); }
 function pump() { while (busy < 3 && q.length) { const j = q.shift(); busy++; j.fn().then(j.res, j.rej).finally(() => { busy--; pump(); }); } }
+const WM = K.watermark === undefined ? 'کامبیز چراغی | @engineer_teacher' : K.watermark;
+function mark(cv) {            /* واترمارک کم‌رنگ و مورب، داخل خود تصویر صفحه */
+  if (!WM) return;
+  const g = cv.getContext('2d'), w = cv.width, h = cv.height, fs = Math.max(11, w * 0.03), diag = Math.hypot(w, h);
+  const sx = w * 0.78, sy = w * 0.3;
+  g.save(); g.translate(w / 2, h / 2); g.rotate(-Math.PI / 7);
+  g.font = '700 ' + fs + 'px Vazirmatn,Tahoma,"Segoe UI",sans-serif'; g.textAlign = 'center'; g.textBaseline = 'middle'; g.direction = 'rtl';
+  g.fillStyle = 'rgba(60,72,110,0.13)';
+  let row = 0;
+  for (let y = -diag / 2; y <= diag / 2; y += sy, row++)
+    for (let x = -diag / 2 + (row % 2 ? sx / 2 : 0); x <= diag / 2; x += sx) g.fillText(WM, x, y);
+  g.restore();
+}
 async function drawPage(info, pageNo, canvas, targetW) {
   const page = await info.doc.getPage(pageNo);
   const v1 = page.getViewport({ scale: 1 });
@@ -172,6 +186,7 @@ async function drawPage(info, pageNo, canvas, targetW) {
   const task = page.render({ canvasContext: canvas.getContext('2d'), canvas, viewport: vp });
   canvas._task = task;
   await task.promise;
+  mark(canvas);
   return { w: v1.width, h: v1.height };
 }
 
@@ -211,7 +226,7 @@ async function show(key, keepHash) {
   }
   const y = yearOf(key) || YS()[0]; if (!y) { grid.innerHTML = '<div class="msg">هنوز سالی در data.js تعریف نشده است.</div>'; return; }
   $('#sh').innerHTML = 'کنکور ' + LV.name + ' ' + FA(y.id) + '<small id="cnt"></small>';
-  dl.style.display = ''; dl.href = y.pdf; dl.setAttribute('download', LV.id + '-' + y.id + '.pdf');
+  dl.style.display = K.allowDownload === true ? '' : 'none'; dl.href = y.pdf; dl.setAttribute('download', LV.id + '-' + y.id + '.pdf');
   dl.innerHTML = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 4v11M7.5 11L12 15.5 16.5 11M5 20h14"/></svg>دانلود پی‌دی‌اف';
   grid.innerHTML = '<div class="msg">در حال بارگذاری…</div>';
   ctx = { key: y.id, items: [] };
@@ -305,6 +320,9 @@ function renderLevels() {
 function renderStats() {
   $('#stats').innerHTML = '<span class="stat">مقطع <b>' + LV.name + '</b></span><span class="stat"><b>' + FA(YS().length) + '</b> سال کنکور</span><span class="stat">پاسخ <b>دست‌نویس</b> و تشریحی</span><span class="stat">رایگان و بدون ثبت‌نام</span>';
 }
+/* جلوگیری از ذخیره‌ی ساده‌ی تصویر (کلیک راست و نگه‌داشتن لمسی) فقط روی خود صفحه‌ها */
+document.addEventListener('contextmenu', e => { if (e.target.closest && e.target.closest('canvas')) e.preventDefault(); });
+document.addEventListener('dragstart', e => { if (e.target.closest && e.target.closest('canvas')) e.preventDefault(); });
 /* ---------- شروع ---------- */
 (function start() {
   const h = decodeURIComponent(location.hash.slice(1)).split('/');
