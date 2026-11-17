@@ -10,6 +10,7 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Vazirmatn:wght@400;500;700;800;900&display=swap" rel="stylesheet">
+<script src="../config.js"></script>
 <script src="data.js"></script>
 <style>
 :root{--bg:#070d1a;--panel:#0d1830;--panel2:#12213f;--line:#1f3254;--line2:#2c4574;--text:#e9eefb;--mut:#9aacce;--faint:#6f83a8;--gold:#ffc978;--gold2:#ffb84d;--teal:#46e3d1;--grid:rgba(110,150,225,.07);--ink:#3a2205;--shadow:0 22px 50px -26px rgba(0,0,0,.9);--paper:#fff;
@@ -106,7 +107,7 @@ canvas{-webkit-touch-callout:none;-webkit-user-select:none;user-select:none}
   <nav class="tabs" id="tabs" role="tablist" aria-label="سال‌ها"></nav>
   <div class="sech"><h2 id="sh"></h2><a class="dl" id="dl" href="#" download></a></div>
   <div id="grid" class="grid"></div>
-  <footer class="foot">طراحی و تهیه‌کننده: <b>کامبیز چراغی</b></footer>
+  <footer class="foot">طراحی و تهیه‌کننده: <b>کامبیز چراغی</b><div id="fb"></div></footer>
 </div>
 
 <div class="vw" id="vw" role="dialog" aria-modal="true" aria-label="نمایشگر پاسخ">
@@ -141,6 +142,9 @@ $('#themeBtn').onclick = () => { const t = root.dataset.theme === 'light' ? 'dar
 
 $('#h1').innerHTML = (K.title || 'بانک پاسخ‌ها') + '<span>' + (K.course || '') + '</span>';
 $('#note').textContent = K.note || '';
+const PO = window.PORTAL || {};
+if (PO.goatcounter) { const g = document.createElement('script'); g.async = true; g.src = 'https://gc.zgo.at/count.js'; g.dataset.goatcounter = 'https://' + PO.goatcounter + '.goatcounter.com/count'; document.head.appendChild(g); }
+const track = (path, title) => { try { window.goatcounter && window.goatcounter.count && window.goatcounter.count({ path: path, title: title, event: true }); } catch (e) {} };
 function toast(m) { const t = $('#toast'); t.firstElementChild.textContent = m; t.classList.add('on'); clearTimeout(toast.h); toast.h = setTimeout(() => t.classList.remove('on'), 1800); }
 
 /* ---------- بارگذاری پی‌دی‌اف‌ها ---------- */
@@ -148,7 +152,9 @@ const docs = {};
 function loadDoc(y) {
   const dk = LV.id + '/' + y.id;
   if (!docs[dk]) {
-    const task = pdfjs.getDocument({ url: new URL(y.pdf, location.href).href });
+    /* هر پی‌دی‌اف یک‌بار کامل دانلود می‌شود (به‌جای ده‌ها درخواست کوچک)؛ در اینترنت کند بسیار سریع‌تر است */
+    const task = pdfjs.getDocument({ url: new URL(y.pdf, location.href).href, disableRange: true, disableStream: false });
+    task.onProgress = p => { const m = document.querySelector('#grid .msg[data-y="' + dk + '"]'); if (m && p.total) m.textContent = 'در حال بارگذاری… ' + FA(Math.round(p.loaded / p.total * 100)) + '٪'; };
     docs[dk] = task.promise.then(d => {
       const skip = y.skip == null ? 1 : y.skip, n = d.numPages;
       const last = y.formula && n > skip + 1 ? n : 0;
@@ -228,10 +234,10 @@ async function show(key, keepHash) {
   $('#sh').innerHTML = 'کنکور ' + LV.name + ' ' + FA(y.id) + '<small id="cnt"></small>';
   dl.style.display = K.allowDownload === true ? '' : 'none'; dl.href = y.pdf; dl.setAttribute('download', LV.id + '-' + y.id + '.pdf');
   dl.innerHTML = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 4v11M7.5 11L12 15.5 16.5 11M5 20h14"/></svg>دانلود پی‌دی‌اف';
-  grid.innerHTML = '<div class="msg">در حال بارگذاری…</div>';
+  grid.innerHTML = '<div class="msg" data-y="' + LV.id + '/' + y.id + '">در حال بارگذاری…</div>';
   ctx = { key: y.id, items: [] };
   let info;
-  try { info = await loadDoc(y); } catch (e) { grid.innerHTML = '<div class="msg">فایل «' + y.pdf + '» پیدا نشد.<br>نام فایل را در data.js و پوشه‌ی pdf بررسی کنید.</div>'; return; }
+  try { info = await loadDoc(y); } catch (e) { delete docs[LV.id + '/' + y.id]; const miss = e && e.name === 'MissingPDFException'; grid.innerHTML = '<div class="msg">' + (miss ? 'فایل «' + y.pdf + '» پیدا نشد.<br>نام فایل را در data.js و پوشه‌ی pdf بررسی کنید.' : 'بارگذاری فایل کامل نشد. صفحه را دوباره باز کنید.<br><small>' + String((e && e.message) || e).slice(0, 120) + '</small>') + '</div>'; return; }
   if (ctx.key !== y.id) return;
   info.qs.forEach((p, i) => ctx.items.push({ y, info, page: p, label: 'سؤال ' + FA(i + 1), sub: titleOf(y, i), no: FA(i + 1) }));
   if (info.formula) ctx.items.push({ y, info, page: info.formula, label: 'جمع‌بندی فرمول‌ها', sub: '', formula: true });
@@ -263,6 +269,7 @@ async function renderV() {
   $('#vpv').disabled = cur === 0; $('#vnx').disabled = cur === ctx.items.length - 1;
   $('#vpv').style.opacity = cur === 0 ? .35 : 1; $('#vnx').style.opacity = cur === ctx.items.length - 1 ? .35 : 1;
   history.replaceState(null, '', hashFor(cur));
+  track('konkoor/' + LV.id + '/' + ctx.key + '/' + (cur + 1), LV.name + ' ' + it.label);
   $('#vsp').classList.add('on');
   const dpr = Math.min(window.devicePixelRatio || 1, 2.5);
   const base = Math.min(window.innerWidth - 20, 900);
@@ -306,6 +313,7 @@ vsc.addEventListener('touchend', e => {
 }, { passive: true });
 let rz; window.addEventListener('resize', () => { clearTimeout(rz); rz = setTimeout(() => { if (vw.classList.contains('on')) renderV(); }, 250); });
 
+if (PO.feedbackUrl) { const a = document.createElement('a'); a.href = PO.feedbackUrl; a.target = '_blank'; a.rel = 'noopener noreferrer'; a.textContent = 'گزارش خطا یا پیشنهاد'; a.style.cssText = 'display:inline-block;margin-top:8px;color:var(--gold)'; $('#fb').appendChild(a); }
 /* ---------- مقطع‌ها ---------- */
 function renderLevels() {
   const box = $('#lvls'); if (LEVELS.length < 2) { box.hidden = true; return; }

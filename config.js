@@ -17,6 +17,13 @@ const SITE = {
   lead: 'تحلیل سازه، طراحی تیر بتنی، خواص مقطع و ریاضیات مهندسی. همه در مرورگر شما اجرا می‌شود، بدون نصب و ثبت‌نام.'
 };
 
+/* ②-ب آمار بازدید (اختیاری، رایگان و بدون کوکی).
+   در goatcounter.com ثبت‌نام کنید و فقط «کد سایت» را اینجا بنویسید. خالی = غیرفعال */
+const GOATCOUNTER = '';
+
+/* ②-ج لینک فرم گزارش خطا و پیشنهاد (اختیاری، مثلاً لینک Google Form). خالی = پنهان */
+const FEEDBACK_URL = '';
+
 /* ③ دسته‌ها (برای فیلتر). color: یکی از teal ، blue ، violet ، gold */
 const CATS = [
   { id: 'analysis', name: 'تحلیل سازه',     color: 'teal'   },
@@ -78,5 +85,5 @@ const APPS = [
     tags: ['دینامیک سازه‌ها', 'پاسخ دست‌نویس', 'جمع‌بندی فرمول'], badge: 'جدید' }
 ];
 
-window.PORTAL = { profile: PROFILE, site: SITE, cats: CATS, apps: APPS };
+window.PORTAL = { profile: PROFILE, site: SITE, cats: CATS, apps: APPS, goatcounter: GOATCOUNTER, feedbackUrl: FEEDBACK_URL };
 })();

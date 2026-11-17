@@ -12,7 +12,7 @@
 <meta property="og:type" content="website">
 <meta property="og:title" content="کامبیز چراغی | آزمایشگاه نرم‌افزارهای مهندسی">
 <meta property="og:description" content="تحلیل سازه، بتن، مقطع و ریاضیات مهندسی؛ همه در مرورگر شما، بدون نصب و ثبت‌نام.">
-<meta property="og:image" content="https://kambiz-cheraghi.github.io/portal/og.png">
+<meta property="og:image" content="https://USERNAME.github.io/REPO/og.png">
 <meta name="twitter:card" content="summary_large_image">
 <script src="config.js"></script>
 <title>کامبیز چراغی | آزمایشگاه نرم‌افزارهای مهندسی</title>
@@ -352,6 +352,9 @@ h1{margin:0;font-weight:900;font-size:clamp(30px,4.7vw,55px);line-height:1.32}
 const D = Object.assign({}, window.PORTAL);
 D.base = location.origin + location.pathname.replace(/[^\/]*$/, '');
 D.apps = (D.apps || []).filter(a => a.enabled !== false);
+/* آمار بازدید (GoatCounter) — فقط وقتی کد در config.js نوشته شده باشد */
+if (D.goatcounter) { const g = document.createElement('script'); g.async = true; g.src = 'https://gc.zgo.at/count.js'; g.dataset.goatcounter = 'https://' + D.goatcounter + '.goatcounter.com/count'; document.head.appendChild(g); }
+const track = (path, title) => { try { window.goatcounter && window.goatcounter.count && window.goatcounter.count({ path: path, title: title, event: true }); } catch (e) {} };
 const $ = s => document.querySelector(s);
 const NS = 'http://www.w3.org/2000/svg';
 const fa = (n, d = 0) => Number(n).toLocaleString('fa-IR', { minimumFractionDigits: d, maximumFractionDigits: d });
@@ -392,6 +395,7 @@ const ICONS = {
   grid: S('<rect x="10" y="10" width="44" height="44" rx="6"/><path d="M10 32h44M32 10v44"/>')
 };
 const ICO = {
+  msg: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 5h16v11H9l-5 4z"/></svg>',
   go: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M15 6l-6 6 6 6"/></svg>',
   copy: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10 14a4 4 0 0 0 5.7 0l3-3a4 4 0 0 0-5.7-5.7l-1 1"/><path d="M14 10a4 4 0 0 0-5.7 0l-3 3a4 4 0 0 0 5.7 5.7l1-1"/></svg>',
   mail: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 6h16v12H4z"/><path d="M4 7l8 6 8-6"/></svg>',
@@ -490,6 +494,7 @@ const grid = $('#grid');
     '<ul class="tags">' + (a.tags || []).map(t => '<li>' + esc(t) + '</li>').join('') + '</ul>' +
     '<div class="tblock"><span class="cell"><i class="dot"></i>' + esc(c.name) + '</span><span class="cell go">ورود به برنامه' + ICO.go + '</span></div>' +
     '<button class="cp" type="button" title="کپی لینک مستقیم" aria-label="کپی لینک مستقیم ' + esc(a.title) + '">' + ICO.copy + '</button>';
+  el.querySelector('.stretch').addEventListener('click', () => track('open/' + a.id, a.title));
   el.querySelector('.cp').onclick = ev => { ev.preventDefault(); copyText(linkOf(a), 'لینک «' + a.title + '» کپی شد'); };
   grid.appendChild(el);
 });
@@ -523,6 +528,7 @@ function applyFilter() {
   if (P.instagram) items.push([ICO.ig, '@' + P.instagram.replace(/^@/, ''), url(P.instagram, 'https://instagram.com/')]);
   if (P.linkedin) items.push([ICO.in, 'LinkedIn', url(P.linkedin, 'https://www.linkedin.com/in/')]);
   if (P.website) items.push([ICO.web, P.website.replace(/^https?:\/\//i, ''), url(P.website, 'https://')]);
+  if (D.feedbackUrl) items.unshift([ICO.msg, 'گزارش خطا یا پیشنهاد', D.feedbackUrl]);
   const box = $('#links');
   if (!items.length) {
     const c = $('#contact'); c.classList.add('nolinks'); box.parentElement.hidden = true; $('#contactBtn').hidden = true;

@@ -1,5 +1,5 @@
 /* کش آفلاین: ابتدا شبکه (تا به‌روزرسانی‌ها فوراً دیده شوند)، در نبود اینترنت از کش */
-const V = 'portal-v3';
+const V = 'portal-v4';
 const PRE = ['./', 'config.js', 'manifest.webmanifest', 'favicon.svg', 'konkoor/data.js', 'konkoor/lib/pdf.min.mjs', 'konkoor/lib/pdf.worker.min.mjs'];
 self.addEventListener('install', e => {
   e.waitUntil((async () => {
@@ -16,6 +16,7 @@ self.addEventListener('activate', e => {
 self.addEventListener('fetch', e => {
   const r = e.request;
   if (r.method !== 'GET' || !r.url.startsWith('http')) return;
+  if (r.headers.has('range') || /\.pdf(\?|$)/i.test(r.url)) return;   /* پی‌دی‌اف‌ها را مرورگر خودش بگیرد */
   e.respondWith((async () => {
     const c = await caches.open(V);
     try {
