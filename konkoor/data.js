@@ -18,8 +18,8 @@ window.KONKOOR = {
     {
       id: 'phd', name: 'دکترا',
       years: [
-        { id: '1401', pdf: 'pdf/phd/1403.pdf', formula: true },
-        { id: '96', pdf: 'pdf/phd/1402.pdf', formula: true },
+        { id: '1401', pdf: 'pdf/phd/1401.pdf', formula: true },
+        { id: '96', pdf: 'pdf/phd/96.pdf', formula: true },
       ]
     }
   ]
