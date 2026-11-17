@@ -1,11 +1,11 @@
 /* کش آفلاین: ابتدا شبکه (تا به‌روزرسانی‌ها فوراً دیده شوند)، در نبود اینترنت از کش */
-const V = 'portal-v1';
-const PRE = ['./', 'config.js', 'manifest.webmanifest', 'favicon.svg'];
+const V = 'portal-v3';
+const PRE = ['./', 'config.js', 'manifest.webmanifest', 'favicon.svg', 'konkoor/data.js', 'konkoor/lib/pdf.min.mjs', 'konkoor/lib/pdf.worker.min.mjs'];
 self.addEventListener('install', e => {
   e.waitUntil((async () => {
     const c = await caches.open(V);
     let apps = [];
-    try { const t = await (await fetch('config.js', { cache: 'no-cache' })).text(); apps = [...t.matchAll(/id:\s*'([\w-]+)'/g)].map(m => m[1]).filter(x => !['analysis','design','math'].includes(x)); } catch (e) {}
+    try { const t = await (await fetch('config.js', { cache: 'no-cache' })).text(); const W = {}; new Function('window', t)(W); apps = W.PORTAL.apps.map(a => a.id); } catch (e) {}
     await Promise.all(PRE.concat(apps.map(a => a + '/')).map(u => c.add(u).catch(() => {})));
     self.skipWaiting();
   })());
@@ -19,8 +19,9 @@ self.addEventListener('fetch', e => {
   e.respondWith((async () => {
     const c = await caches.open(V);
     try {
-      const res = await fetch(r);
-      if (res && (res.ok || res.type === 'opaque')) c.put(r, res.clone());
+      /* no-cache: هر بار با سرور بررسی شود تا نسخه‌ی قدیمیِ کش مرورگر نیاید */
+      const res = await fetch(r.headers.has('range') ? r : new Request(r, { cache: 'no-cache' }));
+      if (res && res.status === 200 && !r.headers.has('range')) c.put(r, res.clone()).catch(() => {});
       return res;
     } catch (err) {
       const hit = await c.match(r, { ignoreSearch: true });

@@ -21,7 +21,8 @@ const SITE = {
 const CATS = [
   { id: 'analysis', name: 'تحلیل سازه',     color: 'teal'   },
   { id: 'design',   name: 'بتن و مقطع',     color: 'blue'   },
-  { id: 'math',     name: 'ریاضی',          color: 'violet' }
+  { id: 'math',     name: 'ریاضی',          color: 'violet' },
+  { id: 'exam',     name: 'کنکور دکترا',    color: 'gold'   }
 ];
 
 /* ④ برنامه‌ها — هر برنامه یک بلوک است.
@@ -69,7 +70,12 @@ const APPS = [
   { id: 'calc',     icon: 'calculus', cat: 'math',
     title: 'حسابان',
     desc: 'مشتق، انتگرال، معادلات غیرخطی و سری فوریه با حل گام‌به‌گام و فرمول‌نامه.',
-    tags: ['ریاضی ۱ و ۲', 'ریاضیات مهندسی', 'فرمول‌نامه'], badge: 'جدید' }
+    tags: ['ریاضی ۱ و ۲', 'ریاضیات مهندسی', 'فرمول‌نامه'], badge: 'جدید' },
+
+  { id: 'konkoor',  icon: 'dynamics', cat: 'exam',
+    title: 'بانک پاسخ‌های کنکور دکترا',
+    desc: 'پاسخ تشریحی دست‌نویس سؤال‌های کنکور دکترای عمران، درس دینامیک سازه‌ها، به‌همراه جمع‌بندی فرمول‌ها.',
+    tags: ['دینامیک سازه‌ها', 'پاسخ دست‌نویس', 'جمع‌بندی فرمول'], badge: 'جدید' }
 ];
 
 window.PORTAL = { profile: PROFILE, site: SITE, cats: CATS, apps: APPS };
