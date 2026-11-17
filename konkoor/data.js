@@ -30,14 +30,26 @@ window.KONKOOR = {
 
       years: [
         {
-          id: '1401',
-          pdf: 'pdf/phd/1401.pdf',
+          id: '1396',
+          pdf: 'pdf/phd/1396.pdf',
           skip: 1,
           formula: true
         },
         {
-          id: '96',
-          pdf: 'pdf/phd/96.pdf',
+          id: '1398',
+          pdf: 'pdf/phd/1398.pdf',
+          skip: 1,
+          formula: true
+        },
+        {
+          id: '1400',
+          pdf: 'pdf/phd/1400.pdf',
+          skip: 1,
+          formula: true
+        },
+        {
+          id: '1401',
+          pdf: 'pdf/phd/1401.pdf',
           skip: 1,
           formula: true
         }
