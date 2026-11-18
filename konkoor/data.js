@@ -48,6 +48,12 @@ window.KONKOOR = {
           formula: true
         },
         {
+          id: '1399',
+          pdf: 'pdf/phd/1399.pdf',
+          skip: 1,
+          formula: true
+        },
+        {
           id: '1400',
           pdf: 'pdf/phd/1400.pdf',
           skip: 1,
