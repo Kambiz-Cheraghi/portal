@@ -410,6 +410,20 @@ details.tech[open] summary::before{transform:rotate(45deg)}
 .exp-menu small{display:block;font-weight:500;color:var(--mute);font-size:10.5px}
 @media print{.exp{display:none!important}}
 </style>
+<style id="en-css">.lang-btn{font:800 13px/1 var(--ui,system-ui,sans-serif);cursor:pointer;border:1.5px solid #f0c987;background:#ffffff1c;color:#fff3d6;border-radius:99px;padding:8px 14px;min-width:54px}
+.lang-btn:hover{background:#ffffff33}
+.lang-btn:focus-visible{outline:2px solid #7db3ff;outline-offset:2px}
+html[dir=ltr] body{direction:ltr}
+html[dir=ltr] .author-badge .en{display:none}
+html[dir=ltr] .author-badge{padding:5px 16px 5px 5px}
+html[dir=ltr] .tbl th{text-align:left}
+html[dir=ltr] .eqcap{border-right:0;border-left:2px solid #f0c987;padding:5px 12px 5px 16px}
+html[dir=ltr] .fm-num small{direction:ltr;text-align:left}
+html[dir=ltr] .kpi .k-v{text-align:left}
+html[dir=ltr] .fld-box input{text-align:left}
+html[dir=ltr] .fld-u{border-right:0;border-left:1.5px solid var(--line)}
+html[dir=ltr] .top-decor{left:auto;right:0;transform:scaleX(-1)}
+</style>
 </head>
 <body dir="rtl">
 <header class="top">
@@ -548,6 +562,316 @@ details.tech[open] summary::before{transform:rotate(45deg)}
 
   <div class="foot">طراحی و تهیه‌کننده: <b>کامبیز چراغی</b> <span class="foot-sep">•</span> <span dir="ltr" lang="en">Kambiz Cheraghi</span></div>
 </main>
+<script id="i18n-rt">
+/* ===== Bilingual layer (FA / EN) — presentation only; the calculation engine is untouched ===== */
+(function () {
+  'use strict';
+  var PAIRS = [["(ثانیه)", "(seconds)"], ["(ردیف", "(row"], ["(غیریکنواخت)", "(non-uniform)"], ["(متصل به تکیهگاه)", "(connected to the support)"], ["(میان تراز", "(between level"], ["(میان جرم", "(between mass"], [") از حد مجاز", ") exceeds the limit"], [") است.", ")."], [") را کپی کنید، روی اولین سلول جدول کلیک و", "), click the first table cell and"], ["/20 باشد)", "/20)"], [": فرکانس قطع )", ": cutoff frequency )"], ["; گام زمانی واقعی =", "; actual time step ="], ["Hz طی", "Hz over"], ["Hz) است؛ پاسخ تشدیدی انتظار میرود.", "Hz); a resonant response is expected."], ["Hz) نزدیک به فرکانس طبیعی مود", "Hz) is close to the natural frequency of mode"], ["N·s در t =", "N·s at t ="], ["RMS جابهجایی", "Displacement RMS"], ["m/s اعمال شد. در نمودار شتاب، ضربهٔ دیراک نمایش داده نمیشود.", "m/s was applied. The Dirac impulse is not shown in the acceleration chart."], ["m/s روی", "m/s on"], ["m/s میگیرند.", "m/s."], ["m/s ناگهان تغییر میکند؛ جرمها نسبت به زمین جهش سرعت", "m/s; the masses experience a velocity jump relative to the ground"], ["mm — نسبت به", "mm — relative to"], ["s ادامه دارد ولی مدت تحلیل", "s but the analysis duration"], ["s است؛ بخش پایانی رکورد در تحلیل لحاظ نشد.", "s; the final part of the record was not included in the analysis."], ["s بهاندازهٔ ΔV =", "s by ΔV ="], ["s روی", "s on"], ["s) از گام رکورد", "s) is greater than the record step"], ["s) بزرگتر است؛ ممکن است قلههای رکورد از دست بروند. Δt را کوچکتر کنید.", "s) is greater; record peaks may be lost. Reduce Δt."], ["s؛ فرکانسهای طبیعی سازه:", "s; natural frequencies of the structure:"], ["» معتبر نیست.", "” is not valid."], ["ξ(t): فرایند تصادفی گاوسی با میانگین صفر و واریانس واحد که با فیلتر پایینگذر مرتبهٔ اول (فرکانس قطع f꜀) هموار شده است. با ثابتماندن seed، نتیجه کاملا تکرارپذیر است.", "ξ(t): a Gaussian random process with zero mean and unit variance, smoothed by a first-order low-pass filter (cutoff frequency f꜀). With a fixed seed the result is fully repeatable."], ["،", ","], ["، گزینهٔ «شتابی مستقل» را بزنید.", ", press the “Independent acceleration” option."], ["، گزینهٔ «نیروی مستقل» را بزنید.", ", press the “Independent force” option."], ["؛ با همین seed نتیجه دقیقا تکرار میشود.", "; with the same seed the result is repeated exactly."], ["؛ جابهجاییها نسبت به زمیناند و شتاب نمودارها «مطلق» (شتاب نسبی +", "; displacements are relative to the ground and chart accelerations are “absolute” (relative acceleration +"], ["اجرای تحلیل و نمایش نتایج", "Run analysis and show results"], ["ارتعاش آزاد", "Free vibration"], ["از", "from"], ["است. جابهجایی و سرعتها نسبت به زمیناند؛ شتابهای نمودار و جدول «مطلق» هستند (شتاب نسبی +", ". Displacements and velocities are relative to the ground; chart and table accelerations are “absolute” (relative acceleration +"], ["اعمال شد. در نمودار شتاب، ضربهٔ دیراک نمایش داده نمیشود.", "was applied. The Dirac impulse is not shown in the acceleration chart."], ["اعمال نیرو روی", "Apply force on"], ["افزایش ناگهانی تا A₀ و سپس افت نمایی با ثابت زمانی τ؛ مدل سادهای از بار انفجار.", "A sudden rise to A₀ followed by exponential decay with time constant τ; a simple blast-load model."], ["افزایش ناگهانی تا F₀ و سپس افت نمایی با ثابت زمانی τ؛ مدل سادهای از بار انفجار.", "A sudden rise to F₀ followed by exponential decay with time constant τ; a simple blast-load model."], ["انتخاب همه", "Select all"], ["انتخابشده برابر «ضریب × F(t)» است؛ با ضریبهای متفاوت میتوان توزیع بار (مثلا مثلثی) ساخت. برای تابع کاملا جداگانه روی هر", "selected is equal to “factor × F(t)”; with different factors a load distribution (e.g. triangular) can be created. For a completely separate function, on each"], ["اندازهٔ تکانه", "Impulse magnitude"], ["انیمیشن حرکت سازه", "Structure motion animation"], ["اکسپورت", "Export"], ["ایمپالسها بهصورت تکانهٔ هر جرم (N·s) برگردانده میشوند. */", "Impulses are returned as the momentum of each mass (N·s). */"], ["با RMS تنظیمشده", "with adjusted RMS"], ["با جهش سرعت Δv = J/m =", "with a velocity jump Δv = J/m ="], ["با مقادیر واردشده", "With the entered values"], ["بارگذاری", "loading"], ["بارگذاری تصادفی و رکورد", "Random loading and record"], ["بارگذاری نمونهٔ شتابنگاشت", "Accelerogram sample loading"], ["بارگذاری نمونهٔ نیرو", "Force sample loading"], ["بارگذاری هارمونیک", "Harmonic loading"], ["بازهٔ زمان", "Time range"], ["بازگشت به ابتدا", "Back to start"], ["بدون بار", "No load"], ["بدون جابهجایی", "without displacement"], ["بدون حرکت", "No motion"], ["بدون میرایی", "Undamped"], ["بر حسب زمان", "as a function of time"], ["برای مشاهدهٔ مقدار در هر لحظه، روی نمودار حرکت کنید یا آن را بکشید.", "To see the value at any instant, move over the chart or drag it."], ["برای وارد کردن داده از اکسل: دو ستون (زمان،", "To import data from Excel, copy two columns (time,"], ["بزرگ است؛ Δt را کوچکتر کنید.", "is large; reduce Δt."], ["بزرگتر است؛ ", "is greater; "], ["بزرگتر است؛ ممکن است قلههای رکورد از دست بروند. Δt را کوچکتر کنید.", "; record peaks may be lost. Reduce Δt."], ["بزرگنمایی حرکت ×", "Motion magnification ×"], ["بزنید. اگر فقط ستون", "paste. If only the column"], ["بسامدهای طبیعی معتبر نیستند؛ مقادیر سختی و جرم را بررسی کنید.", "The natural frequencies are not valid; check the stiffness and mass values."], ["بعدی", "Next"], ["بیشتر است؛ Δt را بزرگتر یا T را کوچکتر کنید.", "; increase Δt or decrease T."], ["بیشتر شود. گام زمانی را بزرگتر انتخاب کنید.", ". Choose a larger time step."], ["بیشینههای قدرمطلق، زمان وقوع و مقدار مؤثر (RMS)", "Absolute maxima, time of occurrence and effective value (RMS)"], ["بیشینهٔ |نیرو|", "Peak |force|"], ["بیشینهٔ برش طبقه", "Peak story shear"], ["بیشینهٔ جابهجایی", "Peak displacement"], ["بیشینهٔ شتاب", "Peak acceleration"], ["بیشینهٔ شتاب (PGA)", "Peak acceleration (PGA)"], ["بیشینهٔ شتاب مطلق", "Peak absolute acceleration"], ["بیشینهٔ فرکانس جاروب", "Maximum sweep frequency"], ["بیشینهٔ نیروی فنر", "Peak spring force"], ["تا", "to"], ["تا t =", "up to t ="], ["تابع بارگذاری", "Loading function"], ["تابع شتاب", "acceleration function"], ["تابع شتاب زمین", "ground acceleration function"], ["تابع نیرو", "force function"], ["تاریخ اکسپورت", "Export date"], ["تاریخچهٔ بارگذاری", "Loading history"], ["تاریخچهٔ بارگذاری طبقات", "Story loading history"], ["تاریخچهٔ جابهجایی", "Displacement history"], ["تاریخچهٔ زمانی", "Time history"], ["تاریخچهٔ شتاب", "Acceleration history"], ["تاریخچهٔ شتاب زمین", "Ground acceleration history"], ["تاریخچهٔ شتاب مطلق", "Absolute acceleration history"], ["تحریک خارجی و شرایط اولیه همگی صفر هستند؛ پاسخ در تمام زمان صفر است.", "The external excitation and the initial conditions are all zero; the response is zero at all times."], ["تحریک هارمونیک پیوسته با دامنه و فرکانس ثابت؛ برای بررسی تشدید مناسب است.", "Continuous harmonic excitation with constant amplitude and frequency; suitable for studying resonance."], ["تحریک پایه", "Base excitation"], ["تحریک پایه (زلزله)", "Base excitation (earthquake)"], ["تحریک پایه (شتاب زمین)", "Base excitation (ground acceleration)"], ["تحریک پایه: پایهٔ سازه با شتاب", "Base excitation: the structure base moves with acceleration"], ["تحلیل دینامیکی سازهها", "Structural Dynamics Analysis"], ["تحلیل دینامیکی سازهها | ۱ تا ۳ درجه آزادی | کامبیز چراغی (Kambiz Cheraghi)", "Structural Dynamics Analysis | 1 to 3 DOF | Kambiz Cheraghi"], ["تحلیل دینامیکی سازهها با ۱ تا ۳ درجه آزادی — طراحی و تهیهکننده: کامبیز چراغی (Kambiz Cheraghi)", "Dynamic analysis of structures with 1 to 3 degrees of freedom — designed and developed by Kambiz Cheraghi"], ["تحلیل مودال", "Modal analysis"], ["تعداد درجات آزادی", "Number of degrees of freedom"], ["تعداد درجات آزادی، جرم، سختی و شرایط اولیه", "Number of degrees of freedom, mass, stiffness and initial conditions"], ["تعداد نمونه", "Number of samples"], ["تعداد گامها (", "Number of steps ("], ["تعداد گامها نباید از", "The number of steps must not exceed"], ["تعداد گامها:", "Number of steps:"], ["تهیهکننده:", "Developed by:"], ["توزیع نیرو", "Force distribution"], ["توضیح یکاها", "Units note"], ["توقف", "Pause"], ["تکیهگاه", "support"], ["تیر صلب با جرم طبقه (m)", "Rigid beam with story mass (m)"], ["جابهجایی", "displacement"], ["جابهجایی افقی u", "Horizontal displacement u"], ["جابهجایی اولیه", "Initial displacement"], ["جابهجایی جرمها نسبت به تکیهگاه", "Displacement of the masses relative to the support"], ["جابهجایی جرمها نسبت به زمین", "Displacement of the masses relative to the ground"], ["جاروب فرکانس", "Frequency sweep"], ["جدول باید دستکم دو ردیف معتبر (زمان و مقدار) داشته باشد", "The table must have at least two valid rows (time and value)"], ["جدول باید دستکم دو ردیف معتبر (زمان و مقدار) داشته باشد.", "The table must have at least two valid rows (time and value)."], ["جدول زمان–مقدار", "Time–value table"], ["جدول زمان–نیرو", "Time–force table"], ["جدول شتابنگاشت", "Accelerogram table"], ["جدول نیرو–زمان", "Force–time table"], ["جدول: زمانها باید اکیدا صعودی باشند (ردیف", "Table: the times must be strictly increasing (row"], ["جدولی شبیه اکسل با دو ستون «زمان» و «شتاب» (یا «شتاب»). مقادیر میان سطرها بهصورت خطی درونیابی میشوند و بیرون از بازهٔ جدول صفر است.", "An Excel-like table with two columns, “Time” and “Acceleration”. Values between rows are linearly interpolated and are zero outside the table range."], ["جدولی شبیه اکسل با دو ستون «زمان» و «شتاب» (یا «نیرو»). مقادیر میان سطرها بهصورت خطی درونیابی میشوند و بیرون از بازهٔ جدول صفر است.", "An Excel-like table with two columns, “Time” and “Acceleration” (or “Force”). Values between rows are linearly interpolated and are zero outside the table range."], ["جرم", "mass"], ["جرم (m)", "Mass (m)"], ["جرم طبقه", "story mass"], ["جرم و سختی", "mass and stiffness"], ["جرم – فنر – میراگر", "Mass – spring – damper"], ["جرمها", "masses"], ["جزئیات مهندسی: ماتریسهای M، C و K", "Engineering details: matrices M, C and K"], ["جهش سرعت زمین", "Ground velocity jump"], ["حالت شتاب: Fm[i](t) شتابی مستقیم؛ حالت پایه: Fm[i](t) = −m_i·a_g(t) (a_g بر حسب m/s²)", "Force mode: Fm[i](t) is the direct acceleration; base mode: Fm[i](t) = −m_i·a_g(t) (a_g in m/s²)"], ["حالت نیرو: Fm[i](t) نیروی مستقیم؛ حالت پایه: Fm[i](t) = −m_i·a_g(t) (a_g بر حسب m/s²)", "Force mode: Fm[i](t) is the direct force; base mode: Fm[i](t) = −m_i·a_g(t) (a_g in m/s²)"], ["حرکت جرمها، تغییر طول فنر، پیستون میراگر و شتابی لحظهای", "Motion of the masses, spring length change, damper piston and the instantaneous acceleration"], ["حرکت جرمها، تغییر طول فنر، پیستون میراگر و نیروی لحظهای", "Motion of the masses, spring length change, damper piston and the instantaneous force"], ["حرکت سازه نسبت به زمینلرزان؛ بردار قرمز پایین شتاب لحظهای زمین a_g(t) است", "Motion of the structure relative to the shaking ground; the red vector below is the instantaneous ground acceleration a_g(t)"], ["حرکت طبقات، خمش ستونها و شتابی لحظهای وارد بر هر تراز", "Story motion, column bending and the instantaneous acceleration on each level"], ["حرکت طبقات، خمش ستونها و نیروی لحظهای وارد بر هر تراز", "Story motion, column bending and the instantaneous force on each level"], ["حرکت فقط از شرایط اولیه (جابهجایی و سرعت اولیه) آغاز میشود.", "The motion starts only from the initial conditions (initial displacement and velocity)."], ["حرکت میکند و بار مؤثر بر هر جرم", "moves, and the effective load on each mass"], ["حرکت میکند. معادله:", "moves. Equation:"], ["خروجی عددی نمودار", "Chart numeric output"], ["خطا در اکسپورت", "Export error"], ["خطا در حل عددی:", "Numerical solution error:"], ["خلاصهٔ پاسخ", "Response summary"], ["خلاصهٔ پاسخ هر درجه آزادی", "Response summary of each degree of freedom"], ["دادهای برای اکسپورت نیست", "No data to export"], ["دادهٔ عددی در متن چسباندهشده پیدا نشد.", "No numeric data found in the pasted text."], ["دامنهٔ شتاب زمین", "Ground acceleration amplitude"], ["دامنهٔ نیرو", "Force amplitude"], ["دانهٔ تصادفی", "Random seed"], ["دانهٔ تصادفی جدید", "New random seed"], ["در", "in"], ["در بازهٔ تحلیل", "within the analysis range"], ["در بازهٔ تحلیل رخ داد (seed =", "occurred within the analysis range (seed ="], ["در حال ساخت…", "Building…"], ["در غیر این صورت", "Otherwise"], ["در لحظهٔ", "at the instant"], ["در نظر گرفته میشود و نسبت ζ دقیقا روی اولین و آخرین مود اعمال میشود.", "and the ratio ζ is applied exactly to the first and last modes."], ["در پایه", "at the base"], ["درجات آزادی", "degrees of freedom"], ["درجه آزادی", "degrees of freedom"], ["درجه آزادی  •", "degrees of freedom  •"], ["درجه آزادی • فنرها و میراگرها در راستای افقی", "degrees of freedom • springs and dampers in the horizontal direction"], ["درجهٔ آزادی", "Degree of freedom"], ["دریافت CSV", "Download CSV"], ["دلخواه و ارتعاش آزاد", "Custom and free vibration"], ["دورهٔ تناوب", "Period"], ["ذخیرهٔ نمودارها (PNG)", "Save charts (PNG)"], ["را چسباندید، «ساخت ستون زمان» را بزنید. جداکنندهٔ داده: Tab، ویرگول یا فاصله؛ زمانها باید صعودی باشند. بیرون از بازهٔ جدول، مقدار صفر در نظر گرفته میشود.", "was pasted, press “Build time column”. Data separator: Tab, comma or space; times must be increasing. Outside the table range, the value is taken as zero."], ["ردیف", "Row"], ["ردیف معتبر", "valid rows"], ["روش تحلیل: نیومارک‑β (شتاب متوسط) با β = ۰٫۲۵ و γ = ۰٫۵؛ جرم متمرکز؛", "Analysis method: Newmark-β (average acceleration) with β = 0.25 and γ = 0.5; lumped mass;"], ["روش نیومارک‑β", "Newmark-β method"], ["رکورد جدول", "Table record"], ["زمان", "time"], ["زمان تحلیل", "Analysis time"], ["زمان جاری", "Current time"], ["زمان شروع", "Start time"], ["زمان ضربه (s)", "Impact time (s)"], ["زمان وقوع", "time of occurrence"], ["زمین", "ground"], ["زمین ساکن", "stationary ground"], ["زمین ساکن است و", "The ground is at rest and"], ["زمین ساکن است و حرکت فقط از شرایط اولیه (جابهجایی و سرعت نسبی) آغاز میشود.", "The ground is stationary and the motion starts only from the initial conditions (relative displacement and velocity)."], ["ساخت ستون زمان", "Build time column"], ["ستون کشسان (سختی جانبی k)", "Elastic column (lateral stiffness k)"], ["ستونهای جدا + برگهٔ مشخصات تحلیل", "Separate columns + analysis properties sheet"], ["ستونهای طبقهٔ", "Columns of story"], ["ستونهای طبقهٔ اول (متصل به پی)", "Columns of the first story (connected to the foundation)"], ["ستونهای متصل به پی", "Columns connected to the foundation"], ["سختی جانبی ستونها", "Lateral stiffness of the columns"], ["سختی فنر", "Spring stiffness"], ["سرعت اولیه", "Initial velocity"], ["سرعت پخش", "Playback speed"], ["سیستمهای جرم–فنر–میراگر با ۱، ۲ و ۳ درجه آزادی", "Mass–spring–damper systems with 1, 2 and 3 degrees of freedom"], ["سینوسی", "Sine"], ["شتاب", "acceleration"], ["شتاب ثابت", "constant acceleration"], ["شتاب ثابت A₀ در بازهٔ کوتاه τ؛ ضربه با شکل مستطیلی.", "Constant acceleration A₀ over a short interval τ; a rectangular impulse."], ["شتاب زمین", "ground acceleration"], ["شتاب زمین a_g(t) اعمالشده به پایه —", "Ground acceleration a_g(t) applied to the base —"], ["شتاب مطلق (نسبی + شتاب زمین)", "Absolute acceleration (relative + ground acceleration)"], ["شتاب مطلق = شتاب نسبی + شتاب زمین", "Absolute acceleration = relative acceleration + ground acceleration"], ["شتاب نسبی", "relative acceleration"], ["شتاب نسبی جرمها", "relative acceleration of the masses"], ["شتابنگاشت (جدول زمان–شتاب)", "Accelerogram (time–acceleration table)"], ["شتابنگاشت جدول", "Table accelerogram"], ["شتابنگاشت یا تابع شتاب زمین را تعریف کنید؛ فرمول و نمودار آن در پایین نمایش داده میشود.", "Define the accelerogram or ground acceleration function; its formula and chart are shown below."], ["شتابی خارجی صفر است (ارتعاش آزاد).", "The external acceleration is zero (free vibration)."], ["شتابی خارجی صفر است و حرکت فقط از شرایط اولیه (جابهجایی و سرعت) آغاز میشود.", "The external acceleration is zero and the motion starts only from the initial conditions (displacement and velocity)."], ["شتابی مستقل برای هر درجه آزادی", "Independent acceleration for each degree of freedom"], ["شماتیک جرم، فنر و میراگر", "Mass, spring and damper schematic"], ["شماتیک مدل", "Model schematic"], ["شکل مود", "Mode shape"], ["صفحهٔ", "Page"], ["ضرایب میرایی رایلی:", "Rayleigh damping coefficients:"], ["ضربه و پالس", "Impact and pulse"], ["ضربهها در هر دو جهت (مثبت و منفی) وارد شوند", "Impacts are applied in both directions (positive and negative)"], ["ضربههای تصادفی", "Random impacts"], ["ضربهٔ آنی", "Instantaneous impulse"], ["ضربهٔ آنی J (N·s)", "Instantaneous impulse J (N·s)"], ["ضربهٔ آنی J =", "Instantaneous impulse J ="], ["ضربهٔ آنی با جهش سرعت Δv = J/m =", "Instantaneous impulse with velocity jump Δv = J/m ="], ["ضربهٔ آنی در ستونهای نمودار نمایش داده نمیشود (فقط مقدار J و زمان آن در همین برگه است).", "The instantaneous impulse is not shown in the chart columns (only its value J and time are on this sheet)."], ["ضربهٔ آنی زمین ΔV (m/s)", "Ground instantaneous impulse ΔV (m/s)"], ["ضربهٔ ایدهآل (دیراک): تکانهٔ J در یک لحظه وارد میشود و سرعت جرم هدف بهاندازهٔ J/m ناگهان تغییر میکند.", "Ideal (Dirac) impulse: the impulse J is applied in an instant and the velocity of the target mass changes suddenly by J/m."], ["ضربهٔ ایدهآل زمین (شتاب دیراک): سرعت زمین در لحظهٔ t₀ بهاندازهٔ ΔV ناگهان تغییر میکند.", "Ideal ground impulse (Dirac acceleration): the ground velocity changes suddenly by ΔV at time t₀."], ["ضربهٔ ایدهآل زمین: سرعت پایه در t =", "Ideal ground impulse: the base velocity at t ="], ["ضربهٔ تصادفی", "random impact"], ["ضربهٔ نمایی (انفجار)", "Exponential impulse (blast)"], ["ضربهٔ هموار به شکل نیمموج سینوسی؛ نمونهٔ رایج ضربههای مکانیکی.", "A smooth impulse shaped as a half sine wave; a common model of mechanical shocks."], ["ضریب مقیاس جدول", "Table scale factor"], ["ضریب مقیاس جدول نامعتبر است.", "The table scale factor is invalid."], ["ضریب میرایی رایلی α (1/s)", "Rayleigh damping coefficient α (1/s)"], ["ضریب میرایی رایلی β (s)", "Rayleigh damping coefficient β (s)"], ["ضریب نیرو روی", "Force factor on"], ["طبقات", "stories"], ["طبقه", "story"], ["طبقه • ستونهای کشسان و تیرهای صلب", "story • elastic columns and rigid beams"], ["طبقهٔ", "story"], ["طراحی و تهیهکننده", "Designed and developed by"], ["طراحی و تهیهکننده:", "Designed and developed by:"], ["طراحی و تهیهکننده: کامبیز چراغی — Kambiz Cheraghi", "Designed and developed by Kambiz Cheraghi"], ["عبارت تابع بارگذاری معتبر نیست", "The load function expression is not valid"], ["عبارت معتبر است.", "Expression is valid."], ["عملگرها:", "Operators:"], ["فایل اکسل (.xlsx)", "Excel file (.xlsx)"], ["فایل اکسل ساخته شد ✓", "Excel file created ✓"], ["فرمول دلخواه", "Custom formula"], ["فرکانس آغاز", "Start frequency"], ["فرکانس آغاز و پایان جاروب برابرند؛ تحریک عملا سینوسی ثابت است.", "The sweep start and end frequencies are equal; the excitation is effectively a constant sine."], ["فرکانس تحریک", "Excitation frequency"], ["فرکانس تحریک بهصورت خطی در طول مدت تحلیل از f₁ تا f₂ تغییر میکند؛ برای یافتن مودهای تشدید.", "The excitation frequency varies linearly over the analysis duration from f₁ to f₂; for finding resonance modes."], ["فرکانس زاویهای", "Angular frequency"], ["فرکانس طبیعی پایه", "Fundamental natural frequency"], ["فرکانس قطع", "Cutoff frequency"], ["فرکانس قطع از فرکانس نایکویست (1/2Δt) بیشتر است؛ نوفهٔ سفید بدون فیلتر اعمال شد.", "The cutoff frequency is greater than the Nyquist frequency (1/2Δt); unfiltered white noise was applied."], ["فرکانس پایان", "End frequency"], ["فرکانسهای طبیعی، دورهها، میرایی مودی و شکل مودها", "Natural frequencies, periods, modal damping and mode shapes"], ["فعال باشد", "active"], ["فنر", "spring"], ["فنر (k)", "Spring (k)"], ["فنر متصل به تکیهگاه ثابت", "Spring connected to the fixed support"], ["فنر میان جرم", "Spring between mass"], ["قاب برشی", "Shear frame"], ["قبلی", "Previous"], ["قطاری از ضربههای نیمسینوسی که در زمانهای تصادفی (فرایند پواسون با نرخ λ) و با دامنههای تصادفی در بازهٔ ۳۰ تا ۱۰۰ درصد A₀ وارد میشوند.", "A train of half-sine impacts arriving at random times (Poisson process with rate λ) with random amplitudes between 30 and 100 percent of A₀."], ["قطاری از ضربههای نیمسینوسی که در زمانهای تصادفی (فرایند پواسون با نرخ λ) و با دامنههای تصادفی در بازهٔ ۳۰ تا ۱۰۰ درصد F₀ وارد میشوند.", "A train of half-sine impacts arriving at random times (Poisson process with rate λ) with random amplitudes between 30 and 100 percent of F₀."], ["ماتریس جرم M", "Mass matrix M"], ["ماتریس دستگاه تکین است. جرم و سختیها را بررسی کنید.", "The system matrix is singular. Check the mass and stiffness values."], ["ماتریس سختی K", "Stiffness matrix K"], ["ماتریس میرایی C", "Damping matrix C"], ["مانند سینوسی، اما با اختلاف فاز ۹۰ درجه (مقدار در لحظهٔ صفر بیشینه است).", "Like sine, but with a 90° phase difference (the value at time zero is maximum)."], ["محل اعمال بار (یک یا چند", "Load location (one or several"], ["مدت", "duration"], ["مدت / ثابت زمانی", "Duration / time constant"], ["مدت تحلیل", "analysis duration"], ["مدت تحلیل T (s)", "Analysis duration T (s)"], ["مدت پالس باید مثبت باشد", "Pulse duration must be positive"], ["مدل سازه", "Structure model"], ["مشخصات تحلیل", "Analysis properties"], ["مشخصات سازه", "Structure properties"], ["مشخصات مودال", "Modal properties"], ["معادلهٔ حرکت", "Equation of motion"], ["معادلهٔ حرکت (تحریک پایه): M ü + C u̇ + K u = −M·1·a_g(t) با u = جابهجایی نسبی؛ شتاب مطلق = ü + a_g.", "Equation of motion (base excitation): M ü + C u̇ + K u = −M·1·a_g(t) with u = relative displacement; absolute acceleration = ü + a_g."], ["معادلهٔ حرکت: M ü + C u̇ + K u = F(t).", "Equation of motion: M ü + C u̇ + K u = F(t)."], ["مقدار «", "Value “"], ["مقدار بهصورت خطی افزایش و سپس کاهش مییابد (مثلث متقارن با پایهٔ τ).", "The value rises linearly and then falls (a symmetric triangle with base τ)."], ["مقدار تابع در t =", "Function value at t ="], ["مقدار تابع در برخی لحظهها نامعتبر (بینهایت یا تعریفنشده", "The function value is invalid at some instants (infinite or undefined"], ["مقدار تابع در برخی لحظهها نامعتبر (بینهایت یا تعریفنشده) است.", "The function value is invalid (infinite or undefined) at some instants."], ["مقدار تابع نامعتبر است.", "The function value is invalid."], ["مقدار در لحظهٔ t₀ ناگهان به A₀ میرسد و ثابت میماند.", "The value jumps suddenly to A₀ at t₀ and stays constant."], ["مقدار در لحظهٔ t₀ ناگهان به F₀ میرسد و ثابت میماند.", "The value jumps suddenly to F₀ at t₀ and stays constant."], ["مقدار ردیف", "Value, row"], ["مقدار مؤثر (RMS)", "Effective value (RMS)"], ["مقدار مؤثر شتاب (RMS)", "Effective acceleration (RMS)"], ["مود", "mode"], ["میان تراز", "between level"], ["میراگر (c) — بهصورت ماتریس رایلی", "Damper (c) — as a Rayleigh matrix"], ["میرایی", "damping"], ["میرایی بهصورت رایلی", "Damping is taken as Rayleigh"], ["میرایی رایلی", "Rayleigh damping"], ["میرایی مودی", "Modal damping"], ["نامعتبر است.", "is not valid."], ["نتایج تحلیل دینامیکی", "Dynamic analysis results"], ["نرخ وقوع ضربه", "Impact rate"], ["نسبت به زمین •", "relative to the ground •"], ["نسبت به گام زمانی زیاد است؛ Δt را کوچکتر کنید.", "is large relative to the time step; reduce Δt."], ["نسبت به گام زمانی زیاد است؛ برای نمایش دقیق موج، Δt را کوچکتر کنید.", "is large relative to the time step; to show the wave accurately, reduce Δt."], ["نسبت میرایی", "Damping ratio"], ["نسبتا بزرگ است؛ بهتر است Δt حداکثر یکپنجم مدت پالس (τ) باشد.", "is relatively large; Δt should be at most one-fifth of the pulse duration (τ)."], ["نمای زندهٔ ارتعاش", "Live vibration view"], ["نمایش پاسخ جرمها", "Show mass response"], ["نمایش پاسخ طبقات", "Show story response"], ["نمودار", "chart"], ["نمودار جابهجایی بر حسب زمان", "Displacement vs. time chart"], ["نمودار شتاب بر حسب زمان", "Acceleration vs. time chart"], ["نمودار شتابی خارجی بر حسب زمان", "External acceleration vs. time chart"], ["نمودار شتابی طبقات در بازهٔ تحلیل", "Chart of the story accelerations over the analysis range"], ["نمودار نیروی خارجی بر حسب زمان", "External force vs. time chart"], ["نمودار نیروی طبقات در بازهٔ تحلیل", "Chart of the story forces over the analysis range"], ["نمودارها", "Charts"], ["نمونه", "sample"], ["نوع تابع شتاب را انتخاب کنید؛ فرمول و نمودار آن در پایین نمایش داده میشود.", "Select the type of acceleration function; its formula and chart are shown below."], ["نوع تابع نیرو را انتخاب کنید؛ فرمول و نمودار آن در پایین نمایش داده میشود.", "Select the type of force function; its formula and chart are shown below."], ["نوع تحریک", "Excitation type"], ["نوع نمایش مدل", "Model view type"], ["نوفهٔ تصادفی", "Random noise"], ["نکته", "Note"], ["نیرو", "force"], ["نیروی اعمالشده به", "The force applied to"], ["نیروی اعمالشده به هر", "The force applied to each"], ["نیروی ثابت F₀ در بازهٔ کوتاه τ؛ ضربه با شکل مستطیلی.", "Constant force F₀ over a short interval τ; a rectangular impulse."], ["نیروی خارجی F(t)", "External force F(t)"], ["نیروی خارجی صفر", "external force is zero"], ["نیروی خارجی صفر است (ارتعاش آزاد).", "The external force is zero (free vibration)."], ["نیروی خارجی صفر است و", "The external force is zero and"], ["نیروی خارجی صفر است و حرکت فقط از شرایط اولیه (جابهجایی و سرعت) آغاز میشود.", "The external force is zero and the motion starts only from the initial conditions (displacement and velocity)."], ["نیروی مستقل", "independent force"], ["نیروی مستقل بر", "Independent force on"], ["نیروی مستقل برای هر", "independent force for each"], ["نیروی مستقل برای هر درجه آزادی", "Independent force for each degree of freedom"], ["نیروی مستقل هر", "Independent force per"], ["نیروی مستقل:", "Independent force:"], ["نیروی مستقیم روی", "Direct force on"], ["نیروی مستقیم —", "Direct force —"], ["هر تابع دلخواه از زمان t را بنویسید؛ مثال پیشفرض یک موج سینوسی میرا شونده است. برای راحتی میتوانید از دکمههای میانبر زیر کادر استفاده کنید.", "Write any arbitrary function of time t; the default example is a decaying sine wave. For convenience you can use the shortcut buttons below the box."], ["همه انتخاب شدهاند", "All selected"], ["هیچ طبقهای شتاب دریافت نمیکند؛ پاسخ فقط ناشی از شرایط اولیه است.", "No story receives acceleration; the response is due to the initial conditions only."], ["هیچ طبقهای نیرو دریافت نمیکند؛ پاسخ فقط ناشی از شرایط اولیه است.", "No story receives force; the response is due to the initial conditions only."], ["و", "and"], ["و seed =", "and seed ="], ["واحد", "Unit"], ["واحد زمان", "Time unit"], ["واحد شتاب زمین در پارامترها:", "Ground acceleration unit in the parameters:"], ["وارد کردن فایل (CSV / TXT)", "Import file (CSV / TXT)"], ["ویرایش ورودیها", "Edit inputs"], ["٪", "%"], ["٪  •", "%  •"], ["پارامترهای بارگذاری", "Loading parameters"], ["پارامترهای شتاب زمین", "Ground acceleration parameters"], ["پالس مثلثی", "Triangular pulse"], ["پالس مستطیلی", "Rectangular pulse"], ["پالس نیمسینوسی", "Half-sine pulse"], ["پاککردن", "Clear"], ["پایهٔ ثابت", "Fixed base"], ["پایهٔ سازه با شتاب", "The structure base with acceleration"], ["پایهٔ متحرک", "Moving base"], ["پخش", "Play"], ["پلهٔ ناگهانی", "Sudden step"], ["پیشنمایش تابع بارگذاری", "Load function preview"], ["چاپ / PDF", "Print / PDF"], ["چسباندن مستقیم در اکسل (Ctrl+V)", "Paste directly into Excel (Ctrl+V)"], ["کامبیز چراغی", "Kambiz Cheraghi"], ["کامبیز چراغی (Kambiz Cheraghi)", "Kambiz Cheraghi"], ["کسینوسی", "Cosine"], ["کوتاهترین دورهٔ طبیعی:", "Shortest natural period:"], ["کپی اعداد", "Copy numbers"], ["کپی شد ✓ در اکسل Ctrl+V بزنید", "Copied ✓ press Ctrl+V in Excel"], ["کپی ممکن نشد؛ فایل اکسل بگیرید", "Copy failed; export an Excel file"], ["گام", "step"], ["گام تحلیل (", "Analysis step ("], ["گام زمانی", "time step"], ["گام زمانی Δt (s)", "Time step Δt (s)"], ["گام زمانی برای نمایش پالس کوتاه", "The time step for showing a short pulse"], ["گام زمانی رکورد (برای ساخت ستون زمان)", "Record time step (for building the time column)"], ["گام زمانی رکورد باید مثبت باشد.", "The record time step must be positive."], ["گام زمانی نباید از مدت تحلیل بیشتر باشد.", "The time step must not be greater than the analysis duration."], ["گام زمانی نسبت به ثابت زمانی τ", "The time step relative to the time constant τ"], ["گام زمانی نسبت به کوتاهترین دورهٔ طبیعی بزرگ است. برای دقت بیشتر Δt را کاهش دهید (ترجیحا کمتر از T_min/20).", "The time step is large relative to the shortest natural period. For better accuracy reduce Δt (preferably less than T_min/20)."], ["گام یکنواخت", "uniform step"], ["یک تابع مشترک (با ضریب)", "One common function (with a factor)"], ["۱۰ ردیف", "10 rows"], ["— برای هر کدام یک تابع شتابی جداگانه", "— a separate acceleration function for each"], ["— برای هر کدام یک تابع نیروی جداگانه", "— a separate force function for each"], ["— توابع: sin, cos, tan, exp, log, sqrt, abs, pow, min, max, sign, tanh و step(x)، rect(x,a,b).", "— functions: sin, cos, tan, exp, log, sqrt, abs, pow, min, max, sign, tanh and step(x), rect(x,a,b)."], ["— خروجی بر حسب", "— output in terms of"], ["• جابهجایی اولیه با بزرگنمایی نمایش داده شده", "• initial displacement is shown magnified"], ["⚠ Δt نسبتا بزرگ است (بهتر است کمتر از T", "⚠ Δt is relatively large (it is better to be less than T"]];
+  var LANG = 'fa';
+  try { var q = new URLSearchParams(location.search).get('lang'); LANG = (q === 'en' || q === 'fa') ? q : (localStorage.getItem('dyn-lang') || 'fa'); } catch (e) {}
+  if (LANG !== 'en') LANG = 'fa';
+
+  var FA_RE = /[؀-ۿ]/;
+  function norm(s) { return s.replace(/‌/g, '').replace(/ي/g, 'ی').replace(/ك/g, 'ک').replace(/ۀ/g, 'هٔ').replace(/[ً-ٓ]/g, ''); }
+  var MAP = Object.create(null), RE = null;
+  function esc(s) { return s.replace(/[.*+?^${}()|[\]\\\/-]/g, '\\$&'); }
+  function build() {
+    PAIRS.forEach(function (p) { MAP[norm(p[0])] = p[1]; });
+    var keys = Object.keys(MAP).sort(function (a, b) { return b.length - a.length; });
+    var LT='[\\u0621-\\u063A\\u0641-\\u064A\\u066E-\\u06D3\\u06FA-\\u06FF]', LR=new RegExp('^'+LT), LE=new RegExp(LT+'$');
+    RE = new RegExp(keys.map(function(k){return (LR.test(k)?'(?<!'+LT+')':'')+esc(k)+(LE.test(k)?'(?!'+LT+')':'');}).join('|'), 'g');
+  }
+  var DIG = { '۰': '0', '۱': '1', '۲': '2', '۳': '3', '۴': '4', '۵': '5', '۶': '6', '۷': '7', '۸': '8', '۹': '9', '٠': '0', '١': '1', '٢': '2', '٣': '3', '٤': '4', '٥': '5', '٦': '6', '٧': '7', '٨': '8', '٩': '9', '٫': '.', '٬': ',', '،': ',', '؛': ';', '؟': '?', '٪': '%', '«': '“', '»': '”' };
+  function tr(s) {
+    if (typeof s !== 'string' || !s) return s;
+    if (!/[؀-ۿ٪-٬]/.test(s)) return s;
+    if (!RE) build();
+    var n = norm(s).replace(/(\d)\s+از\s+(\d)/g, '$1 of $2'), lead = /^[\s]*[؀-ۿ]/.test(n);
+    var out = n.replace(RE, function (m) { return MAP[m]; });
+    out = out.replace(/[۰-۹٠-٩٫٬،؛؟٪«»]/g, function (c) { return DIG[c]; });
+    if (lead && !/^\s*(to|from|and|with|of|at|in|or)\s*$/i.test(out)) out = out.replace(/^(\s*)([a-z])/, function (m, a, b) { return a + b.toUpperCase(); });
+    return out;
+  }
+  window.__tr = function (s) { return LANG === 'en' ? tr(String(s)) : s; };
+  window.__rtl = function () { return LANG !== 'en'; };
+
+  var origText = new WeakMap(), lastText = new WeakMap(), origAttr = new WeakMap(), busy = false;
+  var ATTRS = ['title', 'placeholder', 'aria-label', 'alt'];
+  function doText(node) {
+    var v = node.data;
+    if (lastText.get(node) === v) return;
+    if (LANG === 'en') {
+      if (!FA_RE.test(v) && !/[٠-٩۰-۹]/.test(v)) { return; }
+      origText.set(node, v);
+      var t = tr(v);
+      if (t !== v) { lastText.set(node, t); node.data = t; }
+    } else { origText.set(node, v); }
+  }
+  function doAttrs(el) {
+    if (!el.getAttribute) return;
+    for (var i = 0; i < ATTRS.length; i++) {
+      var a = ATTRS[i], v = el.getAttribute(a);
+      if (v == null) continue;
+      var rec = origAttr.get(el) || {};
+      if (rec[a] && rec[a].last === v) continue;
+      if (LANG === 'en' && FA_RE.test(v)) {
+        var t = tr(v); rec[a] = { orig: v, last: t }; origAttr.set(el, rec);
+        if (t !== v) el.setAttribute(a, t);
+      } else if (LANG !== 'en') { rec[a] = { orig: v, last: v }; origAttr.set(el, rec); }
+    }
+  }
+  function walk(root) {
+    if (root.nodeType === 3) { doText(root); return; }
+    if (root.nodeType !== 1 && root.nodeType !== 11) return;
+    if (root.nodeType === 1) { if (root.tagName === 'SCRIPT' || root.tagName === 'STYLE') return; doAttrs(root); }
+    var tw = document.createTreeWalker(root, NodeFilter.SHOW_ELEMENT | NodeFilter.SHOW_TEXT, null), n;
+    while ((n = tw.nextNode())) {
+      if (n.nodeType === 3) { if (n.parentNode && (n.parentNode.tagName === 'SCRIPT' || n.parentNode.tagName === 'STYLE')) continue; doText(n); }
+      else doAttrs(n);
+    }
+  }
+  function restore(root) {
+    var tw = document.createTreeWalker(root, NodeFilter.SHOW_ELEMENT | NodeFilter.SHOW_TEXT, null), n;
+    while ((n = tw.nextNode())) {
+      if (n.nodeType === 3) {
+        var o = origText.get(n);
+        if (o != null && lastText.get(n) === n.data) { n.data = o; lastText.delete(n); }
+      } else {
+        var rec = origAttr.get(n);
+        if (rec) for (var a in rec) if (n.getAttribute(a) === rec[a].last && rec[a].orig !== rec[a].last) n.setAttribute(a, rec[a].orig);
+      }
+    }
+  }
+  var VALUE_IDS = [], valRec = {};
+  function syncValues() {
+    VALUE_IDS.forEach(function (id) {
+      var el = document.getElementById(id); if (!el) return;
+      var r = valRec[id];
+      if (LANG === 'en') {
+        if (r && r.last === el.value) return;
+        if (FA_RE.test(el.value)) { var t = tr(el.value); valRec[id] = { orig: el.value, last: t }; if (t !== el.value) el.value = t; }
+      } else if (r && r.last === el.value) { el.value = r.orig; delete valRec[id]; }
+    });
+  }
+  var mo = new MutationObserver(function (recs) {
+    if (busy) return; busy = true;
+    try {
+      recs.forEach(function (r) {
+        if (r.type === 'childList') r.addedNodes.forEach(function (n) { walk(n); });
+        else if (r.type === 'characterData') doText(r.target);
+        else if (r.type === 'attributes') doAttrs(r.target);
+      });
+    } finally { busy = false; }
+    mo.takeRecords();
+  });
+  function observe() { mo.observe(document.documentElement, { childList: true, subtree: true, characterData: true, attributes: true, attributeFilter: ATTRS }); }
+
+  var META = { fa: null, en: null };
+  function applyMeta() {
+    var d = document.documentElement;
+    d.lang = LANG; d.dir = LANG === 'en' ? 'ltr' : 'rtl';
+    document.body.classList.toggle('lang-en', LANG === 'en');
+    if (!META.fa) { META.fa = { title: document.title, desc: (document.querySelector('meta[name=description]') || {}).content || '' }; }
+    document.title = LANG === 'en' ? 'Structural Dynamics Analysis | 1 to 3 DOF | Kambiz Cheraghi' : META.fa.title;
+    var m = document.querySelector('meta[name=description]');
+    if (m) m.content = LANG === 'en' ? 'Dynamic analysis of structures with 1 to 3 degrees of freedom — designed and developed by Kambiz Cheraghi' : META.fa.desc;
+    var b = document.getElementById('lang-toggle');
+    if (b) { b.textContent = LANG === 'en' ? 'فارسی' : 'EN'; b.setAttribute('aria-label', LANG === 'en' ? 'تغییر زبان به فارسی' : 'Switch language to English'); b.title = LANG === 'en' ? 'تغییر زبان به فارسی' : 'Switch to English'; }
+  }
+  function apply() {
+    mo.disconnect(); busy = true;
+    try {
+      applyMeta();
+      if (LANG === 'en') walk(document.body); else restore(document.body);
+      syncValues();
+    } finally { busy = false; }
+    observe();
+  }
+  function setLang(l) {
+    LANG = l === 'en' ? 'en' : 'fa';
+    try { localStorage.setItem('dyn-lang', LANG); } catch (e) {}
+    apply();
+    try { window.dispatchEvent(new CustomEvent('beam-lang', { detail: LANG })); } catch (e) {}
+  }
+  window.__setLang = setLang;
+
+  // canvas text, report HTML
+  window.__trHTML = function (h) {
+    if (LANG !== 'en') return h;
+    h = tr(h);
+    return h.replace('lang="fa" dir="rtl"', 'lang="en" dir="ltr"');
+  };
+  ['fillText', 'strokeText', 'measureText'].forEach(function (k) {
+    var o = CanvasRenderingContext2D.prototype[k];
+    CanvasRenderingContext2D.prototype[k] = function (t) { var a = arguments; if (LANG === 'en' && typeof t === 'string') { a = Array.prototype.slice.call(arguments); a[0] = tr(t); } return o.apply(this, a); };
+  });
+  // alert() and dates
+  var _alert = window.alert; window.alert = function (m) { return _alert.call(window, LANG === 'en' ? tr(String(m)) : m); };
+  var _ld = Date.prototype.toLocaleDateString;
+  Date.prototype.toLocaleDateString = function (l, o) { if (LANG === 'en' && l === 'fa-IR') l = 'en-US'; return _ld.call(this, l, o); };
+
+  function boot() {
+    var tb = document.querySelector('.top-meta');
+    if (tb && !document.getElementById('lang-toggle')) {
+      var b = document.createElement('button');
+      b.id = 'lang-toggle'; b.type = 'button'; b.className = 'lang-btn';
+      b.addEventListener('click', function () { setLang(LANG === 'en' ? 'fa' : 'en'); });
+      tb.insertBefore(b, tb.firstChild);
+    }
+    apply();
+    setInterval(function () { if (LANG === 'en') syncValues(); }, 600);
+  }
+  if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', boot); else boot();
+})();
+
+</script>
+<script id="kc-lock">
+window.__LOCK_CFG={app:'dyn',free:2,hours:24,salt:'93daa573a3a7424c32381913',email:'kambiz.cheraghi@gmail.com',tg:'https://t.me/engineer_teacher',lockSel:'#pngBtn,#csvBtn,#printBtn,[data-exf="xlsx"]',snap:function(){return window.__structDynTest&&window.__structDynTest.solution}};
+/* kc-core: license code scheme shared by apps and keygen */
+var KC=(function(){
+var AL='ABCDEFGHJKLMNPQRSTUVWXYZ23456789',EPOCH=Date.UTC(2026,0,1);
+var APPS=[
+ {id:'beam',bit:0,fa:'تحلیل تیر',en:'Beam Analysis Studio',cfa:'تحلیل سازه',cen:'Structural analysis'},
+ {id:'buckling',bit:1,fa:'کمانش ستون',en:'Column Buckling Lab',cfa:'مقاومت مصالح / فولاد',cen:'Strength of materials / steel'},
+ {id:'dyn',bit:2,fa:'دینامیک سازه',en:'Structural Dynamics',cfa:'دینامیک سازه‌ها',cen:'Structural dynamics'},
+ {id:'framelab',bit:3,fa:'FrameLab (قاب و خرپا)',en:'FrameLab (frames & trusses)',cfa:'تحلیل سازه',cen:'Structural analysis'},
+ {id:'statics',bit:4,fa:'استاتیک‌یار',en:'Statics Helper',cfa:'استاتیک',cen:'Statics'},
+ {id:'concrete',bit:5,fa:'بتن‌یار',en:'Concrete Helper',cfa:'طراحی سازهٔ بتنی',cen:'Concrete design'},
+ {id:'section',bit:6,fa:'مقطع‌یار',en:'Section Calculator',cfa:'مقاومت مصالح',cen:'Strength of materials'},
+ {id:'calculus',bit:7,fa:'حسابان (مشتق و انتگرال)',en:'Calculus',cfa:'ریاضی',cen:'Mathematics'},
+ {id:'s2800',bit:8,fa:'برش پایهٔ استاندارد ۲۸۰۰',en:'Standard 2800 base shear',cfa:'آیین‌نامه',cen:'Seismic code'}
+];
+var ALLBIT=11;
+function hash(str,seed){var h1=0xdeadbeef^seed,h2=0x41c6ce57^seed;for(var i=0;i<str.length;i++){var ch=str.charCodeAt(i);h1=Math.imul(h1^ch,2654435761);h2=Math.imul(h2^ch,1597334677)}
+ h1=Math.imul(h1^(h1>>>16),2246822507)^Math.imul(h2^(h2>>>13),3266489909);h2=Math.imul(h2^(h2>>>16),2246822507)^Math.imul(h1^(h1>>>13),3266489909);return [(h2>>>0),(h1>>>0)]}
+function b32(n,len){var s='';for(var i=0;i<len;i++){s=AL[n%32]+s;n=Math.floor(n/32)}return s}
+function unb32(s){var n=0;for(var i=0;i<s.length;i++){var k=AL.indexOf(s[i]);if(k<0)return -1;n=n*32+k}return n}
+function normEmail(e){return String(e||'').trim().toLowerCase()}
+function clean(c){return String(c||'').toUpperCase().replace(/[^A-Z0-9]/g,'')}
+function dayNum(d){return Math.floor((Date.UTC(d.getFullYear(),d.getMonth(),d.getDate())-EPOCH)/864e5)+1}
+function dayDate(n){return new Date(EPOCH+(n-1)*864e5)} /* use getUTC* */
+function sig(salt,email,pc){var a=hash(salt+'|'+normEmail(email)+'|'+pc,11),b=hash(normEmail(email)+'|'+pc+'|'+salt+'|kc',29);return b32(a[1]%33554432,5)+b32(b[1]%33554432,5)}
+function make(salt,email,mask,exp){var p=((mask&4095)*16384+(exp&16383))*16,pc=b32(p,6),c=pc+sig(salt,email,pc);return c.replace(/(.{4})/g,'$1-').replace(/-$/,'')}
+/* returns {ok,mask,exp} or {ok:false} */
+function parse(salt,email,code){var c=clean(code);if(c.length!==16)return {ok:false};var pc=c.slice(0,6);if(sig(salt,email,pc)!==c.slice(6))return {ok:false};
+ var p=unb32(pc);if(p<0)return {ok:false};var q=Math.floor(p/16);return {ok:true,mask:Math.floor(q/16384),exp:q%16384,key:c}}
+function covers(mask,appId){var a=null;for(var i=0;i<APPS.length;i++)if(APPS[i].id===appId)a=APPS[i];return !!(mask&(1<<ALLBIT))||(a&&!!(mask&(1<<a.bit)))}
+function scopeList(mask){if(mask&(1<<ALLBIT))return APPS.slice();return APPS.filter(function(a){return mask&(1<<a.bit)})}
+function jal(gy,gm,gd){var g=[0,31,59,90,120,151,181,212,243,273,304,334],gy2=gm>2?gy+1:gy,days=355666+365*gy+Math.floor((gy2+3)/4)-Math.floor((gy2+99)/100)+Math.floor((gy2+399)/400)+gd+g[gm-1],jy=-1595+33*Math.floor(days/12053);days%=12053;jy+=4*Math.floor(days/1461);days%=1461;if(days>365){jy+=Math.floor((days-1)/365);days=(days-1)%365}
+ var jm=days<186?1+Math.floor(days/31):7+Math.floor((days-186)/30),jd=1+(days<186?days%31:(days-186)%30);return [jy,jm,jd]}
+function pad(n){return (n<10?'0':'')+n}
+function fmt(n,fa){if(!n)return fa?'نامحدود':'Unlimited';var d=dayDate(n),y=d.getUTCFullYear(),m=d.getUTCMonth()+1,dd=d.getUTCDate();
+ if(fa){var j=jal(y,m,dd);return (j[0]+'/'+pad(j[1])+'/'+pad(j[2])).replace(/\d/g,function(x){return '۰۱۲۳۴۵۶۷۸۹'[x]})}return y+'-'+pad(m)+'-'+pad(dd)}
+return {APPS:APPS,ALLBIT:ALLBIT,make:make,parse:parse,covers:covers,scopeList:scopeList,dayNum:dayNum,dayDate:dayDate,fmt:fmt,clean:clean,normEmail:normEmail,hash:hash}
+})();
+
+/* kc-lock: free-tier limit + premium exports. Shared across apps on the same origin. */
+(function(){
+'use strict';
+var C=window.__LOCK_CFG||{};
+var FREE=C.free||2, HOURS=C.hours||24, APP=C.app||'app', SALT=C.salt||'', MAIL=C.email||'', TG=C.tg||'';
+var mem={};
+function sget(k){try{var v=localStorage.getItem(k);return v===null?(mem[k]||null):v}catch(e){return mem[k]||null}}
+function sset(k,v){mem[k]=v;try{localStorage.setItem(k,v)}catch(e){}}
+var REV=null;
+function loadRev(){try{REV=JSON.parse(sget('kc_rev')||'null')}catch(e){REV=null}}
+function fetchRev(){var urls=[C.revUrl||'../revoked.json','revoked.json'];(function tryN(i){if(i>=urls.length)return;
+ try{fetch(urls[i]+'?t='+Date.now(),{cache:'no-store'}).then(function(r){if(!r.ok)throw 0;return r.json()}).then(function(j){if(j&&j.revoked){sset('kc_rev',JSON.stringify(j));REV=j;refresh()}}).catch(function(){tryN(i+1)})}catch(e){tryN(i+1)}})(0)}
+function isRevoked(id,key){var R0=REV;loadRev();if(!REV)REV=R0;var l=(REV&&REV.revoked)||[];for(var i=0;i<l.length;i++){var v=String(l[i]).trim().toLowerCase();if(v===KC.normEmail(id)||KC.clean(v)===key)return true}return false}
+/* state: none | ok | expired | revoked | wrongapp | bad */
+function check(id,code){var r=KC.parse(SALT,id,code);if(!r.ok)return {s:'bad'};
+ if(!KC.covers(r.mask,APP))return {s:'wrongapp',mask:r.mask,exp:r.exp};
+ if(isRevoked(id,r.key))return {s:'revoked',mask:r.mask,exp:r.exp};
+ if(r.exp&&KC.dayNum(new Date())>r.exp)return {s:'expired',mask:r.mask,exp:r.exp};
+ return {s:'ok',mask:r.mask,exp:r.exp}}
+function lic(){var o=null;try{o=JSON.parse(sget('kc_lic')||'null')}catch(e){}if(!o||!o.id||!o.code)return {s:'none'};return check(o.id,o.code)}
+function premium(){return lic().s==='ok'}
+function uses(){var a;try{a=JSON.parse(sget('kc_use_'+APP)||'[]')}catch(e){a=[]}var now=Date.now();return a.filter(function(t){return typeof t==='number'&&now-t<HOURS*3600e3&&t<=now+60e3})}
+function addUse(){var a=uses();a.push(Date.now());sset('kc_use_'+APP,JSON.stringify(a))}
+function fa(){return !!(window.__rtl&&window.__rtl())}
+function myApp(){for(var i=0;i<KC.APPS.length;i++)if(KC.APPS[i].id===APP)return KC.APPS[i];return null}
+function names(mask){var l=KC.scopeList(mask),f=fa();return l.map(function(a){return f?a.fa:a.en}).join(f?'، ':', ')}
+function untilTxt(exp){return KC.fmt(exp,fa())}
+var D={
+ fa:{left:function(n){return 'رایگان: '+n+' محاسبه'},prem:'نسخهٔ کامل ✓',premTo:function(d){return 'نسخهٔ کامل تا '+d},soon:function(n){return 'نسخهٔ کامل — '+n+' روز مانده'},expd:'منقضی شده',
+  tLimit:'سقف استفادهٔ رایگان تکمیل شد',
+  bLimit:function(t){return 'در نسخهٔ رایگان می‌توانید در هر '+HOURS+' ساعت '+FREE+' محاسبه انجام دهید. '+(t?'تا '+t+' دیگر می‌توانید دوباره محاسبه کنید. ':'')+'برای محاسبات نامحدود، کد فعال‌سازی تهیه کنید.'},
+  tFeat:'این امکان در نسخهٔ کامل است',
+  bFeat:'خروجی اکسل، CSV، PDF و PNG در نسخهٔ کامل فعال است. برای دریافت کد فعال‌سازی با سازنده تماس بگیرید.',
+  tAct:'فعال‌سازی نسخهٔ کامل',bAct:'ایمیل خریدار و کد فعال‌سازی را وارد کنید.',
+  email:'ایمیل خریدار',code:'کد فعال‌سازی',go:'فعال‌سازی',bad:'ایمیل یا کد درست نیست.',
+  okmsg:function(a,b){return 'نسخهٔ کامل فعال شد ✓ — '+a+' — اعتبار: '+b},
+  wrong:function(n){return 'این کد برای این برنامه نیست. محدودهٔ کد: '+n},
+  revoked:'این کد لغو شده است. با سازنده تماس بگیرید.',
+  expired:function(d){return 'اعتبار کد شما در تاریخ '+d+' تمام شده است. برای تمدید با سازنده تماس بگیرید.'},
+  contact:'تماس با سازنده',close:'بستن',h:'ساعت',m:'دقیقه',printMsg:'چاپ و PDF در نسخهٔ کامل فعال است.',
+  scope:'محدودهٔ کد',valid:'اعتبار',deact:'غیرفعال کردن کد روی این دستگاه'},
+ en:{left:function(n){return 'Free: '+n+' left'},prem:'Full version ✓',premTo:function(d){return 'Full version until '+d},soon:function(n){return 'Full version — '+n+' days left'},expd:'Expired',
+  tLimit:'Free usage limit reached',
+  bLimit:function(t){return 'The free version allows '+FREE+' calculations every '+HOURS+' hours. '+(t?'You can calculate again in '+t+'. ':'')+'For unlimited calculations, get an activation code.'},
+  tFeat:'This feature is in the full version',
+  bFeat:'Excel, CSV, PDF and PNG export are part of the full version. Contact the developer to get an activation code.',
+  tAct:'Activate the full version',bAct:'Enter the buyer email and the activation code.',
+  email:'Buyer email',code:'Activation code',go:'Activate',bad:'The email or code is not correct.',
+  okmsg:function(a,b){return 'Full version activated ✓ — '+a+' — valid: '+b},
+  wrong:function(n){return 'This code is not for this app. Code covers: '+n},
+  revoked:'This code has been revoked. Please contact the developer.',
+  expired:function(d){return 'Your code expired on '+d+'. Contact the developer to renew it.'},
+  contact:'Contact the developer',close:'Close',h:'h',m:'min',printMsg:'Print / PDF is part of the full version.',
+  scope:'Code scope',valid:'Valid',deact:'Deactivate the code on this device'}
+};
+function T(){return D[fa()?'fa':'en']}
+function wait(){var a=uses();if(a.length<FREE)return '';var tm=Math.max(1,Math.ceil((a[0]+HOURS*3600e3-Date.now())/60e3)),h=Math.floor(tm/60),m=tm%60;return h?(h+' '+T().h+(m?' '+m+' '+T().m:'')):(m+' '+T().m)}
+function reason(L){var t=T();if(L.s==='expired')return t.expired(untilTxt(L.exp));if(L.s==='revoked')return t.revoked;if(L.s==='wrongapp')return t.wrong(names(L.mask));return ''}
+/* ---- UI ---- */
+var css=document.createElement('style');css.textContent=
+'.kc-pill{font:800 12px/1 var(--ui,system-ui,sans-serif);cursor:pointer;border:1.5px solid #f0c987;background:#ffffff1c;color:#fff3d6;border-radius:99px;padding:8px 12px}.kc-pill:hover{background:#ffffff33}.kc-pill.on{border-color:#6ee7b7;color:#d1fae5}.kc-pill.bad{border-color:#fca5a5;color:#fee2e2}'+
+'.kc-ov{position:fixed;inset:0;background:#0a1630b8;z-index:99999;display:flex;align-items:center;justify-content:center;padding:16px}.kc-box{background:#fff;color:#10264a;border-radius:18px;max-width:440px;width:100%;padding:22px 22px 18px;box-shadow:0 24px 70px #0006;font-family:var(--ui,system-ui,sans-serif);max-height:92vh;overflow:auto}'+
+'.kc-box h3{margin:0 0 8px;font-size:18px}.kc-box p{margin:0 0 14px;line-height:1.9;font-size:14px;color:#3a4d6e}.kc-box p.r{color:#b4233f;font-weight:700;background:#fff1f3;border-radius:10px;padding:8px 12px}.kc-box label{display:block;font-size:12.5px;font-weight:700;margin:10px 0 4px}.kc-box input{width:100%;box-sizing:border-box;padding:10px 12px;border:1.5px solid #cfd9ea;border-radius:10px;font:600 14px/1.2 inherit;direction:ltr;text-align:left}'+
+'.kc-row{display:flex;gap:8px;flex-wrap:wrap;margin-top:16px;align-items:center}.kc-b{border:0;border-radius:10px;padding:10px 16px;font:800 13.5px/1 inherit;cursor:pointer;background:#2563eb;color:#fff}.kc-b.g{background:#eef2f9;color:#10264a}.kc-box a{font-size:13px;color:#1d4ed8;font-weight:700;text-decoration:none}.kc-msg{font-size:13px;font-weight:700;margin-top:8px;min-height:18px;line-height:1.8}.kc-msg.e{color:#c81e4a}.kc-msg.k{color:#0f8a63}'+
+'.kc-print{display:none}@media print{html.kc-free body>*:not(.kc-print){display:none!important}html.kc-free .kc-print{display:block!important;padding:40px;font:700 18px/2 system-ui,Tahoma,sans-serif;text-align:center}}';
+document.head.appendChild(css);
+var pv=document.createElement('div');pv.className='kc-print';document.body.appendChild(pv);
+var pill=null;
+function refresh(){var L=lic(),P=L.s==='ok',t=T();document.documentElement.classList.toggle('kc-free',!P);pv.textContent=t.printMsg+' — '+MAIL;pv.dir=fa()?'rtl':'ltr';
+ if(!pill)return;var cls='kc-pill',txt;
+ if(P){cls+=' on';var left=L.exp?L.exp-KC.dayNum(new Date()):9999;txt=left<=7?t.soon(left):(L.exp?t.premTo(untilTxt(L.exp)):t.prem);pill.title=names(L.mask)}
+ else if(L.s==='expired'||L.s==='revoked'){cls+=' bad';txt=L.s==='expired'?t.expd:'✕';pill.title=reason(L)}
+ else{txt=t.left(Math.max(0,FREE-uses().length));pill.title=t.tAct}
+ pill.className=cls;pill.textContent=txt}
+function close(){var o=document.querySelector('.kc-ov');if(o)o.remove()}
+function modal(kind){close();refresh();var t=T(),o=document.createElement('div'),L=lic();o.className='kc-ov';o.dir=fa()?'rtl':'ltr';
+ var title=kind==='limit'?t.tLimit:kind==='feat'?t.tFeat:t.tAct,body=kind==='limit'?t.bLimit(wait()):kind==='feat'?t.bFeat:t.bAct,why=reason(L);
+ o.innerHTML='<div class="kc-box" role="dialog" aria-modal="true"><h3></h3>'+(why?'<p class="r" id="kcW"></p>':'')+'<p id="kcP"></p><label></label><input id="kcE" type="email" autocomplete="email"><label></label><input id="kcC" type="text" autocomplete="off" spellcheck="false"><div class="kc-msg" id="kcM"></div><div class="kc-row"><button class="kc-b" id="kcG" type="button"></button><button class="kc-b g" id="kcX" type="button"></button></div><div class="kc-row" style="margin-top:12px"><a id="kcMail"></a><a id="kcTg" target="_blank" rel="noopener"></a></div></div>';
+ var q=function(s){return o.querySelector(s)};
+ q('h3').textContent=title;q('#kcP').textContent=body;if(why)q('#kcW').textContent=why;var ls=o.querySelectorAll('label');ls[0].textContent=t.email;ls[1].textContent=t.code;
+ q('#kcG').textContent=t.go;q('#kcX').textContent=t.close;
+ q('#kcMail').textContent=MAIL;q('#kcMail').href='mailto:'+MAIL;q('#kcTg').textContent='Telegram';q('#kcTg').href=TG;
+ try{var sv=JSON.parse(sget('kc_lic')||'null');if(sv){q('#kcE').value=sv.id||''}}catch(e){}
+ q('#kcX').onclick=close;o.addEventListener('mousedown',function(e){if(e.target===o)close()});
+ q('#kcG').onclick=function(){var id=q('#kcE').value.trim(),cd=q('#kcC').value.trim(),m=q('#kcM'),R=id&&cd?check(id,cd):{s:'bad'};
+  if(R.s==='ok'){sset('kc_lic',JSON.stringify({id:id,code:KC.clean(cd)}));m.className='kc-msg k';m.textContent=t.okmsg(names(R.mask),R.exp?untilTxt(R.exp):(fa()?'نامحدود':'Unlimited'));refresh();setTimeout(close,2200)}
+  else{m.className='kc-msg e';m.textContent=R.s==='bad'?t.bad:reason(R)}};
+ document.body.appendChild(o);setTimeout(function(){(q('#kcE').value?q('#kcC'):q('#kcE')).focus()},30)}
+document.addEventListener('keydown',function(e){if(e.key==='Escape')close()});
+/* ---- gates (capture phase, before the app's own handlers) ---- */
+function block(e,kind){e.preventDefault();e.stopImmediatePropagation();modal(kind)}
+document.addEventListener('click',function(e){
+ var el=e.target&&e.target.closest?e.target:null;if(!el||premium())return;
+ var run=el.closest(C.runSel||'#runBtn');
+ if(run){if(uses().length>=FREE){block(e,'limit');return}
+  var snap=C.snap?C.snap():null;setTimeout(function(){var now=C.snap?C.snap():null;if(!C.snap||now!==snap&&now){addUse();refresh()}},0);return}
+ var lock=el.closest(C.lockSel||'');if(lock)block(e,'feat')},true);
+function mount(){var tb=document.querySelector(C.mountSel||'.top-meta');if(!tb||document.getElementById('kc-pill'))return;
+ pill=document.createElement('button');pill.type='button';pill.id='kc-pill';pill.onclick=function(){modal('act')};tb.appendChild(pill);refresh()}
+window.addEventListener('beam-lang',function(){refresh();if(document.querySelector('.kc-ov'))close()});
+window.__kc={premium:premium,uses:uses,lic:lic};
+loadRev();fetchRev();
+if(document.readyState==='loading')document.addEventListener('DOMContentLoaded',function(){setTimeout(mount,50)});else setTimeout(mount,50);
+setTimeout(mount,600);refresh();
+})();
+
+</script>
 <script>
 (function(){"use strict";
 (()=>{
@@ -1861,8 +2185,8 @@ $('#pngBtn').addEventListener('click',async()=>{
   const H=Math.round(118+hF+hX+pad*4+20),cv=document.createElement('canvas');cv.width=W;cv.height=H;
   const c=cv.getContext('2d');c.fillStyle='#fff';c.fillRect(0,0,W,H);
   const g=c.createLinearGradient(0,0,W,0);g.addColorStop(0,'#0d2650');g.addColorStop(1,'#17407f');c.fillStyle=g;c.fillRect(0,0,W,86);
-  c.fillStyle='#fff';c.direction='rtl';c.textAlign='right';c.font='800 26px Vazirmatn,Tahoma,Arial';c.fillText('تحلیل دینامیکی سازه‌ها',W-pad,40);
-  c.fillStyle='#bcd2f3';c.font='500 14px Vazirmatn,Tahoma,Arial';c.fillText(`${fa(sol.n)} درجه آزادی  •  ${sol.mode==='base'?'تحریک پایه':sol.dist==='indep'&&sol.n>1?'نیروی مستقل':TYPE(s.load.type).name}  •  T = ${nf(sol.T,3)} s  •  Δt = ${nf(sol.h,6)} s  •  ζ = ${nf(s.zeta,3)}٪  •  ${OWNER_LABEL()}`,W-pad,68);
+  c.fillStyle='#fff';const _r=window.__rtl();c.direction=_r?'rtl':'ltr';c.textAlign=_r?'right':'left';c.font='800 26px Vazirmatn,Tahoma,Arial';c.fillText('تحلیل دینامیکی سازه‌ها',_r?W-pad:pad,40);
+  c.fillStyle='#bcd2f3';c.font='500 14px Vazirmatn,Tahoma,Arial';c.fillText(`${fa(sol.n)} درجه آزادی  •  ${sol.mode==='base'?'تحریک پایه':sol.dist==='indep'&&sol.n>1?'نیروی مستقل':TYPE(s.load.type).name}  •  T = ${nf(sol.T,3)} s  •  Δt = ${nf(sol.h,6)} s  •  ζ = ${nf(s.zeta,3)}٪  •  ${OWNER_LABEL()}`,_r?W-pad:pad,68);
   c.direction='ltr';
   const box=(cvs,x,y,w,h,title)=>{c.fillStyle='#fff';c.strokeStyle='#dbe5f3';c.lineWidth=1.5;c.beginPath();c.roundRect(x,y,w,h+34,16);c.fill();c.stroke();c.fillStyle='#10264a';c.font='800 15px Vazirmatn,Arial';c.textAlign='left';c.fillText(title,x+16,y+24);c.drawImage(cvs,x+8,y+32,w-16,h-6);};
   let y=104;box(cF,pad,y,W-2*pad,hF,(sol.mode==='base'?'Ground acceleration  a_g(t)  ['+gl()+']':'Applied load  [N]'));y+=hF+34+pad;
@@ -1898,7 +2222,7 @@ const xe=t=>String(t).replace(/[\u0000-\u0008\u000B\u000C\u000E-\u001F]/g,'').re
 function cellXML(ref,v,bold){
   if(typeof v==='number')return Number.isFinite(v)?`<c r="${ref}"><v>${v}</v></c>`:'';
   const t=String(v===undefined||v===null?'':v);if(t==='')return '';
-  return `<c r="${ref}"${bold?' s="1"':''} t="inlineStr"><is><t xml:space="preserve">${xe(t)}</t></is></c>`;
+  return `<c r="${ref}"${bold?' s="1"':''} t="inlineStr"><is><t xml:space="preserve">${xe(window.__tr(t))}</t></is></c>`;
 }
 function dataSheetXML(heads,count,val){
   const nc=heads.length,L=[],cl=Array.from({length:nc},(_,c)=>colL(c));
@@ -1911,7 +2235,7 @@ function dataSheetXML(heads,count,val){
   return L.join('');
 }
 function infoSheetXML(R){
-  const o=[XH+`<worksheet xmlns="${XNS}"><sheetViews><sheetView rightToLeft="1" workbookViewId="0"/></sheetViews><sheetFormatPr defaultRowHeight="15"/><cols><col min="1" max="1" width="46" customWidth="1"/><col min="2" max="2" width="60" customWidth="1"/></cols><sheetData>`];
+  const o=[XH+`<worksheet xmlns="${XNS}"><sheetViews><sheetView rightToLeft="${window.__rtl()?1:0}" workbookViewId="0"/></sheetViews><sheetFormatPr defaultRowHeight="15"/><cols><col min="1" max="1" width="46" customWidth="1"/><col min="2" max="2" width="60" customWidth="1"/></cols><sheetData>`];
   R.forEach((r,i)=>{const n=i+1;o.push(`<row r="${n}">${cellXML('A'+n,r[0],r[2])}${cellXML('B'+n,r[1],false)}</row>`);});
   o.push('</sheetData></worksheet>');return o.join('');
 }
