@@ -19,7 +19,7 @@ const SITE = {
 
 /* ②-ب آمار بازدید (اختیاری، رایگان و بدون کوکی).
    در goatcounter.com ثبت‌نام کنید و فقط «کد سایت» را اینجا بنویسید. خالی = غیرفعال */
-const GOATCOUNTER = '';
+const GOATCOUNTER = 'kambiz';
 
 /* ②-ج لینک فرم گزارش خطا و پیشنهاد (اختیاری، مثلاً لینک Google Form). خالی = پنهان */
 const FEEDBACK_URL = '';
