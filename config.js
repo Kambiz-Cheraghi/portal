@@ -88,7 +88,7 @@ const APPS = [
     title: 'محاسبه‌گر ضریب زلزله | استاندارد ۲۸۰۰',
     desc: 'محاسبه ضریب زلزله در دو جهت بر اساس ویرایش‌های چهارم و پنجم، همراه با نمودار و اعتبارسنجی نتایج.',
     tags: ['استاندارد ۲۸۰۰', 'ویرایش ۴ و ۵', 'گزارش PDF'],
-    badge: 'جدید' }
+    badge: 'جدید' },
 ];
 window.PORTAL = { profile: PROFILE, site: SITE, cats: CATS, apps: APPS, goatcounter: GOATCOUNTER, feedbackUrl: FEEDBACK_URL };
 })();
