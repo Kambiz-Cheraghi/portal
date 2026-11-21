@@ -34,7 +34,7 @@ const CATS = [
 
 /* ④ برنامه‌ها — هر برنامه یک بلوک است.
  *   id    : نام کوتاه انگلیسی؛ هم نام پوشه‌ی برنامه است و هم آدرس آن  (…/beam/)
- *   icon  : beam | frame | truss | dynamics | buckling | concrete | section | calculus
+ *   icon  : beam | frame | truss | dynamics | buckling | concrete | section | calculus | seismic
  *   badge : (اختیاری) برچسب کوچک مثل «جدید»
  *   enabled:false  → برنامه موقتاً از پورتال پنهان می‌شود
  */
@@ -82,9 +82,9 @@ const APPS = [
   { id: 'konkoor',  icon: 'dynamics', cat: 'exam',
     title: 'بانک پاسخ‌های کنکور دکترا',
     desc: 'پاسخ تشریحی دست‌نویس سؤال‌های کنکور دکترای عمران، درس دینامیک سازه‌ها، به‌همراه جمع‌بندی فرمول‌ها.',
-    tags: ['دینامیک سازه‌ها', 'پاسخ دست‌نویس', 'جمع‌بندی فرمول'], badge: 'جدید' }
+    tags: ['دینامیک سازه‌ها', 'پاسخ دست‌نویس', 'جمع‌بندی فرمول'], badge: 'جدید' },
 
-    { id: 's2800', icon: 'dynamics', cat: 'analysis',
+  { id: 's2800', icon: 'seismic', cat: 'analysis',
     title: 'محاسبه‌گر ضریب زلزله | استاندارد ۲۸۰۰',
     desc: 'محاسبه ضریب زلزله در دو جهت بر اساس ویرایش‌های چهارم و پنجم، همراه با نمودار و اعتبارسنجی نتایج.',
     tags: ['استاندارد ۲۸۰۰', 'ویرایش ۴ و ۵', 'گزارش PDF'],
