@@ -1,7 +1,7 @@
 <!doctype html>
 <html lang="fa" dir="rtl">
 <head>
-<meta charset="utf-8"><script id="portal-origin-guard">(()=>{'use strict';const O="https://kambiz-cheraghi.github.io",P="/portal/";if(location.origin===O&&(location.pathname.startsWith(P)||location.pathname===P.slice(0,-1)))return;const S='286f0a1ee75e8f9b214c8b82285c2287',H='70c020d6b1e7010e103cc8b361778c46b373c35cc69d185fd058dce7da35b744';const prefix='<!doctype html>'+document.documentElement.cloneNode(false).outerHTML.replace('</html>','')+'<head><meta charset="utf-8">';document.write('<plaintext id="portal-protected-source" hidden style="display:none!important">');document.addEventListener('DOMContentLoaded',()=>{const raw=document.getElementById('portal-protected-source');if(!raw)return;const box=document.createElement('main');box.dir='rtl';box.lang='fa';box.style.cssText='font:16px system-ui,sans-serif;max-width:430px;margin:12vh auto;padding:24px;line-height:1.9;color:#172033;background:#fff;border:1px solid #b7c2d0;border-radius:12px';box.innerHTML='<h2>اجرای خارج از وب‌سایت رسمی</h2><p>برای اجرای این نسخه، رمز اختصاصی مالک لازم است.</p><form><input type="password" aria-label="رمز مالک" autocomplete="off" required style="width:95%;padding:10px"><button style="margin-top:12px;padding:10px">فعال‌سازی</button></form><p role="status" aria-live="polite"></p><p><a href="https://kambiz-cheraghi.github.io/portal/">ورود به پورتال رسمی</a></p>';document.body.insertBefore(box,raw);const form=box.querySelector('form'),input=box.querySelector('input'),status=box.querySelector('[role=status]'),btn=box.querySelector('button');const bytes=h=>Uint8Array.from(h.match(/../g),x=>parseInt(x,16));form.addEventListener('submit',async e=>{e.preventDefault();btn.disabled=true;try{if(!globalThis.crypto?.subtle){status.textContent='برای اجرای خارج از پورتال، فایل را در مرورگر به‌روز یا در یک آدرس HTTPS باز کنید.';return;}const k=await crypto.subtle.importKey('raw',new TextEncoder().encode(input.value),'PBKDF2',false,['deriveBits']);const v=new Uint8Array(await crypto.subtle.deriveBits({name:'PBKDF2',salt:bytes(S),iterations:180000,hash:'SHA-256'},k,256));let diff=0;const expected=bytes(H);for(let i=0;i<v.length;i++)diff|=v[i]^expected[i];if(diff){status.textContent='رمز صحیح نیست.';return;}const source=raw.textContent;document.open();document.write(prefix+source);document.close();}catch(err){status.textContent='امکان بررسی رمز در این مرورگر وجود ندارد.';}finally{btn.disabled=false;}});},{once:true});})();</script>
+<meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
 <meta name="theme-color" content="#070d1a">
 <title>بانک پاسخ‌های کنکور دکترا | کامبیز چراغی</title>
@@ -126,7 +126,221 @@ canvas{-webkit-touch-callout:none;-webkit-user-select:none;user-select:none}
 </div>
 <div class="toast" id="toast" role="status" aria-live="polite"><span></span></div>
 
-<script type="module">import*as pdfjs from"./lib/pdf.min.mjs";pdfjs.GlobalWorkerOptions.workerSrc=new URL("./lib/pdf.worker.min.mjs",import.meta.url).href;const $=s=>document.querySelector(s);const K=window.KONKOOR||{years:[]};const LEVELS=K.levels&&K.levels.length?K.levels:[{id:"phd",name:"دکترا",years:K.years||[]}];let LV=LEVELS[0];const YS=()=>LV.years||[];const FA=n=>String(n).replace(/\d/g,(d=>"۰۱۲۳۴۵۶۷۸۹"[d]));const root=document.documentElement;try{const t=localStorage.getItem("portal-theme");if(t)root.dataset.theme=t}catch(e){}$("#themeBtn").onclick=()=>{const t=root.dataset.theme==="light"?"dark":"light";root.dataset.theme=t;try{localStorage.setItem("portal-theme",t)}catch(e){}};$("#h1").innerHTML=(K.title||"بانک پاسخ‌ها")+"<span>"+(K.course||"")+"</span>";$("#note").textContent=K.note||"";const PO=window.PORTAL||{};if(PO.goatcounter){const g=document.createElement("script");g.async=true;g.src="https://gc.zgo.at/count.js";g.dataset.goatcounter="https://"+PO.goatcounter+".goatcounter.com/count";document.head.appendChild(g)}const track=(path,title)=>{try{window.goatcounter&&window.goatcounter.count&&window.goatcounter.count({path:path,title:title,event:true})}catch(e){}};function toast(m){const t=$("#toast");t.firstElementChild.textContent=m;t.classList.add("on");clearTimeout(toast.h);toast.h=setTimeout((()=>t.classList.remove("on")),1800)}const docs={};function loadDoc(y){const dk=LV.id+"/"+y.id;if(!docs[dk]){const task=pdfjs.getDocument({url:new URL(y.pdf,location.href).href,disableRange:true,disableStream:false});task.onProgress=p=>{const m=document.querySelector('#grid .msg[data-y="'+dk+'"]');if(m&&p.total)m.textContent="در حال بارگذاری… "+FA(Math.round(p.loaded/p.total*100))+"٪"};docs[dk]=task.promise.then((d=>{const skip=y.skip==null?1:y.skip,n=d.numPages;const last=y.formula&&n>skip+1?n:0;const qs=[];for(let p=skip+1;p<=(last?n-1:n);p++)qs.push(p);return{doc:d,qs:qs,formula:last}}))}return docs[dk]}const yearOf=id=>YS().find((y=>y.id===id));const titleOf=(y,i)=>y.titles&&y.titles[i]||"";let busy=0;const q=[];function enqueue(fn){return new Promise(((res,rej)=>{q.push({fn:fn,res:res,rej:rej});pump()}))}function pump(){while(busy<3&&q.length){const j=q.shift();busy++;j.fn().then(j.res,j.rej).finally((()=>{busy--;pump()}))}}const WM=K.watermark===undefined?"کامبیز چراغی | @engineer_teacher":K.watermark;function mark(cv){if(!WM)return;const g=cv.getContext("2d"),w=cv.width,h=cv.height,fs=Math.max(11,w*.03),diag=Math.hypot(w,h);const sx=w*.78,sy=w*.3;g.save();g.translate(w/2,h/2);g.rotate(-Math.PI/7);g.font="700 "+fs+'px Vazirmatn,Tahoma,"Segoe UI",sans-serif';g.textAlign="center";g.textBaseline="middle";g.direction="rtl";g.fillStyle="rgba(60,72,110,0.13)";let row=0;for(let y=-diag/2;y<=diag/2;y+=sy,row++)for(let x=-diag/2+(row%2?sx/2:0);x<=diag/2;x+=sx)g.fillText(WM,x,y);g.restore()}async function drawPage(info,pageNo,canvas,targetW){const page=await info.doc.getPage(pageNo);const v1=page.getViewport({scale:1});const vp=page.getViewport({scale:targetW/v1.width});canvas.width=Math.floor(vp.width);canvas.height=Math.floor(vp.height);const task=page.render({canvasContext:canvas.getContext("2d"),canvas:canvas,viewport:vp});canvas._task=task;await task.promise;mark(canvas);return{w:v1.width,h:v1.height}}let ctx=null;const io="IntersectionObserver"in window?new IntersectionObserver((es=>es.forEach((e=>{if(e.isIntersecting){io.unobserve(e.target);e.target._go&&e.target._go()}}))),{rootMargin:"300px"}):null;function renderTabs(active){const t=$("#tabs");t.innerHTML="";YS().forEach((y=>{const b=document.createElement("button");b.type="button";b.setAttribute("role","tab");b.textContent="کنکور "+FA(y.id);b.setAttribute("aria-selected",active===y.id);b.onclick=()=>show(y.id);t.appendChild(b)}));if(YS().some((y=>y.formula))){const b=document.createElement("button");b.type="button";b.className="f";b.setAttribute("role","tab");b.textContent="جمع‌بندی فرمول‌ها";b.setAttribute("aria-selected",active==="formulas");b.onclick=()=>show("formulas");t.appendChild(b)}}function setStats(list){$("#stats").innerHTML=""}async function show(key,keepHash){renderTabs(key);const grid=$("#grid");grid.innerHTML="";const dl=$("#dl");if(!keepHash)history.replaceState(null,"","#"+LV.id+"/"+key);if(key==="formulas"){$("#sh").innerHTML="جمع‌بندی فرمول‌ها "+LV.name+"<small>آخرین صفحه‌ی هر سال</small>";dl.style.display="none";const ys=YS().filter((y=>y.formula));ctx={key:key,items:[]};const infos=await Promise.all(ys.map((y=>loadDoc(y).then((i=>[y,i])).catch((()=>null)))));infos.filter(Boolean).forEach((([y,i])=>{if(i.formula)ctx.items.push({y:y,info:i,page:i.formula,label:"فرمول‌ها — "+FA(y.id),sub:""})}));fill(grid,true);return}const y=yearOf(key)||YS()[0];if(!y){grid.innerHTML='<div class="msg">هنوز سالی در data.js تعریف نشده است.</div>';return}$("#sh").innerHTML="کنکور "+LV.name+" "+FA(y.id)+'<small id="cnt"></small>';dl.style.display=K.allowDownload===true?"":"none";dl.href=y.pdf;dl.setAttribute("download",LV.id+"-"+y.id+".pdf");dl.innerHTML='<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 4v11M7.5 11L12 15.5 16.5 11M5 20h14"/></svg>دانلود پی‌دی‌اف';grid.innerHTML='<div class="msg" data-y="'+LV.id+"/"+y.id+'">در حال بارگذاری…</div>';ctx={key:y.id,items:[]};let info;try{info=await loadDoc(y)}catch(e){delete docs[LV.id+"/"+y.id];const miss=e&&e.name==="MissingPDFException";grid.innerHTML='<div class="msg">'+(miss?"فایل «"+y.pdf+"» پیدا نشد.<br>نام فایل را در data.js و پوشه‌ی pdf بررسی کنید.":"بارگذاری فایل کامل نشد. صفحه را دوباره باز کنید.<br><small>"+String(e&&e.message||e).slice(0,120)+"</small>")+"</div>";return}if(ctx.key!==y.id)return;info.qs.forEach(((p,i)=>ctx.items.push({y:y,info:info,page:p,label:"سؤال "+FA(i+1),sub:titleOf(y,i),no:FA(i+1)})));if(info.formula)ctx.items.push({y:y,info:info,page:info.formula,label:"جمع‌بندی فرمول‌ها",sub:"",formula:true});$("#cnt").textContent=FA(info.qs.length)+" سؤال"+(info.formula?" + جمع‌بندی":"");fill(grid,false)}function fill(grid,isF){grid.innerHTML="";if(!ctx.items.length){grid.innerHTML='<div class="msg">موردی برای نمایش نیست.</div>';return}ctx.items.forEach(((it,idx)=>{const b=document.createElement("button");b.type="button";b.className="q"+(it.formula||isF?" f":"");b.setAttribute("aria-label",it.label);b.innerHTML='<div class="th ld"><canvas></canvas></div>'+(it.no?'<span class="no">'+it.no+"</span>":"")+'<div class="lb">'+it.label+(it.sub?"<i>"+it.sub+"</i>":"")+"</div>";b.onclick=()=>openV(idx);const th=b.firstChild,cv=th.firstChild;b._go=()=>enqueue((()=>drawPage(it.info,it.page,cv,460))).then((d=>{th.classList.remove("ld");th.style.aspectRatio=d.w+"/"+d.h})).catch((()=>{th.classList.remove("ld")}));grid.appendChild(b);io?io.observe(b):b._go()}))}const vw=$("#vw"),vc=$("#vc"),vsc=$("#vsc");let cur=0,zoom=1,tok=0;function hashFor(i){return"#"+LV.id+"/"+ctx.key+"/"+(i+1)}async function renderV(){const it=ctx.items[cur];const my=++tok;$("#vt").innerHTML=it.label+"<small>"+(ctx.key==="formulas"?LV.name:LV.name+" "+FA(it.y.id))+(it.sub?" · "+it.sub:"")+"</small>";$("#vpos").textContent=FA(cur+1)+" از "+FA(ctx.items.length);$("#vpv").disabled=cur===0;$("#vnx").disabled=cur===ctx.items.length-1;$("#vpv").style.opacity=cur===0?.35:1;$("#vnx").style.opacity=cur===ctx.items.length-1?.35:1;history.replaceState(null,"",hashFor(cur));track("konkoor/"+LV.id+"/"+ctx.key+"/"+(cur+1),LV.name+" "+it.label);$("#vsp").classList.add("on");const dpr=Math.min(window.devicePixelRatio||1,2.5);const base=Math.min(window.innerWidth-20,900);const buf=document.createElement("canvas");try{if(vc._task){try{vc._task.cancel()}catch(e){}}await drawPage(it.info,it.page,buf,Math.min(Math.round(base*dpr*2),2600));if(my!==tok)return;vc.width=buf.width;vc.height=buf.height;vc.getContext("2d").drawImage(buf,0,0);applyZoom();vsc.scrollTop=0;vsc.scrollLeft=0}catch(e){}if(my===tok)$("#vsp").classList.remove("on");const n=ctx.items[cur+1];if(n)n.info.doc.getPage(n.page).catch((()=>{}))}function applyZoom(){vc.style.width=Math.round(Math.min(window.innerWidth-20,900)*zoom)+"px";vc.style.height="auto"}function openV(i){cur=i;zoom=1;vw.classList.add("on");document.body.style.overflow="hidden";renderV();$("#vx").focus()}function closeV(){vw.classList.remove("on");document.body.style.overflow="";tok++;history.replaceState(null,"","#"+LV.id+"/"+ctx.key)}function go(d){const n=cur+d;if(n<0||n>=ctx.items.length)return;cur=n;zoom=1;renderV()}$("#vx").onclick=closeV;$("#vpv").onclick=()=>go(-1);$("#vnx").onclick=()=>go(1);$("#vzi").onclick=()=>{zoom=Math.min(3,+(zoom+.4).toFixed(2));applyZoom()};$("#vzo").onclick=()=>{zoom=Math.max(.6,+(zoom-.4).toFixed(2));applyZoom()};$("#vcp").onclick=async()=>{const u=location.origin+location.pathname+hashFor(cur);try{await navigator.clipboard.writeText(u);toast("لینک این صفحه کپی شد")}catch(e){window.prompt("لینک را کپی کنید:",u)}};document.addEventListener("keydown",(e=>{if(!vw.classList.contains("on"))return;if(e.key==="Escape")closeV();else if(e.key==="ArrowLeft")go(1);else if(e.key==="ArrowRight")go(-1);else if(e.key==="+"||e.key==="=")$("#vzi").click();else if(e.key==="-")$("#vzo").click()}));let sx=0,sy=0,st=0;vsc.addEventListener("touchstart",(e=>{if(e.touches.length===1){sx=e.touches[0].clientX;sy=e.touches[0].clientY;st=Date.now()}else st=0}),{passive:true});vsc.addEventListener("touchend",(e=>{if(!st||zoom>1.01||Date.now()-st>600)return;const t=e.changedTouches[0],dx=t.clientX-sx,dy=t.clientY-sy;if(Math.abs(dx)>70&&Math.abs(dx)>Math.abs(dy)*1.6)go(dx<0?1:-1)}),{passive:true});let rz;window.addEventListener("resize",(()=>{clearTimeout(rz);rz=setTimeout((()=>{if(vw.classList.contains("on"))renderV()}),250)}));if(PO.feedbackUrl){const a=document.createElement("a");a.href=PO.feedbackUrl;a.target="_blank";a.rel="noopener noreferrer";a.textContent="گزارش خطا یا پیشنهاد";a.style.cssText="display:inline-block;margin-top:8px;color:var(--gold)";$("#fb").appendChild(a)}function renderLevels(){const box=$("#lvls");if(LEVELS.length<2){box.hidden=true;return}box.hidden=false;box.innerHTML="";LEVELS.forEach((L=>{const b=document.createElement("button");b.type="button";b.setAttribute("role","tab");b.textContent=L.name;b.setAttribute("aria-selected",L===LV);b.onclick=()=>{if(L===LV)return;LV=L;renderLevels();renderStats();show((YS()[0]||{}).id||"")};box.appendChild(b)}))}function renderStats(){$("#stats").innerHTML='<span class="stat">مقطع <b>'+LV.name+'</b></span><span class="stat"><b>'+FA(YS().length)+'</b> سال کنکور</span><span class="stat">پاسخ <b>دست‌نویس</b> و تشریحی</span><span class="stat">رایگان و بدون ثبت‌نام</span>'}document.addEventListener("contextmenu",(e=>{if(e.target.closest&&e.target.closest("canvas"))e.preventDefault()}));document.addEventListener("dragstart",(e=>{if(e.target.closest&&e.target.closest("canvas"))e.preventDefault()}));(function start(){const h=decodeURIComponent(location.hash.slice(1)).split("/");const L=LEVELS.find((x=>x.id===h[0]));if(L){LV=L;h.shift()}renderLevels();renderStats();const key=h[0]&&(h[0]==="formulas"||yearOf(h[0]))?h[0]:YS()[0]&&YS()[0].id||"";show(key,true).then((()=>{const n=parseInt(h[1],10);if(n>0&&ctx&&ctx.items[n-1])openV(n-1)}))})();</script>
-<script>if("serviceWorker"in navigator&&location.protocol.startsWith("http"))addEventListener("load",(function(){navigator.serviceWorker.register("../sw.js").catch((function(){}))}));</script>
+<script type="module">
+import * as pdfjs from './lib/pdf.min.mjs';
+pdfjs.GlobalWorkerOptions.workerSrc = new URL('./lib/pdf.worker.min.mjs', import.meta.url).href;
+
+const $ = s => document.querySelector(s);
+const K = window.KONKOOR || { years: [] };
+const LEVELS = (K.levels && K.levels.length) ? K.levels : [{ id: 'phd', name: 'دکترا', years: K.years || [] }];
+let LV = LEVELS[0];
+const YS = () => LV.years || [];
+const FA = n => String(n).replace(/\d/g, d => '۰۱۲۳۴۵۶۷۸۹'[d]);
+const root = document.documentElement;
+try { const t = localStorage.getItem('portal-theme'); if (t) root.dataset.theme = t; } catch (e) {}
+$('#themeBtn').onclick = () => { const t = root.dataset.theme === 'light' ? 'dark' : 'light'; root.dataset.theme = t; try { localStorage.setItem('portal-theme', t); } catch (e) {} };
+
+$('#h1').innerHTML = (K.title || 'بانک پاسخ‌ها') + '<span>' + (K.course || '') + '</span>';
+$('#note').textContent = K.note || '';
+const PO = window.PORTAL || {};
+if (PO.goatcounter) { const g = document.createElement('script'); g.async = true; g.src = 'https://gc.zgo.at/count.js'; g.dataset.goatcounter = 'https://' + PO.goatcounter + '.goatcounter.com/count'; document.head.appendChild(g); }
+const track = (path, title) => { try { window.goatcounter && window.goatcounter.count && window.goatcounter.count({ path: path, title: title, event: true }); } catch (e) {} };
+function toast(m) { const t = $('#toast'); t.firstElementChild.textContent = m; t.classList.add('on'); clearTimeout(toast.h); toast.h = setTimeout(() => t.classList.remove('on'), 1800); }
+
+/* ---------- بارگذاری پی‌دی‌اف‌ها ---------- */
+const docs = {};
+function loadDoc(y) {
+  const dk = LV.id + '/' + y.id;
+  if (!docs[dk]) {
+    /* هر پی‌دی‌اف یک‌بار کامل دانلود می‌شود (به‌جای ده‌ها درخواست کوچک)؛ در اینترنت کند بسیار سریع‌تر است */
+    const task = pdfjs.getDocument({ url: new URL(y.pdf, location.href).href, disableRange: true, disableStream: false });
+    task.onProgress = p => { const m = document.querySelector('#grid .msg[data-y="' + dk + '"]'); if (m && p.total) m.textContent = 'در حال بارگذاری… ' + FA(Math.round(p.loaded / p.total * 100)) + '٪'; };
+    docs[dk] = task.promise.then(d => {
+      const skip = y.skip == null ? 1 : y.skip, n = d.numPages;
+      const last = y.formula && n > skip + 1 ? n : 0;
+      const qs = []; for (let p = skip + 1; p <= (last ? n - 1 : n); p++) qs.push(p);
+      return { doc: d, qs, formula: last };
+    });
+  }
+  return docs[dk];
+}
+const yearOf = id => YS().find(y => y.id === id);
+const titleOf = (y, i) => (y.titles && y.titles[i]) || '';
+
+/* ---------- رندر با صف (حداکثر ۳ همزمان) ---------- */
+let busy = 0; const q = [];
+function enqueue(fn) { return new Promise((res, rej) => { q.push({ fn, res, rej }); pump(); }); }
+function pump() { while (busy < 3 && q.length) { const j = q.shift(); busy++; j.fn().then(j.res, j.rej).finally(() => { busy--; pump(); }); } }
+const WM = K.watermark === undefined ? 'کامبیز چراغی | @engineer_teacher' : K.watermark;
+function mark(cv) {            /* واترمارک کم‌رنگ و مورب، داخل خود تصویر صفحه */
+  if (!WM) return;
+  const g = cv.getContext('2d'), w = cv.width, h = cv.height, fs = Math.max(11, w * 0.03), diag = Math.hypot(w, h);
+  const sx = w * 0.78, sy = w * 0.3;
+  g.save(); g.translate(w / 2, h / 2); g.rotate(-Math.PI / 7);
+  g.font = '700 ' + fs + 'px Vazirmatn,Tahoma,"Segoe UI",sans-serif'; g.textAlign = 'center'; g.textBaseline = 'middle'; g.direction = 'rtl';
+  g.fillStyle = 'rgba(60,72,110,0.13)';
+  let row = 0;
+  for (let y = -diag / 2; y <= diag / 2; y += sy, row++)
+    for (let x = -diag / 2 + (row % 2 ? sx / 2 : 0); x <= diag / 2; x += sx) g.fillText(WM, x, y);
+  g.restore();
+}
+async function drawPage(info, pageNo, canvas, targetW) {
+  const page = await info.doc.getPage(pageNo);
+  const v1 = page.getViewport({ scale: 1 });
+  const vp = page.getViewport({ scale: targetW / v1.width });
+  canvas.width = Math.floor(vp.width); canvas.height = Math.floor(vp.height);
+  const task = page.render({ canvasContext: canvas.getContext('2d'), canvas, viewport: vp });
+  canvas._task = task;
+  await task.promise;
+  mark(canvas);
+  return { w: v1.width, h: v1.height };
+}
+
+/* ---------- وضعیت ---------- */
+let ctx = null;                     // { key, items:[{y, page, label, sub}] }
+const io = ('IntersectionObserver' in window) ? new IntersectionObserver(es => es.forEach(e => {
+  if (e.isIntersecting) { io.unobserve(e.target); e.target._go && e.target._go(); }
+}), { rootMargin: '300px' }) : null;
+
+function renderTabs(active) {
+  const t = $('#tabs'); t.innerHTML = '';
+  YS().forEach(y => {
+    const b = document.createElement('button'); b.type = 'button'; b.setAttribute('role', 'tab');
+    b.textContent = 'کنکور ' + FA(y.id); b.setAttribute('aria-selected', active === y.id); b.onclick = () => show(y.id); t.appendChild(b);
+  });
+  if (YS().some(y => y.formula)) {
+    const b = document.createElement('button'); b.type = 'button'; b.className = 'f'; b.setAttribute('role', 'tab');
+    b.textContent = 'جمع‌بندی فرمول‌ها'; b.setAttribute('aria-selected', active === 'formulas'); b.onclick = () => show('formulas'); t.appendChild(b);
+  }
+}
+function setStats(list) {
+  $('#stats').innerHTML = '';
+}
+async function show(key, keepHash) {
+  renderTabs(key);
+  const grid = $('#grid'); grid.innerHTML = '';
+  const dl = $('#dl');
+  if (!keepHash) history.replaceState(null, '', '#' + LV.id + '/' + key);
+  if (key === 'formulas') {
+    $('#sh').innerHTML = 'جمع‌بندی فرمول‌ها ' + LV.name + '<small>آخرین صفحه‌ی هر سال</small>'; dl.style.display = 'none';
+    const ys = YS().filter(y => y.formula);
+    ctx = { key, items: [] };
+    const infos = await Promise.all(ys.map(y => loadDoc(y).then(i => [y, i]).catch(() => null)));
+    infos.filter(Boolean).forEach(([y, i]) => { if (i.formula) ctx.items.push({ y, info: i, page: i.formula, label: 'فرمول‌ها — ' + FA(y.id), sub: '' }); });
+    fill(grid, true);
+    return;
+  }
+  const y = yearOf(key) || YS()[0]; if (!y) { grid.innerHTML = '<div class="msg">هنوز سالی در data.js تعریف نشده است.</div>'; return; }
+  $('#sh').innerHTML = 'کنکور ' + LV.name + ' ' + FA(y.id) + '<small id="cnt"></small>';
+  dl.style.display = K.allowDownload === true ? '' : 'none'; dl.href = y.pdf; dl.setAttribute('download', LV.id + '-' + y.id + '.pdf');
+  dl.innerHTML = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 4v11M7.5 11L12 15.5 16.5 11M5 20h14"/></svg>دانلود پی‌دی‌اف';
+  grid.innerHTML = '<div class="msg" data-y="' + LV.id + '/' + y.id + '">در حال بارگذاری…</div>';
+  ctx = { key: y.id, items: [] };
+  let info;
+  try { info = await loadDoc(y); } catch (e) { delete docs[LV.id + '/' + y.id]; const miss = e && e.name === 'MissingPDFException'; grid.innerHTML = '<div class="msg">' + (miss ? 'فایل «' + y.pdf + '» پیدا نشد.<br>نام فایل را در data.js و پوشه‌ی pdf بررسی کنید.' : 'بارگذاری فایل کامل نشد. صفحه را دوباره باز کنید.<br><small>' + String((e && e.message) || e).slice(0, 120) + '</small>') + '</div>'; return; }
+  if (ctx.key !== y.id) return;
+  info.qs.forEach((p, i) => ctx.items.push({ y, info, page: p, label: 'سؤال ' + FA(i + 1), sub: titleOf(y, i), no: FA(i + 1) }));
+  if (info.formula) ctx.items.push({ y, info, page: info.formula, label: 'جمع‌بندی فرمول‌ها', sub: '', formula: true });
+  $('#cnt').textContent = FA(info.qs.length) + ' سؤال' + (info.formula ? ' + جمع‌بندی' : '');
+  fill(grid, false);
+}
+function fill(grid, isF) {
+  grid.innerHTML = '';
+  if (!ctx.items.length) { grid.innerHTML = '<div class="msg">موردی برای نمایش نیست.</div>'; return; }
+  ctx.items.forEach((it, idx) => {
+    const b = document.createElement('button'); b.type = 'button'; b.className = 'q' + (it.formula || isF ? ' f' : '');
+    b.setAttribute('aria-label', it.label);
+    b.innerHTML = '<div class="th ld"><canvas></canvas></div>' + (it.no ? '<span class="no">' + it.no + '</span>' : '') + '<div class="lb">' + it.label + (it.sub ? '<i>' + it.sub + '</i>' : '') + '</div>';
+    b.onclick = () => openV(idx);
+    const th = b.firstChild, cv = th.firstChild;
+    b._go = () => enqueue(() => drawPage(it.info, it.page, cv, 460)).then(d => { th.classList.remove('ld'); th.style.aspectRatio = d.w + '/' + d.h; }).catch(() => { th.classList.remove('ld'); });
+    grid.appendChild(b);
+    io ? io.observe(b) : b._go();
+  });
+}
+
+/* ---------- نمایشگر ---------- */
+const vw = $('#vw'), vc = $('#vc'), vsc = $('#vsc'); let cur = 0, zoom = 1, tok = 0;
+function hashFor(i) { return '#' + LV.id + '/' + ctx.key + '/' + (i + 1); }
+async function renderV() {
+  const it = ctx.items[cur]; const my = ++tok;
+  $('#vt').innerHTML = it.label + '<small>' + (ctx.key === 'formulas' ? LV.name : LV.name + ' ' + FA(it.y.id)) + (it.sub ? ' · ' + it.sub : '') + '</small>';
+  $('#vpos').textContent = FA(cur + 1) + ' از ' + FA(ctx.items.length);
+  $('#vpv').disabled = cur === 0; $('#vnx').disabled = cur === ctx.items.length - 1;
+  $('#vpv').style.opacity = cur === 0 ? .35 : 1; $('#vnx').style.opacity = cur === ctx.items.length - 1 ? .35 : 1;
+  history.replaceState(null, '', hashFor(cur));
+  track('konkoor/' + LV.id + '/' + ctx.key + '/' + (cur + 1), LV.name + ' ' + it.label);
+  $('#vsp').classList.add('on');
+  const dpr = Math.min(window.devicePixelRatio || 1, 2.5);
+  const base = Math.min(window.innerWidth - 20, 900);
+  const buf = document.createElement('canvas');
+  try {
+    if (vc._task) { try { vc._task.cancel(); } catch (e) {} }
+    await drawPage(it.info, it.page, buf, Math.min(Math.round(base * dpr * 2), 2600));
+    if (my !== tok) return;
+    vc.width = buf.width; vc.height = buf.height; vc.getContext('2d').drawImage(buf, 0, 0);
+    applyZoom(); vsc.scrollTop = 0; vsc.scrollLeft = 0;
+  } catch (e) { }
+  if (my === tok) $('#vsp').classList.remove('on');
+  // پیش‌بارگذاری صفحه‌ی بعد
+  const n = ctx.items[cur + 1]; if (n) n.info.doc.getPage(n.page).catch(() => {});
+}
+function applyZoom() { vc.style.width = Math.round(Math.min(window.innerWidth - 20, 900) * zoom) + 'px'; vc.style.height = 'auto'; }
+function openV(i) { cur = i; zoom = 1; vw.classList.add('on'); document.body.style.overflow = 'hidden'; renderV(); $('#vx').focus(); }
+function closeV() { vw.classList.remove('on'); document.body.style.overflow = ''; tok++; history.replaceState(null, '', '#' + LV.id + '/' + ctx.key); }
+function go(d) { const n = cur + d; if (n < 0 || n >= ctx.items.length) return; cur = n; zoom = 1; renderV(); }
+$('#vx').onclick = closeV; $('#vpv').onclick = () => go(-1); $('#vnx').onclick = () => go(1);
+$('#vzi').onclick = () => { zoom = Math.min(3, +(zoom + .4).toFixed(2)); applyZoom(); };
+$('#vzo').onclick = () => { zoom = Math.max(.6, +(zoom - .4).toFixed(2)); applyZoom(); };
+$('#vcp').onclick = async () => {
+  const u = location.origin + location.pathname + hashFor(cur);
+  try { await navigator.clipboard.writeText(u); toast('لینک این صفحه کپی شد'); } catch (e) { window.prompt('لینک را کپی کنید:', u); }
+};
+document.addEventListener('keydown', e => {
+  if (!vw.classList.contains('on')) return;
+  if (e.key === 'Escape') closeV();
+  else if (e.key === 'ArrowLeft') go(1);      /* در راست‌به‌چپ: چپ = بعدی */
+  else if (e.key === 'ArrowRight') go(-1);
+  else if (e.key === '+' || e.key === '=') $('#vzi').click();
+  else if (e.key === '-') $('#vzo').click();
+});
+let sx = 0, sy = 0, st = 0;
+vsc.addEventListener('touchstart', e => { if (e.touches.length === 1) { sx = e.touches[0].clientX; sy = e.touches[0].clientY; st = Date.now(); } else st = 0; }, { passive: true });
+vsc.addEventListener('touchend', e => {
+  if (!st || zoom > 1.01 || Date.now() - st > 600) return;
+  const t = e.changedTouches[0], dx = t.clientX - sx, dy = t.clientY - sy;
+  if (Math.abs(dx) > 70 && Math.abs(dx) > Math.abs(dy) * 1.6) go(dx < 0 ? 1 : -1);
+}, { passive: true });
+let rz; window.addEventListener('resize', () => { clearTimeout(rz); rz = setTimeout(() => { if (vw.classList.contains('on')) renderV(); }, 250); });
+
+if (PO.feedbackUrl) { const a = document.createElement('a'); a.href = PO.feedbackUrl; a.target = '_blank'; a.rel = 'noopener noreferrer'; a.textContent = 'گزارش خطا یا پیشنهاد'; a.style.cssText = 'display:inline-block;margin-top:8px;color:var(--gold)'; $('#fb').appendChild(a); }
+/* ---------- مقطع‌ها ---------- */
+function renderLevels() {
+  const box = $('#lvls'); if (LEVELS.length < 2) { box.hidden = true; return; }
+  box.hidden = false; box.innerHTML = '';
+  LEVELS.forEach(L => {
+    const b = document.createElement('button'); b.type = 'button'; b.setAttribute('role', 'tab');
+    b.textContent = L.name; b.setAttribute('aria-selected', L === LV);
+    b.onclick = () => { if (L === LV) return; LV = L; renderLevels(); renderStats(); show((YS()[0] || {}).id || ''); };
+    box.appendChild(b);
+  });
+}
+function renderStats() {
+  $('#stats').innerHTML = '<span class="stat">مقطع <b>' + LV.name + '</b></span><span class="stat"><b>' + FA(YS().length) + '</b> سال کنکور</span><span class="stat">پاسخ <b>دست‌نویس</b> و تشریحی</span><span class="stat">رایگان و بدون ثبت‌نام</span>';
+}
+/* جلوگیری از ذخیره‌ی ساده‌ی تصویر (کلیک راست و نگه‌داشتن لمسی) فقط روی خود صفحه‌ها */
+document.addEventListener('contextmenu', e => { if (e.target.closest && e.target.closest('canvas')) e.preventDefault(); });
+document.addEventListener('dragstart', e => { if (e.target.closest && e.target.closest('canvas')) e.preventDefault(); });
+/* ---------- شروع ---------- */
+(function start() {
+  const h = decodeURIComponent(location.hash.slice(1)).split('/');
+  const L = LEVELS.find(x => x.id === h[0]);
+  if (L) { LV = L; h.shift(); }
+  renderLevels(); renderStats();
+  const key = h[0] && (h[0] === 'formulas' || yearOf(h[0])) ? h[0] : (YS()[0] && YS()[0].id) || '';
+  show(key, true).then(() => { const n = parseInt(h[1], 10); if (n > 0 && ctx && ctx.items[n - 1]) openV(n - 1); });
+})();
+</script>
+<script>if("serviceWorker"in navigator&&location.protocol.startsWith("http"))addEventListener("load",function(){navigator.serviceWorker.register("../sw.js").catch(function(){})})</script>
 </body>
 </html>
