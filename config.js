@@ -34,7 +34,7 @@ const ABOUT = {
 };
 
 /* ②-ب آمار بازدید (اختیاری) */
-const GOATCOUNTER = 'kambiz';
+const GOATCOUNTER = '';
 
 /* ②-ج لینک فرم گزارش خطا و پیشنهاد (اختیاری) */
 const FEEDBACK_URL = '';
