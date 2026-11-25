@@ -1,19 +1,902 @@
 <!doctype html>
-<html lang="fa" dir="rtl"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><meta name="referrer" content="no-referrer"><title>آدرس جدید پورتال مهندسی</title><style>body{margin:24px;font:16px/1.9 system-ui,Tahoma,sans-serif;color:#172335;background:#f4f6fa}main{max-width:650px;margin:7vh auto;background:white;border:1px solid #dce3ec;border-radius:14px;padding:24px}button{font:inherit;background:#1755a6;color:white;border:0;border-radius:8px;padding:10px 16px;cursor:pointer}button:disabled{opacity:.5}a{color:#1755a6}button[hidden]{display:none}</style></head><body><main><h1>پورتال به آدرس جدید منتقل شده است</h1><p id="status" role="status">در حال بررسی اطلاعات ذخیره‌شده در این مرورگر…</p><button id="start" hidden>انتقال اطلاعات و ورود به سایت جدید</button><p><a id="go" href="https://portal-private.pages.dev/">ورود مستقیم به سایت جدید بدون انتقال</a></p><noscript>برای انتقال اطلاعات قبلی، جاوااسکریپت را فعال کنید.</noscript></main><script>
-'use strict';
-const PREVIEW=false;
-const OLD='https://kambiz-cheraghi.github.io', NEW='https://portal-private.pages.dev', MARK='portal-migration-completed-v1';
-const keys=new Set(['portal-language','portal-theme','beam_analysis_studio_seen_6.0','beton-yar-v1','buckling-lang','dyn-lang','calc-theme','calc-hist-v2','calc_view','calc-edu','calc-course','calc-anim','hesaban_seen_3.2','fl_guide','framelab_seen_3.4','moqta-yar-v3','moqta-guide-v4','iran2800_report_source_url','iran2800_c_draft_v6','iran2800_c_project_store_v4','iran2800_c_project_store_v3','iran2800_ed4_draft_v1','iran2800_edition_v1','staticyar-current','staticyar-font','kc_rev','kc_lic']);
-for(const app of ['buckling','calculus','dyn','s2800','statics']){keys.add('kc_use_'+app);keys.add('kl_win_'+app)}
+<html lang="fa" dir="rtl" data-theme="dark">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="author" content="کامبیز چراغی (Kambiz Cheraghi)">
+<meta name="description" content="نرم‌افزارهای مهندسی سازه، بتن و ریاضی — طراحی و تهیه‌کننده: کامبیز چراغی (Kambiz Cheraghi)">
+<meta name="theme-color" content="#070d1a">
+<link rel="manifest" href="manifest.webmanifest">
+<link rel="icon" href="favicon.svg" type="image/svg+xml">
+<link rel="apple-touch-icon" href="apple-touch-icon.png">
+<meta property="og:type" content="website">
+<meta property="og:title" content="کامبیز چراغی | آزمایشگاه نرم‌افزارهای مهندسی">
+<meta property="og:description" content="تحلیل سازه، بتن، مقطع و ریاضیات مهندسی؛ همه در مرورگر شما، بدون نصب و ثبت‌نام.">
+<meta property="og:image" content="https://USERNAME.github.io/REPO/og.png">
+<meta name="twitter:card" content="summary_large_image">
+<script src="config.js"></script>
+<title>کامبیز چراغی | آزمایشگاه نرم‌افزارهای مهندسی</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Vazirmatn:wght@400;500;700;800;900&display=swap" rel="stylesheet">
+<style>
+:root{
+  --bg:#070d1a;--panel:#0d1830;--panel2:#12213f;--line:#1f3254;--line2:#2c4574;
+  --text:#e9eefb;--mut:#9aacce;--faint:#6f83a8;
+  --gold:#ffc978;--gold2:#ffb84d;--teal:#46e3d1;--blue:#6aa9ff;--violet:#b79cff;
+  --grid:rgba(110,150,225,.07);--grid2:rgba(110,150,225,.13);
+  --ink-on-gold:#3a2205;--shadow:0 22px 50px -26px rgba(0,0,0,.9);
+  --name-grad:linear-gradient(90deg,#fff3d6,#ffc978 45%,#fff3d6);
+  --pill-bg:linear-gradient(100deg,#ffc97830,#4fe3d616 62%,#ffffff05);--pill-line:#ffc97860;
+  --en-bg:#0a1c2c99;--en-line:#2b4d68;--en-text:#9fc9cf;--ok:#6ff2aa;
+  --font:'Vazirmatn','Segoe UI',Tahoma,'Noto Sans Arabic',Arial,sans-serif;
+}
+:root[data-theme="light"]{
+  --bg:#eef2f9;--panel:#ffffff;--panel2:#f4f7fc;--line:#d2dcee;--line2:#b6c5e0;
+  --text:#0e1a33;--mut:#4d6089;--faint:#7384a6;
+  --gold:#9a6a12;--gold2:#c98a1b;--teal:#08857a;--blue:#1d5fd1;--violet:#6a45d3;
+  --grid:rgba(40,80,160,.06);--grid2:rgba(40,80,160,.11);
+  --ink-on-gold:#3a2205;--shadow:0 20px 40px -28px rgba(30,55,110,.55);
+  --name-grad:linear-gradient(90deg,#6b4204,#b9760e 50%,#6b4204);
+  --pill-bg:linear-gradient(100deg,#ffc97844,#4fe3d61c 62%,#ffffff40);--pill-line:#c98a1b88;
+  --en-bg:#ffffffcc;--en-line:#b9c8de;--en-text:#2d5d6a;--ok:#12975a;
+}
+*{box-sizing:border-box}
+html{-webkit-text-size-adjust:100%}
+body{margin:0;min-height:100vh;background:var(--bg);color:var(--text);font-family:var(--font);font-size:16px;line-height:1.8;overflow-x:hidden}
+.bg{position:fixed;inset:0;z-index:0;pointer-events:none;
+  background-image:linear-gradient(var(--grid) 1px,transparent 1px),linear-gradient(90deg,var(--grid) 1px,transparent 1px),linear-gradient(var(--grid2) 1px,transparent 1px),linear-gradient(90deg,var(--grid2) 1px,transparent 1px);
+  background-size:24px 24px,24px 24px,120px 120px,120px 120px;background-position:-1px -1px;
+  -webkit-mask-image:linear-gradient(180deg,#000 0,#000 40%,transparent 95%);mask-image:linear-gradient(180deg,#000 0,#000 40%,transparent 95%)}
+a{color:inherit}
+button{font:inherit;color:inherit;cursor:pointer}
+:focus-visible{outline:2px solid var(--gold);outline-offset:3px;border-radius:6px}
+.wrap{position:relative;z-index:1;width:min(1180px,100%);margin:0 auto;padding:0 20px}
 
-function getTarget(){if(PREVIEW)return '/calc/'; const p=location.pathname; let path=p==='/portal'?'/':p.startsWith('/portal/')?p.slice('/portal'.length):'/'; if(path.startsWith('//')||path.includes('\\')||/^\/migrate(?:\.html)?\/?$/i.test(path))return '/'; const url=new URL(path+location.search+location.hash,NEW); if(url.origin!==NEW)return '/';return url.pathname+url.search+url.hash;}
-const path=getTarget(), destination=new URL(path,NEW).href;
-const status=document.getElementById('status'),start=document.getElementById('start'),go=document.getElementById('go'); go.href=destination;
-let child=null,nonce=null,entries=[],sent=false,timer;
-function stop(message){clearInterval(timer);status.textContent=message;start.disabled=false;child=null;nonce=null;entries=[];sent=false;}
-function readEntries(){return [...keys].map(k=>[k,localStorage.getItem(k)]).filter(p=>p[1]!==null);}
-window.addEventListener('message',e=>{if(!child||e.source!==child||e.origin!==NEW||!e.data)return;const d=e.data;if(d.type==='portal-migrate-ready-v1'&&!sent){sent=true;child.postMessage({type:'portal-migrate-data-v1',nonce,path,entries},NEW);status.textContent='داده‌ها ارسال شدند؛ نتیجه را در پنجره جدید بررسی کنید.';}else if(d.nonce===nonce&&sent&&d.type==='portal-migrate-done-v1'){const count=entries.length;if(!PREVIEW){try{localStorage.setItem(MARK,'1')}catch(_){}}stop('انتقال موفق بود. تعداد کلیدهای ارسالی: '+count+'؛ مقصد در پنجره جدید باز می‌شود.');start.hidden=true;go.textContent='ورود به سایت جدید در همین تب';}else if(d.nonce===nonce&&sent&&d.type==='portal-migrate-error-v1'){stop('انتقال انجام نشد. اطلاعات قبلی حذف نشده‌اند. دوباره تلاش کنید یا مستقیم وارد شوید.');}});
-start.onclick=()=>{if(location.origin!==OLD){stop('انتقال فقط در آدرس قدیمی امکان‌پذیر است.');return;}try{entries=readEntries();nonce=crypto.randomUUID();}catch(_){stop('حافظه مرورگر در دسترس نیست.');return;}child=window.open(NEW+'/migrate.html','_blank');if(!child){stop('مرورگر پنجره جدید را مسدود کرد. اجازه باز شدن پنجره را بدهید و دوباره تلاش کنید.');return;}start.disabled=true;sent=false;status.textContent='در انتظار ارتباط با سایت جدید…';const begin=Date.now();timer=setInterval(()=>{if(!child||child.closed)stop('پنجره بسته شد؛ نتیجه انتقال تأیید نشد.');else if(!sent&&Date.now()-begin>30000)stop('ارتباط با سایت جدید برقرار نشد.');},500);};
-async function init(){if(location.origin!==OLD){status.textContent='این صفحه باید روی نشانی قدیمی پورتال باشد.';return;}if(!PREVIEW&&'serviceWorker'in navigator){try{await Promise.race([navigator.serviceWorker.register('/portal/sw.js',{scope:'/portal/'}),new Promise(r=>setTimeout(r,1500))]);}catch(_){}}try{if(!PREVIEW&&(localStorage.getItem(MARK)==='1'||readEntries().length===0)){location.replace(destination);return;}if(PREVIEW){status.textContent='آزمایش مسیر مستقیم برنامه حسابان؛ اطلاعات قبلی حذف نمی‌شوند.';}else{status.textContent='برای حفظ مجوزها، تنظیمات و پروژه‌های قبلی، یک بار دکمه انتقال را بزنید. اطلاعات سایت قبلی حذف نمی‌شوند.';}start.hidden=false;}catch(_){status.textContent='حافظه مرورگر در دسترس نیست؛ می‌توانید مستقیم وارد شوید.';}}
-init();
-</script></body></html>
+/* ---------- زبان ---------- */
+:root[lang="en"]{--font:'Segoe UI',Arial,Tahoma,sans-serif}
+:root[lang="en"] .author-badge .en, :root[lang="en"] .foot span.en {direction:rtl}
+:root[lang="en"] .foot span.en{margin:0 0 0 10px;padding:0 0 0 10px;border-left:1px solid var(--line2);border-right:0}
+.tools [hidden],.contact [hidden]{display:none!important}
+:root[lang="en"] .sheet .go svg{transform:rotate(180deg)}
+:root[lang="en"] .sheet:hover .go svg{transform:rotate(180deg) translateX(-3px)}
+.lang-btn{font:800 13px/1 'Segoe UI',Arial,sans-serif;min-width:43px;justify-content:center;padding-inline:12px;color:var(--gold)}
+.lang-btn span{display:inline!important}
+/* ---------- نوار بالا ---------- */
+.top{display:flex;align-items:center;justify-content:space-between;gap:12px;padding:18px 0 6px}
+.brand{display:flex;align-items:center;gap:11px;font-weight:700;font-size:15px;text-decoration:none}
+.brand .mk{width:38px;height:38px;border-radius:11px;display:grid;place-items:center;background:linear-gradient(145deg,#fff1c8,#ffc25c 60%,#f29c2b);color:var(--ink-on-gold);box-shadow:0 8px 20px -8px #ffb84d99}
+.brand small{display:block;font-weight:500;font-size:11.5px;color:var(--mut);line-height:1.4}
+.tools{display:flex;gap:8px}
+.tbtn{display:inline-flex;align-items:center;gap:7px;height:38px;padding:0 14px;border-radius:11px;border:1px solid var(--line);background:color-mix(in srgb,var(--panel) 80%,transparent);color:var(--mut);font-size:13.5px;text-decoration:none;transition:border-color .2s,color .2s}
+.tbtn:hover{border-color:var(--line2);color:var(--text)}
+.tbtn svg{width:17px;height:17px;flex:none}
+
+/* ---------- بالای صفحه ---------- */
+.hero{display:grid;grid-template-columns:1fr;gap:34px;align-items:center;padding:34px 0 46px}
+@media(min-width:960px){.hero{grid-template-columns:minmax(0,1fr) minmax(0,1.12fr);gap:48px;padding:56px 0 64px}}
+h1{margin:0;font-weight:900;font-size:clamp(30px,4.7vw,55px);line-height:1.32}
+.lead{margin:16px 0 0;max-width:34em;font-size:clamp(15px,1.5vw,17.5px);color:var(--mut)}
+.author{margin-top:26px}
+.author-badge{position:relative;display:inline-flex;align-items:center;gap:13px;padding:7px 7px 7px 20px;border-radius:99px;overflow:hidden;max-width:100%;background:var(--pill-bg);border:1px solid var(--pill-line);box-shadow:0 14px 30px -18px #ffb84d88}
+.author-badge:after{content:"";position:absolute;inset:0;background:linear-gradient(105deg,transparent 35%,#ffffff28 50%,transparent 65%);transform:translateX(-120%);animation:sheen 6s ease-in-out 1.6s infinite;pointer-events:none}
+@keyframes sheen{0%,60%{transform:translateX(-120%)}100%{transform:translateX(120%)}}
+.author-badge .av{flex:none;width:50px;height:50px;border-radius:50%;display:grid;place-items:center;color:var(--ink-on-gold);background:linear-gradient(145deg,#fff1c8,#ffc25c 60%,#f29c2b);box-shadow:0 0 0 2px var(--bg),0 0 0 3.5px #ffc97899,0 8px 18px -4px #ffb84d99}
+.author-badge .at{display:flex;flex-direction:column;line-height:1.35;white-space:nowrap}
+.author-badge .at small{font-size:12px;color:var(--gold)}
+.author-badge .at b{font-size:clamp(19px,2.2vw,23px);font-weight:900;background:var(--name-grad);-webkit-background-clip:text;background-clip:text;color:transparent;-webkit-text-fill-color:transparent}
+.author-badge .en{direction:ltr;white-space:nowrap;font:600 12px/1 'Segoe UI',Tahoma,sans-serif;color:var(--en-text);padding:7px 11px;border-radius:99px;background:var(--en-bg);border:1px solid var(--en-line);letter-spacing:.3px}
+.author-badge .shield{width:18px;height:18px;color:var(--ok);flex:none;fill:none;stroke:currentColor;stroke-width:2;stroke-linecap:round;stroke-linejoin:round}
+.note{margin:18px 0 0;font-size:13.5px;color:var(--faint);max-width:34em}
+
+/* ---------- صحنه‌ی تیر ---------- */
+.stage{margin:0;position:relative;border:1px solid var(--line);border-radius:14px;background:linear-gradient(180deg,color-mix(in srgb,var(--panel) 92%,transparent),color-mix(in srgb,var(--bg) 70%,transparent));box-shadow:var(--shadow)}
+.stage:before,.stage:after{content:"";position:absolute;width:16px;height:16px;border:2px solid var(--gold);pointer-events:none}
+.stage:before{top:-1px;right:-1px;border-left:0;border-bottom:0;border-top-right-radius:14px}
+.stage:after{bottom:-1px;left:-1px;border-right:0;border-top:0;border-bottom-left-radius:14px}
+#beam{display:block;width:100%;height:auto;direction:ltr;touch-action:pan-y;cursor:ew-resize;user-select:none;-webkit-user-select:none;border-radius:14px}
+#beam:focus-visible{outline-offset:-3px}
+.draw{animation:reveal 1.4s cubic-bezier(.2,.7,.2,1) .2s both}
+@keyframes reveal{from{clip-path:inset(0 100% 0 0)}to{clip-path:inset(0 0 0 0)}}
+.s-ground{stroke:var(--faint);stroke-width:1.6}
+.s-hatch{stroke:var(--faint);stroke-width:1.2}
+.s-sup{fill:var(--panel2);stroke:var(--mut);stroke-width:1.8}
+.s-rest{stroke:var(--faint);stroke-width:1.2;stroke-dasharray:4 5}
+.s-beam{fill:none;stroke:var(--teal);stroke-width:7;stroke-linecap:round;stroke-linejoin:round}
+.s-mfill{fill:var(--teal);fill-opacity:.17;stroke:var(--teal);stroke-width:1.6;stroke-linejoin:round}
+.s-mbase{stroke:var(--line2);stroke-width:1.4}
+.s-link{stroke:var(--gold);stroke-width:1.3;stroke-dasharray:3 5;opacity:.7}
+.s-load{stroke:var(--gold);stroke-width:3.2;stroke-linecap:round}
+.s-head{fill:var(--gold)}
+.s-handle{fill:var(--gold);stroke:var(--bg);stroke-width:3}
+.s-dim{stroke:var(--mut);stroke-width:1.3}
+.s-txt{fill:var(--mut);font:600 13px 'Segoe UI',Tahoma,sans-serif}
+.s-txt.g{fill:var(--gold)}
+.s-txt.t{fill:var(--teal)}
+.hintg{transition:opacity .5s;pointer-events:none}
+.hintg rect{fill:var(--bg);fill-opacity:.82;stroke:var(--gold);stroke-opacity:.5}
+.hintg text{fill:var(--gold);font:500 13.5px var(--font)}
+.stage.used .hintg{opacity:0}
+.read{display:grid;grid-template-columns:repeat(3,1fr);border-top:1px solid var(--line);direction:ltr}
+.read div{padding:9px 6px;text-align:center;border-inline-start:1px solid var(--line);font:600 14px/1.5 'Segoe UI',Tahoma,sans-serif;color:var(--text);font-variant-numeric:tabular-nums}
+.read div:first-child{border-inline-start:0}
+.read small{display:block;font:500 11px/1.3 var(--font);color:var(--faint)}
+.legend{display:flex;flex-wrap:wrap;gap:6px 18px;justify-content:center;padding:9px 12px 12px;border-top:1px solid var(--line);font-size:12.5px;color:var(--mut)}
+.legend i{display:inline-block;width:20px;height:0;border-top:3px solid;vertical-align:middle;margin-inline-end:7px;border-radius:2px}
+.legend i.f{height:9px;border:1.5px solid var(--teal);background:color-mix(in srgb,var(--teal) 20%,transparent);border-radius:2px}
+
+/* ---------- فهرست برنامه‌ها ---------- */
+.cat-head{display:flex;flex-wrap:wrap;align-items:flex-end;justify-content:space-between;gap:10px 20px;margin-bottom:16px;padding-top:6px;border-top:1px solid var(--line)}
+.cat-head h2{margin:18px 0 0;font-size:clamp(21px,2.6vw,27px);font-weight:800;line-height:1.5}
+.cat-head p{margin:0;font-size:13.5px;color:var(--faint)}
+.bar{display:flex;flex-wrap:wrap;gap:10px 14px;align-items:center;justify-content:space-between;margin-bottom:20px}
+.chips{display:flex;flex-wrap:wrap;gap:8px}
+.chip{display:inline-flex;align-items:center;gap:8px;height:38px;padding:0 16px;border-radius:99px;border:1px solid var(--line);background:transparent;color:var(--mut);font-size:14px;transition:all .18s}
+.chip:hover{color:var(--text);border-color:var(--line2)}
+.chip b{font-weight:600;font-size:11.5px;min-width:22px;height:20px;line-height:20px;text-align:center;border-radius:99px;background:var(--panel2);color:var(--faint)}
+.chip[aria-pressed="true"]{background:var(--text);color:var(--bg);border-color:var(--text);font-weight:700}
+.chip[aria-pressed="true"] b{background:color-mix(in srgb,var(--bg) 20%,transparent);color:var(--bg)}
+.search{position:relative;flex:0 1 300px;min-width:200px}
+.search svg{position:absolute;top:50%;inset-inline-start:13px;transform:translateY(-50%);width:17px;height:17px;color:var(--faint);pointer-events:none}
+.search input{width:100%;height:40px;padding:0 40px 0 14px;border-radius:12px;border:1px solid var(--line);background:color-mix(in srgb,var(--panel) 85%,transparent);color:var(--text);font:inherit;font-size:14px;outline:0}
+.search input{padding-inline-start:40px;padding-inline-end:14px}
+.search input::placeholder{color:var(--faint)}
+.search input:focus{border-color:var(--gold)}
+.grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(min(100%,272px),1fr));gap:16px}
+.sheet{--a:var(--teal);position:relative;display:flex;flex-direction:column;border:1px solid var(--line);border-radius:10px;background:var(--panel);box-shadow:var(--shadow);transition:border-color .2s,transform .2s;min-width:0}
+.sheet.c-blue{--a:var(--blue)}.sheet.c-violet{--a:var(--violet)}.sheet.c-gold{--a:var(--gold)}
+.sheet:before,.sheet:after{content:"";position:absolute;width:11px;height:11px;border:2px solid var(--a);pointer-events:none;transition:width .2s,height .2s}
+.sheet:before{top:-1px;right:-1px;border-left:0;border-bottom:0;border-top-right-radius:10px}
+.sheet:after{bottom:-1px;left:-1px;border-right:0;border-top:0;border-bottom-left-radius:10px}
+.sheet:hover{border-color:color-mix(in srgb,var(--a) 55%,var(--line));transform:translateY(-3px)}
+.sheet:hover:before,.sheet:hover:after{width:22px;height:22px}
+.stretch{position:absolute;inset:0;z-index:1;border-radius:10px}
+.s-top{display:flex;align-items:flex-start;justify-content:space-between;padding:16px 16px 0}
+.s-ic{width:72px;height:72px;border-radius:12px;display:grid;place-items:center;color:var(--a);background:color-mix(in srgb,var(--a) 9%,transparent);border:1px solid color-mix(in srgb,var(--a) 28%,transparent)}
+.s-ic svg{width:48px;height:48px}
+.badge{display:inline-block;vertical-align:middle;margin-inline-start:9px;padding:0 10px;line-height:1.7;border-radius:99px;font-size:12px;font-weight:700;color:var(--ink-on-gold);background:linear-gradient(145deg,#fff1c8,#ffc25c 60%,#f29c2b)}
+.sheet h3{margin:14px 16px 0;font-size:19px;font-weight:800;line-height:1.5}
+.sheet p{margin:4px 16px 0;font-size:14px;line-height:1.85;color:var(--mut)}
+.tags{display:flex;flex-wrap:wrap;gap:6px;margin:12px 16px 16px;padding:0;list-style:none}
+.tags li{font-size:12px;line-height:1;padding:6px 9px;border-radius:6px;color:var(--mut);background:var(--panel2);border:1px solid var(--line)}
+.tblock{margin-top:auto;display:grid;grid-template-columns:1fr auto;border-top:1px solid var(--line);font-size:13px}
+.tblock .cell{display:flex;align-items:center;gap:8px;padding:10px 16px;color:var(--mut)}
+.tblock .cell+.cell{border-inline-start:1px solid var(--line)}
+.tblock .dot{width:8px;height:8px;border-radius:50%;background:var(--a)}
+.tblock .go{font-weight:700;color:var(--text);transition:color .2s,background .2s}
+.tblock .go svg{width:15px;height:15px;transition:transform .2s}
+.sheet:hover .go{color:var(--bg);background:var(--a)}
+.sheet:hover .go svg{transform:translateX(-3px)}
+.sheet[hidden]{display:none}
+.cp{position:absolute;z-index:2;top:14px;inset-inline-end:14px;display:inline-flex;align-items:center;justify-content:center;width:34px;height:34px;border-radius:9px;border:1px solid var(--line);background:color-mix(in srgb,var(--panel) 85%,transparent);color:var(--faint);opacity:0;transition:opacity .2s,color .2s,border-color .2s}
+.sheet:hover .cp,.cp:focus-visible{opacity:1}
+@media(hover:none){.cp{opacity:.9}}
+.cp:hover{color:var(--text);border-color:var(--line2)}
+.cp svg{width:16px;height:16px}
+.empty{display:grid;gap:8px;justify-items:center;text-align:center;padding:44px 16px;border:1px dashed var(--line2);border-radius:12px;color:var(--mut)}
+.empty[hidden]{display:none}
+.empty b{color:var(--text);font-size:17px}
+.empty button{margin-top:4px;height:38px;padding:0 18px;border-radius:10px;border:1px solid var(--line2);background:transparent}
+
+
+/* ---------- درخواست مقاله: فرم مختصر ---------- */
+.article-req{margin:45px 0 0;padding:21px 24px;border:1px solid var(--line2);border-radius:14px;background:linear-gradient(110deg,var(--panel),color-mix(in srgb,var(--panel2) 42%,var(--panel)));box-shadow:var(--shadow);display:grid;grid-template-columns:minmax(230px,.94fr) minmax(300px,1.25fr);align-items:center;gap:22px}
+.article-head{display:flex;align-items:center;gap:10px;flex-wrap:wrap;margin-bottom:6px}
+.article-head h2{margin:0;font-size:clamp(19px,2.4vw,23px);line-height:1.5}
+.article-price{display:inline-flex;align-items:center;gap:4px;font-size:12px;font-weight:700;color:var(--gold);border:1px solid var(--pill-line);border-radius:99px;padding:2px 10px;background:color-mix(in srgb,var(--gold) 9%,transparent);white-space:nowrap}
+.article-req p{margin:0;color:var(--mut);font-size:13px;line-height:1.95}
+.article-form{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr) auto;align-items:end;gap:9px}
+.article-field{display:flex;flex-direction:column;gap:5px;min-width:0}
+.article-field label{font-size:12px;color:var(--mut);font-weight:600}
+.article-field input{height:43px;width:100%;min-width:0;border:1px solid var(--line2);border-radius:9px;background:var(--bg);color:var(--text);font:500 13px/1.5 'Segoe UI',Tahoma,Arial,sans-serif;direction:ltr;text-align:left;padding:0 11px}
+.article-field input:focus{outline:2px solid var(--gold);outline-offset:1px}
+.article-submit{height:43px;display:inline-flex;align-items:center;justify-content:center;padding:0 14px;border:0;border-radius:9px;background:linear-gradient(145deg,#fff1c8,#ffc25c 60%,#f29c2b);color:var(--ink-on-gold);font-weight:800;font-size:13px;white-space:nowrap}
+.article-submit:disabled{opacity:.46;cursor:not-allowed}
+.article-foot{grid-column:1/-1;font-size:11.5px;color:var(--faint);line-height:1.8}
+.article-foot[hidden]{display:none}
+.article-honey{position:absolute!important;left:-10000px!important;width:1px!important;height:1px!important;overflow:hidden!important}
+@media(max-width:980px){.article-req{grid-template-columns:1fr;gap:13px}.article-form{grid-template-columns:minmax(0,1fr) minmax(0,1fr) auto}}
+@media(max-width:590px){.article-req{padding:18px 15px;margin-top:34px}.article-form{grid-template-columns:1fr}.article-submit{width:100%}}
+
+/* ---------- معرفی کوتاه / درباره من ---------- */
+.about{margin:54px 0 0;display:flex;align-items:center;gap:24px;padding:24px 27px;border:1px solid var(--line);border-radius:14px;background:linear-gradient(120deg,color-mix(in srgb,var(--panel) 94%,transparent),color-mix(in srgb,var(--panel2) 62%,transparent));box-shadow:var(--shadow)}
+.about-avatar{position:relative;flex:none;display:grid;place-items:center;width:118px;height:118px;border-radius:50%;border:2px solid var(--gold);background:color-mix(in srgb,var(--gold) 9%,var(--panel2));overflow:hidden;box-shadow:0 0 0 5px color-mix(in srgb,var(--gold) 10%,transparent)}
+.about-avatar img{position:absolute;inset:0;display:block;width:100%;height:100%;object-fit:cover;object-position:center}
+.about-avatar span{font:800 31px/1 'Segoe UI',Arial,sans-serif;color:var(--gold)}
+.about-body{flex:1;min-width:0}
+.about-eyebrow{margin:0 0 2px;color:var(--gold);font-size:13px;font-weight:700}
+.about h2{margin:0;font-size:clamp(20px,2.3vw,26px);line-height:1.5}
+.about-role{margin:3px 0 7px;color:var(--teal);font-size:13.5px;font-weight:600}
+.about-bio{margin:0;max-width:70ch;color:var(--mut);font-size:14.5px;line-height:1.9}
+@media(max-width:560px){.about{margin-top:40px;padding:20px 17px;align-items:flex-start;gap:16px}.about-avatar{width:76px;height:76px}.about-avatar span{font-size:21px}.about h2{font-size:19px}.about-bio{font-size:13.5px}}
+
+/* ---------- تماس ---------- */
+.contact.nolinks{grid-template-columns:1fr}
+@media(min-width:900px){.contact.nolinks{grid-template-columns:1fr auto}}
+.contact{margin:70px 0 0;border:1px solid var(--line);border-radius:12px;background:color-mix(in srgb,var(--panel) 92%,transparent);display:grid;grid-template-columns:1fr;box-shadow:var(--shadow)}
+@media(min-width:900px){.contact{grid-template-columns:1.15fr 1fr auto}}
+.contact>div{padding:22px 24px}
+.contact>div+div{border-top:1px solid var(--line)}
+@media(min-width:900px){.contact>div+div{border-top:0;border-inline-start:1px solid var(--line)}}
+.contact h2{margin:0 0 4px;font-size:20px;font-weight:800;line-height:1.6}
+.contact p{margin:0;font-size:14px;color:var(--mut);line-height:1.9}
+.links{display:flex;flex-wrap:wrap;gap:8px}
+.links a{display:inline-flex;align-items:center;gap:9px;min-height:40px;padding:6px 14px;border-radius:10px;border:1px solid var(--line);color:var(--text);text-decoration:none;font-size:14px;transition:border-color .2s,background .2s}
+.links a:hover{border-color:var(--gold);background:color-mix(in srgb,var(--gold) 8%,transparent)}
+.links a svg{width:18px;height:18px;color:var(--gold);flex:none}
+.links a span{direction:ltr;unicode-bidi:plaintext;font-family:'Segoe UI',Tahoma,sans-serif;font-size:13.5px}
+.share{display:flex;align-items:center}
+.share button{display:inline-flex;align-items:center;gap:9px;height:44px;padding:0 20px;border-radius:12px;border:0;font-weight:700;color:var(--ink-on-gold);background:linear-gradient(145deg,#fff1c8,#ffc25c 60%,#f29c2b);box-shadow:0 10px 22px -10px #ffb84d99}
+.share button svg{width:18px;height:18px}
+.foot{padding:26px 0 40px;text-align:center;font-size:13px;color:var(--faint)}
+.foot b{color:var(--gold);font-weight:700}
+.foot span.en{direction:ltr;unicode-bidi:isolate;display:inline-block;margin-right:10px;padding-right:10px;border-right:1px solid var(--line2)}
+.idlg{padding:0;border:1px solid var(--line2);border-radius:20px;background:var(--panel);color:var(--text);width:min(460px,calc(100vw - 24px));font:inherit;box-shadow:var(--shadow);margin:auto}
+.idlg::backdrop{background:rgba(4,8,20,.66);backdrop-filter:blur(3px)}
+.idlg[open]{animation:idin .25s cubic-bezier(.2,.8,.2,1)}
+@keyframes idin{from{opacity:0;transform:translateY(10px) scale(.98)}to{opacity:1;transform:none}}
+.idh{display:flex;align-items:center;justify-content:space-between;gap:10px;padding:16px 18px 6px}
+.idh h2{margin:0;font-size:18px;line-height:1.5}
+.idx{flex:none;width:34px;height:34px;border-radius:10px;border:1px solid var(--line);background:transparent;color:var(--mut);font-size:15px}
+.idx:hover{color:var(--text);border-color:var(--line2)}
+.idsub{margin:0;padding:0 18px;font-size:13px;color:var(--mut);line-height:1.8}
+.idtabs{display:flex;gap:6px;padding:12px 18px 0;flex-wrap:wrap}
+.idtabs button{border:1px solid var(--line);background:transparent;color:var(--mut);border-radius:30px;padding:3px 14px;font:inherit;font-size:13px}
+.idtabs button:hover{color:var(--text);border-color:var(--line2)}
+.idtabs button[aria-selected=true]{background:var(--gold2);border-color:var(--gold2);color:var(--ink-on-gold);font-weight:700}
+.idbody{padding:12px 18px 6px}
+.idbody ol{margin:0;padding:0;list-style:none;counter-reset:st;display:grid;gap:9px}
+.idbody li{counter-increment:st;display:flex;gap:11px;align-items:flex-start;font-size:14px;line-height:1.85}
+.idbody li:before{content:counter(st);flex:none;width:24px;height:24px;margin-top:3px;border-radius:50%;display:grid;place-items:center;border:1px solid var(--gold2);color:var(--gold);font-size:12.5px;font-weight:700}
+.idbody bdi{direction:ltr;unicode-bidi:isolate;color:var(--gold);font-weight:600;font-size:13px}
+.idfoot{margin:0;padding:8px 18px 18px;font-size:12.5px;color:var(--faint);line-height:1.8}
+.toast{position:fixed;z-index:20;inset-inline:0;bottom:22px;display:flex;justify-content:center;pointer-events:none}
+.toast span{padding:9px 18px;border-radius:12px;background:var(--text);color:var(--bg);font-size:14px;font-weight:600;opacity:0;transform:translateY(10px);transition:all .25s;box-shadow:0 14px 30px -12px #000a}
+.toast.on span{opacity:1;transform:none}
+
+@media(max-width:560px){
+  .sheet{display:grid;grid-template-columns:64px minmax(0,1fr);column-gap:12px;padding:14px 14px 0}
+  .sheet .s-top{grid-row:1/3;padding:0}
+  .s-ic{width:60px;height:60px}.s-ic svg{width:40px;height:40px}
+  .sheet h3{margin:0;font-size:17px;align-self:end}
+  .sheet p{margin:2px 0 0;font-size:13.5px}
+  .sheet .tags{grid-column:1/-1;margin:10px 0 14px}
+  .sheet .tblock{grid-column:1/-1;margin:0 -14px}
+  .sheet .stretch{inset:0}
+  .cp{top:10px;inset-inline-end:10px;width:30px;height:30px}
+  .wrap{padding:0 14px}
+  .brand small{display:none}
+  .tbtn span{display:none}.tbtn{padding:0 11px}
+  .lang-btn span{display:inline!important}
+  .top{flex-wrap:wrap}
+  .brand{min-width:0}
+  .brand>span:last-child{min-width:0;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+  .author-badge{gap:9px;padding:6px 6px 6px 12px}
+  .author-badge .av{width:42px;height:42px}
+  .author-badge .en{font-size:10px;padding:6px 8px}
+  .author-badge .shield{width:15px;height:15px}
+  .search{flex-basis:100%}
+  .contact>div{padding:18px}
+}
+@media(max-width:380px){.author-badge .en{display:none}}
+@media(prefers-reduced-motion:reduce){
+  .draw,.author-badge:after{animation:none}.author-badge:after{display:none}
+  .sheet,.sheet:before,.sheet:after,.go svg{transition:none}
+}
+@media(prefers-reduced-motion:reduce){.idlg[open]{animation:none}}
+@media print{.idlg,.bg,.top .tools,.search,.chips,.stage,.cp,.toast{display:none!important}body{background:#fff;color:#000}}
+</style>
+</head>
+<body>
+<div class="bg" aria-hidden="true"></div>
+<div class="wrap">
+
+  <header class="top">
+    <a class="brand" href="#top" id="top">
+      <span class="mk" aria-hidden="true"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.3" stroke-linecap="round" stroke-linejoin="round"><path d="M4 21V4h16v17M4 12.5h16M12 4v17"/></svg></span>
+      <span><span id="brandTitle">نرم‌افزارهای مهندسی</span><small id="brandSub"></small></span>
+    </a>
+    <div class="tools">
+      <button class="tbtn lang-btn" id="langBtn" type="button" aria-label="Switch to English" title="Switch language"><span id="langTxt">EN</span></button>
+      <button class="tbtn" id="installBtn" type="button" aria-label="نصب روی گوشی یا کامپیوتر"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="7" y="2.5" width="10" height="19" rx="2.2"/><path d="M12 8v6M9.5 11.8L12 14.3l2.5-2.5"/></svg><span id="installLabel">نصب روی دستگاه</span></button>
+      <a class="tbtn" href="#contact" id="contactBtn"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 6h16v12H4z"/><path d="M4 7l8 6 8-6"/></svg><span id="contactLabel">تماس با من</span></a>
+      <button class="tbtn" id="themeBtn" type="button" aria-label="تغییر پوسته‌ی روشن و تیره"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M4.9 4.9l1.4 1.4M17.7 17.7l1.4 1.4M2 12h2M20 12h2M4.9 19.1l1.4-1.4M17.7 6.3l1.4-1.4"/></svg><span id="themeTxt">پوسته</span></button>
+    </div>
+  </header>
+
+  <section class="hero">
+    <div>
+      <h1 id="siteTitle"></h1>
+      <p class="lead" id="siteLead"></p>
+      <div class="author">
+        <div class="author-badge" aria-label="طراحی و تهیه‌کننده: کامبیز چراغی — Kambiz Cheraghi">
+          <span class="av" aria-hidden="true"><svg width="27" height="27" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 21V4h16v17M4 12.5h16M12 4v17"/></svg></span>
+          <span class="at"><small id="authorRole">طراحی و تهیه‌کننده</small><b id="nameFa"></b></span>
+          <span class="en" lang="en" dir="ltr" id="nameEn"></span>
+          <svg class="shield" aria-hidden="true" viewBox="0 0 24 24"><path d="M12 3l7.5 2.8v5.7c0 4.6-3.1 7.9-7.5 9.5-4.4-1.6-7.5-4.9-7.5-9.5V5.8z"/><path d="M8.7 12l2.2 2.2 4.4-4.6"/></svg>
+        </div>
+      </div>
+      <p class="note" id="privacyNote">همه‌ی محاسبات در مرورگر شما انجام می‌شود و هیچ داده‌ای به جایی ارسال نمی‌شود.</p>
+    </div>
+
+    <figure class="stage" id="stage">
+      <svg id="beam" viewBox="0 0 600 360" role="slider" tabindex="0" aria-label="جای بار روی تیر ساده" aria-valuemin="6" aria-valuemax="94" aria-valuenow="38" aria-valuetext="">
+        <g class="draw">
+          <!-- تکیه‌گاه‌ها -->
+          <path class="s-sup" d="M70 118 L56 144 H84 Z"/>
+          <path class="s-ground" d="M44 144H96"/>
+          <path class="s-hatch" d="M50 144l-6 8M60 144l-6 8M70 144l-6 8M80 144l-6 8M90 144l-6 8"/>
+          <circle class="s-sup" cx="530" cy="128" r="9"/>
+          <path class="s-ground" d="M504 137H556"/>
+          <path class="s-hatch" d="M510 137l-6 8M520 137l-6 8M530 137l-6 8M540 137l-6 8M550 137l-6 8"/>
+          <!-- محور اولیه و تیر خم‌شده -->
+          <path class="s-rest" d="M70 118H530"/>
+          <path class="s-beam" id="defl" d=""/>
+          <!-- نمودار لنگر -->
+          <path class="s-mbase" d="M70 238H530"/>
+          <path class="s-mfill" id="mpoly" d=""/>
+          <path class="s-link" id="link" d=""/>
+          <!-- بار -->
+          <line class="s-load" id="loadLine" x1="0" y1="0" x2="0" y2="0"/>
+          <path class="s-head" id="loadHead" d=""/>
+          <circle class="s-handle" id="handle" r="10" cx="0" cy="0"/>
+          <text class="s-txt g" id="pTxt" text-anchor="middle">P = 20 kN</text>
+          <text class="s-txt t" id="mTxt" text-anchor="middle">M</text>
+          <!-- اندازه‌گذاری -->
+          <g id="dims">
+            <path class="s-dim" d="M70 338H530M70 331v14M530 331v14"/>
+            <path class="s-dim" id="dMid" d=""/>
+            <text class="s-txt" id="dA" text-anchor="middle" y="326">a</text>
+            <text class="s-txt" id="dB" text-anchor="middle" y="326">b</text>
+          </g>
+        </g>
+        <g class="hintg" aria-hidden="true"><rect x="188" y="172" width="224" height="32" rx="16"/><text id="beamHint" x="300" y="193" text-anchor="middle">بار را روی تیر بکشید  ⟷</text></g>
+      </svg>
+      <div class="read" aria-live="off">
+        <div><small id="beamLeft">واکنش چپ</small><span id="rA">R₁</span></div>
+        <div><small id="beamMoment">لنگر زیر بار</small><span id="rM">M</span></div>
+        <div><small id="beamRight">واکنش راست</small><span id="rB">R₂</span></div>
+      </div>
+      <figcaption class="legend"><span><i style="border-color:var(--gold)"></i><span id="legendLoad">بار متمرکز</span></span><span><i style="border-color:var(--teal)"></i><span id="legendDefl">تغییرشکل (بزرگ‌نمایی‌شده)</span></span><span><i class="f"></i><span id="legendMoment">نمودار لنگر خمشی</span></span></figcaption>
+    </figure>
+  </section>
+
+  <section id="apps" aria-labelledby="appsTitle">
+    <div class="cat-head">
+      <h2 id="appsTitle">برنامه‌ها</h2>
+      <p id="appsHelp">یکی را انتخاب کنید. لینک مستقیم هر برنامه را هم می‌توانید کپی کنید.</p>
+    </div>
+    <div class="bar">
+      <div class="chips" id="chips" role="group" aria-label="دسته‌بندی برنامه‌ها"></div>
+      <label class="search"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><circle cx="11" cy="11" r="7"/><path d="M20 20l-3.5-3.5"/></svg><input id="q" type="search" placeholder="جست‌وجوی برنامه…" autocomplete="off" aria-label="جست‌وجوی برنامه"></label>
+    </div>
+    <div class="grid" id="grid"></div>
+    <div class="empty" id="empty" hidden><b id="emptyTitle">برنامه‌ای پیدا نشد</b><span id="emptyHelp">عبارت دیگری بنویسید یا فیلترها را بردارید.</span><button type="button" id="clear">نمایش همه‌ی برنامه‌ها</button></div>
+  </section>
+
+
+  <section class="article-req" id="articleRequest" aria-labelledby="articleTitle">
+    <div>
+      <div class="article-head"><h2 id="articleTitle">درخواست مقاله از مجلات الزویر</h2><span class="article-price" id="articlePrice">۹۰٬۰۰۰ تومان</span></div>
+      <p id="articleHelp">فقط درخواست مقالات مجلات الزویر (Elsevier) پذیرفته می‌شود. DOI و ایمیل خود را وارد کنید؛ پس از بررسی امکان ارائه قانونی مقاله، نتیجه و نحوه پرداخت اطلاع داده می‌شود.</p>
+    </div>
+    <form class="article-form" id="articleRequestForm" method="post" target="_blank" accept-charset="utf-8">
+      <div class="article-field"><label for="articleDoi" id="articleDoiLabel">DOI مقاله</label><input type="text" id="articleDoi" name="doi" dir="ltr" maxlength="255" placeholder="10.1016/j.example.2025.001" autocomplete="off" required></div>
+      <div class="article-field"><label for="articleEmail" id="articleEmailLabel">ایمیل شما</label><input type="email" id="articleEmail" name="email" dir="ltr" maxlength="254" placeholder="name@example.com" autocomplete="email" required></div>
+      <button class="article-submit" id="articleSubmit" type="submit" disabled>ثبت درخواست</button>
+      <input type="hidden" id="articleLang" name="lang" value="fa">
+      <div class="article-honey" aria-hidden="true"><label for="articleWebsite">Leave blank</label><input id="articleWebsite" name="website" type="text" tabindex="-1" autocomplete="off"></div>
+      <div class="article-foot" id="articleFoot">با ثبت سفارش پرداختی انجام نمی‌شود. رسید ثبت در صفحه‌ای جدید باز خواهد شد.</div>
+      <div class="article-foot" id="articleNotReady">سامانه ثبت سفارش هنوز به Google Sheets متصل نشده است.</div>
+    </form>
+  </section>
+
+  <section class="about" id="about" aria-labelledby="aboutTitle">
+    <div class="about-avatar" id="aboutAvatar" aria-hidden="true"><span>KC</span></div>
+    <div class="about-body">
+      <p class="about-eyebrow" id="aboutEyebrow">درباره من</p>
+      <h2 id="aboutTitle">کامبیز چراغی</h2>
+      <p class="about-role" id="aboutRole"></p>
+      <p class="about-bio" id="aboutBio"></p>
+    </div>
+  </section>
+
+  <section class="contact" id="contact">
+    <div>
+      <h2 id="contactTitle">مشکلی دیدید یا پیشنهادی دارید؟</h2>
+      <p id="contactHelp">به من پیام بدهید. گزارش خطا و پیشنهادهای شما مستقیم به بهتر شدن برنامه‌ها کمک می‌کند.</p>
+    </div>
+    <div><div class="links" id="links"></div></div>
+    <div class="share"><button type="button" id="copyPortal"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="9" y="9" width="11" height="11" rx="2"/><path d="M5 15V6a2 2 0 0 1 2-2h9"/></svg><span id="copyPortalLabel">کپی لینک پورتال</span></button></div>
+  </section>
+
+  <footer class="foot"><span id="footerRole">طراحی و تهیه‌کننده: </span><b id="footName"></b><span class="en" lang="en" id="footEn"></span></footer>
+</div>
+<dialog class="idlg" id="idlg" aria-labelledby="idt">
+  <div class="idh"><h2 id="idt">نصب روی دستگاه</h2><button class="idx" type="button" id="idx" aria-label="بستن">✕</button></div>
+  <p class="idsub" id="installSub">با چند لمس، آیکون پورتال کنار برنامه‌های دستگاهتان قرار می‌گیرد و دیگر لازم نیست لینک را پیدا کنید.</p>
+  <div class="idtabs" role="tablist" id="idtabs"></div>
+  <div class="idbody"><ol id="idsteps"></ol></div>
+  <p class="idfoot" id="idfoot"></p>
+</dialog>
+<div class="toast" id="toast" role="status" aria-live="polite"><span></span></div>
+
+<script>
+const D = Object.assign({}, window.PORTAL);
+D.base = location.origin + location.pathname.replace(/[^\/]*$/, '');
+D.apps = (D.apps || []).filter(a => a.enabled !== false);
+/* آمار بازدید (GoatCounter) — فقط وقتی کد در config.js نوشته شده باشد */
+if (D.goatcounter) { const g = document.createElement('script'); g.async = true; g.src = 'https://gc.zgo.at/count.js'; g.dataset.goatcounter = 'https://' + D.goatcounter + '.goatcounter.com/count'; document.head.appendChild(g); }
+const track = (path, title) => { try { window.goatcounter && window.goatcounter.count && window.goatcounter.count({ path: path, title: title, event: true }); } catch (e) {} };
+const $ = s => document.querySelector(s);
+const NS = 'http://www.w3.org/2000/svg';
+let lang = 'fa';
+try { if (localStorage.getItem('portal-language') === 'en') lang = 'en'; } catch (e) {}
+const fa = (n, d = 0) => Number(n).toLocaleString(lang === 'en' ? 'en-US' : 'fa-IR', { minimumFractionDigits: d, maximumFractionDigits: d });
+const esc = s => String(s == null ? '' : s).replace(/[&<>"']/g, c => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[c]));
+const reduce = matchMedia('(prefers-reduced-motion: reduce)').matches;
+const P = D.profile || {}, SITE = D.site || {}, ABOUT = D.about || {};
+
+/* ---------- فارسی / English ---------- */
+const TEXT = {
+  fa: {
+    articleTitle:'درخواست مقاله از مجلات الزویر', articlePrice:'۹۰٬۰۰۰ تومان', articleHelp:'فقط درخواست مقالات مجلات الزویر (Elsevier) پذیرفته می‌شود. DOI و ایمیل خود را وارد کنید؛ پس از بررسی امکان ارائه قانونی مقاله، نتیجه و نحوه پرداخت اطلاع داده می‌شود.',
+    articleDoi:'DOI مقاله', articleEmail:'ایمیل شما', articleSubmit:'ثبت درخواست', articleFoot:'در این مرحله پرداختی انجام نمی‌شود. رسید ثبت در صفحه‌ای جدید باز می‌شود.', articleNotReady:'سامانه ثبت سفارش هنوز به Google Sheets متصل نشده است.', articleBadDoi:'لطفاً یک DOI معتبر وارد کنید (مانند 10.1016/...).',
+    aboutEyebrow:'درباره من', brand:'نرم‌افزارهای مهندسی', appsCount:n=>fa(n)+' برنامه، یک‌جا', install:'نصب روی دستگاه', contact:'تماس با من',
+    lightTheme:'پوسته‌ی روشن', darkTheme:'پوسته‌ی تیره', authorRole:'طراحی و تهیه‌کننده', footerRole:'طراحی و تهیه‌کننده: ',
+    privacy:'همه‌ی محاسبات در مرورگر شما انجام می‌شود و هیچ داده‌ای به جایی ارسال نمی‌شود.',
+    beamLabel:'جای بار روی تیر ساده', beamHint:'بار را روی تیر بکشید  ⟷', beamLeft:'واکنش چپ', beamMoment:'لنگر زیر بار', beamRight:'واکنش راست',
+    legendLoad:'بار متمرکز', legendDefl:'تغییرشکل (بزرگ‌نمایی‌شده)', legendMoment:'نمودار لنگر خمشی',
+    appsTitle:'برنامه‌ها', appsHelp:'یکی را انتخاب کنید. لینک مستقیم هر برنامه را هم می‌توانید کپی کنید.', categories:'دسته‌بندی برنامه‌ها',
+    search:'جست‌وجوی برنامه…', emptyTitle:'برنامه‌ای پیدا نشد', emptyHelp:'عبارت دیگری بنویسید یا فیلترها را بردارید.', clear:'نمایش همه‌ی برنامه‌ها',
+    contactTitle:'مشکلی دیدید یا پیشنهادی دارید؟', contactHelp:'به من پیام بدهید. گزارش خطا و پیشنهادهای شما مستقیم به بهتر شدن برنامه‌ها کمک می‌کند.',
+    shareTitle:'این پورتال را با دیگران به اشتراک بگذارید', shareHelp:'یک لینک، همه‌ی برنامه‌ها را برای دوستان و هم‌کلاسی‌ها باز می‌کند.',
+    copyPortal:'کپی لینک پورتال', report:'گزارش خطا یا پیشنهاد',
+    dialogTitle:'نصب روی دستگاه', dialogSub:'با چند لمس، آیکون پورتال کنار برنامه‌های دستگاهتان قرار می‌گیرد و دیگر لازم نیست لینک را پیدا کنید.',
+    dialogClose:'بستن', installed:'نصب شد', all:'همه', enter:'ورود به برنامه', enterAria:'ورود به ', copyDirect:'کپی لینک مستقیم',
+    copyPrompt:'این لینک را کپی کنید:', copiedPortal:'لینک پورتال کپی شد', copiedApp:title=>'لینک «'+title+'» کپی شد',
+    installExtra:' برای ساخت میان‌بر یک برنامه‌ی خاص، همین کار را از داخل همان برنامه انجام دهید.',
+    beamValue:(a,m)=>'بار در فاصله‌ی '+fa(a,1)+' متری از تکیه‌گاه چپ؛ لنگر '+fa(m,1)+' کیلونیوتن‌متر',
+    metaTitle:'آزمایشگاه نرم‌افزارهای مهندسی',
+    metaDesc:'نرم‌افزارهای مهندسی سازه، بتن و ریاضی — طراحی و تهیه‌کننده: کامبیز چراغی (Kambiz Cheraghi)',
+    ogDesc:'تحلیل سازه، بتن، مقطع و ریاضیات مهندسی؛ همه در مرورگر شما، بدون نصب و ثبت‌نام.'
+  },
+  en: {
+    articleTitle:'Request an Elsevier Journal Article', articlePrice:'90,000 toman', articleHelp:'Only articles published in Elsevier journals are eligible. Enter the DOI and your email; we will check whether lawful access and sharing are possible and email you the result and payment instructions.',
+    articleDoi:'Article DOI', articleEmail:'Your email', articleSubmit:'Submit request', articleFoot:'No payment is collected now. Your confirmation will open in a new tab.', articleNotReady:'The request form is not connected to Google Sheets yet.', articleBadDoi:'Please enter a valid DOI (e.g., 10.1016/...).',
+    aboutEyebrow:'About me', brand:'Engineering Software', appsCount:n=>fa(n)+' apps in one place', install:'Install app', contact:'Contact me',
+    lightTheme:'Light mode', darkTheme:'Dark mode', authorRole:'Designed & developed by', footerRole:'Designed & developed by: ',
+    privacy:'All calculations run in your browser; no calculation data is sent elsewhere.',
+    beamLabel:'Position of the load on a simply supported beam', beamHint:'Drag the load along the beam  ⟷', beamLeft:'Left reaction', beamMoment:'Moment under load', beamRight:'Right reaction',
+    legendLoad:'Point load', legendDefl:'Deflection (magnified)', legendMoment:'Bending moment diagram',
+    appsTitle:'Applications', appsHelp:'Choose a tool. You can also copy a direct link to any application.', categories:'Application categories',
+    search:'Search applications…', emptyTitle:'No applications found', emptyHelp:'Try another search or clear the filters.', clear:'Show all applications',
+    contactTitle:'Found an issue or have a suggestion?', contactHelp:'Send me a message. Your bug reports and feedback help improve these tools.',
+    shareTitle:'Share this portal', shareHelp:'One link gives your friends and classmates access to all the applications.',
+    copyPortal:'Copy portal link', report:'Report a bug or suggest a feature',
+    dialogTitle:'Install on your device', dialogSub:'Add the portal to your home screen or desktop so it is always easy to find.',
+    dialogClose:'Close', installed:'Installed', all:'All', enter:'Open application', enterAria:'Open ', copyDirect:'Copy direct link',
+    copyPrompt:'Copy this link:', copiedPortal:'Portal link copied', copiedApp:title=>'Link to “'+title+'” copied',
+    installExtra:' To create a shortcut for an individual application, follow the same steps from inside that application.',
+    beamValue:(a,m)=>'Load '+fa(a,1)+' m from the left support; moment '+fa(m,1)+' kN·m',
+    metaTitle:'Engineering Software Laboratory',
+    metaDesc:'Structural engineering, concrete, and mathematics tools — designed and developed by Kambiz Cheraghi.',
+    ogDesc:'Structural analysis, concrete design, section properties, and engineering mathematics — directly in your browser.'
+  }
+};
+const tr = key => TEXT[lang][key];
+const localField = (obj, key) => {
+  if (!obj) return '';
+  const v = obj[key];
+  if (lang === 'en') {
+    const en = obj[key+'En'] ?? obj[key+'_en'] ?? (v && !Array.isArray(v) && typeof v === 'object' ? v.en : undefined);
+    if (en !== undefined && en !== null && en !== '') return en;
+  }
+  return v && !Array.isArray(v) && typeof v === 'object' ? (v.fa ?? v.en ?? '') : (v ?? '');
+};
+const CAT_EN = {
+  'همه':'All', 'سازه':'Structures', 'تحلیل سازه':'Structural Analysis', 'سازه‌ها':'Structures',
+  'بتن':'Concrete', 'بتن آرمه':'Reinforced Concrete', 'مقاطع':'Sections', 'مقطع':'Sections',
+  'ریاضی':'Mathematics', 'ریاضیات':'Mathematics', 'ریاضیات مهندسی':'Engineering Mathematics',
+  'دینامیک':'Dynamics', 'زلزله':'Earthquake Engineering', 'مهندسی زلزله':'Earthquake Engineering',
+  'محاسبات':'Calculations', 'سایر':'Other', 'سایر برنامه‌ها':'Other Applications'
+};
+const catName = c => lang === 'en' ? (localField(c,'name') === c.name ? (CAT_EN[c.name] || c.name) : localField(c,'name')) : localField(c,'name');
+const appTags = a => { const v = localField(a,'tags'); return Array.isArray(v) ? v : []; };
+function refreshThemeLabel() { $('#themeTxt').textContent = tr(document.documentElement.dataset.theme === 'dark' ? 'lightTheme' : 'darkTheme'); }
+function setLang(next) {
+  lang = next === 'en' ? 'en' : 'fa';
+  document.documentElement.lang = lang;
+  document.documentElement.dir = lang === 'en' ? 'ltr' : 'rtl';
+  try { localStorage.setItem('portal-language',lang); } catch (e) {}
+  $('#langTxt').textContent = lang === 'fa' ? 'EN' : 'FA';
+  $('#langBtn').setAttribute('aria-label',lang === 'fa' ? 'Switch to English' : 'تغییر زبان به فارسی');
+  $('#langBtn').title = lang === 'fa' ? 'Switch to English' : 'تغییر زبان به فارسی';
+  $('#brandTitle').textContent = tr('brand');
+  $('#brandSub').textContent = (D.apps||[]).length ? tr('appsCount')((D.apps||[]).length) : '';
+  $('#installLabel').textContent = tr('install');
+  $('#contactLabel').textContent = tr('contact');
+  refreshThemeLabel();
+  const tit = localField(SITE,'title') || tr('metaTitle');
+  const lead = localField(SITE,'lead');
+  const hasTitleEn = SITE.titleEn || SITE.title_en || (SITE.title && SITE.title.en);
+  const hasLeadEn = SITE.leadEn || SITE.lead_en || (SITE.lead && SITE.lead.en);
+  $('#siteTitle').textContent = lang === 'en' && !hasTitleEn ? tr('metaTitle') : tit;
+  $('#siteLead').textContent = lang === 'en' && !hasLeadEn
+    ? 'Interactive tools for structural analysis, reinforced concrete, section properties, and engineering mathematics — directly in your browser.'
+    : lead;
+  const mainName = lang === 'en' ? (P.nameEn || P.nameFa || '') : (P.nameFa || P.nameEn || '');
+  const otherName = lang === 'en' ? (P.nameFa || '') : (P.nameEn || '');
+  $('#nameFa').textContent = mainName;
+  $('#nameEn').textContent = otherName;
+  $('#nameEn').dir = lang === 'en' ? 'rtl' : 'ltr';
+  $('#footName').textContent = mainName;
+  $('#footEn').textContent = otherName;
+  $('#footEn').dir = lang === 'en' ? 'rtl' : 'ltr';
+  $('#articleTitle').textContent = tr('articleTitle');
+  $('#articlePrice').textContent = tr('articlePrice');
+  $('#articleHelp').textContent = tr('articleHelp');
+  $('#articleDoiLabel').textContent = tr('articleDoi');
+  $('#articleEmailLabel').textContent = tr('articleEmail');
+  $('#articleSubmit').textContent = tr('articleSubmit');
+  $('#articleFoot').textContent = tr('articleFoot');
+  $('#articleNotReady').textContent = tr('articleNotReady');
+  $('#articleLang').value = lang;
+  $('#aboutEyebrow').textContent = tr('aboutEyebrow');
+  $('#aboutTitle').textContent = mainName;
+  $('#aboutRole').textContent = localField(ABOUT,'role');
+  $('#aboutBio').textContent = localField(ABOUT,'bio');
+  $('#authorRole').textContent = tr('authorRole');
+  $('.author-badge').setAttribute('aria-label',tr('authorRole')+': '+mainName);
+  $('#footerRole').textContent = tr('footerRole');
+  $('#privacyNote').textContent = tr('privacy');
+  $('#beam').setAttribute('aria-label',tr('beamLabel'));
+  $('#beamHint').textContent = tr('beamHint');
+  $('#beamLeft').textContent = tr('beamLeft');
+  $('#beamMoment').textContent = tr('beamMoment');
+  $('#beamRight').textContent = tr('beamRight');
+  $('#legendLoad').textContent = tr('legendLoad');
+  $('#legendDefl').textContent = tr('legendDefl');
+  $('#legendMoment').textContent = tr('legendMoment');
+  $('#appsTitle').textContent = tr('appsTitle');
+  $('#appsHelp').textContent = tr('appsHelp');
+  $('#chips').setAttribute('aria-label',tr('categories'));
+  $('#q').placeholder = tr('search');
+  $('#q').setAttribute('aria-label',tr('search'));
+  $('#emptyTitle').textContent = tr('emptyTitle');
+  $('#emptyHelp').textContent = tr('emptyHelp');
+  $('#clear').textContent = tr('clear');
+  $('#copyPortalLabel').textContent = tr('copyPortal');
+  $('#idt').textContent = tr('dialogTitle');
+  $('#installSub').textContent = tr('dialogSub');
+  $('#idx').setAttribute('aria-label',tr('dialogClose'));
+  document.title = mainName+' | '+$('#siteTitle').textContent;
+  document.querySelector('meta[name="description"]').content = tr('metaDesc');
+  document.querySelector('meta[property="og:title"]').content = document.title;
+  document.querySelector('meta[property="og:description"]').content = tr('ogDesc');
+  if (typeof renderCards === 'function') renderCards();
+  if (typeof renderChips === 'function') renderChips();
+  if (typeof applyFilter === 'function') applyFilter();
+  if (typeof refreshContact === 'function') refreshContact();
+  if (typeof refreshInstall === 'function') refreshInstall();
+  window.dispatchEvent(new Event('portal-languagechange'));
+}
+$('#langBtn').addEventListener('click', () => setLang(lang === 'fa' ? 'en' : 'fa'));
+
+/* ---------- پوسته ---------- */
+(function () {
+  const root = document.documentElement;
+  let saved = null; try { saved = localStorage.getItem('portal-theme'); } catch (e) {}
+  const apply = t => { root.dataset.theme = t; refreshThemeLabel(); };
+  apply(saved || (matchMedia('(prefers-color-scheme: light)').matches ? 'light' : 'dark'));
+  $('#themeBtn').onclick = () => { const t = root.dataset.theme === 'dark' ? 'light' : 'dark'; apply(t); try { localStorage.setItem('portal-theme', t); } catch (e) {} };
+})();
+
+/* ---------- متن‌ها توسط setLang به‌روز می‌شوند ---------- */
+
+/* ---------- آیکن‌ها (خط‌طرح مهندسی) ---------- */
+const S = (inner) => '<svg viewBox="0 0 64 64" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">' + inner + '</svg>';
+const ICONS = {
+  beam: S('<path d="M8 28C22 40 42 40 56 28"/><path d="M8 28l-6 12h12zM56 28l0 0"/><circle cx="56" cy="33" r="5"/><path d="M32 6v26M26 25l6 7 6-7"/><path d="M2 44h12M50 40h12"/>'),
+  frame: S('<path d="M16 54V22M48 54V22M10 22h44"/><circle cx="16" cy="22" r="2.6"/><circle cx="48" cy="22" r="2.6"/><path d="M10 54h12M42 54h12"/><path d="M2 22h8M6 18l4 4-4 4"/><path d="M16 22l32 32" stroke-dasharray="3 4" opacity=".6"/>'),
+  truss: S('<path d="M6 46h52M18 24h28M6 46l12-22 14 22 14-22 12 22"/><circle cx="6" cy="46" r="2.4"/><circle cx="18" cy="24" r="2.4"/><circle cx="32" cy="46" r="2.4"/><circle cx="46" cy="24" r="2.4"/><circle cx="58" cy="46" r="2.4"/><path d="M6 46l-5 9h10zM58 46l-4 9h8"/>'),
+  dynamics: S('<path d="M8 8h48"/><path d="M22 8v6l7 4-14 6 14 6-14 6 7 4v4"/><path d="M44 8v16M38 24h12M40 24v14h8V24"/><rect x="12" y="44" width="40" height="14" rx="3"/><path d="M4 51h4M56 51h4" opacity=".7"/>'),
+  buckling: S('<path d="M32 3v11M27 9l5 6 5-6"/><path d="M32 16C46 26 46 42 32 54"/><path d="M32 54l-8 9h16z"/><path d="M32 16v38" stroke-dasharray="3 4" opacity=".55"/>'),
+  concrete: S('<rect x="12" y="8" width="40" height="48" rx="2.5"/><rect x="18" y="14" width="28" height="36" rx="2" stroke-dasharray="4 3" opacity=".7"/><circle cx="25" cy="43" r="3.3" fill="currentColor"/><circle cx="32" cy="43" r="3.3" fill="currentColor"/><circle cx="39" cy="43" r="3.3" fill="currentColor"/><circle cx="25" cy="21" r="2.3" fill="currentColor"/><circle cx="39" cy="21" r="2.3" fill="currentColor"/>'),
+  section: S('<path d="M14 10h36v9H37v26h13v9H14v-9h13V19H14z"/><circle cx="32" cy="32" r="3"/><path d="M6 32h52M32 4v56" stroke-dasharray="2 4" opacity=".6"/>'),
+  calculus: S('<path d="M40 8c-8-5-12 0-12 9v26c0 9-4 14-12 9"/><path d="M8 55c5-9 10-9 15 0s10 9 15 0 10-9 18 0" opacity=".6"/>'),
+  seismic: S('<path d="M9 45V24h13V11l18 5v29M40 22h14v23" fill="currentColor" fill-opacity=".10"/><path d="M6 45h52M29 21h4m-4 7h4m-4 7h4m-4 7h4M15 31h2m-2 7h2m30-9h2m-2 7h2" opacity=".84"/><path data-seismic-wave="" d="M7 54h11l4-5 5 11 5-12 5 6h7l4-3 4 3h5" stroke="#c58a43" stroke-width="2.6"/>'),
+  grid: S('<rect x="10" y="10" width="44" height="44" rx="6"/><path d="M10 32h44M32 10v44"/>')
+};
+const ICO = {
+  msg: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 5h16v11H9l-5 4z"/></svg>',
+  go: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M15 6l-6 6 6 6"/></svg>',
+  copy: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10 14a4 4 0 0 0 5.7 0l3-3a4 4 0 0 0-5.7-5.7l-1 1"/><path d="M14 10a4 4 0 0 0-5.7 0l-3 3a4 4 0 0 0 5.7 5.7l1-1"/></svg>',
+  mail: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 6h16v12H4z"/><path d="M4 7l8 6 8-6"/></svg>',
+  tg: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 4L3 11l6 2.5L11 20l3-4 4.5 3.5z"/><path d="M9 13.5L21 4"/></svg>',
+  ig: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="4" y="4" width="16" height="16" rx="5"/><circle cx="12" cy="12" r="3.6"/><circle cx="17" cy="7" r=".6" fill="currentColor"/></svg>',
+  in: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="4" y="4" width="16" height="16" rx="3"/><path d="M8 10v6M8 7.5v.1M12 16v-6M12 12.5c0-1.5 1-2.5 2.5-2.5S17 11 17 12.5V16"/></svg>',
+  web: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/><path d="M3 12h18M12 3c3 3.2 3 14.8 0 18M12 3c-3 3.2-3 14.8 0 18"/></svg>'
+};
+
+/* ---------- کارت‌ها ---------- */
+const cats = D.cats || [];
+const catOf = id => cats.find(c => c.id === id) || { id, name: '', color: 'teal' };
+const linkOf = a => D.base + encodeURIComponent(a.id) + '/';
+
+function toast(msg) {
+  const t = $('#toast'); t.firstElementChild.textContent = msg; t.classList.add('on');
+  clearTimeout(toast.h); toast.h = setTimeout(() => t.classList.remove('on'), 1900);
+}
+async function copyText(text, okMsg) {
+  try { await navigator.clipboard.writeText(text); toast(okMsg); return; } catch (e) {}
+  try {
+    const ta = document.createElement('textarea'); ta.value = text; ta.setAttribute('readonly', '');
+    ta.style.cssText = 'position:fixed;top:0;left:0;opacity:0'; document.body.appendChild(ta); ta.select();
+    const ok = document.execCommand('copy'); ta.remove();
+    if (ok) { toast(okMsg); return; }
+  } catch (e) {}
+  window.prompt(tr('copyPrompt'), text);
+}
+
+
+/* ---------- نصب روی دستگاه ---------- */
+const installDevice = (() => {
+  const ua = navigator.userAgent || '';
+  const isIOS = /iPhone|iPad|iPod/.test(ua) || (/Macintosh/.test(ua) && navigator.maxTouchPoints > 1);
+  const isAnd = /Android/.test(ua);
+  const dev0 = isIOS ? 'ios' : isAnd ? 'android' : 'desktop';
+  const br = /Edg\//.test(ua) ? 'edge' : /Firefox|FxiOS/.test(ua) ? 'ff' : 'chrome';
+  const B = t => '<bdi>' + t + '</bdi>';
+  const DEV = {
+    fa: {
+      ios: { name:'آیفون و آیپد', steps:[
+        'در مرورگر ' + B('Safari') + ' دکمه‌ی اشتراک‌گذاری (مربع با فلش رو به بالا) را بزنید.',
+        'کمی پایین بروید و ' + B('Add to Home Screen') + ' را بزنید.',
+        B('Add') + ' را بزنید. آیکون روی صفحه‌ی اصلی ساخته می‌شود.'],
+        foot:'اگر دکمه‌ی اشتراک‌گذاری را نمی‌بینید، صفحه را در Safari باز کنید.' },
+      android: { name:'اندروید', steps:[
+        'در ' + B('Chrome') + ' منوی سه‌نقطه (⋮) بالای صفحه را باز کنید.',
+        B('Add to Home screen') + ' یا ' + B('Install app') + ' را بزنید.',
+        B('Add') + ' را بزنید. آیکون روی صفحه‌ی اصلی ساخته می‌شود.'],
+        foot:'اگر چنین گزینه‌ای نبود، صفحه را در Chrome باز کنید.' },
+      desktop: { name:'کامپیوتر', steps: br === 'edge' ? [
+        'منوی سه‌نقطه (⋯) بالا سمت راست را باز کنید.',
+        B('Apps') + ' ← ' + B('Install this site as an app') + ' را بزنید.',
+        B('Install') + ' را بزنید. برنامه در Start و Desktop قرار می‌گیرد.'] : br === 'ff' ? [
+        'کلیدهای ' + B('Ctrl + D') + ' را بزنید.',
+        B('Done') + ' را بزنید تا صفحه در نشانک‌ها ذخیره شود.',
+        'برای نصب واقعی، پورتال را در ' + B('Chrome') + ' یا ' + B('Edge') + ' باز کنید.'] : [
+        'منوی سه‌نقطه (⋮) بالا سمت راست را باز کنید.',
+        B('Cast, save and share') + ' ← ' + B('Create shortcut') + ' را بزنید.',
+        'تیک ' + B('Open as window') + ' را بزنید و ' + B('Create') + ' را بزنید.'],
+        foot:'در ویندوز، میان‌بر در Desktop و Start هم قرار می‌گیرد.' }
+    },
+    en: {
+      ios: { name:'iPhone & iPad', steps:[
+        'Open this portal in ' + B('Safari') + ' and tap Share (the square with an upward arrow).',
+        'Scroll down and choose ' + B('Add to Home Screen') + '.',
+        'Tap ' + B('Add') + '. The icon will appear on your Home Screen.'],
+        foot:'If Share is missing, open this page in Safari.' },
+      android: { name:'Android', steps:[
+        'Open the three-dot (⋮) menu in ' + B('Chrome') + '.',
+        'Select ' + B('Add to Home screen') + ' or ' + B('Install app') + '.',
+        'Tap ' + B('Add') + ' to place the icon on your home screen.'],
+        foot:'If you cannot find this option, try opening the page in Chrome.' },
+      desktop: { name:'Desktop', steps: br === 'edge' ? [
+        'Open the three-dot (⋯) menu in the top-right corner.',
+        'Choose ' + B('Apps') + ' → ' + B('Install this site as an app') + '.',
+        'Click ' + B('Install') + ' to create an installed app.'] : br === 'ff' ? [
+        'Press ' + B('Ctrl + D') + ' to bookmark this page.',
+        'Click ' + B('Done') + ' to save your bookmark.',
+        'For an installed app experience, open the portal in ' + B('Chrome') + ' or ' + B('Edge') + '.'] : [
+        'Open the three-dot (⋮) menu in the top-right corner.',
+        'Select ' + B('Cast, save and share') + ' → ' + B('Create shortcut') + '.',
+        'Enable ' + B('Open as window') + ' and click ' + B('Create') + '.'],
+        foot:'A desktop or Start Menu shortcut may be created, depending on your browser.' }
+    }
+  };
+  const dlg = $('#idlg'), tabs = $('#idtabs'), steps = $('#idsteps'), foot = $('#idfoot');
+  let selected = dev0, dp = null;
+  function show(k) {
+    selected = k;
+    [...tabs.children].forEach(b => b.setAttribute('aria-selected', b.dataset.k === k ? 'true' : 'false'));
+    steps.innerHTML = DEV[lang][k].steps.map(t => '<li><span>' + t + '</span></li>').join('');
+    foot.textContent = (DEV[lang][k].foot || '') + tr('installExtra');
+  }
+  function refresh() {
+    tabs.innerHTML = '';
+    Object.keys(DEV[lang]).forEach(k => {
+      const b = document.createElement('button'); b.type = 'button'; b.dataset.k = k; b.setAttribute('role', 'tab');
+      b.textContent = DEV[lang][k].name; b.onclick = () => show(k); tabs.appendChild(b);
+    });
+    show(selected);
+  }
+  function open() { refresh(); try { dlg.showModal(); } catch (e) { dlg.setAttribute('open',''); } }
+  function close() { try { dlg.close(); } catch (e) { dlg.removeAttribute('open'); } }
+  window.addEventListener('beforeinstallprompt',e => { e.preventDefault(); dp = e; });
+  window.addEventListener('appinstalled',() => { dp = null; toast(tr('installed')); $('#installBtn').style.display = 'none'; });
+  if ((window.matchMedia && matchMedia('(display-mode: standalone)').matches) || navigator.standalone) $('#installBtn').style.display = 'none';
+  $('#installBtn').onclick = () => { if(dp) { const p=dp; dp=null; p.prompt(); } else open(); };
+  $('#idx').onclick = close;
+  dlg.addEventListener('click',e => { if(e.target === dlg) close(); });
+  return { refresh };
+})();
+const refreshInstall = () => installDevice.refresh();
+
+
+const grid = $('#grid');
+const norm = s => String(s).replace(/[٠-٩]/g, d => d.charCodeAt(0) - 1632).replace(/[۰-۹]/g, d => d.charCodeAt(0) - 1776)
+  .replace(/ي/g, 'ی').replace(/ك/g, 'ک').replace(/[‌‍]/g, ' ').toLowerCase().trim();
+let curCat = 'all', curQ = '';
+const chips = $('#chips');
+const countIn = id => (D.apps || []).filter(a => id === 'all' || a.cat === id).length;
+function renderCards() {
+  grid.innerHTML = '';
+  (D.apps||[]).forEach(a => {
+    const c = catOf(a.cat), el = document.createElement('article');
+    const title = localField(a,'title'), desc = localField(a,'desc'), badge = localField(a,'badge');
+    const tags = appTags(a);
+    el.className = 'sheet c-' + c.color; el.dataset.cat = a.cat;
+    const searchText = [a.title,a.titleEn,a.desc,a.descEn,JSON.stringify(a.tags||[]),JSON.stringify(a.tagsEn||[]),c.name,c.nameEn]
+      .filter(Boolean).join(' ');
+    el.dataset.s = searchText.toLowerCase();
+    el.innerHTML =
+      '<a class="stretch" href="' + esc(linkOf(a)) + '" aria-label="' + esc(tr('enterAria') + title) + '"></a>' +
+      '<div class="s-top"><div class="s-ic">' + (ICONS[a.icon] || ICONS.grid) + '</div></div>' +
+      '<h3>' + esc(title) + (badge ? '<span class="badge">' + esc(badge) + '</span>' : '') + '</h3><p>' + esc(desc) + '</p>' +
+      '<ul class="tags">' + tags.map(v => '<li>' + esc(v) + '</li>').join('') + '</ul>' +
+      '<div class="tblock"><span class="cell"><i class="dot"></i>' + esc(catName(c)) + '</span><span class="cell go">' + esc(tr('enter')) + ICO.go + '</span></div>' +
+      '<button class="cp" type="button" title="' + esc(tr('copyDirect')) + '" aria-label="' + esc(tr('copyDirect') + ': ' + title) + '">' + ICO.copy + '</button>';
+    el.querySelector('.stretch').addEventListener('click', () => track('open/' + a.id, title));
+    el.querySelector('.cp').onclick = ev => { ev.preventDefault(); copyText(linkOf(a), tr('copiedApp')(title)); };
+    grid.appendChild(el);
+  });
+}
+function renderChips() {
+  chips.innerHTML = [{ id:'all', name:tr('all') }].concat(cats.filter(c => countIn(c.id))).map(c =>
+    '<button class="chip" type="button" data-c="' + esc(c.id) + '" aria-pressed="' + (c.id === curCat) + '">' + esc(c.id==='all'?tr('all'):catName(c)) + '<b>' + fa(countIn(c.id)) + '</b></button>').join('');
+}
+chips.onclick = e => { const b = e.target.closest('.chip'); if (!b) return; curCat = b.dataset.c; chips.querySelectorAll('.chip').forEach(x => x.setAttribute('aria-pressed', x === b)); applyFilter(); };
+$('#q').addEventListener('input', e => { curQ = norm(e.target.value); applyFilter(); });
+$('#clear').onclick = () => { curCat = 'all'; curQ = ''; $('#q').value = ''; chips.querySelectorAll('.chip').forEach(x => x.setAttribute('aria-pressed', x.dataset.c === 'all')); applyFilter(); };
+function applyFilter() {
+  const toks = curQ ? curQ.split(/\s+/) : []; let n = 0;
+  grid.querySelectorAll('.sheet').forEach(el => {
+    const ok = (curCat === 'all' || el.dataset.cat === curCat) && toks.every(t => norm(el.dataset.s).includes(t));
+    el.hidden = !ok; if (ok) n++;
+  });
+  $('#empty').hidden = n > 0;
+}
+
+
+/* ---------- تماس ---------- */
+const refreshContact = (() => {
+  const url = (v, base) => /^https?:\/\//i.test(v) ? v : base + v.replace(/^@/, '');
+  const box = $('#links');
+  $('#copyPortal').onclick = () => copyText(D.base || location.href, tr('copiedPortal'));
+  return () => {
+    const items = [];
+    if (P.email) items.push([ICO.mail, P.email, 'mailto:' + P.email]);
+    if (P.telegram) items.push([ICO.tg, '@' + P.telegram.replace(/^@/, ''), url(P.telegram,'https://t.me/')]);
+    if (P.instagram) items.push([ICO.ig, '@' + P.instagram.replace(/^@/, ''), url(P.instagram,'https://instagram.com/')]);
+    if (P.linkedin) items.push([ICO.in, 'LinkedIn', url(P.linkedin,'https://www.linkedin.com/in/')]);
+    if (P.website) items.push([ICO.web, P.website.replace(/^https?:\/\//i, ''), url(P.website,'https://')]);
+    if (P.googleScholar) items.push([ICO.web, 'Google Scholar', P.googleScholar]);
+    if (P.orcid) items.push([ICO.web, 'ORCID', P.orcid]);
+    if (D.feedbackUrl) items.unshift([ICO.msg, tr('report'), D.feedbackUrl]);
+    const contact = $('#contact');
+    contact.classList.toggle('nolinks', !items.length);
+    box.parentElement.hidden = !items.length;
+    $('#contactBtn').hidden = !items.length;
+    $('#contactTitle').textContent = tr(items.length?'contactTitle':'shareTitle');
+    $('#contactHelp').textContent = tr(items.length?'contactHelp':'shareHelp');
+    box.innerHTML = items.map(i => '<a href="' + esc(i[2]) + '" target="_blank" rel="noopener noreferrer">' + i[0] + '<span>' + esc(i[1]) + '</span></a>').join('');
+  };
+})();
+
+
+/* ---------- صحنه‌ی تیر: بار را بکشید ---------- */
+(function () {
+  const svg = $('#beam'), stage = $('#stage');
+  const X0 = 70, X1 = 530, LEN = X1 - X0, Y0 = 118, MY = 238, DEF = 40, MH = 66, TOTAL = 6, LOAD = 20;
+  const el = id => document.getElementById(id);
+  const defl = (x, a) => { const b = 1 - a; return (x <= a ? b * x * (1 - b * b - x * x) : a * (1 - x) * (1 - a * a - (1 - x) * (1 - x))) / 0.125; };
+  const px = f => X0 + f * LEN;
+  let a = 0.38, auto = !reduce, t0 = performance.now(), visible = true, drag = false, hover = false, resume = 0, lastTxt = '';
+
+  function draw() {
+    // تیر خم‌شده
+    let d = '';
+    for (let i = 0; i <= 90; i++) { const f = i / 90; d += (i ? 'L' : 'M') + px(f).toFixed(1) + ' ' + (Y0 + DEF * defl(f, a)).toFixed(1); }
+    el('defl').setAttribute('d', d);
+    // بار
+    const xa = px(a), tip = Y0 + DEF * defl(a, a) - 5, tail = tip - 84;
+    const L = el('loadLine'); L.setAttribute('x1', xa); L.setAttribute('x2', xa); L.setAttribute('y1', tail + 6); L.setAttribute('y2', tip - 12);
+    el('loadHead').setAttribute('d', 'M' + xa + ' ' + tip + 'L' + (xa - 8) + ' ' + (tip - 15) + 'L' + (xa + 8) + ' ' + (tip - 15) + 'Z');
+    const h = el('handle'); h.setAttribute('cx', xa); h.setAttribute('cy', tail);
+    const pt = el('pTxt'); pt.setAttribute('x', Math.min(Math.max(xa, 110), 490)); pt.setAttribute('y', tail - 18);
+    // نمودار لنگر
+    const mh = MH * 4 * a * (1 - a);
+    el('mpoly').setAttribute('d', 'M' + X0 + ' ' + MY + 'L' + xa + ' ' + (MY + mh) + 'L' + X1 + ' ' + MY + 'Z');
+    el('link').setAttribute('d', 'M' + xa + ' ' + (tip + 6) + 'V' + (MY + mh));
+    const mt = el('mTxt'); mt.setAttribute('x', xa + (a > .5 ? -16 : 16)); mt.setAttribute('y', MY + mh * .62 + 5);
+    // اندازه‌گذاری
+    el('dMid').setAttribute('d', 'M' + xa + ' 331v14');
+    el('dA').setAttribute('x', (X0 + xa) / 2); el('dB').setAttribute('x', (xa + X1) / 2);
+    const A = a * TOTAL, B = TOTAL - A, R1 = LOAD * B / TOTAL, R2 = LOAD * A / TOTAL, M = LOAD * A * B / TOTAL;
+    const txt = A.toFixed(1) + '|' + M.toFixed(0);
+    if (txt !== lastTxt) {
+      lastTxt = txt;
+      el('dA').textContent = 'a = ' + fa(A, 1) + ' m'; el('dB').textContent = 'b = ' + fa(B, 1) + ' m';
+      el('rA').textContent = 'R₁ = ' + fa(R1, 1) + ' kN'; el('rB').textContent = 'R₂ = ' + fa(R2, 1) + ' kN';
+      el('rM').textContent = 'M = ' + fa(M, 1) + ' kN·m';
+      svg.setAttribute('aria-valuenow', Math.round(a * 100));
+      svg.setAttribute('aria-valuetext', tr('beamValue')(A,M));
+    }
+  }
+  const toA = ev => { const r = svg.getBoundingClientRect(); return Math.min(.94, Math.max(.06, ((ev.clientX - r.left) / r.width * 600 - X0) / LEN)); };
+  const used = () => { stage.classList.add('used'); auto = false; clearTimeout(resume); };
+  const later = ms => { clearTimeout(resume); if (!reduce) resume = setTimeout(() => { if (!drag && !hover) { auto = true; t0 = performance.now() - Math.asin((a - .5) / .33) * 1900; } }, ms); };
+  svg.addEventListener('pointerdown', e => { drag = true; used(); try { svg.setPointerCapture(e.pointerId); } catch (x) {} a = toA(e); draw(); });
+  svg.addEventListener('pointermove', e => { if (drag || e.pointerType === 'mouse') { if (!drag) { hover = true; used(); } a = toA(e); draw(); } });
+  svg.addEventListener('pointerup', () => { drag = false; later(3500); });
+  svg.addEventListener('pointercancel', () => { drag = false; later(3500); });
+  svg.addEventListener('pointerleave', e => { if (e.pointerType === 'mouse') { hover = false; later(1800); } });
+  svg.addEventListener('keydown', e => {
+    const k = e.key === 'ArrowLeft' || e.key === 'ArrowDown' ? -1 : e.key === 'ArrowRight' || e.key === 'ArrowUp' ? 1 : 0;
+    if (!k) return; e.preventDefault(); used(); a = Math.min(.94, Math.max(.06, a + k * .03)); draw(); later(6000);
+  });
+  if ('IntersectionObserver' in window) new IntersectionObserver(es => { visible = es[0].isIntersecting; }).observe(stage);
+  function tick(now) {
+    if (auto && visible && !document.hidden) { a = .5 + .33 * Math.sin((now - t0) / 1900); draw(); }
+    requestAnimationFrame(tick);
+  }
+  window.addEventListener('portal-languagechange', () => { lastTxt = ''; draw(); });
+  draw(); requestAnimationFrame(tick);
+})();
+/* عکس بخش «درباره من» از فیلد photo در config.js خوانده می‌شود. */
+(function(){
+  if (!P.photo) return;
+  const holder = $('#aboutAvatar');
+  const img = document.createElement('img');
+  img.alt = '';
+  img.loading = 'lazy';
+  holder.appendChild(img);
+  img.src = P.photo;
+  const initials = holder.querySelector('span');
+  if (initials) initials.hidden = true;
+  img.onerror = () => { img.remove(); if (initials) initials.hidden = false; };
+})();
+
+
+/* درخواست مقاله: ارسال به Google Apps Script؛ بدون افزودن سرویس یا کلید مخفی به GitHub */
+(function(){
+  const form = $('#articleRequestForm');
+  const submit = $('#articleSubmit');
+  const notReady = $('#articleNotReady');
+  const endpoint = String(D.orderFormUrl || '').trim();
+  const configured = /^https:\/\/script\.google\.com\/macros\/s\/[a-zA-Z0-9_-]+\/exec(?:\?.*)?$/.test(endpoint);
+  if (configured) { form.action = endpoint; submit.disabled = false; notReady.hidden = true; }
+  else { submit.disabled = true; notReady.hidden = false; }
+  form.addEventListener('submit', ev => {
+    if (!configured) { ev.preventDefault(); return; }
+    const doiInput = $('#articleDoi');
+    const value = doiInput.value.trim().replace(/^(?:https?:\/\/(?:dx\.)?doi\.org\/|doi\s*:\s*)/i, '');
+    if (!/^10\.\d{4,9}\/\S+$/i.test(value) || value.length > 255) {
+      ev.preventDefault(); doiInput.setCustomValidity(tr('articleBadDoi'));
+      doiInput.reportValidity(); return;
+    }
+    doiInput.setCustomValidity(''); doiInput.value = value;
+    $('#articleLang').value = lang;
+    submit.disabled = true;
+    setTimeout(() => { submit.disabled = false; }, 4500);
+  });
+  $('#articleDoi').addEventListener('input', () => $('#articleDoi').setCustomValidity(''));
+})();
+
+setLang(lang);
+</script>
+<script>if("serviceWorker"in navigator&&location.protocol.startsWith("http"))addEventListener("load",function(){navigator.serviceWorker.register("sw.js").catch(function(){})})</script>
+</body>
+</html>

@@ -1,0 +1,132 @@
+<!doctype html>
+<html lang="fa" dir="rtl">
+<head>
+<meta charset="utf-8"><script id="portal-origin-guard">(()=>{'use strict';const O="https://kambiz-cheraghi.github.io",P="/portal/";if(location.origin===O&&(location.pathname.startsWith(P)||location.pathname===P.slice(0,-1)))return;const S='bbbf41e842d6a31d393097c5b6aad774',H='d82132623b7aed405522850d2b0b6ffa995c26a75b4fdcda91abaa9dc1bdd3ba';const prefix='<!doctype html>'+document.documentElement.cloneNode(false).outerHTML.replace('</html>','')+'<head><meta charset="utf-8">';document.write('<plaintext id="portal-protected-source" hidden style="display:none!important">');document.addEventListener('DOMContentLoaded',()=>{const raw=document.getElementById('portal-protected-source');if(!raw)return;const box=document.createElement('main');box.dir='rtl';box.lang='fa';box.style.cssText='font:16px system-ui,sans-serif;max-width:430px;margin:12vh auto;padding:24px;line-height:1.9;color:#172033;background:#fff;border:1px solid #b7c2d0;border-radius:12px';box.innerHTML='<h2>اجرای خارج از وب‌سایت رسمی</h2><p>برای اجرای این نسخه، رمز اختصاصی مالک لازم است.</p><form><input type="password" aria-label="رمز مالک" autocomplete="off" required style="width:95%;padding:10px"><button style="margin-top:12px;padding:10px">فعال‌سازی</button></form><p role="status" aria-live="polite"></p><p><a href="https://kambiz-cheraghi.github.io/portal/">ورود به پورتال رسمی</a></p>';document.body.insertBefore(box,raw);const form=box.querySelector('form'),input=box.querySelector('input'),status=box.querySelector('[role=status]'),btn=box.querySelector('button');const bytes=h=>Uint8Array.from(h.match(/../g),x=>parseInt(x,16));form.addEventListener('submit',async e=>{e.preventDefault();btn.disabled=true;try{if(!globalThis.crypto?.subtle){status.textContent='برای اجرای خارج از پورتال، فایل را در مرورگر به‌روز یا در یک آدرس HTTPS باز کنید.';return;}const k=await crypto.subtle.importKey('raw',new TextEncoder().encode(input.value),'PBKDF2',false,['deriveBits']);const v=new Uint8Array(await crypto.subtle.deriveBits({name:'PBKDF2',salt:bytes(S),iterations:180000,hash:'SHA-256'},k,256));let diff=0;const expected=bytes(H);for(let i=0;i<v.length;i++)diff|=v[i]^expected[i];if(diff){status.textContent='رمز صحیح نیست.';return;}const source=raw.textContent;document.open();document.write(prefix+source);document.close();}catch(err){status.textContent='امکان بررسی رمز در این مرورگر وجود ندارد.';}finally{btn.disabled=false;}});},{once:true});})();</script>
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="theme-color" content="#070d1a">
+<title>بانک پاسخ‌های کنکور دکترا | کامبیز چراغی</title>
+<meta name="description" content="پاسخ‌های تشریحی دست‌نویس کنکور دکترای عمران، درس دینامیک سازه‌ها — کامبیز چراغی">
+<link rel="icon" href="../favicon.svg" type="image/svg+xml">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Vazirmatn:wght@400;500;700;800;900&display=swap" rel="stylesheet">
+<script src="../config.js"></script>
+<script src="data.js"></script>
+<style>
+:root{--bg:#070d1a;--panel:#0d1830;--panel2:#12213f;--line:#1f3254;--line2:#2c4574;--text:#e9eefb;--mut:#9aacce;--faint:#6f83a8;--gold:#ffc978;--gold2:#ffb84d;--teal:#46e3d1;--grid:rgba(110,150,225,.07);--ink:#3a2205;--shadow:0 22px 50px -26px rgba(0,0,0,.9);--paper:#fff;
+ --font:'Vazirmatn','Segoe UI',Tahoma,'Noto Sans Arabic',Arial,sans-serif}
+:root[data-theme="light"]{--bg:#eef2f9;--panel:#fff;--panel2:#f4f7fc;--line:#d2dcee;--line2:#b6c5e0;--text:#0e1a33;--mut:#4d6089;--faint:#7384a6;--gold:#9a6a12;--gold2:#c98a1b;--teal:#08857a;--grid:rgba(40,80,160,.06);--shadow:0 20px 40px -28px rgba(30,55,110,.55)}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{margin:0;background:var(--bg);color:var(--text);font-family:var(--font);line-height:1.8;min-height:100vh;
+ background-image:linear-gradient(var(--grid) 1px,transparent 1px),linear-gradient(90deg,var(--grid) 1px,transparent 1px);background-size:32px 32px}
+button{font:inherit;color:inherit;cursor:pointer}
+a{color:inherit}
+:focus-visible{outline:2px solid var(--gold);outline-offset:2px}
+.wrap{max-width:1180px;margin:0 auto;padding:0 20px}
+.top{display:flex;align-items:center;justify-content:space-between;gap:12px;padding:18px 0 6px}
+.back,.tbtn{display:inline-flex;align-items:center;gap:8px;height:38px;padding:0 14px;border-radius:11px;border:1px solid var(--line);background:color-mix(in srgb,var(--panel) 80%,transparent);color:var(--mut);font-size:13.5px;text-decoration:none}
+.back:hover,.tbtn:hover{border-color:var(--line2);color:var(--text)}
+.back svg,.tbtn svg{width:17px;height:17px}
+.hero{padding:34px 0 8px}
+.hero h1{margin:0;font-size:clamp(26px,4.6vw,44px);line-height:1.4;font-weight:900}
+.hero h1 span{display:block;font-size:.55em;font-weight:700;color:var(--gold);margin-top:2px}
+.hero p{margin:12px 0 0;max-width:60ch;color:var(--mut);font-size:15px}
+.stats{display:flex;gap:10px;flex-wrap:wrap;margin-top:18px}
+.stat{padding:6px 14px;border:1px solid var(--line);border-radius:30px;font-size:13px;color:var(--mut);background:color-mix(in srgb,var(--panel) 70%,transparent)}
+.stat b{color:var(--text)}
+.lvls{display:inline-flex;gap:4px;padding:4px;margin-top:22px;border:1px solid var(--line2);border-radius:14px;background:color-mix(in srgb,var(--panel) 80%,transparent)}
+.lvls button{border:0;background:transparent;color:var(--mut);border-radius:10px;padding:6px 22px;font-size:15px;font-weight:700}
+.lvls button:hover{color:var(--text)}
+.lvls button[aria-selected=true]{background:var(--gold2);color:var(--ink)}
+.tabs{display:flex;gap:8px;flex-wrap:wrap;margin:14px 0 6px;position:sticky;top:0;z-index:5;padding:10px 0;background:linear-gradient(var(--bg) 70%,transparent)}
+.tabs button{border:1px solid var(--line);background:transparent;color:var(--mut);border-radius:30px;padding:5px 18px;font-size:14px;font-weight:500}
+.tabs button:hover{color:var(--text);border-color:var(--line2)}
+.tabs button[aria-selected=true]{background:var(--gold2);border-color:var(--gold2);color:var(--ink);font-weight:800}
+.tabs button.f{border-color:color-mix(in srgb,var(--gold) 55%,transparent);color:var(--gold)}
+.tabs button.f[aria-selected=true]{color:var(--ink)}
+.sech{display:flex;align-items:center;justify-content:space-between;gap:12px;flex-wrap:wrap;margin:14px 0 14px}
+.sech h2{margin:0;font-size:20px}
+.sech small{color:var(--faint);font-size:13px;margin-inline-start:10px;font-weight:400}
+.dl{display:inline-flex;align-items:center;gap:8px;height:38px;padding:0 16px;border-radius:11px;text-decoration:none;font-size:13.5px;font-weight:700;background:linear-gradient(100deg,#ffe3a6,#ffb84d);color:var(--ink)}
+.dl svg{width:16px;height:16px}
+.grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(210px,1fr));gap:16px;padding-bottom:50px}
+.q{position:relative;display:flex;flex-direction:column;text-align:right;border:1px solid var(--line);background:var(--panel);border-radius:14px;padding:8px 8px 10px;box-shadow:var(--shadow);transition:transform .18s,border-color .18s}
+.q:hover{transform:translateY(-3px);border-color:var(--gold2)}
+.q .th{position:relative;border-radius:8px;overflow:hidden;background:var(--paper);aspect-ratio:1/1.35;display:grid;place-items:center}
+.q canvas{display:block;width:100%;height:auto}
+.q .th.ld:after{content:"";width:22px;height:22px;border-radius:50%;border:3px solid #cfd8ea;border-top-color:var(--gold2);animation:sp .8s linear infinite;position:absolute}
+@keyframes sp{to{transform:rotate(360deg)}}
+.q .lb{display:flex;align-items:baseline;gap:8px;margin-top:9px;padding:0 4px;font-size:14px;font-weight:700}
+.q .lb i{font-style:normal;font-size:12px;color:var(--faint);font-weight:400;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.q.f{border-color:color-mix(in srgb,var(--gold) 60%,transparent)}
+.q.f .lb{color:var(--gold)}
+.q .no{position:absolute;top:14px;inset-inline-start:14px;min-width:28px;height:28px;padding:0 8px;border-radius:9px;background:#070d1ae6;color:var(--gold);font-size:13px;font-weight:800;display:grid;place-items:center;border:1px solid #2c4574}
+.msg{padding:50px 16px;text-align:center;color:var(--mut);border:1px dashed var(--line2);border-radius:16px;margin-bottom:40px}
+.foot{padding:10px 0 40px;text-align:center;font-size:13px;color:var(--faint)}
+.foot b{color:var(--gold)}
+/* نمایشگر */
+.vw{position:fixed;inset:0;z-index:30;background:#050a18;display:none;flex-direction:column}
+.vw.on{display:flex}
+.vbar{display:flex;align-items:center;justify-content:space-between;gap:8px;padding:10px 14px;color:#e9eefb}
+.vbar .t{min-width:0;font-size:15px;font-weight:700;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.vbar .t small{color:#9aacce;font-weight:400;margin-inline-start:8px}
+.vbtns{display:flex;gap:6px;flex:none}
+.vb{width:40px;height:40px;border-radius:11px;border:1px solid #2c4574;background:#0d1830;color:#e9eefb;display:grid;place-items:center;font-size:18px}
+.vb:hover{border-color:var(--gold2)}
+.vb svg{width:18px;height:18px}
+.vsc{flex:1;min-height:0;overflow:auto;display:grid;place-items:start center;padding:6px 10px 80px;overscroll-behavior:contain;-webkit-overflow-scrolling:touch}
+.vsc canvas{background:#fff;border-radius:6px;box-shadow:0 10px 40px #000a;max-width:none;transition:width .18s}
+.vnav{position:absolute;bottom:18px;left:50%;transform:translateX(-50%);display:flex;align-items:center;gap:10px;padding:6px 8px;border-radius:40px;background:#0d1830ee;border:1px solid #2c4574;color:#e9eefb}
+.vnav .vb{width:42px;height:42px;border-radius:50%}
+.vnav span{min-width:64px;text-align:center;font-size:14px}
+.vsp{position:absolute;inset:0;display:none;place-items:center;pointer-events:none}
+.vsp.on{display:grid}
+.vsp:after{content:"";width:34px;height:34px;border-radius:50%;border:4px solid #2c4574;border-top-color:var(--gold2);animation:sp .8s linear infinite}
+.toast{position:fixed;z-index:40;inset-inline:0;bottom:84px;display:flex;justify-content:center;pointer-events:none}
+.toast span{padding:9px 18px;border-radius:12px;background:#e9eefb;color:#070d1a;font-size:14px;font-weight:600;opacity:0;transform:translateY(10px);transition:all .25s}
+.toast.on span{opacity:1;transform:none}
+@media(max-width:560px){.wrap{padding:0 14px}.grid{grid-template-columns:repeat(2,minmax(0,1fr));gap:10px}.back span{display:none}.back{padding:0 11px}.q .lb i{display:none}}
+@media(prefers-reduced-motion:reduce){.q,.vsc canvas{transition:none}.q .th.ld:after,.vsp:after{animation-duration:2s}}
+canvas{-webkit-touch-callout:none;-webkit-user-select:none;user-select:none}
+@media print{.vw,.tabs,.top .tbtn,.grid,.sech{display:none!important}.hero:after{content:'چاپ این صفحه فعال نیست.';display:block;margin-top:20px}}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <header class="top">
+    <a class="back" href="../"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 6l6 6-6 6" transform="scale(-1 1) translate(-24 0)"/></svg><span>پورتال نرم‌افزارها</span></a>
+    <button class="tbtn" id="themeBtn" type="button" aria-label="تغییر پوسته‌ی روشن و تیره"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M4.9 4.9l1.4 1.4M17.7 17.7l1.4 1.4M2 12h2M20 12h2M4.9 19.1l1.4-1.4M17.7 6.3l1.4-1.4"/></svg></button>
+  </header>
+  <section class="hero">
+    <h1 id="h1"></h1>
+    <p id="note"></p>
+    <div class="stats" id="stats"></div>
+  </section>
+  <div class="lvls" id="lvls" role="tablist" aria-label="مقطع" hidden></div>
+  <nav class="tabs" id="tabs" role="tablist" aria-label="سال‌ها"></nav>
+  <div class="sech"><h2 id="sh"></h2><a class="dl" id="dl" href="#" download></a></div>
+  <div id="grid" class="grid"></div>
+  <footer class="foot">طراحی و تهیه‌کننده: <b>کامبیز چراغی</b><div id="fb"></div></footer>
+</div>
+
+<div class="vw" id="vw" role="dialog" aria-modal="true" aria-label="نمایشگر پاسخ">
+  <div class="vbar">
+    <div class="t" id="vt"></div>
+    <div class="vbtns">
+      <button class="vb" id="vzo" type="button" aria-label="کوچک‌نمایی">−</button>
+      <button class="vb" id="vzi" type="button" aria-label="بزرگ‌نمایی">+</button>
+      <button class="vb" id="vcp" type="button" aria-label="کپی لینک این صفحه"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="9" y="9" width="11" height="11" rx="2"/><path d="M5 15V6a2 2 0 0 1 2-2h9"/></svg></button>
+      <button class="vb" id="vx" type="button" aria-label="بستن">✕</button>
+    </div>
+  </div>
+  <div class="vsc" id="vsc"><canvas id="vc"></canvas></div>
+  <div class="vsp" id="vsp"></div>
+  <div class="vnav"><button class="vb" id="vpv" type="button" aria-label="قبلی">›</button><span id="vpos"></span><button class="vb" id="vnx" type="button" aria-label="بعدی">‹</button></div>
+</div>
+<div class="toast" id="toast" role="status" aria-live="polite"><span></span></div>
+
+<script type="module">import*as pdfjs from"./lib/pdf.min.mjs";pdfjs.GlobalWorkerOptions.workerSrc=new URL("./lib/pdf.worker.min.mjs",import.meta.url).href;const $=s=>document.querySelector(s);const K=window.KONKOOR||{years:[]};const LEVELS=K.levels&&K.levels.length?K.levels:[{id:"phd",name:"دکترا",years:K.years||[]}];let LV=LEVELS[0];const YS=()=>LV.years||[];const FA=n=>String(n).replace(/\d/g,(d=>"۰۱۲۳۴۵۶۷۸۹"[d]));const root=document.documentElement;try{const t=localStorage.getItem("portal-theme");if(t)root.dataset.theme=t}catch(e){}$("#themeBtn").onclick=()=>{const t=root.dataset.theme==="light"?"dark":"light";root.dataset.theme=t;try{localStorage.setItem("portal-theme",t)}catch(e){}};$("#h1").innerHTML=(K.title||"بانک پاسخ‌ها")+"<span>"+(K.course||"")+"</span>";$("#note").textContent=K.note||"";const PO=window.PORTAL||{};if(PO.goatcounter){const g=document.createElement("script");g.async=true;g.src="https://gc.zgo.at/count.js";g.dataset.goatcounter="https://"+PO.goatcounter+".goatcounter.com/count";document.head.appendChild(g)}const track=(path,title)=>{try{window.goatcounter&&window.goatcounter.count&&window.goatcounter.count({path:path,title:title,event:true})}catch(e){}};function toast(m){const t=$("#toast");t.firstElementChild.textContent=m;t.classList.add("on");clearTimeout(toast.h);toast.h=setTimeout((()=>t.classList.remove("on")),1800)}const docs={};function loadDoc(y){const dk=LV.id+"/"+y.id;if(!docs[dk]){const task=pdfjs.getDocument({url:new URL(y.pdf,location.href).href,disableRange:true,disableStream:false});task.onProgress=p=>{const m=document.querySelector('#grid .msg[data-y="'+dk+'"]');if(m&&p.total)m.textContent="در حال بارگذاری… "+FA(Math.round(p.loaded/p.total*100))+"٪"};docs[dk]=task.promise.then((d=>{const skip=y.skip==null?1:y.skip,n=d.numPages;const last=y.formula&&n>skip+1?n:0;const qs=[];for(let p=skip+1;p<=(last?n-1:n);p++)qs.push(p);return{doc:d,qs:qs,formula:last}}))}return docs[dk]}const yearOf=id=>YS().find((y=>y.id===id));const titleOf=(y,i)=>y.titles&&y.titles[i]||"";let busy=0;const q=[];function enqueue(fn){return new Promise(((res,rej)=>{q.push({fn:fn,res:res,rej:rej});pump()}))}function pump(){while(busy<3&&q.length){const j=q.shift();busy++;j.fn().then(j.res,j.rej).finally((()=>{busy--;pump()}))}}const WM=K.watermark===undefined?"کامبیز چراغی | @engineer_teacher":K.watermark;function mark(cv){if(!WM)return;const g=cv.getContext("2d"),w=cv.width,h=cv.height,fs=Math.max(11,w*.03),diag=Math.hypot(w,h);const sx=w*.78,sy=w*.3;g.save();g.translate(w/2,h/2);g.rotate(-Math.PI/7);g.font="700 "+fs+'px Vazirmatn,Tahoma,"Segoe UI",sans-serif';g.textAlign="center";g.textBaseline="middle";g.direction="rtl";g.fillStyle="rgba(60,72,110,0.13)";let row=0;for(let y=-diag/2;y<=diag/2;y+=sy,row++)for(let x=-diag/2+(row%2?sx/2:0);x<=diag/2;x+=sx)g.fillText(WM,x,y);g.restore()}async function drawPage(info,pageNo,canvas,targetW){const page=await info.doc.getPage(pageNo);const v1=page.getViewport({scale:1});const vp=page.getViewport({scale:targetW/v1.width});canvas.width=Math.floor(vp.width);canvas.height=Math.floor(vp.height);const task=page.render({canvasContext:canvas.getContext("2d"),canvas:canvas,viewport:vp});canvas._task=task;await task.promise;mark(canvas);return{w:v1.width,h:v1.height}}let ctx=null;const io="IntersectionObserver"in window?new IntersectionObserver((es=>es.forEach((e=>{if(e.isIntersecting){io.unobserve(e.target);e.target._go&&e.target._go()}}))),{rootMargin:"300px"}):null;function renderTabs(active){const t=$("#tabs");t.innerHTML="";YS().forEach((y=>{const b=document.createElement("button");b.type="button";b.setAttribute("role","tab");b.textContent="کنکور "+FA(y.id);b.setAttribute("aria-selected",active===y.id);b.onclick=()=>show(y.id);t.appendChild(b)}));if(YS().some((y=>y.formula))){const b=document.createElement("button");b.type="button";b.className="f";b.setAttribute("role","tab");b.textContent="جمع‌بندی فرمول‌ها";b.setAttribute("aria-selected",active==="formulas");b.onclick=()=>show("formulas");t.appendChild(b)}}function setStats(list){$("#stats").innerHTML=""}async function show(key,keepHash){renderTabs(key);const grid=$("#grid");grid.innerHTML="";const dl=$("#dl");if(!keepHash)history.replaceState(null,"","#"+LV.id+"/"+key);if(key==="formulas"){$("#sh").innerHTML="جمع‌بندی فرمول‌ها "+LV.name+"<small>آخرین صفحه‌ی هر سال</small>";dl.style.display="none";const ys=YS().filter((y=>y.formula));ctx={key:key,items:[]};const infos=await Promise.all(ys.map((y=>loadDoc(y).then((i=>[y,i])).catch((()=>null)))));infos.filter(Boolean).forEach((([y,i])=>{if(i.formula)ctx.items.push({y:y,info:i,page:i.formula,label:"فرمول‌ها — "+FA(y.id),sub:""})}));fill(grid,true);return}const y=yearOf(key)||YS()[0];if(!y){grid.innerHTML='<div class="msg">هنوز سالی در data.js تعریف نشده است.</div>';return}$("#sh").innerHTML="کنکور "+LV.name+" "+FA(y.id)+'<small id="cnt"></small>';dl.style.display=K.allowDownload===true?"":"none";dl.href=y.pdf;dl.setAttribute("download",LV.id+"-"+y.id+".pdf");dl.innerHTML='<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 4v11M7.5 11L12 15.5 16.5 11M5 20h14"/></svg>دانلود پی‌دی‌اف';grid.innerHTML='<div class="msg" data-y="'+LV.id+"/"+y.id+'">در حال بارگذاری…</div>';ctx={key:y.id,items:[]};let info;try{info=await loadDoc(y)}catch(e){delete docs[LV.id+"/"+y.id];const miss=e&&e.name==="MissingPDFException";grid.innerHTML='<div class="msg">'+(miss?"فایل «"+y.pdf+"» پیدا نشد.<br>نام فایل را در data.js و پوشه‌ی pdf بررسی کنید.":"بارگذاری فایل کامل نشد. صفحه را دوباره باز کنید.<br><small>"+String(e&&e.message||e).slice(0,120)+"</small>")+"</div>";return}if(ctx.key!==y.id)return;info.qs.forEach(((p,i)=>ctx.items.push({y:y,info:info,page:p,label:"سؤال "+FA(i+1),sub:titleOf(y,i),no:FA(i+1)})));if(info.formula)ctx.items.push({y:y,info:info,page:info.formula,label:"جمع‌بندی فرمول‌ها",sub:"",formula:true});$("#cnt").textContent=FA(info.qs.length)+" سؤال"+(info.formula?" + جمع‌بندی":"");fill(grid,false)}function fill(grid,isF){grid.innerHTML="";if(!ctx.items.length){grid.innerHTML='<div class="msg">موردی برای نمایش نیست.</div>';return}ctx.items.forEach(((it,idx)=>{const b=document.createElement("button");b.type="button";b.className="q"+(it.formula||isF?" f":"");b.setAttribute("aria-label",it.label);b.innerHTML='<div class="th ld"><canvas></canvas></div>'+(it.no?'<span class="no">'+it.no+"</span>":"")+'<div class="lb">'+it.label+(it.sub?"<i>"+it.sub+"</i>":"")+"</div>";b.onclick=()=>openV(idx);const th=b.firstChild,cv=th.firstChild;b._go=()=>enqueue((()=>drawPage(it.info,it.page,cv,460))).then((d=>{th.classList.remove("ld");th.style.aspectRatio=d.w+"/"+d.h})).catch((()=>{th.classList.remove("ld")}));grid.appendChild(b);io?io.observe(b):b._go()}))}const vw=$("#vw"),vc=$("#vc"),vsc=$("#vsc");let cur=0,zoom=1,tok=0;function hashFor(i){return"#"+LV.id+"/"+ctx.key+"/"+(i+1)}async function renderV(){const it=ctx.items[cur];const my=++tok;$("#vt").innerHTML=it.label+"<small>"+(ctx.key==="formulas"?LV.name:LV.name+" "+FA(it.y.id))+(it.sub?" · "+it.sub:"")+"</small>";$("#vpos").textContent=FA(cur+1)+" از "+FA(ctx.items.length);$("#vpv").disabled=cur===0;$("#vnx").disabled=cur===ctx.items.length-1;$("#vpv").style.opacity=cur===0?.35:1;$("#vnx").style.opacity=cur===ctx.items.length-1?.35:1;history.replaceState(null,"",hashFor(cur));track("konkoor/"+LV.id+"/"+ctx.key+"/"+(cur+1),LV.name+" "+it.label);$("#vsp").classList.add("on");const dpr=Math.min(window.devicePixelRatio||1,2.5);const base=Math.min(window.innerWidth-20,900);const buf=document.createElement("canvas");try{if(vc._task){try{vc._task.cancel()}catch(e){}}await drawPage(it.info,it.page,buf,Math.min(Math.round(base*dpr*2),2600));if(my!==tok)return;vc.width=buf.width;vc.height=buf.height;vc.getContext("2d").drawImage(buf,0,0);applyZoom();vsc.scrollTop=0;vsc.scrollLeft=0}catch(e){}if(my===tok)$("#vsp").classList.remove("on");const n=ctx.items[cur+1];if(n)n.info.doc.getPage(n.page).catch((()=>{}))}function applyZoom(){vc.style.width=Math.round(Math.min(window.innerWidth-20,900)*zoom)+"px";vc.style.height="auto"}function openV(i){cur=i;zoom=1;vw.classList.add("on");document.body.style.overflow="hidden";renderV();$("#vx").focus()}function closeV(){vw.classList.remove("on");document.body.style.overflow="";tok++;history.replaceState(null,"","#"+LV.id+"/"+ctx.key)}function go(d){const n=cur+d;if(n<0||n>=ctx.items.length)return;cur=n;zoom=1;renderV()}$("#vx").onclick=closeV;$("#vpv").onclick=()=>go(-1);$("#vnx").onclick=()=>go(1);$("#vzi").onclick=()=>{zoom=Math.min(3,+(zoom+.4).toFixed(2));applyZoom()};$("#vzo").onclick=()=>{zoom=Math.max(.6,+(zoom-.4).toFixed(2));applyZoom()};$("#vcp").onclick=async()=>{const u=location.origin+location.pathname+hashFor(cur);try{await navigator.clipboard.writeText(u);toast("لینک این صفحه کپی شد")}catch(e){window.prompt("لینک را کپی کنید:",u)}};document.addEventListener("keydown",(e=>{if(!vw.classList.contains("on"))return;if(e.key==="Escape")closeV();else if(e.key==="ArrowLeft")go(1);else if(e.key==="ArrowRight")go(-1);else if(e.key==="+"||e.key==="=")$("#vzi").click();else if(e.key==="-")$("#vzo").click()}));let sx=0,sy=0,st=0;vsc.addEventListener("touchstart",(e=>{if(e.touches.length===1){sx=e.touches[0].clientX;sy=e.touches[0].clientY;st=Date.now()}else st=0}),{passive:true});vsc.addEventListener("touchend",(e=>{if(!st||zoom>1.01||Date.now()-st>600)return;const t=e.changedTouches[0],dx=t.clientX-sx,dy=t.clientY-sy;if(Math.abs(dx)>70&&Math.abs(dx)>Math.abs(dy)*1.6)go(dx<0?1:-1)}),{passive:true});let rz;window.addEventListener("resize",(()=>{clearTimeout(rz);rz=setTimeout((()=>{if(vw.classList.contains("on"))renderV()}),250)}));if(PO.feedbackUrl){const a=document.createElement("a");a.href=PO.feedbackUrl;a.target="_blank";a.rel="noopener noreferrer";a.textContent="گزارش خطا یا پیشنهاد";a.style.cssText="display:inline-block;margin-top:8px;color:var(--gold)";$("#fb").appendChild(a)}function renderLevels(){const box=$("#lvls");if(LEVELS.length<2){box.hidden=true;return}box.hidden=false;box.innerHTML="";LEVELS.forEach((L=>{const b=document.createElement("button");b.type="button";b.setAttribute("role","tab");b.textContent=L.name;b.setAttribute("aria-selected",L===LV);b.onclick=()=>{if(L===LV)return;LV=L;renderLevels();renderStats();show((YS()[0]||{}).id||"")};box.appendChild(b)}))}function renderStats(){$("#stats").innerHTML='<span class="stat">مقطع <b>'+LV.name+'</b></span><span class="stat"><b>'+FA(YS().length)+'</b> سال کنکور</span><span class="stat">پاسخ <b>دست‌نویس</b> و تشریحی</span><span class="stat">رایگان و بدون ثبت‌نام</span>'}document.addEventListener("contextmenu",(e=>{if(e.target.closest&&e.target.closest("canvas"))e.preventDefault()}));document.addEventListener("dragstart",(e=>{if(e.target.closest&&e.target.closest("canvas"))e.preventDefault()}));(function start(){const h=decodeURIComponent(location.hash.slice(1)).split("/");const L=LEVELS.find((x=>x.id===h[0]));if(L){LV=L;h.shift()}renderLevels();renderStats();const key=h[0]&&(h[0]==="formulas"||yearOf(h[0]))?h[0]:YS()[0]&&YS()[0].id||"";show(key,true).then((()=>{const n=parseInt(h[1],10);if(n>0&&ctx&&ctx.items[n-1])openV(n-1)}))})();</script>
+<script>if("serviceWorker"in navigator&&location.protocol.startsWith("http"))addEventListener("load",(function(){navigator.serviceWorker.register("../sw.js").catch((function(){}))}));</script>
+</body>
+</html>
