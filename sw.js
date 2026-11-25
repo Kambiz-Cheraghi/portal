@@ -1,7 +1,7 @@
 
 /* Engineering Software Portal - Offline Cache */
 
-const V = 'portal-github-v1';
+const V = 'portal-github-v2';
 const BASE = new URL(self.registration.scope);
 
 const PRE = [
