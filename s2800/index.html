@@ -692,6 +692,14 @@ input:focus,select:focus { box-shadow:0 0 0 3px #2457a229; }
 @media(max-width:640px){.e4top{position:static}}
 body[data-ed="4"] #overall{display:none!important}
 body[data-ed="5"] #e4overall{display:none!important}
+
+/* ===== راهنمای «؟» و دکمه‌های خروجی ===== */
+.tip{display:inline-grid;place-items:center;width:18px;height:18px;margin-inline-start:7px;padding:0;border-radius:50%;border:1.5px solid #9db4d3;background:#fff;color:#3b6aa8;font:800 11.5px/1 inherit;font-family:inherit;cursor:pointer;vertical-align:middle;transition:background .15s,color .15s,border-color .15s}
+.tip:hover,.tip:focus-visible,.tip[aria-expanded=true]{background:#2a62b8;color:#fff;border-color:#2a62b8;outline:none}
+#tipPop{position:fixed;z-index:99999;max-width:290px;background:#17304f;color:#fff;font-size:12.5px;font-weight:500;line-height:1.95;padding:10px 14px;border-radius:12px;box-shadow:0 12px 32px rgba(10,30,60,.32);direction:rtl;text-align:right}
+#tipPop[hidden]{display:none}
+#tipPop b{color:#8fd8ae}
+@media print{.tip,#tipPop{display:none!important}}
 </style><style id="reportTypefaceLayout" media="not all">
 .hazard-provenance {
   display:flex; flex-wrap:wrap; align-items:baseline; gap:2px 10px;
@@ -860,6 +868,22 @@ table thead th,.calc thead th {
 .period-review :is(th,td):first-child { width:13%; }
 .period-review :is(th,td):last-child { width:45%; }
 .period-review td:nth-child(3) { font-weight:750; color:#19437d; }
+</style><style id="extraReportStyle">
+.extra-more{margin-top:14px;border:1px solid #cbd8e7;border-radius:12px;padding:12px;background:var(--card,#fff);color:inherit}
+.extra-more>summary{cursor:pointer;font-weight:800;color:inherit;padding:6px 0}
+.extra-scroll{overflow-x:auto;margin:10px 0}
+.extra-table{width:100%;border-collapse:collapse;font-size:12px;line-height:1.8}
+.extra-table th,.extra-table td{border:1px solid #d6e0ec;padding:7px;text-align:right;vertical-align:top}
+.extra-table thead th{background:#eaf0f8;color:#173553}
+.extra-table th:first-child{min-width:115px}
+.extra-table td:last-child{font-size:11px;min-width:125px}
+.extra-note{font-size:12px;line-height:1.9;margin:8px 0}
+.extra-figure{margin:12px 0;padding:10px;border:1px solid #d6e0ec;border-radius:7px;break-inside:avoid;background:white;color:#182e48}
+.extra-figure figcaption small{display:block;font-size:11px;font-weight:400}
+.extra-legend{display:flex;gap:12px;flex-wrap:wrap;justify-content:center;font-size:11px}
+.extra-legend i{display:inline-block;width:15px;height:3px;margin:0 5px;vertical-align:middle}
+.extra-report h3{font-size:14px;margin:12px 0 5px}
+@media print{.extra-scroll{overflow:visible}.extra-table tr{break-inside:avoid}.extra-table thead{display:table-header-group}.extra-figure{break-inside:avoid}}
 </style></head>
 <body data-ed="5">
 <div class="edgate" id="edGate" role="dialog" aria-modal="true" aria-labelledby="edGateT">
@@ -1119,8 +1143,9 @@ table thead th,.calc thead th {
   <label class="check tight repall"><input type="checkbox" id="repAll"><span><b>انتخاب همه‌ی بخش‌ها</b></span></label>
   <div id="repList" class="replist"></div>
  </div>
- <div class="dl"><button id="pvOpen" type="button" class="btn primary">پیش‌نمایش گزارش</button><button id="pvPrintBtn" type="button" class="btn soft">چاپ یا ذخیره‌ی PDF</button><button id="downloadHtml" type="button" class="btn">دانلود HTML</button><button id="downloadJson" type="button" class="btn">خروجی داده (JSON)</button></div>
+ <div class="dl"><button id="pvOpen" type="button" class="btn primary">پیش‌نمایش گزارش</button><button id="pvPrintBtn" type="button" class="btn soft">چاپ یا ذخیره‌ی PDF</button><button id="downloadHtml" type="button" class="btn">دانلود HTML</button><button id="downloadJson" type="button" class="btn">خروجی داده (JSON)</button><button id="downloadCsv" type="button" class="btn">خروجی Excel (CSV)</button><button id="downloadEtabs" type="button" class="btn">طیف برای ETABS (.txt)</button></div>
  <p class="micro">برای PDF: «چاپ یا ذخیره‌ی PDF» را بزنید و در پنجره‌ی چاپ مقصد را «Save as PDF» بگذارید. شماره‌ی صفحه و عنوان بالای صفحه خودکار می‌آید. گزارش به همین انتخاب‌ها بسته است.</p>
+ <details class="extra-more" id="extra5Panel"><summary>گزارش جزئیات بیشتر — ضرایب و نمودارها</summary><div id="extra5Content"></div></details>
 </section>
 
 <div class="need" id="needBox" role="status" aria-live="polite"></div>
@@ -1199,6 +1224,49 @@ const SS_NODES=[.5,.75,1,1.25,1.5], S1_NODES=[.2,.3,.4,.5,.6];</script>
    Author credit: کامبیز چراغی (Kambiz Cheraghi). No dependencies.
 */
 'use strict';
+
+/* Supplementary reports — references are printed page numbers, not PDF indices. */
+const extraNum=(v,n=4)=>Number.isFinite(v)?Number(v.toFixed(n)).toString():'—';
+const extraK=t=>Number.isFinite(t)&&t>=0?Math.max(1,Math.min(2,.75+.5*t)):NaN;
+const extraEsc=v=>String(v??'').replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
+const extraN=(v,suffix='')=>Number.isFinite(v)?`${extraNum(v)}${suffix}`:'—';
+function extraTable(rows){
+ return `<div class="extra-scroll"><table class="extra-table"><thead><tr><th>پارامتر / رابطه</th><th>جهت X / مقدار</th><th>جهت Y</th><th>مرجع آیین‌نامه</th></tr></thead><tbody>${rows.map(([n,x,y,ref])=>`<tr><th>${extraEsc(n)}</th><td><bdi>${extraEsc(x)}</bdi></td><td><bdi>${extraEsc(y)}</bdi></td><td>${extraEsc(ref)}</td></tr>`).join('')}</tbody></table></div>`;
+}
+function extraPlot(title,ref,series,tmax,ylabel,axes=[]){
+ const good=series.filter(s=>typeof s.fn==='function'&&Number.isFinite(s.fn(0)));
+ if(!good.length)return `<p class="extra-note">${extraEsc(title)} — داده کافی نیست. (${extraEsc(ref)})</p>`;
+ const W=620,H=230,l=57,r=600,t=18,b=186;
+ const ts=[...Array.from({length:321},(_,i)=>i*tmax/320),...good.flatMap(s=>s.knots||[]).filter(x=>x>=0&&x<=tmax)].sort((a,b)=>a-b);
+ const ymax=Math.max(.001,...good.flatMap(s=>ts.map(x=>s.fn(x)).filter(Number.isFinite)))*1.12;
+ const xp=x=>l+(r-l)*x/tmax,yp=y=>b-(b-t)*y/ymax;
+ const colors=['#1b5c9c','#b34b35','#267b61','#64748b'];
+ let grid='',paths='';
+ for(let i=0;i<=4;i++){const x=tmax*i/4,y=ymax*i/4;
+ grid+=`<path d="M${xp(x)} ${t}V${b} M${l} ${yp(y)}H${r}" stroke="#d9e1eb" stroke-width=".8"/><text x="${xp(x)}" y="${b+15}" text-anchor="middle">${extraNum(x,2)}</text><text x="${l-6}" y="${yp(y)+4}" text-anchor="end">${extraNum(y,3)}</text>`;}
+ good.forEach((s,i)=>{const d=ts.map((x,j)=>`${j?'L':'M'}${xp(x).toFixed(2)},${yp(s.fn(x)).toFixed(2)}`).join(' ');
+ paths+=`<path d="${d}" fill="none" stroke="${colors[i%4]}" stroke-width="2" ${i%2?'stroke-dasharray="6 3"':''}/>`;});
+ const marks=axes.filter(a=>Number.isFinite(a.T)&&a.T>=0&&a.T<=tmax).map((a,i)=>`<path d="M${xp(a.T)} ${t}V${b}" stroke="${i?'#b34b35':'#1b5c9c'}" stroke-dasharray="2 4"/><text x="${xp(a.T)}" y="${t+10+i*12}" text-anchor="middle">${a.d}</text>`).join('');
+ return `<figure class="extra-figure"><figcaption><b>${extraEsc(title)}</b><small>${extraEsc(ref)}</small></figcaption><svg viewBox="0 0 ${W} ${H}" role="img" aria-label="${extraEsc(title)}" xmlns="http://www.w3.org/2000/svg" style="width:100%;height:auto;max-width:620px"><g font-family="Arial,sans-serif" font-size="10" fill="#334155" direction="ltr">${grid}<path d="M${l} ${t}V${b}H${r}" fill="none" stroke="#334155"/>${paths}${marks}<text x="${(l+r)/2}" y="220" text-anchor="middle">T (s)</text><text x="9" y="12">${extraEsc(ylabel)}</text></g></svg><div class="extra-legend">${good.map((s,i)=>`<span><i style="background:${colors[i%4]}"></i><bdi>${extraEsc(s.name)}</bdi></span>`).join('')}</div></figure>`;
+}
+const extraStyle=`
+.extra-more{margin-top:14px;border:1px solid #cbd8e7;border-radius:12px;padding:12px;background:var(--card,#fff);color:inherit}
+.extra-more>summary{cursor:pointer;font-weight:800;color:inherit;padding:6px 0}
+.extra-scroll{overflow-x:auto;margin:10px 0}
+.extra-table{width:100%;border-collapse:collapse;font-size:12px;line-height:1.8}
+.extra-table th,.extra-table td{border:1px solid #d6e0ec;padding:7px;text-align:right;vertical-align:top}
+.extra-table thead th{background:#eaf0f8;color:#173553}
+.extra-table th:first-child{min-width:115px}
+.extra-table td:last-child{font-size:11px;min-width:125px}
+.extra-note{font-size:12px;line-height:1.9;margin:8px 0}
+.extra-figure{margin:12px 0;padding:10px;border:1px solid #d6e0ec;border-radius:7px;break-inside:avoid;background:white;color:#182e48}
+.extra-figure figcaption small{display:block;font-size:11px;font-weight:400}
+.extra-legend{display:flex;gap:12px;flex-wrap:wrap;justify-content:center;font-size:11px}
+.extra-legend i{display:inline-block;width:15px;height:3px;margin:0 5px;vertical-align:middle}
+.extra-report h3{font-size:14px;margin:12px 0 5px}
+@media print{.extra-scroll{overflow:visible}.extra-table tr{break-inside:avoid}.extra-table thead{display:table-header-group}.extra-figure{break-inside:avoid}}
+`;
+
 /* ========== ابزارهای پایه ========== */
 const $=id=>document.getElementById(id);
 const FA=s=>String(s).replace(/\d/g,d=>'۰۱۲۳۴۵۶۷۸۹'[+d]);
@@ -1556,7 +1624,8 @@ const REPORT_SECTIONS=[
  {id:'calc',t:'محاسبه‌ی ضریب C',d:'گام‌به‌گام، با روابط و اعداد جایگذاری‌شده'},
  {id:'rules',t:'تبصره‌ها و پاسخ‌های شما',d:'پاسخ بله و خیر و استثناهای اعمال‌شده'},
  {id:'checks',t:'کنترل‌ها و هشدارها',d:'موارد اصلاح‌نشده و نکات نیازمند بررسی'},
- {id:'refs',t:'مراجع و محدودیت‌های استفاده',d:'بندهای آیین‌نامه و حدود کاربرد نرم‌افزار'}
+ {id:'refs',t:'مراجع و محدودیت‌های استفاده',d:'بندهای آیین‌نامه و حدود کاربرد نرم‌افزار'},
+ {id:'extra',t:'گزارش جزئیات بیشتر',d:'k، ضرایب تکمیلی و نمودارهای مستقل با شماره بند و صفحه'}
 ];
 const REPORT_PRESETS={full:{label:'گزارش کامل',ids:REPORT_SECTIONS.map(s=>s.id)},brief:{label:'گزارش مختصر',ids:['summary','project','site','calc','checks']},result:{label:'فقط نتیجه',ids:['summary']}};
 const AUTHOR_FA='کامبیز چراغی',AUTHOR_EN='Kambiz Cheraghi';
@@ -1752,6 +1821,7 @@ function reportMarkup(r,selIn){
   <p class="para"><b>محدوده‌ی استفاده:</b> این نرم‌افزار فقط ضریب <span class="lt">C</span> را در روش استاتیکی معادل محاسبه می‌کند و جایگزین طراحی، محاسبه‌ی وزن لرزه‌ای، کنترل تغییرمکان نسبی، بررسی نامنظمی‌ها، مطالعات گسل و ژئوتکنیک یا قضاوت مهندسی نیست.</p>
   <div class="sign"><div class="cv-sm">زمان تهیه‌ی گزارش: ${esc(currentDateTime())}</div></div></section>`);
  }
+ if(on('extra'))out.push(`<section>${sec('گزارش جزئیات بیشتر')}${extra5Markup(r)}</section>`);
  if(!out.length)out.push('<section><p class="para">هیچ بخشی برای گزارش انتخاب نشده است.</p></section>');
  return out.join('\n');
 }
@@ -1816,13 +1886,99 @@ ${document.getElementById("reportTypefaceLayout").textContent}`;
 function reportDocument(r,selIn){
  r=r||calculate();const sel=selIn||currentSel();
  const eff={};for(const k of Object.keys(sel))eff[k]=sel[k]&&repAvail(k,r);
- return `<!doctype html><html lang="fa" dir="rtl"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>${esc('گزارش ضریب زلزله C — '+(S.projectName.trim()||loc()?.[0]||'پروژه'))}</title><style>${reportCss(eff,r)}</style></head><body><div class="doc">${eff.cover?'':reportSourceMarkup(5)+hazardProvenanceMarkup('مبنای Ss و S1',hazardProvenance(r.site))}${reportMarkup(r,sel)}</div></body></html>`;
+ return `<!doctype html><html lang="fa" dir="rtl"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>${esc('گزارش ضریب زلزله C — '+(S.projectName.trim()||loc()?.[0]||'پروژه'))}</title><style>${reportCss(eff,r)}${extraStyle}</style></head><body><div class="doc">${eff.cover?'':reportSourceMarkup(5)+hazardProvenanceMarkup('مبنای Ss و S1',hazardProvenance(r.site))}${reportMarkup(r,sel)}</div></body></html>`;
 }
 
 /* ---- اقدام‌ها: پیش‌نمایش، چاپ، دانلود ---- */
 const safeFileName=()=>clean(S.projectName||loc()?.[0]||'project').replace(/[\\/:*?"<>|\x00-\x1f]/g,'_').slice(0,64)||'project';
 function fileDownload(text,name,type){const blob=new Blob([text],{type}),url=URL.createObjectURL(blob),a=document.createElement('a');a.href=url;a.download=name;document.body.appendChild(a);a.click();a.remove();setTimeout(()=>URL.revokeObjectURL(url),3000);}
 function downloadReport(){fileDownload(reportDocument(),`گزارش-C-${safeFileName()}.html`,'text/html;charset=utf-8');showToast('گزارش مستقل HTML دانلود شد.');}
+
+/* ===== راهنمای «؟» ===== */
+window.__ensureTips=function(map){
+ for(const [id,txt] of map){
+  const el=document.getElementById(id);if(!el)continue;
+  let lab=document.querySelector('label[for="'+id+'"]')||document.getElementById(id+'Lbl');
+  if(!lab){const box=el.closest('.field,.qblock');lab=box&&(box.querySelector(':scope > label,:scope > .q'));}
+  if(!lab||lab.querySelector(':scope > .tip'))continue;
+  const b=document.createElement('button');b.type='button';b.className='tip';b.textContent='؟';b.dataset.tip=txt;b.setAttribute('aria-label','راهنما');b.setAttribute('aria-expanded','false');
+  lab.appendChild(b);
+ }
+};
+(function(){
+ let pop=null,cur=null;
+ const hide=()=>{if(pop)pop.hidden=true;if(cur){cur.setAttribute('aria-expanded','false');cur=null;}};
+ document.addEventListener('click',e=>{
+  const b=e.target.closest&&e.target.closest('.tip');
+  if(!b){if(!(e.target.closest&&e.target.closest('#tipPop')))hide();return;}
+  e.preventDefault();e.stopPropagation();
+  if(cur===b){hide();return;}
+  hide();
+  if(!pop){pop=document.createElement('div');pop.id='tipPop';pop.setAttribute('role','tooltip');pop.hidden=true;document.body.appendChild(pop);}
+  pop.textContent=b.dataset.tip;pop.hidden=false;
+  const r=b.getBoundingClientRect(),w=pop.offsetWidth,h=pop.offsetHeight;
+  let left=Math.min(Math.max(8,r.left+r.width/2-w/2),innerWidth-w-8),top=r.bottom+8;
+  if(top+h>innerHeight-8&&r.top-h-8>8)top=r.top-h-8;
+  pop.style.left=left+'px';pop.style.top=top+'px';
+  b.setAttribute('aria-expanded','true');cur=b;
+ },true);
+ document.addEventListener('keydown',e=>{if(e.key==='Escape')hide();});
+ window.addEventListener('scroll',hide,true);window.addEventListener('resize',hide);
+})();
+
+const TIPS5=[
+ ['citySearch','با انتخاب شهر، Ss و S1 از جدول نرم‌افزار پر می‌شود. این مقادیر برآورد هستند؛ برای طراحی نهایی با مرجع رسمی تطبیق دهید.'],
+ ['finalSs','شتاب طیفی دورهٔ کوتاه (T = 0٫2 s) بر حسب g روی سنگ بستر؛ از نقشهٔ پهنه‌بندی آیین‌نامه یا جدول شهرها.'],
+ ['finalS1','شتاب طیفی دورهٔ یک ثانیه (T = 1 s) بر حسب g روی سنگ بستر؛ از نقشهٔ پهنه‌بندی آیین‌نامه یا جدول شهرها.'],
+ ['materialCards','جنس سیستم باربر اصلی (بتن، فولاد و…) فهرست سیستم‌ها و ضرایب زمان تناوب تجربی را تعیین می‌کند.'],
+ ['height','ارتفاع از تراز پایه تا بام بر حسب متر؛ در رابطهٔ تجربی زمان تناوب T = a·H^b به‌کار می‌رود.'],
+ ['floors','تعداد طبقات بالای تراز پایه؛ برای کنترل دامنهٔ کاربرد روش استاتیکی معادل لازم است.'],
+ ['soil','بر پایهٔ سرعت موج برشی خاک و گزارش ژئوتکنیک تعیین می‌شود. اگر گزارش ندارید، مقدار را از مهندس ژئوتکنیک بگیرید.'],
+ ['regularityCards','ساختمان منظم در پلان و ارتفاع نامنظمی مهمی (مثل پیچش، طبقهٔ نرم یا ناپیوستگی) ندارد. نامنظمی ممکن است روش استاتیکی معادل را محدود کند.'],
+ ['groupX','خانوادهٔ سیستم باربر جانبی، مثلاً قاب خمشی، دیوار برشی یا قاب مهاربندی‌شده.'],
+ ['systemX','نوع دقیق سیستم؛ ضریب رفتار Ru و ضرایب زمان تناوب تجربی از آن به‌دست می‌آید.'],
+ ['groupY','خانوادهٔ سیستم باربر جانبی در امتداد Y.'],
+ ['systemY','نوع دقیق سیستم در امتداد Y؛ ضریب رفتار Ru از آن به‌دست می‌آید.'],
+ ['levelBase','ترازی که ارتفاع و وزن لرزه‌ای ساختمان از آن حساب می‌شود؛ مثلاً روی شالوده یا سقف زیرزمین.'],
+ ['periodCards','زمان تناوب را از رابطهٔ تجربی بگیرید یا از مدل تحلیلی. مقدار تحلیلی تا ۱٫۴ برابر مقدار تجربی پذیرفته می‌شود.'],
+ ['infillCards','میانقاب‌ها سختی قاب را بیشتر می‌کنند و زمان تناوب را کم می‌کنند؛ اگر مانع حرکت جانبی قاب‌اند، «بله» را بزنید.'],
+ ['tdX','زمان تناوب اصلی مدل تحلیلی در امتداد X بر حسب ثانیه، از نرم‌افزار تحلیل سازه.'],
+ ['tdY','زمان تناوب اصلی مدل تحلیلی در امتداد Y بر حسب ثانیه، از نرم‌افزار تحلیل سازه.']
+];
+
+/* ===== خروجی Excel (CSV) و طیف ETABS ===== */
+function csvCell(v){v=v==null?'':String(v);return /[",\r\n]/.test(v)?'"'+v.replace(/"/g,'""')+'"':v;}
+function csvText(rows){return '﻿'+rows.map(r=>r.map(csvCell).join(',')).join('\r\n');}
+function specPoints5(r){
+ const pts=new Set();for(let t=0;t<=6.0001;t+=0.05)pts.add(+t.toFixed(3));
+ const sp=spectrum(1,r.SDS,r.SD1);[sp.T0,sp.Ts].forEach(t=>{if(Number.isFinite(t))pts.add(+t.toFixed(4));});
+ return [...pts].sort((a,b)=>a-b);
+}
+function exportReady5(){return R&&R.axes&&R.axes.X&&R.axes.Y&&R.axes.X.C>0&&R.axes.Y.C>0&&R.SDS>0&&R.SD1>0;}
+function downloadCsv5(){
+ if(!exportReady5()){showToast('ابتدا همهٔ گام‌ها را کامل کنید.');return;}
+ const r=R,X=r.axes.X,Y=r.axes.Y,n=v=>Number.isFinite(v)?+(+v).toFixed(5):'';
+ const nm=a=>a.list?.map(e=>e.name).join(' + ')||'';
+ const rows=[
+  ['نتایج محاسبهٔ ضریب زلزله — استاندارد ۲۸۰۰ ویرایش ۵'],['پروژه',S.projectName||''],['تاریخ',new Date().toISOString().slice(0,10)],[],
+  ['پارامتر','مقدار','توضیح'],
+  ['Ss',n(r.Ss),'g'],['S1',n(r.S1),'g'],['نوع زمین',r.soil||''],['Fs',n(r.fs),''],['F1',n(r.f1),''],
+  ['SDS',n(r.SDS),'g'],['SD1',n(r.SD1),'g'],['I',n(r.base.I),'ضریب اهمیت'],['H',n(r.base.H),'متر'],[],
+  ['پارامتر','امتداد X','امتداد Y'],
+  ['سیستم باربر',nm(X),nm(Y)],['Ru',n(X.ru),n(Y.ru)],['T تجربی (s)',n(X.Texp),n(Y.Texp)],['T مدل (s)',n(X.TD),n(Y.TD)],
+  ['T طراحی (s)',n(X.T),n(Y.T)],['Sa(T) (g)',n(X.Sa),n(Y.Sa)],['C0 = Sa·I/Ru',n(X.C0),n(Y.C0)],['Cmin',n(X.Cmin),n(Y.Cmin)],['C',n(X.C),n(Y.C)],[],
+  ['طیف طرح'],['T (s)','Sa (g)','Sa·I/Ru — X','Sa·I/Ru — Y']
+ ];
+ for(const T of specPoints5(r)){const sa=spectrum(T,r.SDS,r.SD1).Sa;rows.push([T,n(sa),n(sa*r.base.I/X.ru),n(sa*r.base.I/Y.ru)]);}
+ fileDownload(csvText(rows),`نتایج-C-${safeFileName()}.csv`,'text/csv;charset=utf-8');
+ showToast('فایل Excel (CSV) دانلود شد.');
+}
+function downloadEtabs5(){
+ if(!exportReady5()){showToast('ابتدا همهٔ گام‌ها را کامل کنید.');return;}
+ const r=R,lines=specPoints5(r).map(T=>T.toFixed(4)+'\t'+spectrum(T,r.SDS,r.SD1).Sa.toFixed(5));
+ fileDownload(lines.join('\r\n')+'\r\n',`طیف-ETABS-${safeFileName()}.txt`,'text/plain;charset=utf-8');
+ showToast('فایل طیف دانلود شد؛ در ETABS از Response Spectrum Function ▸ From File استفاده کنید.');
+}
 function downloadData(){fileDownload(JSON.stringify({documentType:'Iranian Standard 2800 V5 C calculator',author:`${AUTHOR_FA} (${AUTHOR_EN})`,createdAt:new Date().toISOString(),notes:'Ss/S1 from city table or map colors are estimates, not official site values',input:S,result:calculate()},null,2),`داده-C-${safeFileName()}.json`,'application/json;charset=utf-8');showToast('خروجی داده دانلود شد.');}
 async function printFrame(frame){
  try{
@@ -1925,6 +2081,7 @@ function renderReportPanel(){
  $('repCount').textContent=`${FA(chosen.length)} از ${FA(avail.length)} بخش در گزارش می‌آید`;
  document.querySelectorAll('.presets .chip').forEach(b=>{const p=REPORT_PRESETS[b.dataset.preset];const same=p&&avail.every(s=>sel[s.id]===p.ids.includes(s.id));b.classList.toggle('on',!!same);});
  ['pvOpen','pvPrintBtn','downloadHtml'].forEach(id=>{const b=$(id);if(b)b.setAttribute('aria-disabled',String(!chosen.length));});
+ ['downloadCsv','downloadEtabs'].forEach(id=>{const b=$(id);if(b)b.setAttribute('aria-disabled',String(!exportReady5()));});
 }
 function setSel(ids,mode){const base={};for(const s of REPORT_SECTIONS)base[s.id]=mode==='all'?true:mode==='none'?false:ids.includes(s.id);S.reportSel=base;sigCache.repList='';refresh();}
 function attachReportEvents(){
@@ -1932,7 +2089,7 @@ function attachReportEvents(){
  $('repAll').addEventListener('change',()=>{const avail=REPORT_SECTIONS.filter(s=>repAvail(s.id,R)).map(s=>s.id);const cur=currentSel();for(const id of avail)cur[id]=$('repAll').checked;S.reportSel=cur;sigCache.repList='';refresh();});
  document.querySelectorAll('.presets .chip').forEach(b=>b.addEventListener('click',()=>setSel(REPORT_PRESETS[b.dataset.preset].ids)));
  const guard=fn=>()=>{const sel=currentSel();if(!REPORT_SECTIONS.some(s=>sel[s.id]&&repAvail(s.id,R))){showToast('دست‌کم یک بخش برای گزارش انتخاب کنید.');return;}fn();};
- $('pvOpen').addEventListener('click',guard(openPreview));$('pvPrintBtn').addEventListener('click',guard(printReport));$('downloadHtml').addEventListener('click',guard(downloadReport));$('downloadJson').addEventListener('click',downloadData);
+ $('pvOpen').addEventListener('click',guard(openPreview));$('pvPrintBtn').addEventListener('click',guard(printReport));$('downloadHtml').addEventListener('click',guard(downloadReport));$('downloadJson').addEventListener('click',downloadData);$('downloadCsv').addEventListener('click',downloadCsv5);$('downloadEtabs').addEventListener('click',downloadEtabs5);
  $('reportLinkForm').addEventListener('submit',saveReportLink);
  $('reportLinkInput').addEventListener('input',event=>event.target.setCustomValidity(''));
  $('pvClose').addEventListener('click',closePreview);$('pvPrint').addEventListener('click',()=>{if(previewReportMarkup)printReportDocument(previewReportMarkup);});
@@ -2294,10 +2451,64 @@ function calcRows(r){const X=r.axes.X,Y=r.axes.Y,v=(k,n)=>[valueOrDash(X?.[k],n)
 function summaryItems(r){const c=loc(),sys=d=>r.axes[d]?.list?.map(e=>e.name).join(' + ')||'—';
  const src=hazardProvenance(r.site).label;
  return [[0,'محل / منبع',(c&&S.siteMode==='table'?c[0]+' · ':(S.siteMode==='map'&&S.siteLat?'نقطه‌ی نقشه · ':''))+src],[0,'Ss · S1',`${valueOrDash(r.Ss,2)} · ${valueOrDash(r.S1,2)}`],[1,'جنس سازه',MATERIAL_FA[S.material]||'—'],[1,'ارتفاع · طبقات',`${displayInputNumber(S.height)||'—'} m · ${displayInputNumber(S.floors)||'—'}`],[1,'گروه اهمیت',S.importance?`${({1:'خیلی زیاد',2:'زیاد',3:'متوسط',4:'کم'})[S.importance]} (I=${fmt(r.base.I,1)})`:'—'],[1,'نوع زمین',S.soil||'—'],[1,'نظم',({regular:'منظم',irregular:'نامنظم'})[S.regularity]||'—'],[2,'سیستم X',sys('X')],[2,'سیستم Y',sys('Y')],[3,'طیف',S.spectrumMode==='special'?'ویژه‌ی ساختگاه':'استاندارد'],[4,'روش T',({empirical:'رابطه‌ی تجربی',analysis:'مدل تحلیلی',nonstandard:'غیرمتعارف'})[S.periodMode]]];}
+
+const EXTRA5_SYS={A1:[6.5,2.5],A2:[5,2.5],A3:[4,2.5],A4:[3,2.5],A5:[3.5,2],A6:[4,3],A7:[3,2],B1:[6.5,2.5],B2:[5,2.5],B3:[4,2.5],B4:[3,2.5],B5:[5,2],B6:[3.5,2],B7:[4,2],B8:[4,2],B9:[5,2.5],B10:[5.5,2],B11:[4.5,2],B12:[4,2.5],B13:[5,2.5],P1:[5.5,3],P2:[4.5,3],P3:[2.5,3],P4:[5.5,3],P5:[4.5,3],P6:[3,3],P7:[5,3],P8:[5.5,3],T1:[7.5,3],T2:[5.5,2.5],T3:[5.5,2.5],T4:[4,2.5],T5:[4,2.5],T6:[5,2.5],T7:[6,2.5],T8:[5,2.5],T9:[5,2.5],T10:[5,2.5],T11:[4,2.5],T12:[6,2.5],T13:[4.5,2.5],E1:[2,1.5]};
+const EXTRA5_CV={I:[.7,.8,.95,1,1.1],II:[.7,.8,1,1.1,1.3],III:[.7,.85,1.05,1.2,1.4],IV:[.7,.9,1.1,1.3,1.5],V:[.7,.85,1.05,1.2,1.4]};
+function extra5Markup(r){
+ const dirs=['X','Y'],rows=[],ax=r.axes,refSys='بند ۳-۴-۱، جدول ۳-۱، ص ۳۶–۳۹؛ بند ۳-۱۱-۱، ص ۶۴–۶۵';
+ const both=(n,fn,ref)=>rows.push([n,...dirs.map(d=>fn(ax[d],d)),ref]);
+ const one=(n,v,ref)=>rows.push([n,v,'—',ref]);
+ const effective=a=>(a?.list||[]).map(z=>effectiveSystem(z,r.base.H));
+ const governing=a=>{const z=effective(a);return z.length?z.filter(x=>Math.abs(x.ru-Math.min(...z.map(y=>y.ru)))<1e-9):[];};
+ const par=(a,i)=>{const v=[...new Set(governing(a).map(z=>EXTRA5_SYS[z.id]?.[i]))];return v.length===1?v[0]:NaN;};
+ const parText=(a,i)=>{const v=par(a,i);return Number.isFinite(v)?extraN(v):governing(a).length?'Ru برابر؛ تعیین سیستم حاکم لازم است':'—';};
+ const I=r.base.I,g=r.base.group,cv=EXTRA5_CV[r.soil]&&!r.special&&r.SDS>0?lerp(Math.max(.2,1.5*r.SDS),[.2,.3,.6,1,2],EXTRA5_CV[r.soil]):NaN;
+ const rho=a=>Number.isInteger(r.sdc)&&a? (S.rhoInsufficient?(r.sdc===3?1.3:1.2):1):NaN;
+ both('k = min(2, max(1, 0.5T + 0.75))',a=>extraN(extraK(a?.T)),'بند ۳-۹-۳، رابطه ۳-۱۳، ص ۵۴–۵۵');
+ both('Cd — بزرگنمایی تغییرمکان',a=>parText(a,0),refSys);
+ both('Ω₀ — اضافه مقاومت',a=>parText(a,1),refSys);
+ both('Cd / Ie',a=>extraN(par(a,0)/I),'بند ۳-۱۲-۲، رابطه ۳-۱۹، ص ۷۰');
+ both('ρ — نامعینی (بر مبنای پاسخ کاربر)',a=>extraN(rho(a)),'بند ۳-۵، جدول ۳-۲، ص ۴۱–۴۴');
+ both('ρ C — ضریب افقی برای موارد مشمول',a=>extraN(rho(a)*a?.C),'بند ۳-۵-۱ و ۳-۵-۳، ص ۴۱–۴۴');
+ both('Ω₀ C — ضریب تشدیدیافته برای اعضای مشمول',a=>extraN(par(a,1)*a?.C),'جدول ۳-۱، ص ۳۷–۳۹؛ بند ۳-۱۶-۳-۱، ص ۸۳؛ بند ۳-۵-۳، ص ۴۳–۴۴');
+ both('Δa/h — نسبت دریفت مجاز',a=>{
+  const z=effective(a);if(!z.length||!(g>=1&&g<=4))return '—';
+  if(z.some(x=>['A4','B4'].includes(x.id)))return 'طبق مبحث هشتم';
+  let v=[0,.01,.015,.02,.025][g];
+  if(z.some(x=>['P2','P3','P5','P6','T8','T9','T13'].includes(x.id)))v=Math.min(v,g===2?.0125:g>=3?.015:v);
+  if(z.every(x=>x.g==='پ')&&S.rhoInsufficient){const rr=rho(a);if(!Number.isFinite(rr))return 'نیازمند تعیین ρ';v/=rr;}
+  return extraN(v)+' ('+extraNum(100*v,3)+'%)';
+ },'بند ۳-۱۲-۳، جدول ۳-۵ و تبصره‌ها، ص ۷۱');
+ both('سقف T تحلیلی = 1.4 T تجربی (s)',a=>S.periodMode==='nonstandard'?'مشمول رابطه متعارف نیست':extraN(1.4*a?.Texp),'بند ۳-۹-۲، ص ۵۲–۵۳');
+ one('Fvut/WD = 0.2 SDS',extraN(.2*r.SDS),'بند ۳-۹-۵-۱، رابطه ۳-۱۵، ص ۵۶–۵۷');
+ one('Fvuc/WD = 0.65 SDS — اعضای خاص',r.Ss>1.15||r.S1>.5?extraN(.65*r.SDS)+' (مشروط به نوع عضو)':r.Ss>0&&r.S1>0?'آستانه خطر برقرار نیست':'—','بند ۳-۹-۵-۲، رابطه ۳-۱۶، ص ۵۷');
+ one('نیروی قائم رو به بالای تیرهای طره‌ای / WD','0.2؛ بدون حضور بارهای ثقلی','بند ۳-۹-۵-۳، ص ۵۷');
+ one('Cv — ضریب اثر ساختگاه طیف قائم',Number.isFinite(cv)?extraN(cv):'طیف ویژه / داده ناکافی','بند ۲-۵-۲، جدول ۲-۴، ص ۱۱–۱۳');
+ both('SaM = 1.5 Sa (g)',a=>extraN(1.5*a?.Sa),'بند ۲-۵-۱، ص ۱۱');
+ one('فاصله از مرز زمین در تراز بام',!(r.base.fl>0&&r.base.H>0&&g>=1&&g<=4)?'ورودی ناکافی':g>=3&&r.base.fl<=5&&r.base.H<=18?extraN(.005*r.base.H,' m')+' (0.005H)':'نیازمند تغییرمکان تحلیلی؛ کف δM = 0.005H','بند ۱-۶-۱، ص ۵؛ بند ۳-۱۲-۷، ص ۷۲–۷۳');
+ one('پیچش اتفاقی (برون‌مرکزی ۵٪)',r.sdc===3?'الزامی در تمام ساختمان‌ها':r.sdc===1||r.sdc===2?(S.veryTorsion?'الزامی با نامنظمی اعلامی':'فقط در نامنظمی پیچشی زیاد یا شدید؛ کنترل لازم'):'گروه طراحی نامشخص','بند ۳-۹-۴-۳ و تبصره‌ها، ص ۵۵–۵۶');
+ both('حداکثر ارتفاع سیستم (m)',a=>{if(!a?.list?.length||!Number.isInteger(r.sdc))return '—';const v=a.list.map(z=>{const q=heightRule(z,r.base,r.sdc);return q.cond&&S.checks[q.cond]===true?Math.max(q.hm??0,q.hmCond):q.hm;});return v.some(x=>x==null)?'غیرمجاز / مشروط':extraN(Math.min(...v));},'جدول ۳-۱، ص ۳۷–۴۱؛ بند ۳-۱۱-۱-۲، ص ۶۴–۶۵');
+ one('روش استاتیکی معادل',r.staticAllowed?(r.base.H>0&&r.base.fl>0&&S.regularity?'طبق کنترل فعلی مجاز؛ سایر ضوابط نیز بررسی شوند':'ورودی ناکافی'):'مجاز نیست','بند ۳-۸-۱، ص ۴۷–۴۸');
+ const marks=dirs.map(d=>({d,T:ax[d]?.T})),tm=Math.max(6,...marks.map(a=>Number.isFinite(a.T)?a.T*1.12:0));
+ let plots=extraPlot('نمودار k(T)','بند ۳-۹-۳، رابطه ۳-۱۳، ص ۵۵',[{name:'k',fn:extraK,knots:[.5,2.5]}],Math.max(4,...marks.map(a=>Number.isFinite(a.T)?a.T*1.12:0)),'k',marks);
+ if(!r.special&&r.SDS>0&&r.SD1>0){
+  const Sa=t=>spectrum(t,r.SDS,r.SD1).Sa,knots=[.2*r.SD1/r.SDS,r.SD1/r.SDS,6];
+  plots+=extraPlot('طیف شتاب طرح افقی و زلزله بیشینه مورد نظر','بند ۲-۵ و ۲-۵-۱، ص ۱۰–۱۱',[{name:'Sa',fn:Sa,knots},{name:'SaM = 1.5 Sa',fn:t=>1.5*Sa(t),knots}],tm,'Sa (g)',marks);
+  if(Number.isFinite(cv)){
+   const vert=t=>{const fm=t<=.2?1:t<=1?1+.375*(t-.2):1.3,sa=Sa(t)/fm;return sa*(t<=.025?.65*cv:t<=.05?cv*(.65+16*(t-.025)):t<=.1?1.05*cv:t<=2?Math.max(.5,1.05*cv*Math.sqrt(.1/t)):.5);};
+   plots+=extraPlot('طیف شتاب طرح قائم Sav(Tv)','بند ۲-۵-۲، روابط ۲-۴ تا ۲-۱۱، ص ۱۱–۱۳',[{name:'Sav',fn:vert,knots:[.025,.05,.1,.2,1,2,...knots]}],Math.min(tm,10),'Sav (g)');
+  }
+  const curves=dirs.filter(d=>ax[d]?.ru>0&&Number.isFinite(ax[d].Cmin)).map(d=>({name:'C'+d,fn:t=>Math.max(Sa(t)*I/ax[d].ru,ax[d].Cmin),knots}));
+  if(curves.length)plots+=extraPlot('ضریب زلزله C(T) با حدود حداقل','بند ۳-۹-۱، روابط ۳-۲، ۳-۴ و ۳-۵، ص ۴۹–۵۰',curves.concat(dirs.filter(d=>Number.isFinite(ax[d]?.Cmin)).map(d=>({name:'Cmin '+d,fn:()=>ax[d].Cmin}))),tm,'C',marks);
+ }else plots+='<p class="extra-note">برای طیف ویژه، منحنی افقی، قائم و C(T) بدون داده کامل مطالعه ساختگاه قابل رسم نیست. (بند ۲-۸، ص ۱۷–۱۸)</p>';
+ return `<div class="extra-report"><p class="extra-note">شماره صفحات، شماره چاپی کتاب است. ρ بر اساس پاسخ فعلی کاربر گزارش می‌شود و به معنی احراز نامعینی نیست. Cd و Ω₀ بر اساس سیستم حاکم (Ru کمتر) و یادداشت‌های جدول استخراج می‌شوند. ضرایب تشدیدیافته فقط در موارد مشمول استفاده می‌شوند.</p>${extraTable(rows)}<p class="extra-note">برای محاسبه نیروهای واقعی قائم، دریفت و درز انقطاع تحلیلی به وزن، هندسه یا پاسخ مدل نیاز است. Tᵥ زمان تناوب قائم است و با T افقی یکسان فرض نشده است.</p><h3>نمودارهای تکمیلی</h3>${plots}</div>`;
+}
+
 function renderResult(){
  const r=R,issues=r.issues,stops=issues.filter(i=>i.t==='stop'||i.t==='block'||i.t==='todo'),hasNum=Number.isFinite(r.axes.X?.C)&&Number.isFinite(r.axes.Y?.C);
  const v=$('verdict'),source=hazardProvenance(r.site);
  $('resultHazard').innerHTML=hazardProvenanceMarkup('مبنای Ss و S1',source);
+ $('extra5Content').innerHTML=extra5Markup(r);
  if(stops.length){v.className='verdict bad';v.innerHTML=`این نتیجه هنوز قابل اتکا نیست<small>${FA(stops.length)} مورد باید اصلاح شود؛ پایین‌تر هرکدام با کار بعدی نوشته شده است.</small>`;}
  else if(source.kind!=='reference'){v.className='verdict warn';v.innerHTML=`C محاسبه شد؛ مبنای خطر نیازمند بررسی است<small>پیش از طراحی نهایی، Ss و S1 را با مرجع رسمی یا گزارش خطر لرزه‌ای پروژه تطبیق دهید.</small>`;}
  else{v.className='verdict ok';v.innerHTML=`محاسبه کامل شد<small>در کنترل‌های خودکار مورد نیازمند اصلاح ثبت نشد.</small>`;}
@@ -2441,6 +2652,7 @@ function refresh(){
  renderStepper();renderSheet();renderNeed();
  if(page===0)renderSite();else if(page===1)renderBuilding();else if(page===2)renderSystemPage();else if(page===3)renderNotes();else if(page===4)renderPeriod();else{renderResult();renderReportPanel();}
  try{renderProgress();}catch(err){console.warn('progress',err);}
+ try{window.__ensureTips(TIPS5);}catch(err){console.warn('tips',err);}
  saveDraft();return R;
 }
 function syncAll(){sigCache={};
@@ -4060,7 +4272,7 @@ function buildForm(){
    <div><label class="e4lbl" for="e4hazardKind">مبنای A واردشده</label><select id="e4hazardKind"><option value="">مشخص نشده</option><option value="estimate"${st.hazardKind==='estimate'?' selected':''}>برآورد از نقشه یا جدول</option><option value="reference"${st.hazardKind==='reference'?' selected':''}>ورود دستی از مرجع</option></select></div>
    <div><label class="e4lbl" for="e4hazardSource">نام مرجع یا توضیح</label><input id="e4hazardSource" type="text" value="${ESC(st.hazardSource)}" placeholder="مثلاً نقشهٔ پهنه‌بندی ویرایش چهارم" autocomplete="off"></div>
   </div>
-  <div class="e4extra"><button class="btn small" type="button" id="e4dl">دانلود گزارش HTML</button></div>
+  <div class="e4extra"><button class="btn small" type="button" id="e4dl">دانلود گزارش HTML</button><button class="btn small" type="button" id="e4csv">خروجی Excel (CSV)</button><button class="btn small" type="button" id="e4etabs">طیف برای ETABS (.txt)</button></div>
  </section>`;
  drawSys();drawTd();drawConf();drawImportance();
 }
@@ -4330,6 +4542,7 @@ function e4Progress(r){
    const html=`<div class="e4nav" role="navigation" aria-label="گام‌های ویرایش ۴">${navSteps.map((x,i)=>`<button type="button" class="st${full4[i]?' full':''}" data-e4go="${x.go}"><span class="ix">${full4[i]?'✓':FA(i+1)}</span><span>${x.t}<small>${x.sub}${x.pct?` · ${FA(x.pct)}٪`:''}</small><span class="sbar"><i style="width:${x.pct}%"></i></span></span></button>`).join('')}</div><div class="overall${allDone?' full':''}"><b>پیشرفت کل</b><span class="ob"><i style="width:${pct}%"></i></span><span class="op">${FA(pct)}٪</span></div>`;
    if(ov._h!==html){ov._h=html;ov.innerHTML=html;}
   }
+ try{window.__ensureTips(TIPS4);}catch(_){}
  }catch(err){console.warn('e4 progress',err);}
 }
 document.addEventListener('change',e=>{
@@ -4351,8 +4564,43 @@ document.addEventListener('click',e=>{
  const el=li.dataset.pf4.split(',').map(id=>document.getElementById(id)).find(Boolean);
  if(el){el.scrollIntoView({block:'center',behavior:'smooth'});try{el.focus({preventScroll:true});}catch(_){}}
 });
+
+const EXTRA4_SYS={steel_sp:[5.5,3],steel_im:[4,3],steel_or:[3,3],rc_sp:[5.5,3],rc_im:[4.5,3],rc_or:[2.5,3],bw_sp:[5,2.5],bw_or:[3.5,2.5],bf_sp:[5,2.5],bf_or:[3,2.5],bf_ebf_s:[4,2],bf_ebf_f:[4,2],bf_cbf_sp:[5,2],bf_cbf_or:[3.5,2],du_sp:[5.5,2.5],du_or:[4.5,2.5]};
+function extra4Markup(r,forReport=false){
+ const rows=[],dirs=['X','Y'],ax=r.axes,refSys='بند ۳-۳-۵-۱، جدول ۳-۴، ص ۳۳–۳۵';
+ const both=(n,fn,ref)=>rows.push([n,...dirs.map(d=>fn(ax[d],d)),ref]);
+ const one=(n,v,ref)=>rows.push([n,v,'—',ref]);
+ const sy=a=>EXTRA4_SYS[a?.key];
+ const ai=r.zone&&r.imp?r.zone.A*r.imp.I:NaN;
+ both('k = min(2, max(1, 0.5T + 0.75))',a=>extraN(extraK(a?.T)),'بند ۳-۳-۶، رابطه ۳-۷، ص ۳۸–۳۹');
+ both('Cd — بزرگنمایی تغییرمکان',a=>extraN(sy(a)?.[0]),refSys+'؛ بند ۳-۵-۱، ص ۴۵–۴۶');
+ both('Ω₀ — اضافه مقاومت',a=>extraN(sy(a)?.[1]),refSys+'؛ بند ۳-۳-۱۰، ص ۴۱–۴۲');
+ both('Ω₀ × C — زلزله تشدیدیافته (فقط اعضای مشمول)',a=>extraN(sy(a)?.[1]*a?.C),'بند ۳-۳-۱۰، ص ۴۱–۴۲؛ رابطه ۳-۲، ص ۲۸');
+ both('سقف T تحلیلی = 1.25 T تجربی (s)',a=>a?.nonstd?'مشمول رابطه متعارف نیست':extraN(1.25*a?.Texp),'بند ۳-۳-۳-۱، ص ۳۱–۳۲');
+ one('Δa/h — نسبت دریفت مجاز',r.nf>0?(r.nf<=5?'0.025 (2.5%)':'0.020 (2%)'):'تعداد طبقات لازم است','بند ۳-۵-۲، ص ۴۶');
+ one('Fvu/Wp = 0.6 A I',extraN(.6*ai),'بند ۳-۳-۹-۲، رابطه ۳-۱۰، ص ۴۱');
+ one('دامنه نیروی قائم',r.zone?.id===1?'کل سازه و اعضای خاص مشمول':'اعضای خاص مشمول؛ تشخیص با ابعاد و بارها','بند ۳-۳-۹-۱، ص ۴۱');
+ one('ρ — ضریب نامعینی',r.nf>0&&r.nf<3||r.H>0&&r.H<10?'1.0 (استثنای ساختمان کوتاه)':'1.0 یا 1.2؛ کنترل نامعینی لازم است','بند ۳-۳-۲، ص ۲۹–۳۱');
+ const service=r.imp&&r.H>0&&(r.imp.id<=2||r.H>50||r.nf>15);
+ one('کنترل زلزله سطح بهره‌برداری',!r.imp||!(r.H>0)||!(r.nf>0)?'نیازمند تکمیل ورودی‌ها':service?'الزامی':'طبق این بند الزامی نیست','بند ۳-۱۱-۱، ص ۵۱–۵۲');
+ both('Cser = A B I / 6 (در T انتخابی)',a=>extraN(ai*a?.B/6),'بند ۳-۱۱-۳، رابطه ۳-۱۶، ص ۵۲');
+ one('Δser/h — دریفت بهره‌برداری','0.005؛ تا 0.008 مشروط به اجزای غیرسازه‌ای','بند ۳-۱۱-۲، ص ۵۲');
+ one('فاصله از مرز زمین در تراز بام',!r.imp||!(r.nf>0&&r.H>0)?'ورودی ناکافی':r.imp.id>=3&&r.nf<=8?extraN(.005*r.H,' m')+' (0.005H)':'نیازمند تغییرمکان غیرخطی طرح','بند ۱-۴-۱، ص ۲–۳؛ بند ۳-۵-۶، ص ۴۷');
+
+ const marks=dirs.map(d=>({d,T:ax[d]?.T})),tm=Math.max(4,...marks.map(a=>Number.isFinite(a.T)?a.T*1.12:0));
+ let plots=extraPlot('نمودار k(T)','بند ۳-۳-۶، رابطه ۳-۷، ص ۳۹',[{name:'k',fn:extraK,knots:[.5,2.5]}],tm,'k',marks);
+ if(r.zone&&ED4.soil[st.soil]){
+  const B=t=>bFactor(t,st.soil,r.zone.id).B,knots=[ED4.soil[st.soil].T0,ED4.soil[st.soil].Ts,4];
+  plots+=extraPlot('طیف شتاب طرح AB(T)','بند ۲-۳، ص ۱۵–۱۷',[{name:'A × B',fn:t=>r.zone.A*B(t),knots}],tm,'Sa (g)',marks);
+  plots+=extraPlot('طیف شتاب زلزله بهره‌برداری AB(T)/6','بند ۳-۱۱-۳، ص ۵۲',[{name:'A × B / 6',fn:t=>r.zone.A*B(t)/6,knots}],tm,'Sa (g)',marks);
+  if(r.imp&&forReport)plots+=extraPlot('ضریب زلزله C(T) با حداقل آیین‌نامه','بند ۳-۳-۱-۱، روابط ۳-۲ و ۳-۳، ص ۲۸',dirs.filter(d=>ax[d]?.ru>0).map(d=>({name:'C'+d,fn:t=>Math.max(ai*B(t)/ax[d].ru,.12*ai),knots})).concat([{name:'Cmin',fn:()=>.12*ai}]),tm,'C',marks);
+ }
+ return `<div class="extra-report"><p class="extra-note">مقادیر تکمیلی تابع ورودی‌های فعلی‌اند. شماره صفحات، شماره چاپی کتاب است. ضرایب Cd و Ω₀ از سیستم انتخاب‌شده استخراج می‌شوند؛ در صورت تغییر دستی Ru، تطابق سیستم باید کنترل شود. مقدار k با ضریب اصلاح طیف N متفاوت است. نمودارها برای مطالعه پارامتری‌اند، نه تأیید طرح. کنترل ارتفاع مجاز و روش استاتیکی معادل در بخش اصلی «کنترل ضوابط آیین‌نامه» و نمودار C(T) در پنل اصلی نتایج موجود است.</p>${extraTable(rows)}<p class="extra-note">درز انقطاع هر طبقه در حالت ساده 0.005hᵢ از مرز زمین است. نیروی واقعی قائم، برش طبقات، دریفت واقعی و کنترل درز در حالت تحلیلی به اطلاعات تکمیلی نیاز دارند.</p><h3>نمودارهای تکمیلی</h3>${plots}</div>`;
+}
+
 function render(){
  const r=calc(st);window.__e4last=r;e4Progress(r);
+ q("extra4Content").innerHTML=extra4Markup(r);
  q('e4periodReview').innerHTML=periodReview(r.axes,a=>a?.Td,e4PeriodReason);
  const X=r.axes.X,Y=r.axes.Y,ok=(a)=>!!(a&&!r.gTodo&&Number.isFinite(a.C));
  const card=(d,a)=>`<div class="cbox${ok(a)?(a.level==='bad'?' lv-bad':a.level==='rev'?' lv-rev':''):' dim'}"><small>جهت ${d} · C<sub>${d}</sub></small><div class="cv">${ok(a)?f(a.C,4):'—'}</div><small class="cs">T = ${f(a?.T,3)} s · B = ${f(a?.B,3)} · Ru = ${f(a?.ru,2)}</small>${ok(a)?coefficientNote(a):''}${ok(a)?`<span class="e4st ${a.level}" style="margin:8px 0 0;display:inline-block">${ESC(a.statusText)}${a.level==='bad'?' · تأییدنشده':''}</span>`:''}</div>`;
@@ -4371,15 +4619,52 @@ function render(){
  updateE4Chart(r);
  q('e4checks').innerHTML=checksHtml(r);
  q('e4steps').innerHTML=steps(r)+r.issues.filter(i=>i.t!=='todo').map(i=>`<p class="e4msg ${i.t}">${ESC(i.m)}</p>`).join('');
- ['e4prev','e4print','e4dl'].forEach(id=>q(id).setAttribute('aria-disabled',String(!r.ready)));
+ ['e4prev','e4print','e4dl','e4csv','e4etabs'].forEach(id=>q(id).setAttribute('aria-disabled',String(!r.ready)));
  q('e4prev').onclick=()=>guard(()=>showReportPreview(reportDoc));
  q('e4print').onclick=()=>guard(printRep);
  q('e4dl').onclick=()=>guard(()=>{fileDownload(reportDoc(),`گزارش-C-ویرایش4-${(st.name||'project').replace(/[\\/:*?"<>|]/g,'_')}.html`,'text/html;charset=utf-8');toast('گزارش HTML دانلود شد.');});
+ q('e4csv').onclick=()=>guard(()=>{fileDownload(e4Csv(r),`نتایج-C-ویرایش4-${(st.name||'project').replace(/[\\/:*?"<>|]/g,'_')}.csv`,'text/csv;charset=utf-8');toast('فایل Excel (CSV) دانلود شد.');});
+ q('e4etabs').onclick=()=>guard(()=>{fileDownload(e4Etabs(r),`طیف-ETABS-ویرایش4-${(st.name||'project').replace(/[\\/:*?"<>|]/g,'_')}.txt`,'text/plain;charset=utf-8');toast('فایل طیف دانلود شد؛ در ETABS از Response Spectrum Function ▸ From File استفاده کنید.');});
 }
 const guard=fn=>{if(!window.__e4last?.ready){toast('ابتدا ورودی‌ها را کامل کنید.');return;}fn();};
 const toast=m=>{if(typeof showToast==='function')showToast(m);};
 function printRep(){printReportDocument(reportDoc());}
 function fileDownload(text,name,type){const b=new Blob([text],{type}),u=URL.createObjectURL(b),a=document.createElement('a');a.href=u;a.download=name;document.body.appendChild(a);a.click();a.remove();setTimeout(()=>URL.revokeObjectURL(u),3000);}
+
+/* ===== ویرایش ۴: خروجی Excel (CSV) و طیف ETABS ===== */
+function e4SpecPts(r){
+ const Tm=Math.max(4,ED4.Tmax||4),pts=new Set();for(let t=0;t<=Tm+0.0001;t+=0.05)pts.add(+t.toFixed(3));
+ const b=bFactor(0,st.soil,r.zone.id);pts.add(+b.T0.toFixed(3));pts.add(+b.Ts.toFixed(3));
+ return [...pts].sort((a,b)=>a-b).map(T=>{const x=bFactor(T,st.soil,r.zone.id);return{T,B:x.B,AB:r.zone.A*x.B};});
+}
+function e4csvCell(v){v=v==null?'':String(v);return /[",\r\n]/.test(v)?'"'+v.replace(/"/g,'""')+'"':v;}
+function e4Csv(r){
+ const n=v=>Number.isFinite(v)?+(+v).toFixed(5):'',X=r.axes.X,Y=r.axes.Y;
+ const rows=[
+  ['نتایج محاسبهٔ ضریب زلزله — استاندارد ۲۸۰۰ ویرایش ۴'],['پروژه',st.name||''],['تاریخ',new Date().toISOString().slice(0,10)],[],
+  ['پارامتر','مقدار','توضیح'],
+  ['پهنهٔ خطر نسبی',r.zone.n,''],['A',n(r.zone.A),'g'],['نوع زمین',st.soil,''],['I',n(r.imp.I),'ضریب اهمیت'],['H',n(r.H),'متر'],[],
+  ['پارامتر','امتداد X','امتداد Y'],
+  ['سیستم باربر',X.sys.n,Y.sys.n],['Ru',n(X.ru),n(Y.ru)],['T تجربی (s)',n(X.Texp),n(Y.Texp)],['T طراحی (s)',n(X.T),n(Y.T)],
+  ['B',n(X.B),n(Y.B)],['C0 = A·B·I/Ru',n(X.C0),n(Y.C0)],['Cmin',n(X.Cmin),n(Y.Cmin)],['C',n(X.C),n(Y.C)],[],
+  ['طیف طرح'],['T (s)','B','A·B (g)','A·B·I/Ru — X','A·B·I/Ru — Y']
+ ];
+ for(const p of e4SpecPts(r))rows.push([p.T,n(p.B),n(p.AB),n(p.AB*r.imp.I/X.ru),n(p.AB*r.imp.I/Y.ru)]);
+ return '﻿'+rows.map(x=>x.map(e4csvCell).join(',')).join('\r\n');
+}
+function e4Etabs(r){return e4SpecPts(r).map(p=>p.T.toFixed(4)+'\t'+p.AB.toFixed(5)).join('\r\n')+'\r\n';}
+
+const TIPS4=[
+ ['e4city','با انتخاب شهر، پهنهٔ خطر نسبی و شتاب مبنای A از جدول نرم‌افزار تعیین می‌شود؛ برای طراحی نهایی با آیین‌نامه تطبیق دهید.'],
+ ['e4A','شتاب مبنای طرح A بر حسب g از پهنه‌بندی خطر نسبی آیین‌نامه؛ مثلاً ۰٫۳۵ برای خطر خیلی زیاد.'],
+ ['e4soil','بر مبنای سرعت موج برشی خاک و گزارش ژئوتکنیک تعیین می‌شود. اگر گزارش ندارید، از مهندس ژئوتکنیک بپرسید.'],
+ ['e4H','ارتفاع از تراز پایه تا بام بر حسب متر؛ در رابطهٔ تجربی زمان تناوب T = a·H^b به‌کار می‌رود.'],
+ ['e4nf','تعداد طبقات بالای تراز پایه؛ برای کنترل دامنهٔ کاربرد روش استاتیکی معادل لازم است.'],
+ ['e4selX','نوع سیستم باربر جانبی؛ ضریب رفتار Ru و ضرایب زمان تناوب تجربی از آن می‌آید.'],
+ ['e4selY','نوع سیستم باربر جانبی در امتداد Y؛ ضریب رفتار Ru از آن می‌آید.'],
+ ['e4tdX','زمان تناوب اصلی مدل تحلیلی در امتداد X بر حسب ثانیه.'],
+ ['e4tdY','زمان تناوب اصلی مدل تحلیلی در امتداد Y بر حسب ثانیه.']
+];
 /* ---------- گزارش ---------- */
 function checksTable(a){
  const rows=a.checks.filter(c=>c.lvl!=='na');
@@ -4400,6 +4685,7 @@ table{width:100%;border-collapse:collapse}th,td{border:1px solid #d6e0ec;padding
 .foot{margin-top:22px;color:#66788d;font-size:12px;border-top:1px solid #d6e0ec;padding-top:8px}@media print{body{background:#fff}.doc{margin:0;max-width:none;padding:0}}
 @page{size:A4;margin:16mm 15mm 18mm;@top-right{content:"استاندارد ۲۸۰۰ · ویرایش چهارم";font:9pt Vazirmatn,Tahoma,sans-serif;color:#345276}@bottom-center{content:"صفحه " counter(page,persian);font:9pt Vazirmatn,Tahoma,sans-serif;color:#345276}}
 ${document.getElementById("reportTypefaceLayout").textContent}
+${extraStyle}
 </style></head><body><div class="doc"><header class="report-head"><h1>گزارش محاسبه‌ی ضریب زلزله C</h1><div class="sub">استاندارد ۲۸۰۰ — ویرایش چهارم · C = A·B·I / Ru · ${ESC(st.name?'پروژه: '+st.name+' · ':'')}تاریخ: ${d}</div>${reportSourceMarkup(4)}</header>
 ${hazardProvenanceMarkup('مبنای خطر لرزه‌ای',e4HazardProvenance(r))}
 <div class="banner ${r.level}">${r.level==='ok'?'قابل محاسبه — کنترل‌های آیین‌نامه برقرار است (کنترل نهایی با مهندس طراح).':r.level==='rev'?'تأییدنشده — موارد نیازمند تأیید مهندسی یا بررسی طیف ویژه‌ی ساختگاه وجود دارد.':'غیرمجاز — این نتیجه به‌عنوان طراحی تأییدشده صادر نمی‌شود.'}</div>
@@ -4413,7 +4699,8 @@ ${['X','Y'].map(dir=>{
  ${axis.checks?`<h3>کنترل ضوابط آیین‌نامه <bdi>${dir}</bdi></h3>${checksTable(axis)}${reportCheckLegend()}`:''}
  ${axis.trace?`<h3>مراحل محاسبه <bdi>${dir}</bdi></h3>${traceTable(axis)}`:''}</section>`;
  }).join('')}
-${warn?`<h2>یادداشت‌ها و هشدارها</h2><ul>${warn}</ul>`:''}
+${warn?`<h2>یادداشت‌ها و هشدارها</h2><ul>${warn}</ul>`:'' }
+${q("extra4Include")?.checked?`<section><h2>گزارش جزئیات بیشتر</h2>${extra4Markup(r,true)}</section>`:""}
 <div class="foot">جدول‌ها و ضرایب ویرایش ۴ باید پیش از استفاده‌ی نهایی با متن رسمی استاندارد کنترل شود؛ خروجی نیازمند کنترل مهندس طراح است.</div></div></body></html>`;
 }
 /* ---------- رویدادها ---------- */
@@ -4477,7 +4764,8 @@ function init(){
  sec.innerHTML=`<div class="e4"><div class="col" id="e4form"></div><aside class="col e4res" id="e4res"><div id="e4result" aria-live="polite"></div>${e4ChartPanel()}</aside></div>
  <details class="e4card rules-panel" id="e4advanced"><summary>تنظیمات تکمیلی و تبصره‌ها</summary><div id="e4advContent"></div></details>
  <details class="e4card rules-panel" id="e4checksPanel"><summary>کنترل ضوابط آیین‌نامه</summary><div id="e4checks"></div></details>
- <details class="e4card rules-panel"><summary>مراحل محاسبهٔ هر جهت</summary><div id="e4steps"></div></details>`;
+ <details class="e4card rules-panel"><summary>مراحل محاسبهٔ هر جهت</summary><div id="e4steps"></div></details>
+ <details class="extra-more" id="extra4Panel"><summary>گزارش جزئیات بیشتر — ضرایب و نمودارها</summary><label class="check" style="display:flex;gap:8px;align-items:center"><input id="extra4Include" type="checkbox" checked> درج جزئیات بیشتر در گزارش HTML و PDF</label><div id="extra4Content"></div></details>`;
  buildForm();bind();bindE4Chart();render();
 }
 /* ---------- انتخاب ویرایش ---------- */
@@ -4541,7 +4829,7 @@ window.__LOCK_CFG={
   if(e.type==='click')return !!t.closest('[role="radio"],[data-e4-city],[data-part],[data-inf],[data-mode],[data-rule],[data-reg],[data-tors],[data-du]');
   return !!t.closest('input,select,textarea')},
  printSel:'#pvPrintBtn,#pvPrint,#e4print',
- lockSel:'#downloadHtml,#e4dl,#downloadJson',
+ lockSel:'#downloadHtml,#e4dl,#downloadJson,#downloadCsv,#downloadEtabs,#e4csv,#e4etabs',
  snap:function(){var r=document.getElementById('stage')||document.body;return r.innerHTML.length+''},
  mountSel:'#klSlot',pillCls:'tbtn'
 };
